@@ -1,20 +1,13 @@
-export const fetchBus = (line: number = 1) => {
-  let ans = "";
-  fetch("http://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=501",{
-      method: "GET",
-      credentials: 'omit',
-      headers: {
-        'Content-Type': 'text/xml',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
+export const fetchBus = (line: number = 501) => {
+  let ans;
+  return fetch(`https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${line}`, {
+    method: "GET",
+  })
     .then(response => {
       response.text()
-    }).then(str => {
-      return new window.DOMParser().parseFromString(str, "text/xml");
+        .then(str => {
+          ans = new window.DOMParser().parseFromString(str, "text/xml")
+          console.log(ans)
+        })
     })
-    .then(data => {
-      return console.log(data);
-    });
-  return ans;
 };

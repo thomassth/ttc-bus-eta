@@ -16,7 +16,7 @@ const stackStyles: Partial<IStackStyles> = {
 };
 
 export const App: React.FunctionComponent = () => {
-  console.log(fetchBus());
+  fetchBus().then(ans => console.log(ans));
   return (
     <Stack horizontalAlign="center" verticalAlign="center" verticalFill styles={stackStyles} tokens={stackTokens}>
       <img className="App-logo" src={logo} alt="logo" />
