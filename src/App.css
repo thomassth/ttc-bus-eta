@@ -2,6 +2,29 @@
   text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.container>:nth-child(2){
+  width: 80%;
+  max-width: 50rem;
+}
+
+.searchBlock {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem
+}
+
+.list {
+  display: flex;
+flex-direction: column;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -28,11 +51,11 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */

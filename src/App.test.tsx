@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { App } from './App';
 
-it('renders "Welcome to Your Fluent UI App"', () => {
+it('renders "TTC bus app"', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Welcome to Your Fluent UI App/i);
+  const linkElement = screen.getByText(/TTC bus app/i);
   expect(linkElement).toBeInTheDocument();
 });
