@@ -8,7 +8,7 @@ export default function LineSearch(props: any) {
   let navigate = useNavigate();
 
   const goto = (input: string) => {
-    navigate("lines/" + input)
+    navigate(input)
   }
 
   return (

@@ -2,10 +2,9 @@ import { Text } from "@fluentui/react";
 import { useEffect, useState } from "react";
 import { boldStyle } from "../styles/fluent";
 const { XMLParser } = require('fast-xml-parser');
-function LineInfo(props: any): JSX.Element {
+function RouteInfo(props: any): JSX.Element {
   const [data, setData] = useState<any>()
   const [lineNum] = useState(props.line)
-  const [text,setText]=useState('')
 
   const fetchBus = (line: any = lineNum) => {
     // let ans: Document;
@@ -14,8 +13,6 @@ function LineInfo(props: any): JSX.Element {
     }).then(response => {
       response.text()
         .then(str => {
-          // ans = new window.DOMParser().parseFromString(str, "text/xml");
-          // setData(str)
           const parser = new XMLParser({
             ignoreAttributes: false,
             attributeNamePrefix: "@_",
@@ -23,7 +20,6 @@ function LineInfo(props: any): JSX.Element {
           const dataJson = parser.parse(str)
           setData(dataJson);
           console.log(dataJson)
-          // setText(`${data.body.route.direction[0]["@_title"] }`)
         });
     })
   }
@@ -51,7 +47,10 @@ function LineInfo(props: any): JSX.Element {
     return (
       <div className="directionList list">        
         {data.body.route.direction.map((element:any,index:number)=>{
-          return (<Text key={`${index}`}>{element["@_title"]}</Text>)
+          return (
+          <div className="direction list" key={`${index}`}>
+          <Text>{element["@_title"]}</Text>
+          </div>)
           }) }
       </div>
     )
@@ -65,4 +64,4 @@ function LineInfo(props: any): JSX.Element {
   }
 
 };
-export default LineInfo
+export default RouteInfo
