@@ -9,9 +9,9 @@ export default function StopPrediction() {
     return (
         <main style={{ padding: "1rem" }}>
             <Text variant="large" styles={boldStyle}>
-                Line {lineNum} Stop {params.stopNum} =
+                Stop ID {params.stopId} =
             </Text>
-            <StopPredictionInfo line={lineNum} stopNum={params.stopNum}/>
+            <StopPredictionInfo line={lineNum} stopId={params.stopId} />
         </main>
     );
 }

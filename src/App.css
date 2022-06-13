@@ -12,6 +12,14 @@
   max-width: 50rem;
 }
 
+*[role=checkbox]{
+  display: none;
+}
+
+.ms-DetailsRow {
+  width: 100%;
+}
+
 .searchBlock {
   display: flex;
   flex-flow: wrap;

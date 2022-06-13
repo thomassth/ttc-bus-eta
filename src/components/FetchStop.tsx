@@ -2,13 +2,14 @@ import { Text } from "@fluentui/react";
 import { useEffect, useState } from "react";
 import { boldStyle } from "../styles/fluent";
 const { XMLParser } = require('fast-xml-parser');
+
 function StopPredictionInfo(props: any): JSX.Element {
   const [data, setData] = useState<any>()
-  const [lineNum] = useState(props.line)
+  const [stopId] = useState(props.stopId)
 
-  const fetchPredictions = (line: any = lineNum) => {
+  const fetchPredictions = (line: any = stopId) => {
     // let ans: Document;
-    fetch(`https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=5164`, {
+    fetch(`https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`, {
       method: "GET",
     }).then(response => {
       response.text()
