@@ -1,7 +1,7 @@
-import { DetailsRow, GroupedList, IColumn, IconButton, IGroup, Text } from "@fluentui/react";
+import { DetailsRow, GroupedList, IColumn, IconButton, IGroup, initializeIcons, Text } from "@fluentui/react";
 import { useEffect, useState } from "react";
 import { boldStyle } from "../styles/fluent";
-
+initializeIcons();
 const { XMLParser } = require('fast-xml-parser');
 
 function RouteInfo(props: any): JSX.Element {
@@ -33,7 +33,7 @@ function RouteInfo(props: any): JSX.Element {
     let result: { id: any; name: any; latlong: any | undefined; stopId: any; }[] = []
     json.stop.map((element: any, index: number) => {
       const matchingStop = stopDb.find(searching =>
-        element["@_tag"] === searching["id"]
+        parseInt(element["@_tag"]) === parseInt(searching["id"])
       )
       result.push({
         id: matchingStop?.id,
@@ -48,8 +48,12 @@ function RouteInfo(props: any): JSX.Element {
         // checked={checked}
         />
         ,
-        stopId: matchingStop?.stopId
+        stopId: <IconButton
+          iconProps={{ iconName: "View" }}
+          href={`../stops/${matchingStop?.stopId}`}
+        />
       })
+      return element
     })
     return result
   }
@@ -121,13 +125,18 @@ export default RouteInfo
 
 function createStopDb(json: any): { id: any; name: any; latlong: any[]; stopId: any; }[] {
   let result: { id: any; name: any; latlong: any[]; stopId: any; }[] = []
-  json.body.route.stop.map((element: any, index: number) => {
+  json.body.route.stop.map((element: any) => {
+
+    if(element["@_stopId"]===undefined){
+      console.log(element)
+    } else 
     result.push({
       id: element["@_tag"],
       name: element["@_title"],
       latlong: [element["@_lat"], element["@_lon"]],
       stopId: element["@_stopId"]
     })
+    return element
   })
   return result
 }

@@ -4,15 +4,37 @@
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
-.container>:nth-child(2){
+
+@media screen and (min-width: 800px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+.title {
+  border: 1px solid transparent
+}
+
+.title:hover {
+  border: 1px solid rgb(208, 208, 208);
+}
+
+.navBar {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column
+}
+
+.container>:nth-child(2) {
   width: 80%;
   max-width: 50rem;
 }
 
-*[role=checkbox]{
+*[role=checkbox] {
   display: none;
 }
 
@@ -30,7 +52,7 @@
 
 .list {
   display: flex;
-flex-direction: column;
+  flex-direction: column;
 }
 
 .App-logo {

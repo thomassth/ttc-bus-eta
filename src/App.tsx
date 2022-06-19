@@ -1,7 +1,9 @@
-import { Stack, Text, Nav, INavLinkGroup } from '@fluentui/react';
+import { Text, Nav, INavLinkGroup, initializeIcons, DefaultButton } from '@fluentui/react';
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import { boldStyle, stackStyles, stackTokens } from './styles/fluent'
+import { boldStyle } from './styles/fluent'
+import { useEffect, useState } from 'react';
+initializeIcons();
 
 const navLinkGroups: INavLinkGroup[] = [
   {
@@ -17,23 +19,39 @@ const navLinkGroups: INavLinkGroup[] = [
         key: 'lines',
       },
       {
-        name:'About',
-        url:'/about',
-        key:'about'
+        name: 'About',
+        url: '/about',
+        key: 'about'
       }
     ],
   },
 ];
 
 export const App = (props: any) => {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const handleResize = () => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleResize, false);
+  }, []);
   return (
     <div className='container'>
-      <Stack horizontalAlign="center" verticalAlign="center" verticalFill styles={stackStyles} tokens={stackTokens}>
-        <Text variant="large" styles={boldStyle}>
-          TTC bus app
-        </Text>
-        <Nav groups={navLinkGroups}></Nav>
-      </Stack>
+      <div className='navBar'>
+        <DefaultButton className='title' href="/" title="Return home">
+          <Text variant="large" styles={boldStyle}>
+            TTC bus app
+          </Text>
+        </DefaultButton>
+        {(dimensions.width >= 800) && <Nav groups={navLinkGroups} />}
+      </div>
       <Outlet />
     </div>
   );
