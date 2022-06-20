@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://thomassth.github.io/ttc-eta/",
   "dependencies": {
     "@fluentui/react": "^8.72.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -23,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -44,7 +47,8 @@
     ]
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.2.1"
+    "@svgr/webpack": "^6.2.1",
+    "gh-pages": "^4.0.0"
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"

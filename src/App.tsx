@@ -10,17 +10,17 @@ const navLinkGroups: INavLinkGroup[] = [
     links: [
       {
         name: 'Home',
-        url: '/',
+        url: process.env.PUBLIC_URL+'/',
         key: 'home',
       },
       {
         name: 'Lines',
-        url: `/lines`,
+        url: process.env.PUBLIC_URL+`/lines`,
         key: 'lines',
       },
       {
         name: 'About',
-        url: '/about',
+        url: process.env.PUBLIC_URL+'/about',
         key: 'about'
       }
     ],
