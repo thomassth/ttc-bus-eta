@@ -45,7 +45,7 @@ export const App = (props: any) => {
   return (
     <div className='container'>
       <div className='navBar'>
-        <DefaultButton className='title' href="/" title="Return home">
+        <DefaultButton className='title' href={process.env.PUBLIC_URL+'/'} title="Return home">
           <Text variant="large" styles={boldStyle}>
             TTC bus app
           </Text>

@@ -13,14 +13,16 @@ export default function LineSearch(props: any) {
 
   return (
     <main style={{ padding: "1rem" }}>
+      <form>
       <Text>Enter a line number:</Text>
       <div className='searchBlock'>
         <TextField
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
         />
-        <DefaultButton onClick={() => goto(input)}>Search</DefaultButton>
+        <DefaultButton onClick={() => goto(input)} type='submit'>Search</DefaultButton>
       </div>
+      </form>
     </main>
   )
 }

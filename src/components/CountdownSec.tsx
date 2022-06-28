@@ -1,5 +1,5 @@
 import { Text } from "@fluentui/react";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 
 export default function CountdownGroup(props: any) {
@@ -16,7 +16,7 @@ export default function CountdownGroup(props: any) {
 function CountdownItem(props: any) {
     const [sec, setSec] = useState(props.obj.second)
     const [expired, setExpired] = useState(false)
-    useEffect(() => {
+    useMemo(() => {
         const timer = setTimeout(() => {
             setSec(sec - 1)
         }, 1000);

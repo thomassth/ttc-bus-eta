@@ -1,5 +1,5 @@
 import { DetailsRow, GroupedList, IColumn, IconButton, IGroup, initializeIcons, Text } from "@fluentui/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { boldStyle } from "../styles/fluent";
 initializeIcons();
 const { XMLParser } = require('fast-xml-parser');
@@ -29,7 +29,7 @@ function RouteInfo(props: any): JSX.Element {
     })
   }
 
-  function createStopList(json: any) {
+  const createStopList = useCallback ((json: any)=> {
     let result: { id: any; name: any; latlong: any | undefined; stopId: any; }[] = []
     json.stop.map((element: any, index: number) => {
       const matchingStop = stopDb.find(searching =>
@@ -56,7 +56,7 @@ function RouteInfo(props: any): JSX.Element {
       return element
     })
     return result
-  }
+  },[stopDb])
 
   useEffect(() => {
     fetchBus()
