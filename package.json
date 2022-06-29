@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "dependencies": {
-    "@fluentui/react": "^8.72.1",
+    "@fluentui/react": "^8.72.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
