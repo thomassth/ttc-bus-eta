@@ -3,6 +3,7 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import { boldStyle } from './styles/fluent'
 import { useEffect, useState } from 'react';
+import { Anchor, Nav as BottomNav } from 'grommet';
 initializeIcons();
 
 const navLinkGroups: INavLinkGroup[] = [
@@ -53,6 +54,30 @@ export const App = (props: any) => {
         {(dimensions.width >= 800) && <Nav groups={navLinkGroups} />}
       </div>
       <Outlet />
+      {(dimensions.width < 800) && <BottomBar />}
     </div>
   );
 };
+
+const navItems = [
+  {label: 'Home', href: process.env.PUBLIC_URL+'/'},
+  {label: 'Lines', href: process.env.PUBLIC_URL+`/lines`},
+  {label: 'About', href: process.env.PUBLIC_URL+'/about'},
+]
+
+const BottomBar = () => {
+  let nav: JSX.Element[] = []
+  navItems.forEach((item,index) => {
+    if (item.href === window.location.pathname) {
+      nav.push(<Anchor key={index} href={item.href} label={item.label} className='active' />)
+    } else
+    nav.push (
+<Anchor key={index} label={item.label} href={item.href}/>
+    )
+  })
+  return (
+    <BottomNav className='bottomNav' gap="medium" direction="row">
+      {nav.map (item => item)}
+  </BottomNav>
+  );
+}
