@@ -12,20 +12,28 @@ body,
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  min-height: 100%;
+}
+
+.nav-buffer {
+  height: 2rem;
 }
 
 .bottomNav {
   padding: 10px;
   margin-top: auto;
   align-self: center;
+  position: fixed;
+  bottom: 0;
+  background-color: black;
 }
+
 .bottomNav a {
   padding: 0 10px;
   border-radius: 2rem;
 }
-.bottomNav > .active {
+
+.bottomNav>.active {
   background-color: hwb(260.6 80% 25%);
 }
 

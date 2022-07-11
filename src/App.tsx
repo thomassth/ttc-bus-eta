@@ -54,6 +54,7 @@ export const App = (props: any) => {
         {(dimensions.width >= 800) && <Nav groups={navLinkGroups} />}
       </div>
       <Outlet />
+      {(dimensions.width < 800) && <div className='nav-buffer'></div>}
       {(dimensions.width < 800) && <BottomBar />}
     </div>
   );
