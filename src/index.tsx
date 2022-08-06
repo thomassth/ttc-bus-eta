@@ -1,24 +1,26 @@
 import './index.css'
-import { mergeStyles } from '@fluentui/react';
 import reportWebVitals from './reportWebVitals';
 import { MainRouter } from './routes/MainRouter';
 import { ThemeHook } from './styles/ThemeHook';
 import { createRoot } from 'react-dom/client';
+
 // Inject some global styles
-mergeStyles({
-  ':global(body,html,#root>*)': {
-    margin: 0,
-    padding: 0,
-    minHeight: '100vh',
-  },
-});
+
+
+// const commonStyles = makeStyles({
+//   ':global(body,html,#root>*)': {
+//     margin: 0,
+//     padding: 0,
+//     minHeight: '100vh',
+//   },
+// })
 
 const container = document.getElementById('root');
 const root = createRoot(container!)
 root.render(
   <ThemeHook>
-  <MainRouter />
-</ThemeHook>
+    <MainRouter />
+  </ThemeHook>
 )
 
 // If you want to start measuring performance in your app, pass a function

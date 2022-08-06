@@ -1,4 +1,5 @@
-import { DefaultButton, Text, TextField } from '@fluentui/react';
+// import { DefaultButton, Text, TextField } from '@fluentui/react';
+import { Button, Input, Text } from '@fluentui/react-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,11 +17,11 @@ export default function LineSearch(props: any) {
       <form>
       <Text>Enter a line number:</Text>
       <div className='searchBlock'>
-        <TextField
+        <Input
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
         />
-        <DefaultButton onClick={() => goto(input)} type='submit'>Search</DefaultButton>
+        <Button appearance='primary' onClick={() => goto(input)} type='submit'>Search</Button>
       </div>
       </form>
     </main>

@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@fluentui/react"
+import { FluentProvider, webDarkTheme, webLightTheme } from "@fluentui/react-components"
 import { useState } from "react"
 import { prefersDark, darkTheme, lightTheme } from "./theme"
 
@@ -11,8 +11,8 @@ export const ThemeHook = ({ children }: { children: JSX.Element }) => {
       setIsDark(!isDark)
     }
     return (
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme} >
+      <FluentProvider theme={isDark ? webDarkTheme : webLightTheme} >
         {children}
-      </ThemeProvider>
+      </FluentProvider>
     )
   }

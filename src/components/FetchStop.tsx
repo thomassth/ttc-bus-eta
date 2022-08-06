@@ -1,6 +1,5 @@
-import { Text } from "@fluentui/react";
+import { Text, Title1, Title2 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
-import { boldStyle } from "../styles/fluent";
 import CountdownGroup from "./CountdownSec";
 const { XMLParser } = require('fast-xml-parser');
 
@@ -91,14 +90,14 @@ function StopPredictionInfo(props: any): JSX.Element {
     if (data.body.Error !== undefined) {
       return (
         <div onClick={() => fetchPredictions}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <Title1>
             Cannot locate this route.
-          </Text>
+          </Title1>
         </div>)
     } else if (etaDb.length > 0) {
       return (
         <div className="directionsList list">
-          <Text variant="large">{etaDb[0] !== undefined ? etaDb[0].title : ""}</Text>
+          <Title2>{etaDb[0] !== undefined ? etaDb[0].title : ""}</Title2>
           {etaDb.map((element, index) =>
             <CountdownGroup key={index} obj={element} />
           )}
@@ -107,9 +106,9 @@ function StopPredictionInfo(props: any): JSX.Element {
     } else if (etaDb.length === 0) {
       return (
         <div onClick={() => fetchPredictions}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <Title1>
             No upcoming arrivals.
-          </Text>
+          </Title1>
         </div>
       )
     }
@@ -117,18 +116,18 @@ function StopPredictionInfo(props: any): JSX.Element {
     else {
       return (
         <div onClick={() => fetchPredictions}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <Title1>
             Cannot locate this route.
-          </Text>
+          </Title1>
         </div>)
     }
   }
   else {
     return (
       <div onClick={() => fetchPredictions}>
-        <Text variant="xxLarge" styles={boldStyle}>
+        <Title1>
           Loading...
-        </Text>
+        </Title1>
       </div>)
   }
 };

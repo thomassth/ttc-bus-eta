@@ -1,7 +1,6 @@
-import { DetailsRow, GroupedList, IColumn, IconButton, IGroup, initializeIcons, Text } from "@fluentui/react";
+import { AccordionHeader, AccordionItem, AccordionPanel, Button, Link, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
-import { boldStyle } from "../styles/fluent";
-initializeIcons();
+import { Pin12Filled, VehicleBus16Filled } from '@fluentui/react-icons';
 const { XMLParser } = require('fast-xml-parser');
 
 function RouteInfo(props: any): JSX.Element {
@@ -10,7 +9,6 @@ function RouteInfo(props: any): JSX.Element {
   const [stopDb, setStopDb] = useState<{ id: any; name: any; latlong: any[]; stopId: any; }[]>([])
 
   const fetchBus = (line: any = lineNum) => {
-    // let ans: Document;
     fetch(`https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${line}`, {
       method: "GET",
     }).then(response => {
@@ -22,14 +20,30 @@ function RouteInfo(props: any): JSX.Element {
           });
           const dataJson = parser.parse(str)
           setData(dataJson);
-          console.log(dataJson);
           setStopDb(createStopDb(dataJson))
-          console.log(stopDb)
         });
     })
   }
 
-  const createStopList = useCallback ((json: any)=> {
+  const StopAccordions = (props: any) => {
+    let final: JSX.Element[] = [];
+    props.result.map((element: any, index: number) => {
+
+      final.push(
+        <AccordionPanel key={`${index}`}>
+          {element.stopId} {element.latlong} {element.id} - {element.name}
+        </AccordionPanel>)
+      return element
+    })
+    return (
+      <AccordionItem value={props.title}>
+        <AccordionHeader>{props.title}</AccordionHeader>
+        {final}
+      </AccordionItem>
+    )
+  }
+
+  const createStopList = useCallback((json: any) => {
     let result: { id: any; name: any; latlong: any | undefined; stopId: any; }[] = []
     json.stop.map((element: any, index: number) => {
       const matchingStop = stopDb.find(searching =>
@@ -38,25 +52,27 @@ function RouteInfo(props: any): JSX.Element {
       result.push({
         id: matchingStop?.id,
         name: matchingStop?.name,
-        latlong: <IconButton
-          // menuProps={menuProps}
-          iconProps={{ iconName: "MapPin" }}
-          title="MapPin"
-          ariaLabel="Emoji"
-          href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
-        // disabled={disabled}
-        // checked={checked}
-        />
+        latlong:
+          <Link
+            // menuProps={menuProps}
+            title="MapPin"
+            aria-label="Emoji"
+            href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
+          // disabled={disabled}
+          // checked={checked}
+          >
+            <Button icon={<Pin12Filled />} />
+          </Link>
         ,
-        stopId: <IconButton
-          iconProps={{ iconName: "View" }}
-          href={`../stops/${matchingStop?.stopId}`}
-        />
+        stopId:
+          <Link href={`../stops/${matchingStop?.stopId}`}>
+            <Button icon={<VehicleBus16Filled />} />
+          </Link>
       })
       return element
     })
     return result
-  },[stopDb])
+  }, [stopDb])
 
   useEffect(() => {
     fetchBus()
@@ -73,30 +89,12 @@ function RouteInfo(props: any): JSX.Element {
         <div className="directionList list">
           {data.body.route.direction.map((element: any, index: number) => {
             const list = createStopList(element)
-
             return (
-              <div className="direction list" key={`${index}`}>
-                <GroupedList
-                  items={list}
-                  // eslint-disable-next-line react/jsx-no-bind
-                  onRenderCell={stopRow}
-                  groups={[{
-                    name: element["@_title"],
-                    key: `group${index}`,
-                    startIndex: 0,
-                    count: list.length
-                  }]}
-                  compact={true}
-                />
-                {/* <Text>{element["@_title"]}</Text>
-                {element.stop.map((element: any, index2: number) => {
-                  return (
-                    <Text key={`${index}-${index2}`}>
-                      {element["@_tag"]}
-                    </Text>
-                  )
-                })} */}
-              </div>)
+              <StopAccordions 
+              title={element["@_title"]} 
+              result={list} 
+              key={`sa-${index}`} />
+            )
           })}
         </div>
       )
@@ -106,7 +104,7 @@ function RouteInfo(props: any): JSX.Element {
     {
       return (
         <div onClick={fetchBusClick}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <Text as="h1" weight='semibold'>
             Cannot locate this route.
           </Text>
         </div>)
@@ -114,7 +112,7 @@ function RouteInfo(props: any): JSX.Element {
   } else {
     return (
       <div onClick={fetchBusClick}>
-        <Text variant="xxLarge" styles={boldStyle}>
+        <Text as="h1" weight='semibold'>
           loading...
         </Text>
       </div>)
@@ -127,47 +125,16 @@ function createStopDb(json: any): { id: any; name: any; latlong: any[]; stopId: 
   let result: { id: any; name: any; latlong: any[]; stopId: any; }[] = []
   json.body.route.stop.map((element: any) => {
 
-    if(element["@_stopId"]===undefined){
+    if (element["@_stopId"] === undefined) {
       console.log(element)
-    } else 
-    result.push({
-      id: element["@_tag"],
-      name: element["@_title"],
-      latlong: [element["@_lat"], element["@_lon"]],
-      stopId: element["@_stopId"]
-    })
+    } else
+      result.push({
+        id: element["@_tag"],
+        name: element["@_title"],
+        latlong: [element["@_lat"], element["@_lon"]],
+        stopId: element["@_stopId"]
+      })
     return element
   })
   return result
 }
-
-const stopRow = (
-  nestingDepth?: number,
-  item?: any,
-  itemIndex?: number,
-  group?: IGroup,
-): React.ReactNode => {
-  return item && typeof itemIndex === 'number' && itemIndex > -1 ? (
-    <DetailsRow
-      id={item["id"]}
-      columns={stopItems}
-      item={item}
-      itemIndex={itemIndex}
-      compact={true}
-      group={group}
-    />
-  ) : null;
-};
-
-const stopItems = Object.keys({
-  latlong: [0, 0],
-  stopId: 0,
-  name: '',
-}).map(
-  (key: string): IColumn => ({
-    key: key,
-    name: key,
-    fieldName: key,
-    minWidth: 300,
-  }),
-);

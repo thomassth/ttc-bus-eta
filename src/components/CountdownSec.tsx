@@ -1,11 +1,11 @@
-import { Text } from "@fluentui/react";
+import { Text, Title2 } from "@fluentui/react-components";
 import { useMemo, useState } from "react";
 
 
 export default function CountdownGroup(props: any) {
     return (
         <div className="line" style={{ display: 'flex', flexDirection: 'column' ,padding:"1rem 0"}}>
-            <Text variant="large">{props.obj.line}</Text>
+            <Title2 as="h2">{props.obj.line}</Title2>
             {props.obj.etas.map((el2: any,in2:number) =>
                 <CountdownItem key={in2} obj={el2} />
             )}

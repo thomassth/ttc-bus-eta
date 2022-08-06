@@ -1,4 +1,4 @@
-import { PrimaryButton, Text, TextField } from '@fluentui/react';
+import { Button, Input, Text } from '@fluentui/react-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,12 +16,13 @@ export default function Home(props: any) {
       <Text>You'll see saved lists here, in the FUTURE.</Text>
       <Text>For now, bookmark any pages with your line(s) on it.</Text>
       <form className='searchBlock'>
-        <TextField
+        <Input
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
-          ariaLabel="enter a line number" placeholder="enter a line number"
+          aria-label="enter a line number" 
+          placeholder="enter a line number"
         />
-        <PrimaryButton type='submit' onClick={() => goto(input)}>Search</PrimaryButton>
+        <Button appearance='primary' type='submit' onClick={() => goto(input)}>Search</Button>
       </form>
     </main>
   )

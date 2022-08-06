@@ -4,7 +4,8 @@
   "private": true,
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "dependencies": {
-    "@fluentui/react": "^8.72.1",
+    "@fluentui/react-components": "^9.2.0",
+    "@fluentui/react-icons": "^2.0.178",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
@@ -51,7 +52,10 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
-    "gh-pages": "^4.0.0"
+    "autoprefixer": "^10.4.8",
+    "gh-pages": "^4.0.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.7"
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"

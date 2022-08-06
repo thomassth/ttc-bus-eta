@@ -1,4 +1,4 @@
-import { Text } from '@fluentui/react';
+import { Text } from "@fluentui/react-components";
 
 export default function Error () {
     return (

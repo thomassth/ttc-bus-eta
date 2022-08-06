@@ -1,6 +1,5 @@
-import { Text } from "@fluentui/react";
+import { LargeTitle, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { boldStyle } from "../styles/fluent";
 const { XMLParser } = require('fast-xml-parser');
 
 function PredictionInfo(props: any): JSX.Element {
@@ -37,16 +36,16 @@ function PredictionInfo(props: any): JSX.Element {
     if (data.body.Error !== undefined) {
       return (
         <div onClick={fetchPredictionClick}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <LargeTitle>
             Cannot locate this route.
-          </Text>
+          </LargeTitle>
         </div>)
     } else if (data.body.predictions["@_dirTitleBecauseNoPredictions"] !== undefined) {
       return (
         <div onClick={fetchPredictionClick}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <LargeTitle>
             No upcoming arrivals.
-          </Text>
+          </LargeTitle>
         </div>
       )
     }
@@ -93,18 +92,18 @@ function PredictionInfo(props: any): JSX.Element {
     else {
       return (
         <div onClick={fetchPredictionClick}>
-          <Text variant="xxLarge" styles={boldStyle}>
+          <LargeTitle>
             Cannot locate this route.
-          </Text>
+          </LargeTitle>
         </div>)
     }
   }
   else {
     return (
       <div onClick={fetchPredictionClick}>
-        <Text variant="xxLarge" styles={boldStyle}>
+        <LargeTitle>
           Shouldn't be here :/
-        </Text>
+        </LargeTitle>
       </div>)
   }
 

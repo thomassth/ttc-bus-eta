@@ -1,32 +1,23 @@
-import { Text, Nav, INavLinkGroup, initializeIcons, DefaultButton } from '@fluentui/react';
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import { boldStyle } from './styles/fluent'
 import { useEffect, useState } from 'react';
 import { Anchor, Nav as BottomNav } from 'grommet';
-initializeIcons();
+import { Link, Title1 } from '@fluentui/react-components';
 
-const navLinkGroups: INavLinkGroup[] = [
+const navItems = [
   {
-    links: [
-      {
-        name: 'Home',
-        url: process.env.PUBLIC_URL+'/',
-        key: 'home',
-      },
-      {
-        name: 'Lines',
-        url: process.env.PUBLIC_URL+`/lines`,
-        key: 'lines',
-      },
-      {
-        name: 'About',
-        url: process.env.PUBLIC_URL+'/about',
-        key: 'about'
-      }
-    ],
+    label: 'Home',
+    href: process.env.PUBLIC_URL + '/'
   },
-];
+  {
+    label: 'Lines',
+    href: process.env.PUBLIC_URL + `/lines`
+  },
+  {
+    label: 'About',
+    href: process.env.PUBLIC_URL + '/about'
+  },
+]
 
 export const App = (props: any) => {
   const [dimensions, setDimensions] = useState({
@@ -46,39 +37,34 @@ export const App = (props: any) => {
   return (
     <div className='container'>
       <div className='navBar'>
-        <DefaultButton className='title' href={process.env.PUBLIC_URL+'/'} title="Return home">
-          <Text variant="large" styles={boldStyle}>
+        <Link href={process.env.PUBLIC_URL + '/'} title="Return home">
+          <Title1 className="text-xl font-bold">
             TTC bus app
-          </Text>
-        </DefaultButton>
-        {(dimensions.width >= 800) && <Nav groups={navLinkGroups} />}
+          </Title1>
+        </Link>
+        {(dimensions.width >= 800) && <div />}
       </div>
       <Outlet />
       {(dimensions.width < 800) && <div className='nav-buffer'></div>}
-      {(dimensions.width < 800) && <BottomBar />}
+      {/* {(dimensions.width < 800) && <BottomBar />} */}
+      <BottomBar />
     </div>
   );
 };
 
-const navItems = [
-  {label: 'Home', href: process.env.PUBLIC_URL+'/'},
-  {label: 'Lines', href: process.env.PUBLIC_URL+`/lines`},
-  {label: 'About', href: process.env.PUBLIC_URL+'/about'},
-]
-
 const BottomBar = () => {
   let nav: JSX.Element[] = []
-  navItems.forEach((item,index) => {
+  navItems.forEach((item, index) => {
     if (item.href === window.location.pathname) {
       nav.push(<Anchor key={index} href={item.href} label={item.label} className='active' />)
     } else
-    nav.push (
-<Anchor key={index} label={item.label} href={item.href}/>
-    )
+      nav.push(
+        <Anchor key={index} label={item.label} href={item.href} />
+      )
   })
   return (
     <BottomNav className='bottomNav' gap="medium" direction="row">
-      {nav.map (item => item)}
-  </BottomNav>
+      {nav.map(item => item)}
+    </BottomNav>
   );
 }
