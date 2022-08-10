@@ -1,6 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { App } from './App';
+/* eslint-disable no-undef */
+import { render, screen } from "@testing-library/react";
+import { App } from "./App";
 
 it('renders "TTC bus app"', () => {
   render(<App />);

@@ -1,5 +1,6 @@
-
-export let prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+export const prefersDark = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
 
 // export const currentTheme = () =>{
 //   if(prefersDark){
@@ -7,7 +8,7 @@ export let prefersDark = window.matchMedia('(prefers-color-scheme: dark)').match
 //   else {return lightTheme}
 // }
 
-export const darkTheme = {}
+export const darkTheme = {};
 // : PartialTheme =
 // {
 //   palette: {
@@ -36,6 +37,4 @@ export const darkTheme = {}
 //     white: '#201f1e',
 //   },
 // }
-export const lightTheme = {
-
-}
+export const lightTheme = {};

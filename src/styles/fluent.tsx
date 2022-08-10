@@ -16,10 +16,10 @@ export const stackStyles = makeStyles({
     // width: '960px',
     // margin: '0 auto',
     // padding:'1rem',
-    textAlign: 'center',
-    color: '#605e5c',
+    textAlign: "center",
+    color: "#605e5c",
   },
-  });
-  
+});
+
 //   const customButtonStyles = useStyles();
 //   return <Button className={customButtonStyles.base}>Example</Button>;
