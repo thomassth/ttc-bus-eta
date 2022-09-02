@@ -8,7 +8,7 @@ export default function Line() {
   return (
     <main style={{ padding: "1rem" }}>
       <Title2>Line {lineNum} =</Title2>
-      <Accordion>
+      <Accordion defaultOpenItems collapsible>
         <RouteInfo line={lineNum} />
       </Accordion>
       <Outlet />

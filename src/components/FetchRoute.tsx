@@ -2,12 +2,13 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
+  Badge,
   Button,
   Link,
   Text,
 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
-import { Pin12Filled, VehicleBus16Filled } from "@fluentui/react-icons";
+import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: any): JSX.Element {
@@ -41,14 +42,18 @@ function RouteInfo(props: any): JSX.Element {
     props.result.map((element: any, index: number) => {
       final.push(
         <AccordionPanel key={`${index}`}>
-          {element.stopId} {element.latlong} {element.id} - {element.name}
+          {element.stopId} {element.latlong} {element.id} {element.name}
         </AccordionPanel>
       );
       return element;
     });
     return (
       <AccordionItem value={props.title}>
-        <AccordionHeader>{props.title}</AccordionHeader>
+        <AccordionHeader>
+          <Badge>{props.direction}</Badge>
+          <Badge>{props.lineNum}</Badge>
+          {props.title}
+        </AccordionHeader>
         {final}
       </AccordionItem>
     );
@@ -67,7 +72,7 @@ function RouteInfo(props: any): JSX.Element {
           (searching) => parseInt(element["@_tag"]) === parseInt(searching.id)
         );
         result.push({
-          id: matchingStop?.id,
+          id: <Badge appearance="outline">{matchingStop?.id}</Badge>,
           name: matchingStop?.name,
           latlong: (
             <Link
@@ -78,7 +83,7 @@ function RouteInfo(props: any): JSX.Element {
               // disabled={disabled}
               // checked={checked}
             >
-              <Button icon={<Pin12Filled />} />
+              <Button icon={<Map24Filled />} />
             </Link>
           ),
           stopId: (
@@ -111,6 +116,8 @@ function RouteInfo(props: any): JSX.Element {
             return (
               <StopAccordions
                 title={element["@_title"]}
+                direction={element["@_name"]}
+                lineNum={element["@_branch"]}
                 result={list}
                 key={`sa-${index}`}
               />
