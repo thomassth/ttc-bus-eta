@@ -68,7 +68,7 @@ const BottomBar = () => {
   });
   return (
     <BottomNav className="bottomNav" gap="medium" direction="row">
-      {nav.map((item) => item)}
+      {nav}
     </BottomNav>
   );
 };
