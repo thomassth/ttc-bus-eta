@@ -9,7 +9,7 @@ import StopPrediction from "./StopPrediction";
 
 export const MainRouter = () => {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={`${process.env.PUBLIC_URL}`}>
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="lines" element={<Outlet />}>

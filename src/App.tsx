@@ -7,15 +7,15 @@ import { Link, Title1 } from "@fluentui/react-components";
 const navItems = [
   {
     label: "Home",
-    href: process.env.PUBLIC_URL + "/",
+    href: `${process.env.PUBLIC_URL}/`,
   },
   {
     label: "Lines",
-    href: process.env.PUBLIC_URL + "/lines",
+    href: `${process.env.PUBLIC_URL}/lines`,
   },
   {
     label: "About",
-    href: process.env.PUBLIC_URL + "/about",
+    href: `${process.env.PUBLIC_URL}/about`,
   },
 ];
 
@@ -37,7 +37,7 @@ export const App = (props: any) => {
   return (
     <div className="container">
       <div className="navBar">
-        <Link href={process.env.PUBLIC_URL + "/"} title="Return home">
+        <Link href={`${process.env.PUBLIC_URL}/`} title="Return home">
           <Title1 className="text-xl font-bold">TTC bus app</Title1>
         </Link>
         {dimensions.width >= 800 && <div />}
