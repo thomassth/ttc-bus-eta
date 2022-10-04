@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="%PUBLIC_URL%/style.css" />
     <script type="module">
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register(
-          "%PUBLIC_URL%/pwabuilder-sw-register.js"
-        );
+        navigator.serviceWorker.register("%PUBLIC_URL%/sw.js");
       }
     </script>
     <!--
