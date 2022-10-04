@@ -1,31 +1,26 @@
 import { LargeTitle, Text } from "@fluentui/react-components";
+import axios from "axios";
 import { useEffect, useState } from "react";
 const { XMLParser } = require("fast-xml-parser");
 
 function PredictionInfo(props: any): JSX.Element {
   const [data, setData] = useState<any>();
 
-  const fetchPredictions = (
+  const fetchPredictions = async (
     line: Number = props.line,
     stopNum: Number = props.stopNum
   ) => {
     // let ans: Document;
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&r=${line}&s=${stopNum}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "@_",
-        });
-        const dataJson = parser.parse(str);
-        setData(dataJson);
-        console.log(dataJson);
-      });
+    const res = await axios.get(`https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&r=${line}&s=${stopNum}`);
+    console.log(res)
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: "@_",
     });
+    const dataJson = parser.parse(res.data);
+    console.log(dataJson);
+    setData(dataJson);
+
   };
 
   useEffect(() => {
@@ -72,23 +67,23 @@ function PredictionInfo(props: any): JSX.Element {
           {/* Common scene */}
           {data.body.predictions.direction.length > 1
             ? data.body.predictions.direction.map(
-                (element: any, index: number) => {
-                  return (
-                    <div className="directionList list" key={`${index}`}>
-                      <Text>{element["@_title"]}</Text>
-                      {element.prediction.map(
-                        (element: any, index2: number) => {
-                          return (
-                            <Text key={`${index}-${index2}`}>
-                              {element["@_seconds"]}s
-                            </Text>
-                          );
-                        }
-                      )}
-                    </div>
-                  );
-                }
-              )
+              (element: any, index: number) => {
+                return (
+                  <div className="directionList list" key={`${index}`}>
+                    <Text>{element["@_title"]}</Text>
+                    {element.prediction.map(
+                      (element: any, index2: number) => {
+                        return (
+                          <Text key={`${index}-${index2}`}>
+                            {element["@_seconds"]}s
+                          </Text>
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              }
+            )
             : null}
         </div>
       );

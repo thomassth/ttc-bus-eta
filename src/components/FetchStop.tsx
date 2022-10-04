@@ -1,4 +1,5 @@
 import { Title1, Title2 } from "@fluentui/react-components";
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import CountdownGroup from "./CountdownSec";
 const { XMLParser } = require("fast-xml-parser");
@@ -14,25 +15,19 @@ function StopPredictionInfo(props: any): JSX.Element {
     }[]
   >([]);
 
-  const fetchPredictions = (line: any = stopId) => {
+  const fetchPredictions = async (line: any = stopId) => {
     // let ans: Document;
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "@_",
-        });
-        const dataJson = parser.parse(str);
-        setData(dataJson);
-        console.log(dataJson);
-        setEtaDb(createEtaDb(dataJson));
-      });
+    const res = await axios.get(`https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`);
+    console.log(res)
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: "@_",
     });
+    const dataJson = parser.parse(res.data);
+    console.log(dataJson);
+    setData(dataJson);
+    setEtaDb(createEtaDb(dataJson));
+    
   };
 
   const createEtaDb = useCallback(
