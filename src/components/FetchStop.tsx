@@ -1,5 +1,5 @@
 import { Title1, Title2 } from "@fluentui/react-components";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CountdownGroup from "./CountdownSec";
 const { XMLParser } = require("fast-xml-parser");
 
@@ -35,7 +35,7 @@ function StopPredictionInfo(props: any): JSX.Element {
     });
   };
 
-  const createEtaDb = useCallback(
+  const createEtaDb = 
     (json: any) => {
       const result: {
         line: string;
@@ -96,9 +96,7 @@ function StopPredictionInfo(props: any): JSX.Element {
       }
       console.log(result);
       return result;
-    },
-    [data]
-  );
+    };
 
   useEffect(() => {
     fetchPredictions();
