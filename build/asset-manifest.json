@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ttc-eta/static/css/main.69f83601.css",
-    "main.js": "/ttc-eta/static/js/main.b96efea8.js",
-    "static/js/496.0b23fdd4.chunk.js": "/ttc-eta/static/js/496.0b23fdd4.chunk.js",
+    "main.css": "/ttc-eta/static/css/main.75bec104.css",
+    "main.js": "/ttc-eta/static/js/main.fff534b7.js",
+    "static/js/496.7b35974d.chunk.js": "/ttc-eta/static/js/496.7b35974d.chunk.js",
     "index.html": "/ttc-eta/index.html",
-    "main.69f83601.css.map": "/ttc-eta/static/css/main.69f83601.css.map",
-    "main.b96efea8.js.map": "/ttc-eta/static/js/main.b96efea8.js.map",
-    "496.0b23fdd4.chunk.js.map": "/ttc-eta/static/js/496.0b23fdd4.chunk.js.map"
+    "main.75bec104.css.map": "/ttc-eta/static/css/main.75bec104.css.map",
+    "main.fff534b7.js.map": "/ttc-eta/static/js/main.fff534b7.js.map",
+    "496.7b35974d.chunk.js.map": "/ttc-eta/static/js/496.7b35974d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.69f83601.css",
-    "static/js/main.b96efea8.js"
+    "static/css/main.75bec104.css",
+    "static/js/main.fff534b7.js"
   ]
 }

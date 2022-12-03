@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "dependencies": {
-    "@fluentui/react-components": "^9.4.0",
-    "@fluentui/react-icons": "^2.0.184",
+    "@fluentui/react-components": "^9.7.0",
+    "@fluentui/react-icons": "^2.0.189",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
-    "@types/jest": "^28.1.4",
+    "@types/jest": "^29.2.3",
     "@types/node": "^18.0.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
@@ -21,14 +21,13 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.1",
     "fast-xml-parser": "^4.0.8",
-    "grommet": "^2.25.0",
+    "grommet": "^2.28.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.4.3",
     "styled-components": "^5.3.5",
-    "typescript": "^4.7.3",
+    "typescript": "^4.8.4",
     "web-vitals": "^3.0.1"
   },
   "scripts": {
@@ -68,7 +67,8 @@
     "eslint-config-prettier": "^8.5.0",
     "gh-pages": "^4.0.0",
     "postcss": "^8.4.14",
-    "prettier": "2.7.1",
+    "prettier": "2.8.0",
+    "react-scripts": "5.0.1",
     "tailwindcss": "^3.1.7"
   },
   "overrides": {

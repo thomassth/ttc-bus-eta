@@ -19,13 +19,13 @@ function CountdownItem(props: any) {
   const [sec, setSec] = useState(props.obj.second);
   const [expired, setExpired] = useState(false);
   useEffect(() => {
-      const timer = setTimeout(() => {
-        setSec(sec - 1);
-      }, 1000);
-      if(sec < 0){
-        clearTimeout(timer);
-      }
-    
+    const timer = setTimeout(() => {
+      setSec(sec - 1);
+    }, 1000);
+    if (sec < 0) {
+      clearTimeout(timer);
+    }
+
     if (sec < 0) {
       setExpired(true);
     }
