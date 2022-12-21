@@ -130,7 +130,7 @@ function RouteInfo(props: any): JSX.Element {
       return (
         <div onClick={fetchBusClick}>
           <Text as="h1" weight="semibold">
-            Cannot locate this route.
+            {`Error: ${data.body.Error["#text"]}`}
           </Text>
         </div>
       );
@@ -151,6 +151,8 @@ function createStopDb(
   json: any
 ): { id: any; name: any; latlong: any[]; stopId: any }[] {
   const result: { id: any; name: any; latlong: any[]; stopId: any }[] = [];
+  console.log(json);
+  if (json.body.Error === undefined) {
   json.body.route.stop.map((element: any) => {
     if (element["@_stopId"] === undefined) {
       console.log(element);
@@ -164,5 +166,14 @@ function createStopDb(
     }
     return element;
   });
+  } else {
+    result.push({
+      name: "Error",
+      id: undefined,
+      latlong: [],
+      stopId: undefined,
+    });
+  }
+  console.log(result);
   return result;
 }

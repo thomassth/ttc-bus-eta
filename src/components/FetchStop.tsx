@@ -62,6 +62,12 @@ function StopPredictionInfo(props: any): JSX.Element {
             return null;
           }
         );
+      } else {
+        result.push({
+          line: "No ETAs detected.",
+          title: json.body.predictions["@_stopTitle"],
+          etas: [],
+        });
       }
     } else {
       json.body.predictions.map((element: any, index: number) => {
@@ -92,6 +98,14 @@ function StopPredictionInfo(props: any): JSX.Element {
         }
         return null;
       });
+      // if no line have ETA, keep a title
+      if (result.length === 0) {
+        result.push({
+          line: "No ETAs detected.",
+          title: json.body.predictions[0]["@_stopTitle"],
+          etas: [],
+        });
+      }
     }
     console.log(result);
     return result;
@@ -118,6 +132,7 @@ function StopPredictionInfo(props: any): JSX.Element {
         </div>
       );
     } else if (etaDb.length === 0) {
+      console.log(etaDb);
       return (
         <div onClick={() => fetchPredictions}>
           <Title1>No upcoming arrivals.</Title1>

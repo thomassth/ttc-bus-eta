@@ -48,7 +48,9 @@ function PredictionInfo(props: any): JSX.Element {
     ) {
       return (
         <div onClick={fetchPredictionClick}>
-          <LargeTitle>No upcoming arrivals.</LargeTitle>
+          <LargeTitle>
+            {data.body.predictions["@_stopTitle"]}No upcoming arrivals.
+          </LargeTitle>
         </div>
       );
     } else if (data.body.Error === undefined) {
