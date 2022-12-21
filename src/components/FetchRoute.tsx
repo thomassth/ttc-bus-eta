@@ -9,6 +9,7 @@ import {
 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
+import { parseRoute } from "../parser/routeName";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: any): JSX.Element {
@@ -52,7 +53,7 @@ function RouteInfo(props: any): JSX.Element {
         <AccordionHeader>
           <Badge>{props.direction}</Badge>
           <Badge>{props.lineNum}</Badge>
-          {props.title}
+          {parseRoute(props.title)}
         </AccordionHeader>
         {final}
       </AccordionItem>
@@ -153,19 +154,19 @@ function createStopDb(
   const result: { id: any; name: any; latlong: any[]; stopId: any }[] = [];
   console.log(json);
   if (json.body.Error === undefined) {
-  json.body.route.stop.map((element: any) => {
-    if (element["@_stopId"] === undefined) {
-      console.log(element);
-    } else {
-      result.push({
-        id: element["@_tag"],
-        name: element["@_title"],
-        latlong: [element["@_lat"], element["@_lon"]],
-        stopId: element["@_stopId"],
-      });
-    }
-    return element;
-  });
+    json.body.route.stop.map((element: any) => {
+      if (element["@_stopId"] === undefined) {
+        console.log(element);
+      } else {
+        result.push({
+          id: element["@_tag"],
+          name: element["@_title"],
+          latlong: [element["@_lat"], element["@_lon"]],
+          stopId: element["@_stopId"],
+        });
+      }
+      return element;
+    });
   } else {
     result.push({
       name: "Error",
