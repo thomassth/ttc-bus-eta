@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { parseRoute } from "./parser/routeName";
 import { stopsParser } from "./parser/StopsParser";
+import RawDisplay from "./RawDisplay";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: any): JSX.Element {
@@ -125,15 +126,19 @@ function RouteInfo(props: any): JSX.Element {
               />
             );
           })}
+          <RawDisplay data={data}></RawDisplay>
         </div>
       );
     } else {
       // if(data.body.Error !== undefined)
       return (
-        <div onClick={fetchBusClick}>
-          <Text as="h1" weight="semibold">
-            {`Error: ${data.body.Error["#text"]}`}
-          </Text>
+        <div>
+          <Link onClick={fetchBusClick}>
+            <Text as="h1" weight="semibold">
+              {`Error: ${data.body.Error["#text"]}`}
+            </Text>
+          </Link>
+          <RawDisplay data={data}></RawDisplay>
         </div>
       );
     }

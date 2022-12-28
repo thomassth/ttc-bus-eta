@@ -2,6 +2,7 @@ import { Title1, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import CountdownGroup from "./countdown/CountdownGroup";
 import { etaParser } from "./parser/EtaParser";
+import RawDisplay from "./RawDisplay";
 const { XMLParser } = require("fast-xml-parser");
 
 function StopPredictionInfo(props: any): JSX.Element {
@@ -16,7 +17,6 @@ function StopPredictionInfo(props: any): JSX.Element {
   >([]);
 
   const fetchPredictions = (line: any = stopId) => {
-    // let ans: Document;
     fetch(
       `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
       {
@@ -42,33 +42,33 @@ function StopPredictionInfo(props: any): JSX.Element {
 
   if (data != null) {
     console.log(etaDb);
-    if (data.body.Error !== undefined) {
-      return (
-        <div onClick={() => fetchPredictions}>
-          <Title1>Cannot locate this route.</Title1>
-        </div>
-      );
-    } else if (etaDb.length > 0) {
-      return (
-        <div className="directionsList list">
-          <Title2>{etaDb[0] !== undefined ? etaDb[0].title : ""}</Title2>
-          {etaDb.map((element, index) => (
-            <CountdownGroup key={index} obj={element} />
-          ))}
-        </div>
-      );
-    } else if (etaDb.length === 0) {
-      console.log(etaDb);
-      return (
-        <div onClick={() => fetchPredictions}>
-          <Title1>No upcoming arrivals.</Title1>
-        </div>
-      );
+
+    if (data.body.Error === undefined) {
+      if (etaDb.length > 0) {
+        return (
+          <div className="directionsList list">
+            <Title2>{etaDb[0] !== undefined ? etaDb[0].title : ""}</Title2>
+            {etaDb.map((element, index) => (
+              <CountdownGroup key={index} obj={element} />
+            ))}
+            <RawDisplay data={data}></RawDisplay>
+          </div>
+        );
+      } else {
+        console.log(etaDb);
+        return (
+          <div onClick={() => fetchPredictions}>
+            <Title1>No upcoming arrivals.</Title1>
+            <RawDisplay data={data}></RawDisplay>
+          </div>
+        );
+      }
     } else {
       // if (data.body.Error !== undefined)
       return (
         <div onClick={() => fetchPredictions}>
           <Title1>Cannot locate this route.</Title1>
+          <RawDisplay data={data}></RawDisplay>
         </div>
       );
     }
