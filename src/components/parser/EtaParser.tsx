@@ -1,4 +1,4 @@
-export const EtaParser = (json: any) => {
+export const etaParser = (json: any) => {
   const result: {
     line: string;
     title: string;

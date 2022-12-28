@@ -10,6 +10,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { parseRoute } from "../parser/routeName";
+import { stopsParser } from "./parser/StopsParser";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: any): JSX.Element {
@@ -33,7 +34,7 @@ function RouteInfo(props: any): JSX.Element {
         });
         const dataJson = parser.parse(str);
         setData(dataJson);
-        setStopDb(createStopDb(dataJson));
+        setStopDb(stopsParser(dataJson));
       });
     });
   };
@@ -147,34 +148,3 @@ function RouteInfo(props: any): JSX.Element {
   }
 }
 export default RouteInfo;
-
-function createStopDb(
-  json: any
-): { id: any; name: any; latlong: any[]; stopId: any }[] {
-  const result: { id: any; name: any; latlong: any[]; stopId: any }[] = [];
-  console.log(json);
-  if (json.body.Error === undefined) {
-    json.body.route.stop.map((element: any) => {
-      if (element["@_stopId"] === undefined) {
-        console.log(element);
-      } else {
-        result.push({
-          id: element["@_tag"],
-          name: element["@_title"],
-          latlong: [element["@_lat"], element["@_lon"]],
-          stopId: element["@_stopId"],
-        });
-      }
-      return element;
-    });
-  } else {
-    result.push({
-      name: "Error",
-      id: undefined,
-      latlong: [],
-      stopId: undefined,
-    });
-  }
-  console.log(result);
-  return result;
-}

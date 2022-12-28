@@ -1,7 +1,7 @@
 import { Title1, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import CountdownGroup from "./countdown/CountdownGroup";
-import { EtaParser } from "./parser/EtaParser";
+import { etaParser } from "./parser/EtaParser";
 const { XMLParser } = require("fast-xml-parser");
 
 function StopPredictionInfo(props: any): JSX.Element {
@@ -31,7 +31,7 @@ function StopPredictionInfo(props: any): JSX.Element {
         const dataJson = parser.parse(str);
         setData(dataJson);
         console.log(dataJson);
-        setEtaDb(EtaParser(dataJson));
+        setEtaDb(etaParser(dataJson));
       });
     });
   };

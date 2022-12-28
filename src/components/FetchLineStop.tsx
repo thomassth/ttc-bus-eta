@@ -1,3 +1,5 @@
+// Not maintained for now: no appearant use when comparing to FetchStop
+
 import { LargeTitle, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 const { XMLParser } = require("fast-xml-parser");
@@ -58,11 +60,11 @@ function PredictionInfo(props: any): JSX.Element {
         <div className="directionsList list">
           {/* {JSON.stringify(data.body)} */}
           {/* Only 1 time or only 1 direction */}
-          {data.body.predictions.direction.length === undefined ? (
+          {typeof data.body.predictions.direction === "object" ? (
             <Text>{data.body.predictions.direction["@_title"]}</Text>
           ) : null}
           {/* Only 1 direction */}
-          {data.body.predictions.direction.length === undefined ? (
+          {typeof data.body.predictions.direction === "object" ? (
             <div className="directionList list">
               {data.body.predictions.direction.prediction.map(
                 (element: any, index: number) => {
