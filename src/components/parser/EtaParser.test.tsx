@@ -273,162 +273,165 @@ describe("eta parsing", () => {
     {
       title: "2 predictions 2 direction",
       input: {
-        "body": {
-            "predictions": [
+        body: {
+          predictions: [
+            {
+              "@_agencyTitle": "Toronto Transit Commission",
+              "@_routeTitle": "339-Finch East Night Bus",
+              "@_routeTag": "339",
+              "@_stopTitle": "Finch Ave East At Wilfred Ave",
+              "@_stopTag": "8607",
+              "@_dirTitleBecauseNoPredictions":
+                "East - 339 Finch East towards Markham Rd",
+            },
+            {
+              direction: [
                 {
-                    "@_agencyTitle": "Toronto Transit Commission",
-                    "@_routeTitle": "339-Finch East Night Bus",
-                    "@_routeTag": "339",
-                    "@_stopTitle": "Finch Ave East At Wilfred Ave",
-                    "@_stopTag": "8607",
-                    "@_dirTitleBecauseNoPredictions": "East - 339 Finch East towards Markham Rd"
+                  prediction: [
+                    {
+                      "@_epochTime": "1672202317976",
+                      "@_seconds": "338",
+                      "@_minutes": "5",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39A",
+                      "@_dirTag": "39_0_39A",
+                      "@_vehicle": "3124",
+                      "@_block": "39_66_10",
+                      "@_tripTag": "45227587",
+                    },
+                    {
+                      "@_epochTime": "1672203517976",
+                      "@_seconds": "1538",
+                      "@_minutes": "25",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39A",
+                      "@_dirTag": "39_0_39A",
+                      "@_vehicle": "3281",
+                      "@_block": "39_72_70",
+                      "@_tripTag": "45227586",
+                    },
+                    {
+                      "@_epochTime": "1672204718036",
+                      "@_seconds": "2738",
+                      "@_minutes": "45",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39A",
+                      "@_dirTag": "39_0_39A",
+                      "@_vehicle": "3234",
+                      "@_block": "39_77_142",
+                      "@_tripTag": "45227585",
+                    },
+                  ],
+                  "@_title": "East - 39a Finch East towards Neilson",
                 },
                 {
-                    "direction": [
-                        {
-                            "prediction": [
-                                {
-                                    "@_epochTime": "1672202317976",
-                                    "@_seconds": "338",
-                                    "@_minutes": "5",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39A",
-                                    "@_dirTag": "39_0_39A",
-                                    "@_vehicle": "3124",
-                                    "@_block": "39_66_10",
-                                    "@_tripTag": "45227587"
-                                },
-                                {
-                                    "@_epochTime": "1672203517976",
-                                    "@_seconds": "1538",
-                                    "@_minutes": "25",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39A",
-                                    "@_dirTag": "39_0_39A",
-                                    "@_vehicle": "3281",
-                                    "@_block": "39_72_70",
-                                    "@_tripTag": "45227586"
-                                },
-                                {
-                                    "@_epochTime": "1672204718036",
-                                    "@_seconds": "2738",
-                                    "@_minutes": "45",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39A",
-                                    "@_dirTag": "39_0_39A",
-                                    "@_vehicle": "3234",
-                                    "@_block": "39_77_142",
-                                    "@_tripTag": "45227585"
-                                }
-                            ],
-                            "@_title": "East - 39a Finch East towards Neilson"
-                        },
-                        {
-                            "prediction": [
-                                {
-                                    "@_epochTime": "1672202426996",
-                                    "@_seconds": "447",
-                                    "@_minutes": "7",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39B",
-                                    "@_dirTag": "39_0_39B",
-                                    "@_vehicle": "9227",
-                                    "@_block": "39_10_100",
-                                    "@_tripTag": "45227579"
-                                },
-                                {
-                                    "@_epochTime": "1672203268756",
-                                    "@_seconds": "1289",
-                                    "@_minutes": "21",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39B",
-                                    "@_dirTag": "39_0_39B",
-                                    "@_vehicle": "3283",
-                                    "@_block": "39_12_122",
-                                    "@_tripTag": "45227578"
-                                },
-                                {
-                                    "@_epochTime": "1672204468756",
-                                    "@_seconds": "2489",
-                                    "@_minutes": "41",
-                                    "@_isDeparture": "false",
-                                    "@_affectedByLayover": "true",
-                                    "@_branch": "39B",
-                                    "@_dirTag": "39_0_39B",
-                                    "@_vehicle": "3109",
-                                    "@_block": "39_67_20",
-                                    "@_tripTag": "45227577"
-                                }
-                            ],
-                            "@_title": "East - 39b Finch East towards Old Finch and Morningview"
-                        }
-                    ],
-                    "@_agencyTitle": "Toronto Transit Commission",
-                    "@_routeTitle": "39-Finch East",
-                    "@_routeTag": "39",
-                    "@_stopTitle": "Finch Ave East At Wilfred Ave",
-                    "@_stopTag": "8607"
-                }
-            ],
-            "@_copyright": "All data copyright Toronto Transit Commission 2022."
-        }
-    },
+                  prediction: [
+                    {
+                      "@_epochTime": "1672202426996",
+                      "@_seconds": "447",
+                      "@_minutes": "7",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39B",
+                      "@_dirTag": "39_0_39B",
+                      "@_vehicle": "9227",
+                      "@_block": "39_10_100",
+                      "@_tripTag": "45227579",
+                    },
+                    {
+                      "@_epochTime": "1672203268756",
+                      "@_seconds": "1289",
+                      "@_minutes": "21",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39B",
+                      "@_dirTag": "39_0_39B",
+                      "@_vehicle": "3283",
+                      "@_block": "39_12_122",
+                      "@_tripTag": "45227578",
+                    },
+                    {
+                      "@_epochTime": "1672204468756",
+                      "@_seconds": "2489",
+                      "@_minutes": "41",
+                      "@_isDeparture": "false",
+                      "@_affectedByLayover": "true",
+                      "@_branch": "39B",
+                      "@_dirTag": "39_0_39B",
+                      "@_vehicle": "3109",
+                      "@_block": "39_67_20",
+                      "@_tripTag": "45227577",
+                    },
+                  ],
+                  "@_title":
+                    "East - 39b Finch East towards Old Finch and Morningview",
+                },
+              ],
+              "@_agencyTitle": "Toronto Transit Commission",
+              "@_routeTitle": "39-Finch East",
+              "@_routeTag": "39",
+              "@_stopTitle": "Finch Ave East At Wilfred Ave",
+              "@_stopTag": "8607",
+            },
+          ],
+          "@_copyright": "All data copyright Toronto Transit Commission 2022.",
+        },
+      },
       result: [
         {
-            "line": "East - 39a Finch East towards Neilson",
-            "title": "Finch Ave East At Wilfred Ave",
-            "etas": [
-                {
-                    "id": 0,
-                    "second": "338",
-                    "busId": "3124",
-                    "branch": "39A"
-                },
-                {
-                    "id": 1,
-                    "second": "1538",
-                    "busId": "3281",
-                    "branch": "39A"
-                },
-                {
-                    "id": 2,
-                    "second": "2738",
-                    "busId": "3234",
-                    "branch": "39A"
-                }
-            ]
+          line: "East - 39a Finch East towards Neilson",
+          title: "Finch Ave East At Wilfred Ave",
+          etas: [
+            {
+              id: 0,
+              second: "338",
+              busId: "3124",
+              branch: "39A",
+            },
+            {
+              id: 1,
+              second: "1538",
+              busId: "3281",
+              branch: "39A",
+            },
+            {
+              id: 2,
+              second: "2738",
+              busId: "3234",
+              branch: "39A",
+            },
+          ],
         },
         {
-            "line": "East - 39b Finch East towards Old Finch and Morningview",
-            "title": "Finch Ave East At Wilfred Ave",
-            "etas": [
-                {
-                    "id": 0,
-                    "second": "447",
-                    "busId": "9227",
-                    "branch": "39B"
-                },
-                {
-                    "id": 1,
-                    "second": "1289",
-                    "busId": "3283",
-                    "branch": "39B"
-                },
-                {
-                    "id": 2,
-                    "second": "2489",
-                    "busId": "3109",
-                    "branch": "39B"
-                }
-            ]
-        }
-    ],
-    },    {
+          line: "East - 39b Finch East towards Old Finch and Morningview",
+          title: "Finch Ave East At Wilfred Ave",
+          etas: [
+            {
+              id: 0,
+              second: "447",
+              busId: "9227",
+              branch: "39B",
+            },
+            {
+              id: 1,
+              second: "1289",
+              busId: "3283",
+              branch: "39B",
+            },
+            {
+              id: 2,
+              second: "2489",
+              busId: "3109",
+              branch: "39B",
+            },
+          ],
+        },
+      ],
+    },
+    {
       title: "empty result",
       input: {},
       result: [],

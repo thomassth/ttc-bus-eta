@@ -5,8 +5,8 @@ export const etaParser = (json: any) => {
     etas: { id: number; second: any; busId: any; branch: String }[];
   }[] = [];
 
-  if(Object.keys(json).length === 0){
-    return []
+  if (Object.keys(json).length === 0) {
+    return [];
   }
 
   if (Array.isArray(json.body.predictions) === false) {
@@ -89,7 +89,7 @@ export const etaParser = (json: any) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
         if (Array.isArray(element.direction) === true) {
-          const title = element['@_stopTitle']
+          const title = element["@_stopTitle"];
           element.direction.map((el3: any, index3: number) => {
             result.push({
               line: el3["@_title"],
