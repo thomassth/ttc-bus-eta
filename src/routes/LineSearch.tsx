@@ -12,7 +12,7 @@ export default function LineSearch(props: any) {
   };
 
   return (
-    <main style={{ padding: "1rem" }}>
+    <main>
       <form>
         <Text>Enter a line number:</Text>
         <div className="searchBlock">

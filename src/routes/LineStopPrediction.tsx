@@ -6,7 +6,7 @@ export default function LineStopPrediction() {
   const params = useParams();
   const lineNum = parseInt(`${params.lineId}`);
   return (
-    <main style={{ padding: "1rem" }}>
+    <main>
       <Title2>
         Line {lineNum} Stop {params.stopNum} =
       </Title2>

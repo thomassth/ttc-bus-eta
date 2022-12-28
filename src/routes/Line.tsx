@@ -6,7 +6,7 @@ export default function Line() {
   const params = useParams();
   const lineNum = parseInt(`${params.lineId}`);
   return (
-    <main style={{ padding: "1rem" }}>
+    <main>
       <Title2>Line {lineNum} =</Title2>
       <Accordion defaultOpenItems collapsible>
         <RouteInfo line={lineNum} />

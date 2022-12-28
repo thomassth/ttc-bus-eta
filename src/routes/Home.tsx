@@ -11,7 +11,7 @@ export default function Home(props: any) {
   };
 
   return (
-    <main style={{ padding: "1rem", display: "flex", flexDirection: "column" }}>
+    <main>
       <Text>You&apos;ll see saved lists here, in the FUTURE.</Text>
       <Text>For now, bookmark any pages with your line(s) on it.</Text>
       <form className="searchBlock">

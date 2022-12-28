@@ -38,7 +38,7 @@ export const App = (props: any) => {
     <div className="container">
       <div className="navBar">
         <Link href={`${process.env.PUBLIC_URL}/`} title="Return home">
-          <Title1 className="text-xl font-bold">TTC bus app</Title1>
+          <Title1 className="text-xl font-bold">TTC ETA</Title1>
         </Link>
         {dimensions.width >= 800 && <div />}
       </div>
