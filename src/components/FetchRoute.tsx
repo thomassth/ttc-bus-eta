@@ -9,7 +9,7 @@ import {
 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
-import { parseRoute } from "../parser/routeName";
+import { parseRoute } from "./parser/routeName";
 import { stopsParser } from "./parser/StopsParser";
 const { XMLParser } = require("fast-xml-parser");
 
