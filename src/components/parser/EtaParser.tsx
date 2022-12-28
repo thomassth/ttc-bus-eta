@@ -5,10 +5,14 @@ export const etaParser = (json: any) => {
     etas: { id: number; second: any; busId: any; branch: String }[];
   }[] = [];
 
-  if (typeof json.body.predictions === "object") {
+  if(Object.keys(json).length === 0){
+    return []
+  }
+
+  if (Array.isArray(json.body.predictions) === false) {
     console.log("single lines stop");
     if (json.body.predictions["@_dirTitleBecauseNoPredictions"] === undefined) {
-      if (typeof json.body.predictions.direction === "object") {
+      if (Array.isArray(json.body.predictions.direction) === false) {
         // multiple lines => multiple directions
         result.push({
           line: json.body.predictions["@_routeTitle"],
@@ -39,7 +43,7 @@ export const etaParser = (json: any) => {
               title,
               etas: [],
             });
-            if (typeof element.prediction === "object") {
+            if (Array.isArray(element.prediction) === false) {
               result[result.length - 1].etas.push({
                 id: 0,
                 second: element.direction.prediction["@_seconds"],
@@ -84,16 +88,15 @@ export const etaParser = (json: any) => {
     json.body.predictions.map((element: any, index: number) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
-        if (typeof element.direction !== "object") {
+        if (Array.isArray(element.direction) === true) {
+          const title = element['@_stopTitle']
           element.direction.map((el3: any, index3: number) => {
             result.push({
               line: el3["@_title"],
-              title: el3["@_title"],
+              title,
               etas: [],
             });
-
-            console.log(el3);
-            if (typeof el3.prediction === "object") {
+            if (Array.isArray(el3.prediction) === false) {
               console.log("single prediction");
               result[result.length - 1].etas.push({
                 id: 0,
@@ -121,7 +124,7 @@ export const etaParser = (json: any) => {
             title: element["@_stopTitle"],
             etas: [],
           });
-          if (typeof element.direction.prediction === "object") {
+          if (Array.isArray(element.direction.prediction) === false) {
             result[result.length - 1].etas.push({
               id: 0,
               second: element.direction.prediction["@_seconds"],
@@ -146,6 +149,7 @@ export const etaParser = (json: any) => {
     });
     // if no line have ETA, keep a title
     if (result.length === 0) {
+      console.log("empty db");
       result.push({
         line: "No ETAs detected.",
         title: json.body.predictions[0]["@_stopTitle"],
@@ -153,6 +157,5 @@ export const etaParser = (json: any) => {
       });
     }
   }
-  console.log(result);
   return result;
 };

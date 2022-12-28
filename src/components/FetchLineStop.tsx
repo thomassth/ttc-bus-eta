@@ -60,11 +60,11 @@ function PredictionInfo(props: any): JSX.Element {
         <div className="directionsList list">
           {/* {JSON.stringify(data.body)} */}
           {/* Only 1 time or only 1 direction */}
-          {typeof data.body.predictions.direction === "object" ? (
+          {Array.isArray(data.body.predictions.direction) === false ? (
             <Text>{data.body.predictions.direction["@_title"]}</Text>
           ) : null}
           {/* Only 1 direction */}
-          {typeof data.body.predictions.direction === "object" ? (
+          {Array.isArray(data.body.predictions.direction.isArray) === false ? (
             <div className="directionList list">
               {data.body.predictions.direction.prediction.map(
                 (element: any, index: number) => {
