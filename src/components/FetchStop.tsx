@@ -1,6 +1,7 @@
 import { Title1, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import CountdownGroup from "./CountdownSec";
+import CountdownGroup from "./countdown/CountdownGroup";
+import { EtaParser } from "./parser/EtaParser";
 const { XMLParser } = require("fast-xml-parser");
 
 function StopPredictionInfo(props: any): JSX.Element {
@@ -30,85 +31,9 @@ function StopPredictionInfo(props: any): JSX.Element {
         const dataJson = parser.parse(str);
         setData(dataJson);
         console.log(dataJson);
-        setEtaDb(createEtaDb(dataJson));
+        setEtaDb(EtaParser(dataJson));
       });
     });
-  };
-
-  const createEtaDb = (json: any) => {
-    const result: {
-      line: string;
-      title: string;
-      etas: { id: number; second: any; busId: any }[];
-    }[] = [];
-
-    if (json.body.predictions.length === undefined) {
-      // A. single line
-      if (
-        json.body.predictions["@_dirTitleBecauseNoPredictions"] === undefined
-      ) {
-        result.push({
-          line: json.body.predictions["@_routeTitle"],
-          title: json.body.predictions["@_stopTitle"],
-          etas: [],
-        });
-        json.body.predictions.direction.prediction.map(
-          (element: any, index: number) => {
-            result[result.length - 1].etas.push({
-              id: index,
-              second: element["@_seconds"],
-              busId: element["@_vehicle"],
-            });
-            return null;
-          }
-        );
-      } else {
-        result.push({
-          line: "No ETAs detected.",
-          title: json.body.predictions["@_stopTitle"],
-          etas: [],
-        });
-      }
-    } else {
-      json.body.predictions.map((element: any, index: number) => {
-        // Only lines with etas are listed
-        if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
-          result.push({
-            line: element["@_routeTitle"],
-            title: element["@_stopTitle"],
-            etas: [],
-          });
-          if (element.direction.prediction.length === undefined) {
-            result[result.length - 1].etas.push({
-              id: 0,
-              second: element.direction.prediction["@_seconds"],
-              busId: element.direction.prediction["@_vehicle"],
-            });
-          } else {
-            element.direction.prediction.map((el2: any, index2: number) => {
-              result[result.length - 1].etas.push({
-                id: index2,
-                second: el2["@_seconds"],
-                busId: el2["@_vehicle"],
-              });
-              return null;
-            });
-          }
-          return null;
-        }
-        return null;
-      });
-      // if no line have ETA, keep a title
-      if (result.length === 0) {
-        result.push({
-          line: "No ETAs detected.",
-          title: json.body.predictions[0]["@_stopTitle"],
-          etas: [],
-        });
-      }
-    }
-    console.log(result);
-    return result;
   };
 
   useEffect(() => {
@@ -116,6 +41,7 @@ function StopPredictionInfo(props: any): JSX.Element {
   }, []);
 
   if (data != null) {
+    console.log(etaDb);
     if (data.body.Error !== undefined) {
       return (
         <div onClick={() => fetchPredictions}>
