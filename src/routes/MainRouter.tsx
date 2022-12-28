@@ -6,6 +6,7 @@ import Error from "./Error";
 import LineStopPrediction from "./LineStopPrediction";
 import Home from "./Home";
 import StopPrediction from "./StopPrediction";
+import About from "./About";
 
 export const MainRouter = () => {
   return (
@@ -21,6 +22,7 @@ export const MainRouter = () => {
           <Route path="stops" element={<Outlet />}>
             <Route path=":stopId" element={<StopPrediction />} />
           </Route>
+          <Route path="about" element={<About />}></Route>
           <Route path="*" element={<Error />} />
           <Route index element={<Home />} />
         </Route>
