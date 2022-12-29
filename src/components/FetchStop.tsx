@@ -11,7 +11,7 @@ function StopPredictionInfo(props: any): JSX.Element {
   const [etaDb, setEtaDb] = useState<
     {
       line: string;
-      title: string;
+      stopName: string;
       etas: { id: number; second: any; busId: any }[];
     }[]
   >([]);
@@ -47,7 +47,7 @@ function StopPredictionInfo(props: any): JSX.Element {
       if (etaDb.length > 0) {
         return (
           <div className="directionsList list">
-            <Title2>{etaDb[0] !== undefined ? etaDb[0].title : ""}</Title2>
+            <Title2>{etaDb[0] !== undefined ? etaDb[0].stopName : ""}</Title2>
             {etaDb.map((element, index) => (
               <CountdownGroup key={index} obj={element} />
             ))}

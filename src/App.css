@@ -85,3 +85,12 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.countdown-row {
+  display: flex;
+  align-items: center;
+}
+
+.countdownSec {
+  padding: 0 0.25rem;
+}

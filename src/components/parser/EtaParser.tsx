@@ -1,7 +1,10 @@
+import { parseRoute } from "./routeName";
+
 export const etaParser = (json: any) => {
   const result: {
     line: string;
-    title: string;
+    stopName: string;
+    routeName: string;
     etas: { id: number; second: any; busId: any; branch: String }[];
   }[] = [];
 
@@ -15,8 +18,9 @@ export const etaParser = (json: any) => {
       if (Array.isArray(json.body.predictions.direction) === false) {
         // multiple lines => multiple directions
         result.push({
-          line: json.body.predictions["@_routeTitle"],
-          title: json.body.predictions["@_stopTitle"],
+          line: json.body.predictions["@_routeTag"],
+          stopName: json.body.predictions["@_stopTitle"],
+          routeName: parseRoute(json.body.predictions["@_routeTitle"]),
           etas: [],
         });
         json.body.predictions.direction.prediction.map(
@@ -40,7 +44,8 @@ export const etaParser = (json: any) => {
           if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
             result.push({
               line,
-              title,
+              stopName: title,
+              routeName: "",
               etas: [],
             });
             if (Array.isArray(element.prediction) === false) {
@@ -69,7 +74,8 @@ export const etaParser = (json: any) => {
         if (result.length === 0) {
           result.push({
             line: "No ETAs detected.",
-            title: json.body.predictions[0]["@_stopTitle"],
+            stopName: json.body.predictions[0]["@_stopTitle"],
+            routeName: "",
             etas: [],
           });
         }
@@ -79,7 +85,8 @@ export const etaParser = (json: any) => {
       console.log("no ETA at all");
       result.push({
         line: "No ETAs detected.",
-        title: json.body.predictions["@_stopTitle"],
+        stopName: json.body.predictions["@_stopTitle"],
+        routeName: "",
         etas: [],
       });
     }
@@ -88,12 +95,14 @@ export const etaParser = (json: any) => {
     json.body.predictions.map((element: any, index: number) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
-        if (Array.isArray(element.direction) === true) {
+        if (Array.isArray(element.direction)) {
           const title = element["@_stopTitle"];
+          const line = element["@_routeTag"];
           element.direction.map((el3: any, index3: number) => {
             result.push({
-              line: el3["@_title"],
-              title,
+              line,
+              stopName: title,
+              routeName: parseRoute(el3["@_title"]),
               etas: [],
             });
             if (Array.isArray(el3.prediction) === false) {
@@ -120,8 +129,9 @@ export const etaParser = (json: any) => {
           });
         } else {
           result.push({
-            line: element["@_routeTitle"],
-            title: element["@_stopTitle"],
+            line: element["@_routeTag"],
+            stopName: element["@_stopTitle"],
+            routeName: parseRoute(element["@_routeTitle"]),
             etas: [],
           });
           if (Array.isArray(element.direction.prediction) === false) {
@@ -152,7 +162,8 @@ export const etaParser = (json: any) => {
       console.log("empty db");
       result.push({
         line: "No ETAs detected.",
-        title: json.body.predictions[0]["@_stopTitle"],
+        stopName: json.body.predictions[0]["@_stopTitle"],
+        routeName: "",
         etas: [],
       });
     }
