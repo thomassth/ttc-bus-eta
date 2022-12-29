@@ -12,6 +12,7 @@ import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { parseRoute } from "./parser/routeName";
 import { stopsParser } from "./parser/StopsParser";
 import RawDisplay from "./RawDisplay";
+import { fluentStyles } from "../styles/fluent";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: any): JSX.Element {
@@ -20,6 +21,8 @@ function RouteInfo(props: any): JSX.Element {
   const [stopDb, setStopDb] = useState<
     { id: any; name: any; latlong: any[]; stopId: any }[]
   >([]);
+
+  const overrides = fluentStyles();
 
   const fetchBus = (line: any = lineNum) => {
     fetch(
@@ -52,9 +55,9 @@ function RouteInfo(props: any): JSX.Element {
     });
     return (
       <AccordionItem value={props.title}>
-        <AccordionHeader>
-          <Badge>{props.direction}</Badge>
-          <Badge>{props.lineNum}</Badge>
+        <AccordionHeader className={overrides.accordionHeader}>
+          <Badge className={overrides.badge}>{props.direction}</Badge>
+          <Badge className={overrides.badge}>{props.lineNum}</Badge>
           {parseRoute(props.title)}
         </AccordionHeader>
         {final}
@@ -75,7 +78,11 @@ function RouteInfo(props: any): JSX.Element {
           (searching) => parseInt(element["@_tag"]) === parseInt(searching.id)
         );
         result.push({
-          id: <Badge appearance="outline">{matchingStop?.id}</Badge>,
+          id: (
+            <Badge className={overrides.badge} appearance="outline">
+              {matchingStop?.id}
+            </Badge>
+          ),
           name: matchingStop?.name,
           latlong: (
             <Link

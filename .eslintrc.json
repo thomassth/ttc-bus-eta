@@ -16,6 +16,11 @@
     "prettier",
     "plugin:jest/recommended"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -25,7 +30,6 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint", "jest"],
-  "rules": {},
   "globals": {
     "JSX": true
   }

@@ -1,6 +1,9 @@
-import { Text } from "@fluentui/react-components";
+import { Badge, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { expiredStyle } from "./CountdownGroup";
+
+export const expiredStyle = {
+  color: "red",
+};
 
 export function CountdownSec(props: { second: number }) {
   const [sec, setSec] = useState(props.second);
@@ -11,13 +14,18 @@ export function CountdownSec(props: { second: number }) {
     }, 1000);
     if (sec < 0) {
       clearTimeout(timer);
-    }
-
-    if (sec < 0) {
       setExpired(true);
     }
     // Cleanup
     return () => clearTimeout(timer);
   }, [sec]);
-  return <Text style={expired ? expiredStyle : {}}>{sec}s</Text>;
+  if (!expired) {
+    return <Text>{`${sec}s`}</Text>;
+  } else {
+    return (
+      <Badge color="danger" shape="rounded">
+        Arriving
+      </Badge>
+    );
+  }
 }

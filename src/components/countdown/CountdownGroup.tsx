@@ -1,5 +1,6 @@
 import { Badge, Title2 } from "@fluentui/react-components";
 import { CountdownSec } from "./CountdownSec";
+import { fluentStyles } from "../../styles/fluent";
 
 export default function CountdownGroup(props: any) {
   return (
@@ -21,9 +22,11 @@ export default function CountdownGroup(props: any) {
 }
 
 function CountdownBranch(props: any) {
-  return <Badge>{props.branch}</Badge>;
-}
+  const overrides = fluentStyles();
 
-export const expiredStyle = {
-  color: "red",
-};
+  return (
+    <Badge className={overrides.badge} appearance="outline">
+      {props.branch}
+    </Badge>
+  );
+}

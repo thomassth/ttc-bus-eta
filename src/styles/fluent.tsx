@@ -1,25 +1,15 @@
-// export const stackTokens: IStackTokens = { childrenGap: 15 };
-// export const stackStyles: Partial<IStackStyles> = {
-//   root: {
-//     // width: '960px',
-//     // margin: '0 auto',
-//     padding:'1rem',
-//     textAlign: 'center',
-//     color: '#605e5c',
-//   },
-// };
+import { makeStyles, shorthands } from "@fluentui/react-components";
 
-import { makeStyles } from "@fluentui/react-components";
+export const fluentStyles = makeStyles({
+  badge: {
+    ...shorthands.margin("0.5rem", "0.25rem"),
+    minWidth: "2.5rem",
+  },
+  accordionHeader: {
+    ...shorthands.margin("0.25rem", "0"),
 
-export const stackStyles = makeStyles({
-  root: {
-    // width: '960px',
-    // margin: '0 auto',
-    // padding:'1rem',
-    textAlign: "center",
-    color: "#605e5c",
+    "& button": {
+      height: "auto",
+    },
   },
 });
-
-//   const customButtonStyles = useStyles();
-//   return <Button className={customButtonStyles.base}>Example</Button>;

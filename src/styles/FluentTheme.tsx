@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { prefersDark } from "./theme";
 
-export const ThemeHook = ({ children }: { children: JSX.Element }) => {
+export const FluentTheme = ({ children }: { children: JSX.Element }) => {
   const [isDark, setIsDark] = useState(prefersDark);
 
   window
