@@ -12,7 +12,7 @@ export function CountdownSec(props: { second: number }) {
     const timer = setTimeout(() => {
       setSec(sec - 1);
     }, 1000);
-    if (sec < 0) {
+    if (sec <= 0) {
       clearTimeout(timer);
       setExpired(true);
     }
@@ -23,12 +23,12 @@ export function CountdownSec(props: { second: number }) {
     return (
       <div className="countdownSec">
         <Title2>
-          {Math.floor(sec / 60) > 1
+          {Math.floor(sec / 60) >= 1
             ? `${Math.floor(sec / 60)}m `
             : `${sec % 60}s`}
         </Title2>
 
-        {sec % 60 !== 0 && Math.floor(sec / 60) > 1 ? (
+        {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 ? (
           <Text>{`${sec % 60}s`}</Text>
         ) : null}
       </div>
