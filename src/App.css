@@ -94,3 +94,9 @@ main {
 .countdownSec {
   padding: 0 0.25rem;
 }
+
+.line { 
+  display: flex;
+  flex-direction: column; 
+  padding: 1rem 0;
+}

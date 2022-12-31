@@ -12,4 +12,7 @@ export const fluentStyles = makeStyles({
       height: "auto",
     },
   },
+  number: {
+    fontFamily: ["monospace", "PT Mono"],
+  },
 });

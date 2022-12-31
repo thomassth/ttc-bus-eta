@@ -4,11 +4,8 @@ import { fluentStyles } from "../../styles/fluent";
 
 export default function CountdownGroup(props: any) {
   return (
-    <div
-      className="line"
-      style={{ display: "flex", flexDirection: "column", padding: "1rem 0" }}
-    >
-      <Title2 as="h2">
+    <div className="line">
+      <Title2>
         <Link href={`../lines/${props.obj.line}`}>{props.obj.line}</Link>
       </Title2>
       <Text>{props.obj.routeName}</Text>
