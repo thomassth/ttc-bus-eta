@@ -3,6 +3,7 @@ import reportWebVitals from "./reportWebVitals";
 import { MainRouter } from "./routes/MainRouter";
 import { FluentTheme } from "./styles/FluentTheme";
 import { createRoot } from "react-dom/client";
+import React from "react";
 
 // Inject some global styles
 
@@ -17,9 +18,11 @@ import { createRoot } from "react-dom/client";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
-  <FluentTheme>
-    <MainRouter />
-  </FluentTheme>
+  <React.StrictMode>
+    <FluentTheme>
+      <MainRouter />
+    </FluentTheme>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
