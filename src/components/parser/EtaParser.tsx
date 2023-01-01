@@ -5,7 +5,13 @@ export const etaParser = (json: any) => {
     line: string;
     stopName: string;
     routeName: string;
-    etas: { id: number; second: any; busId: any; branch: String }[];
+    etas: {
+      id: number;
+      second: number;
+      busId: number;
+      branch: String;
+      tripTag: number;
+    }[];
   }[] = [];
 
   if (Object.keys(json).length === 0) {
@@ -30,6 +36,7 @@ export const etaParser = (json: any) => {
               second: element["@_seconds"],
               busId: element["@_vehicle"],
               branch: element["@_branch"],
+              tripTag: element["@_tripTag"],
             });
             return null;
           }
@@ -54,6 +61,7 @@ export const etaParser = (json: any) => {
                 second: element.direction.prediction["@_seconds"],
                 busId: element.direction.prediction["@_vehicle"],
                 branch: element.direction.prediction["@_branch"],
+                tripTag: element.direction.prediction["@_tripTag"],
               });
             } else {
               element.prediction.map((el2: any, index2: number) => {
@@ -62,6 +70,7 @@ export const etaParser = (json: any) => {
                   second: el2["@_seconds"],
                   busId: el2["@_vehicle"],
                   branch: el2["@_branch"],
+                  tripTag: el2["@_tripTag"],
                 });
                 return null;
               });
@@ -73,7 +82,7 @@ export const etaParser = (json: any) => {
         // if no line have ETA, keep a title
         if (result.length === 0) {
           result.push({
-            line: "No ETAs detected.",
+            line: "",
             stopName: json.body.predictions[0]["@_stopTitle"],
             routeName: "",
             etas: [],
@@ -112,6 +121,7 @@ export const etaParser = (json: any) => {
                 second: el3.prediction["@_seconds"],
                 busId: el3.prediction["@_vehicle"],
                 branch: el3.prediction["@_branch"],
+                tripTag: el3.prediction["@_tripTag"],
               });
             } else {
               el3.prediction.map((el2: any, index2: number) => {
@@ -120,6 +130,7 @@ export const etaParser = (json: any) => {
                   second: el2["@_seconds"],
                   busId: el2["@_vehicle"],
                   branch: el2["@_branch"],
+                  tripTag: el2["@_tripTag"],
                 });
                 return null;
               });
@@ -140,6 +151,7 @@ export const etaParser = (json: any) => {
               second: element.direction.prediction["@_seconds"],
               busId: element.direction.prediction["@_vehicle"],
               branch: element.direction.prediction["@_branch"],
+              tripTag: element.direction.prediction["@_tripTag"],
             });
           } else {
             element.direction.prediction.map((el2: any, index2: number) => {
@@ -148,6 +160,7 @@ export const etaParser = (json: any) => {
                 second: el2["@_seconds"],
                 busId: el2["@_vehicle"],
                 branch: el2["@_branch"],
+                tripTag: el2["@_tripTag"],
               });
               return null;
             });
@@ -161,7 +174,7 @@ export const etaParser = (json: any) => {
     if (result.length === 0) {
       console.log("empty db");
       result.push({
-        line: "No ETAs detected.",
+        line: "",
         stopName: json.body.predictions[0]["@_stopTitle"],
         routeName: "",
         etas: [],

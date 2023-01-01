@@ -10,8 +10,8 @@ export default function CountdownGroup(props: any) {
       </Title2>
       <Text>{props.obj.routeName}</Text>
       {props.obj.etas.map(
-        (el2: { branch: string; second: number }, in2: number) => (
-          <div className="countdown-row" key={in2}>
+        (el2: { branch: string; second: number; busId: number }) => (
+          <div className="countdown-row" key={el2.busId}>
             <CountdownBranch branch={el2.branch} />
             <CountdownSec second={el2.second} />
           </div>
