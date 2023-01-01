@@ -34,7 +34,7 @@ body,
 }
 
 .bottomNav > .active {
-  background-color: hwb(260.6 80% 25%);
+  background-color: hsl(0, 0%, 76%);
 }
 
 @media screen and (min-width: 800px) {
@@ -48,7 +48,7 @@ body,
 }
 
 .title:hover {
-  border: 1px solid rgb(208, 208, 208);
+  border: 1px solid hsl(0, 0%, 82%);
 }
 
 .navBar {
