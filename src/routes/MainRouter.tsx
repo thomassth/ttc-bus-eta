@@ -7,6 +7,7 @@ import LineStopPrediction from "./LineStopPrediction";
 import Home from "./Home";
 import StopPrediction from "./StopPrediction";
 import About from "./About";
+import Bookmark from "../features/bookmarks/bookmark";
 
 export const MainRouter = () => {
   return (
@@ -23,6 +24,7 @@ export const MainRouter = () => {
             <Route path=":stopId" element={<StopPrediction />} />
           </Route>
           <Route path="about" element={<About />}></Route>
+          <Route path="bookmark" element={<Bookmark />}></Route>
           <Route path="*" element={<Error />} />
           <Route index element={<Home />} />
         </Route>
