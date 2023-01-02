@@ -1,7 +1,11 @@
-export function stopsParser(
-  json: any
-): { id: any; name: any; latlong: any[]; stopId: any }[] {
-  const result: { id: any; name: any; latlong: any[]; stopId: any }[] = [];
+export interface LineStop {
+  id: number;
+  name: string;
+  latlong: number[];
+  stopId: number;
+}
+export function stopsParser(json: any): LineStop[] {
+  const result: LineStop[] = [];
   console.log(json);
   if (json.body.Error === undefined) {
     json.body.route.stop.map((element: any) => {
@@ -9,10 +13,10 @@ export function stopsParser(
         console.log(element);
       } else {
         result.push({
-          id: element["@_tag"],
+          id: parseInt(element["@_tag"]),
           name: element["@_title"],
-          latlong: [element["@_lat"], element["@_lon"]],
-          stopId: element["@_stopId"],
+          latlong: [parseFloat(element["@_lat"]), parseFloat(element["@_lon"])],
+          stopId: parseInt(element["@_stopId"]),
         });
       }
       return element;
@@ -20,9 +24,9 @@ export function stopsParser(
   } else {
     result.push({
       name: "Error",
-      id: undefined,
+      id: -1,
       latlong: [],
-      stopId: undefined,
+      stopId: -1,
     });
   }
   console.log(result);

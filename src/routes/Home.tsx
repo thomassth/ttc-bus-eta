@@ -2,7 +2,7 @@ import { Button, Input, Text } from "@fluentui/react-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Home(props: any) {
+export default function Home() {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 

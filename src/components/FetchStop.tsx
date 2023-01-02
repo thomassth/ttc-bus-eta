@@ -2,21 +2,22 @@ import { Button, Title1, Title2, Text } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useEffect, useState } from "react";
 import CountdownGroup from "./countdown/CountdownGroup";
-import { etaParser } from "./parser/EtaParser";
+import { Eta, etaParser } from "./parser/EtaParser";
 import RawDisplay from "./RawDisplay";
 import { fluentStyles } from "../styles/fluent";
 const { XMLParser } = require("fast-xml-parser");
 
-function StopPredictionInfo(props: any): JSX.Element {
+export interface LineStopEta {
+  line: string;
+  stopName: string;
+  routeName: string;
+  etas: Eta[];
+}
+
+function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [stopId] = useState(props.stopId);
-  const [etaDb, setEtaDb] = useState<
-    {
-      line: string;
-      stopName: string;
-      etas: { id: number; second: number; busId: number }[];
-    }[]
-  >([]);
+  const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
 
   const RefreshButton = function () {
     return (
@@ -33,9 +34,9 @@ function StopPredictionInfo(props: any): JSX.Element {
   };
   const overrides = fluentStyles();
 
-  const fetchPredictions = (line: any = stopId) => {
+  const fetchPredictions = (line: number = stopId) => {
     fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
+      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${line}`,
       {
         method: "GET",
       }
@@ -66,7 +67,7 @@ function StopPredictionInfo(props: any): JSX.Element {
           <RefreshButton />
           {etaDb[0] !== undefined ? <Title2>{etaDb[0].stopName}</Title2> : null}
           {etaDb.map((element, index) => (
-            <CountdownGroup key={index} obj={element} />
+            <CountdownGroup key={index} detail={element} />
           ))}
           {etaDb.length === 1 && etaDb[0].line === "" ? (
             <Title1>No upcoming arrivals.</Title1>

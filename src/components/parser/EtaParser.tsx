@@ -1,18 +1,17 @@
+import { LineStopEta } from "../FetchStop";
 import { parseRoute } from "./routeName";
 
+export interface Eta {
+  id: number;
+  second: number;
+  busId: number;
+  branch: string;
+  tripTag: number;
+  epochTime: number;
+}
+
 export const etaParser = (json: any) => {
-  const result: {
-    line: string;
-    stopName: string;
-    routeName: string;
-    etas: {
-      id: number;
-      second: number;
-      busId: number;
-      branch: String;
-      tripTag: number;
-    }[];
-  }[] = [];
+  const result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {
     return [];
@@ -37,6 +36,7 @@ export const etaParser = (json: any) => {
               busId: element["@_vehicle"],
               branch: element["@_branch"],
               tripTag: element["@_tripTag"],
+              epochTime: element["@_epochTime"],
             });
             return null;
           }
@@ -62,6 +62,7 @@ export const etaParser = (json: any) => {
                 busId: element.direction.prediction["@_vehicle"],
                 branch: element.direction.prediction["@_branch"],
                 tripTag: element.direction.prediction["@_tripTag"],
+                epochTime: element.direction.prediction["@_epochTime"],
               });
             } else {
               element.prediction.map((el2: any, index2: number) => {
@@ -71,6 +72,7 @@ export const etaParser = (json: any) => {
                   busId: el2["@_vehicle"],
                   branch: el2["@_branch"],
                   tripTag: el2["@_tripTag"],
+                  epochTime: el2["@_epochTime"],
                 });
                 return null;
               });
@@ -122,6 +124,7 @@ export const etaParser = (json: any) => {
                 busId: el3.prediction["@_vehicle"],
                 branch: el3.prediction["@_branch"],
                 tripTag: el3.prediction["@_tripTag"],
+                epochTime: el3.prediction["@_epochTime"],
               });
             } else {
               el3.prediction.map((el2: any, index2: number) => {
@@ -131,6 +134,7 @@ export const etaParser = (json: any) => {
                   busId: el2["@_vehicle"],
                   branch: el2["@_branch"],
                   tripTag: el2["@_tripTag"],
+                  epochTime: el2["@_epochTime"],
                 });
                 return null;
               });
@@ -152,6 +156,7 @@ export const etaParser = (json: any) => {
               busId: element.direction.prediction["@_vehicle"],
               branch: element.direction.prediction["@_branch"],
               tripTag: element.direction.prediction["@_tripTag"],
+              epochTime: element.direction.prediction["@_epochTime"],
             });
           } else {
             element.direction.prediction.map((el2: any, index2: number) => {
@@ -161,6 +166,7 @@ export const etaParser = (json: any) => {
                 busId: el2["@_vehicle"],
                 branch: el2["@_branch"],
                 tripTag: el2["@_tripTag"],
+                epochTime: el2["@_epochTime"],
               });
               return null;
             });

@@ -5,16 +5,6 @@ import { FluentTheme } from "./styles/FluentTheme";
 import { createRoot } from "react-dom/client";
 import React from "react";
 
-// Inject some global styles
-
-// const commonStyles = makeStyles({
-//   ':global(body,html,#root>*)': {
-//     margin: 0,
-//     padding: 0,
-//     minHeight: '100vh',
-//   },
-// })
-
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(

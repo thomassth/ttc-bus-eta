@@ -6,7 +6,7 @@ import {
   Text,
 } from "@fluentui/react-components";
 
-export default function RawDisplay(props: { data: any }) {
+export default function RawDisplay(props: { data: string }) {
   return (
     <Accordion collapsible>
       <AccordionItem value="raw">

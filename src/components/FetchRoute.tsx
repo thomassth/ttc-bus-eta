@@ -10,21 +10,26 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { parseRoute } from "./parser/routeName";
-import { stopsParser } from "./parser/StopsParser";
+import { LineStop, stopsParser } from "./parser/StopsParser";
 import RawDisplay from "./RawDisplay";
 import { fluentStyles } from "../styles/fluent";
 const { XMLParser } = require("fast-xml-parser");
 
-function RouteInfo(props: any): JSX.Element {
+interface LineStopElement {
+  id: JSX.Element;
+  name: string;
+  latlong: JSX.Element;
+  stopId: JSX.Element;
+}
+
+function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [lineNum] = useState(props.line);
-  const [stopDb, setStopDb] = useState<
-    { id: any; name: any; latlong: any[]; stopId: any }[]
-  >([]);
+  const [stopDb, setStopDb] = useState<LineStop[]>([]);
 
   const overrides = fluentStyles();
 
-  const fetchBus = (line: any = lineNum) => {
+  const fetchBus = (line = lineNum) => {
     fetch(
       `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${line}`,
       {
@@ -45,7 +50,7 @@ function RouteInfo(props: any): JSX.Element {
 
   const StopAccordions = (props: any) => {
     const final: JSX.Element[] = [];
-    props.result.map((element: any, index: number) => {
+    props.result.map((element: LineStop, index: number) => {
       final.push(
         <AccordionPanel key={`${index}`}>
           {element.stopId} {element.latlong} {element.id} {element.name}
@@ -67,15 +72,10 @@ function RouteInfo(props: any): JSX.Element {
 
   const createStopList = useCallback(
     (json: any) => {
-      const result: {
-        id: any;
-        name: any;
-        latlong: any | undefined;
-        stopId: any;
-      }[] = [];
-      json.stop.map((element: any, index: number) => {
+      const result: LineStopElement[] = [];
+      json.stop.map((element: any) => {
         const matchingStop = stopDb.find(
-          (searching) => parseInt(element["@_tag"]) === parseInt(searching.id)
+          (searching) => parseInt(element["@_tag"]) === searching.id
         );
         result.push({
           id: (
@@ -83,7 +83,7 @@ function RouteInfo(props: any): JSX.Element {
               {matchingStop?.id}
             </Badge>
           ),
-          name: matchingStop?.name,
+          name: `${matchingStop?.name}`,
           latlong: (
             <Link
               // menuProps={menuProps}

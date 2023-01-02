@@ -7,23 +7,28 @@ export const expiredStyle = {
   color: "red",
 };
 
-export function CountdownSec(props: { second: number }) {
-  const [sec, setSec] = useState(props.second);
-  const [expired, setExpired] = useState(false);
+export function CountdownSec(props: { second: number; epochTime: number }) {
+  const [epochTime, setEpochTime] = useState(props.epochTime);
+  const [sec, setSec] = useState(Math.floor((epochTime - Date.now()) / 1000));
   const overrides = fluentStyles();
 
+  // TODO: not using seconds provided in API; may make it an option later
+
   useEffect(() => {
+    if (epochTime !== props.epochTime) {
+      setEpochTime(props.epochTime);
+      setSec(Math.floor((epochTime - Date.now()) / 1000));
+    }
     const timer = setTimeout(() => {
-      setSec(sec - 1);
+      setSec(Math.floor((epochTime - Date.now()) / 1000));
     }, 1000);
     if (sec <= 0) {
       clearTimeout(timer);
-      setExpired(true);
     }
     // Cleanup
     return () => clearTimeout(timer);
   }, [sec]);
-  if (!expired) {
+  if (sec > 0) {
     return (
       <div className="countdownSec number">
         <Title2 className={overrides.number}>

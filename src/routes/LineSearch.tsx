@@ -2,7 +2,7 @@ import { Button, Input, Text } from "@fluentui/react-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LineSearch(props: any) {
+export default function LineSearch() {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 

@@ -4,7 +4,7 @@ import { LargeTitle, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 const { XMLParser } = require("fast-xml-parser");
 
-function PredictionInfo(props: any): JSX.Element {
+function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {
   const [data, setData] = useState<any>();
 
   const fetchPredictions = (
