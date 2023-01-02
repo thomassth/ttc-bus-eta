@@ -1,22 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  PayloadAction,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 
-const emptyBookmark = { stops: { ids: [], entities: {} } };
+export interface StopBookmark {
+  stopId: number;
+  name: string;
+  ttcId: number;
+}
 
-export const bookmarkSlice = createSlice({
-  name: "bookmark",
-  initialState: {
-    value: emptyBookmark,
-  },
+const stopBookmarksAdapter = createEntityAdapter({
+  selectId: (stopBookmark: StopBookmark) => stopBookmark.stopId,
+});
+
+const initialState = stopBookmarksAdapter.getInitialState();
+
+const stopBookmarksSlice = createSlice({
+  name: "stopBookmarks",
+  initialState,
   reducers: {
-    changeValue: (state, input) => {
-      state.value = input.payload;
+    addStopBookmark: (state, input: PayloadAction<StopBookmark>) => {
+      stopBookmarksAdapter.addOne(state, input.payload);
     },
-    clearBookmark: (state) => {
-      state.value = emptyBookmark;
+    clearStopBookmarks: (state) => {
+      stopBookmarksAdapter.removeAll(state);
     },
   },
 });
 
-export const { changeValue, clearBookmark } = bookmarkSlice.actions;
+export const { addStopBookmark, clearStopBookmarks } =
+  stopBookmarksSlice.actions;
 
-export default bookmarkSlice.reducer;
+export default stopBookmarksSlice.reducer;
