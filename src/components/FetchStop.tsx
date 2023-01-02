@@ -72,7 +72,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             </Title2>
           ) : null}
           <div className="countdown-row">
-            <RefreshButton />{" "}
+            <RefreshButton />
             <BookmarkButton
               stopId={stopId}
               name={etaDb[0].stopName}
@@ -95,7 +95,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         <div>
           <Title1>Cannot locate this route.</Title1>
           <div className="countdown-row">
-            <RefreshButton />{" "}
+            <RefreshButton />
             <BookmarkButton
               stopId={stopId}
               name={etaDb[0].stopName}

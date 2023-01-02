@@ -1,15 +1,18 @@
-import { Button, Text } from "@fluentui/react-components";
+import { Button, Link, Text, Badge } from "@fluentui/react-components";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
-import { addStopBookmark, clearStopBookmarks } from "./stopBookmarkSlice";
-
+import { clearStopBookmarks } from "./stopBookmarkSlice";
+import { Card } from "@fluentui/react-components/unstable";
+import RawDisplay from "../../components/RawDisplay";
 export default function Bookmark() {
   const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
   const dispatch = useAppDispatch();
 
+  console.log(stopBookmarks.entities);
+
   return (
     <main>
-      <Button
+      {/* <Button
         onClick={() =>
           dispatch(
             addStopBookmark({
@@ -21,9 +24,43 @@ export default function Bookmark() {
         }
       >
         Add
-      </Button>
-      <Button onClick={() => dispatch(clearStopBookmarks())}>Clear</Button>
-      <Text>{JSON.stringify(stopBookmarks, null, 4)}</Text>
+      </Button> */}
+      {stopBookmarks.ids.length === 0 ? (
+        <section>
+          <Text>You&apos;ll see saved lists here, in the FUTURE.</Text>
+          <br />
+          <Text>
+            Try clicking the bookmark icons on a stop you frequently visit.
+          </Text>
+        </section>
+      ) : null}
+      <div className="bookmarks">
+        {stopBookmarks.ids.map((item: any) => (
+          <BookmarkCard key={item} id={item} />
+        ))}
+      </div>
+      {stopBookmarks.ids.length > 0 ? (
+        <Button onClick={() => dispatch(clearStopBookmarks())}>
+          Clear all
+        </Button>
+      ) : null}
+
+      <RawDisplay data={stopBookmarks}></RawDisplay>
     </main>
   );
 }
+
+const BookmarkCard = (props: any) => {
+  const id = props.id;
+  const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
+  return (
+    <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
+      <Card>
+        <div className="countdown-row">
+          <Badge>{stopBookmarks.entities[id].ttcId}</Badge>
+          {stopBookmarks.entities[id].name}
+        </div>
+      </Card>
+    </Link>
+  );
+};

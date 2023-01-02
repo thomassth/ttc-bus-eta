@@ -10,7 +10,7 @@ export default function About() {
       </Text>
       <Title2>Where do they come from?</Title2>
       <Text>
-        From City of Toronto&#39;s Open Data Catalogue:{" "}
+        From City of Toronto&#39;s Open Data Catalogue:
         <Link href="https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/">
           https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/
         </Link>
@@ -30,7 +30,7 @@ export default function About() {
       </Text>
       <Title2>Can I help?</Title2>
       <Text>
-        Yes please! Head{" "}
+        Yes please! Head
         <Link href="https://github.com/thomassth/ttc-bus-eta">here</Link> and
         leave a pull request / feature request / give me a million dollar
         buyout.

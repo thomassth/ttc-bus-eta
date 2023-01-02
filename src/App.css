@@ -99,3 +99,9 @@ main {
   flex-direction: column;
   padding: 1rem 0;
 }
+
+.bookmarks {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0
+}

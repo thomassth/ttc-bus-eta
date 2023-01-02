@@ -1,6 +1,7 @@
-import { Button, Input, Text } from "@fluentui/react-components";
+import { Button, Input } from "@fluentui/react-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Bookmark from "../features/bookmarks/bookmark";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -12,8 +13,6 @@ export default function Home() {
 
   return (
     <main>
-      <Text>You&apos;ll see saved lists here, in the FUTURE.</Text>
-      <Text>For now, bookmark any pages with your line(s) on it.</Text>
       <form className="searchBlock">
         <Input
           value={input}
@@ -25,6 +24,7 @@ export default function Home() {
           Search
         </Button>
       </form>
+      <Bookmark />
     </main>
   );
 }

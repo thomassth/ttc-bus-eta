@@ -28,7 +28,7 @@ export const etaParser = (json: any) => {
           stopName: predictionGroup["@_stopTitle"],
           routeName: parseRoute(predictionGroup["@_routeTitle"]),
           etas: [],
-          stopTag: predictionGroup["@_stopTag"],
+          stopTag: parseInt(predictionGroup["@_stopTag"]),
         });
         json.body.predictions.direction.prediction.map(
           (element: any, index: number) => {
@@ -58,7 +58,7 @@ export const etaParser = (json: any) => {
               stopName: title,
               routeName: "",
               etas: [],
-              stopTag: predictionGroup["@_stopTag"],
+              stopTag: parseInt(predictionGroup["@_stopTag"]),
             });
             if (Array.isArray(element.prediction) === false) {
               const item = element.direction.prediction;
@@ -94,7 +94,7 @@ export const etaParser = (json: any) => {
             stopName: json.body.predictions[0]["@_stopTitle"],
             routeName: "",
             etas: [],
-            stopTag: json.body.predictions[0]["@_stopTag"],
+            stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
           });
         }
         return result;
@@ -106,7 +106,7 @@ export const etaParser = (json: any) => {
         stopName: json.body.predictions["@_stopTitle"],
         routeName: "",
         etas: [],
-        stopTag: json.body.predictions["@_stopTag"],
+        stopTag: parseInt(json.body.predictions["@_stopTag"]),
       });
     }
   } else {
@@ -123,7 +123,7 @@ export const etaParser = (json: any) => {
               stopName: title,
               routeName: parseRoute(el3["@_title"]),
               etas: [],
-              stopTag: element["@_stopTag"],
+              stopTag: parseInt(el3["@_stopTag"]),
             });
             if (Array.isArray(el3.prediction) === false) {
               console.log("single prediction");
@@ -158,7 +158,7 @@ export const etaParser = (json: any) => {
             stopName: element["@_stopTitle"],
             routeName: parseRoute(element["@_routeTitle"]),
             etas: [],
-            stopTag: element["@_stopTag"],
+            stopTag: parseInt(element["@_stopTag"]),
           });
           if (Array.isArray(element.direction.prediction) === false) {
             const item = element.direction.prediction;
@@ -196,7 +196,7 @@ export const etaParser = (json: any) => {
         stopName: json.body.predictions[0]["@_stopTitle"],
         routeName: "",
         etas: [],
-        stopTag: json.body.predictions[0]["@_stopTag"],
+        stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
       });
     }
   }
