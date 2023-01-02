@@ -3,6 +3,7 @@ import {
   PayloadAction,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
+import { loadState } from "./localstorage";
 
 export interface StopBookmark {
   stopId: number;
@@ -10,11 +11,16 @@ export interface StopBookmark {
   ttcId: number;
 }
 
+const persistedState = loadState();
+
 const stopBookmarksAdapter = createEntityAdapter({
   selectId: (stopBookmark: StopBookmark) => stopBookmark.stopId,
+  sortComparer: (a, b) => a.stopId - b.stopId,
 });
-
-const initialState = stopBookmarksAdapter.getInitialState();
+const initialState =
+  Object.keys(persistedState).length === 0
+    ? { ids: [], entities: {} }
+    : persistedState;
 
 const stopBookmarksSlice = createSlice({
   name: "stopBookmarks",
