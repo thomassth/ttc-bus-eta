@@ -19,7 +19,7 @@ const navItems = [
   },
 ];
 
-export const App = (props: any) => {
+export const App = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -38,7 +38,7 @@ export const App = (props: any) => {
     <div className="container">
       <div className="navBar">
         <Link href={`${process.env.PUBLIC_URL}/`} title="Return home">
-          <Title1 className="text-xl font-bold">TTC ETA</Title1>
+          <Title1 className="text-xl font-bold">TTC arrivals</Title1>
         </Link>
         {dimensions.width >= 800 && <div />}
       </div>
