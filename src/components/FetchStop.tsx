@@ -97,7 +97,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       // if (data.body.Error !== undefined)
       return (
         <div>
-          <RefreshButton />
           <Title1>{t("reminder.failToLocate")}</Title1>
           <div className="countdown-row">
             <RefreshButton />
