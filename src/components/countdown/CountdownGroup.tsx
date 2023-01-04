@@ -1,7 +1,8 @@
-import { Badge, Title2, Link, Text } from "@fluentui/react-components";
-import { CountdownSec } from "./CountdownSec";
+import { Badge, Link, Text, Title2 } from "@fluentui/react-components";
+
 import { fluentStyles } from "../../styles/fluent";
 import { LineStopEta } from "../FetchStop";
+import { CountdownSec } from "./CountdownSec";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
   return (

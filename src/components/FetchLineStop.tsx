@@ -1,7 +1,7 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
-
 import { LargeTitle, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
+
 const { XMLParser } = require("fast-xml-parser");
 
 function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {

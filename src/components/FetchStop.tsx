@@ -1,11 +1,13 @@
-import { Button, Title1, Title2, Text } from "@fluentui/react-components";
+import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useEffect, useState } from "react";
+
+import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
+import { fluentStyles } from "../styles/fluent";
+import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
 import { Eta, etaParser } from "./parser/EtaParser";
-import RawDisplay from "./RawDisplay";
-import { fluentStyles } from "../styles/fluent";
-import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
+
 const { XMLParser } = require("fast-xml-parser");
 
 export interface LineStopEta {

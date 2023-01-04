@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
-import LineStopPredictionInfo from "../components/FetchLineStop";
 import { Title2 } from "@fluentui/react-components";
+import { useParams } from "react-router-dom";
+
+import LineStopPredictionInfo from "../components/FetchLineStop";
 
 export default function LineStopPrediction() {
   const params = useParams();

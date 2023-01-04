@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+
 import { App } from "../App";
-import LineSearch from "./LineSearch";
-import Line from "./Line";
-import Error from "./Error";
-import LineStopPrediction from "./LineStopPrediction";
-import Home from "./Home";
-import StopPrediction from "./StopPrediction";
-import About from "./About";
 import Bookmark from "../features/bookmarks/bookmark";
+import About from "./About";
+import Error from "./Error";
+import Home from "./Home";
+import Line from "./Line";
+import LineSearch from "./LineSearch";
+import LineStopPrediction from "./LineStopPrediction";
+import StopPrediction from "./StopPrediction";
 
 export const MainRouter = () => {
   return (

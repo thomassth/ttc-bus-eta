@@ -1,4 +1,4 @@
-import { Title2, Text, Link } from "@fluentui/react-components";
+import { Link, Text, Title2 } from "@fluentui/react-components";
 
 export default function About() {
   return (

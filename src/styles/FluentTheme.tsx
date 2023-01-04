@@ -4,6 +4,7 @@ import {
   webLightTheme,
 } from "@fluentui/react-components";
 import { useState } from "react";
+
 import { prefersDark } from "./theme";
 
 export const FluentTheme = ({ children }: { children: JSX.Element }) => {

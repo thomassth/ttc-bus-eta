@@ -1,7 +1,8 @@
 // import renderer from 'react-test-renderer';
-import { etaParser } from "./EtaParser";
 import { expect, test } from "@jest/globals";
 import renderer from "react-test-renderer";
+
+import { etaParser } from "./EtaParser";
 
 describe("eta parsing", () => {
   const testValues = [

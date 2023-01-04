@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import stopBookmarksReducer from "../features/bookmarks/stopBookmarkSlice";
 
 export const store = configureStore({

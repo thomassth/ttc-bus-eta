@@ -1,12 +1,13 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+
+import { store } from "./app/store";
+import { saveState } from "./features/bookmarks/localstorage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { MainRouter } from "./routes/MainRouter";
 import { FluentTheme } from "./styles/FluentTheme";
-import { createRoot } from "react-dom/client";
-import React from "react";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
-import { saveState } from "./features/bookmarks/localstorage";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

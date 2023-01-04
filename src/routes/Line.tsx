@@ -1,6 +1,7 @@
 import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
+
 import RouteInfo from "../components/FetchRoute";
 
 export default function Line() {

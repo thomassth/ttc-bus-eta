@@ -1,8 +1,9 @@
 import {
-  createSlice,
   PayloadAction,
   createEntityAdapter,
+  createSlice,
 } from "@reduxjs/toolkit";
+
 import { loadState } from "./localstorage";
 
 export interface StopBookmark {

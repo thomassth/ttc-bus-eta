@@ -1,8 +1,9 @@
-import "./App.css";
-import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Anchor, Nav as BottomNav } from "grommet";
 import { Link, Title1 } from "@fluentui/react-components";
+import { Anchor, Nav as BottomNav } from "grommet";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+
+import "./App.css";
 
 const navItems = [
   {
