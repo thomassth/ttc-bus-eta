@@ -1,12 +1,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 
 import { store } from "./app/store";
 import { saveState } from "./features/bookmarks/localstorage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { MainRouter } from "./routes/MainRouter";
+import { router } from "./routes/MainRouter";
 import { FluentTheme } from "./styles/FluentTheme";
 
 const container = document.getElementById("root");
@@ -15,7 +16,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <FluentTheme>
-        <MainRouter />
+        <RouterProvider router={router} />
       </FluentTheme>
     </Provider>
   </React.StrictMode>
