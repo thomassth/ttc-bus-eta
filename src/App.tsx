@@ -1,24 +1,9 @@
 import { Link, Title1 } from "@fluentui/react-components";
-import { Anchor, Nav as BottomNav } from "grommet";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import "./App.css";
-
-const navItems = [
-  {
-    label: "Home",
-    href: `${process.env.PUBLIC_URL}/`,
-  },
-  {
-    label: "Lines",
-    href: `${process.env.PUBLIC_URL}/lines`,
-  },
-  {
-    label: "About",
-    href: `${process.env.PUBLIC_URL}/about`,
-  },
-];
+import { BottomBar } from "./components/nav/BottomBar";
 
 export const App = () => {
   const [dimensions, setDimensions] = useState({
@@ -48,28 +33,5 @@ export const App = () => {
       {/* {(dimensions.width < 800) && <BottomBar />} */}
       <BottomBar />
     </div>
-  );
-};
-
-const BottomBar = () => {
-  const nav: JSX.Element[] = [];
-  navItems.forEach((item, index) => {
-    if (item.href === window.location.pathname) {
-      nav.push(
-        <Anchor
-          key={index}
-          href={item.href}
-          label={item.label}
-          className="active"
-        />
-      );
-    } else {
-      nav.push(<Anchor key={index} label={item.label} href={item.href} />);
-    }
-  });
-  return (
-    <BottomNav className="bottomNav" gap="medium" direction="row">
-      {nav}
-    </BottomNav>
   );
 };
