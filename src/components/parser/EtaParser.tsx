@@ -49,16 +49,17 @@ export const etaParser = (json: any) => {
         const predictionGroup = json.body.predictions;
 
         const line = predictionGroup["@_routeTag"];
-        const title = predictionGroup["@_stopTitle"];
+        const stopName = predictionGroup["@_stopTitle"];
+        const stopTag = parseInt(predictionGroup["@_stopTag"]);
         predictionGroup.direction.map((element: any, index: number) => {
           // Only lines with etas are listed
           if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
             result.push({
               line,
-              stopName: title,
+              stopName,
               routeName: "",
               etas: [],
-              stopTag: parseInt(predictionGroup["@_stopTag"]),
+              stopTag,
             });
             if (Array.isArray(element.prediction) === false) {
               const item = element.direction.prediction;
@@ -115,15 +116,16 @@ export const etaParser = (json: any) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
         if (Array.isArray(element.direction)) {
-          const title = element["@_stopTitle"];
+          const stopName = element["@_stopTitle"];
           const line = element["@_routeTag"];
+          const stopTag = parseInt(element["@_stopTag"]);
           element.direction.map((el3: any, index3: number) => {
             result.push({
               line,
-              stopName: title,
+              stopName,
               routeName: parseRoute(el3["@_title"]),
               etas: [],
-              stopTag: parseInt(el3["@_stopTag"]),
+              stopTag,
             });
             if (Array.isArray(el3.prediction) === false) {
               console.log("single prediction");
