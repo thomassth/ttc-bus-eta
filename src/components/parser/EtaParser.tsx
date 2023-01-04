@@ -21,12 +21,14 @@ export const etaParser = (json: any) => {
     console.log("single lines stop");
     if (json.body.predictions["@_dirTitleBecauseNoPredictions"] === undefined) {
       if (Array.isArray(json.body.predictions.direction) === false) {
+        const predictionGroup = json.body.predictions;
         // multiple lines => multiple directions
         result.push({
-          line: json.body.predictions["@_routeTag"],
-          stopName: json.body.predictions["@_stopTitle"],
-          routeName: parseRoute(json.body.predictions["@_routeTitle"]),
+          line: predictionGroup["@_routeTag"],
+          stopName: predictionGroup["@_stopTitle"],
+          routeName: parseRoute(predictionGroup["@_routeTitle"]),
           etas: [],
+          stopTag: parseInt(predictionGroup["@_stopTag"]),
         });
         json.body.predictions.direction.prediction.map(
           (element: any, index: number) => {
@@ -44,25 +46,30 @@ export const etaParser = (json: any) => {
       } else {
         // 1 prediction, 2 directions
         // Eg. stops/14761 returns 939A, 939B
-        const line = json.body.predictions["@_routeTag"];
-        const title = json.body.predictions["@_stopTitle"];
-        json.body.predictions.direction.map((element: any, index: number) => {
+        const predictionGroup = json.body.predictions;
+
+        const line = predictionGroup["@_routeTag"];
+        const stopName = predictionGroup["@_stopTitle"];
+        const stopTag = parseInt(predictionGroup["@_stopTag"]);
+        predictionGroup.direction.map((element: any, index: number) => {
           // Only lines with etas are listed
           if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
             result.push({
               line,
-              stopName: title,
+              stopName,
               routeName: "",
               etas: [],
+              stopTag,
             });
             if (Array.isArray(element.prediction) === false) {
+              const item = element.direction.prediction;
               result[result.length - 1].etas.push({
                 id: 0,
-                second: element.direction.prediction["@_seconds"],
-                busId: element.direction.prediction["@_vehicle"],
-                branch: element.direction.prediction["@_branch"],
-                tripTag: element.direction.prediction["@_tripTag"],
-                epochTime: element.direction.prediction["@_epochTime"],
+                second: item["@_seconds"],
+                busId: item["@_vehicle"],
+                branch: item["@_branch"],
+                tripTag: item["@_tripTag"],
+                epochTime: item["@_epochTime"],
               });
             } else {
               element.prediction.map((el2: any, index2: number) => {
@@ -88,6 +95,7 @@ export const etaParser = (json: any) => {
             stopName: json.body.predictions[0]["@_stopTitle"],
             routeName: "",
             etas: [],
+            stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
           });
         }
         return result;
@@ -99,6 +107,7 @@ export const etaParser = (json: any) => {
         stopName: json.body.predictions["@_stopTitle"],
         routeName: "",
         etas: [],
+        stopTag: parseInt(json.body.predictions["@_stopTag"]),
       });
     }
   } else {
@@ -107,24 +116,27 @@ export const etaParser = (json: any) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
         if (Array.isArray(element.direction)) {
-          const title = element["@_stopTitle"];
+          const stopName = element["@_stopTitle"];
           const line = element["@_routeTag"];
+          const stopTag = parseInt(element["@_stopTag"]);
           element.direction.map((el3: any, index3: number) => {
             result.push({
               line,
-              stopName: title,
+              stopName,
               routeName: parseRoute(el3["@_title"]),
               etas: [],
+              stopTag,
             });
             if (Array.isArray(el3.prediction) === false) {
               console.log("single prediction");
+              const item = el3.prediction;
               result[result.length - 1].etas.push({
                 id: 0,
-                second: el3.prediction["@_seconds"],
-                busId: el3.prediction["@_vehicle"],
-                branch: el3.prediction["@_branch"],
-                tripTag: el3.prediction["@_tripTag"],
-                epochTime: el3.prediction["@_epochTime"],
+                second: item["@_seconds"],
+                busId: item["@_vehicle"],
+                branch: item["@_branch"],
+                tripTag: item["@_tripTag"],
+                epochTime: item["@_epochTime"],
               });
             } else {
               el3.prediction.map((el2: any, index2: number) => {
@@ -148,15 +160,17 @@ export const etaParser = (json: any) => {
             stopName: element["@_stopTitle"],
             routeName: parseRoute(element["@_routeTitle"]),
             etas: [],
+            stopTag: parseInt(element["@_stopTag"]),
           });
           if (Array.isArray(element.direction.prediction) === false) {
+            const item = element.direction.prediction;
             result[result.length - 1].etas.push({
               id: 0,
-              second: element.direction.prediction["@_seconds"],
-              busId: element.direction.prediction["@_vehicle"],
-              branch: element.direction.prediction["@_branch"],
-              tripTag: element.direction.prediction["@_tripTag"],
-              epochTime: element.direction.prediction["@_epochTime"],
+              second: item["@_seconds"],
+              busId: item["@_vehicle"],
+              branch: item["@_branch"],
+              tripTag: item["@_tripTag"],
+              epochTime: item["@_epochTime"],
             });
           } else {
             element.direction.prediction.map((el2: any, index2: number) => {
@@ -184,6 +198,7 @@ export const etaParser = (json: any) => {
         stopName: json.body.predictions[0]["@_stopTitle"],
         routeName: "",
         etas: [],
+        stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
       });
     }
   }

@@ -11,7 +11,8 @@
       "name": "TTC arrivals",
       "tooltip": "Rentrer à la maison"
     },
-    "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br /> Pour l'instant, mettez en signet toutes les pages contenant votre ou vos lignes."
+    "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br />",
+    "bookmarkReminder": "Essayez de cliquer sur les icônes de signet sur un arrêt que vous visitez fréquemment."
   },
   "lines": {
     "ariaLabel": "entrer un numéro de ligne",
@@ -26,7 +27,8 @@
   },
   "buttons": {
     "search": "Chercher",
-    "refresh": "Rafraîchir"
+    "refresh": "Rafraîchir",
+    "clear": "Tout effacer"
   },
   "reminder": {
     "noRoute": "Pas d'arrivées à venir.",

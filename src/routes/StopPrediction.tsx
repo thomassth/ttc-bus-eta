@@ -1,4 +1,4 @@
-import { Title2 } from "@fluentui/react-components";
+import { Text } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function StopPrediction() {
   });
   return (
     <main>
-      <Title2>{t("stops.stopId", { stopNum })}</Title2>
+      <Text>{t("stops.stopId", { stopNum })}</Text>
       <StopPredictionInfo stopId={stopNum} />
     </main>
   );

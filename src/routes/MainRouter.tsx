@@ -1,12 +1,14 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+
 import { App } from "../App";
-import LineSearch from "./LineSearch";
-import Line from "./Line";
-import Error from "./Error";
-import LineStopPrediction from "./LineStopPrediction";
-import Home from "./Home";
-import StopPrediction from "./StopPrediction";
+import Bookmark from "../features/bookmarks/bookmark";
 import About from "./About";
+import Error from "./Error";
+import Home from "./Home";
+import Line from "./Line";
+import LineSearch from "./LineSearch";
+import LineStopPrediction from "./LineStopPrediction";
+import StopPrediction from "./StopPrediction";
 
 export const MainRouter = () => {
   return (
@@ -23,6 +25,7 @@ export const MainRouter = () => {
             <Route path=":stopId" element={<StopPrediction />} />
           </Route>
           <Route path="about" element={<About />}></Route>
+          <Route path="bookmark" element={<Bookmark />}></Route>
           <Route path="*" element={<Error />} />
           <Route index element={<Home />} />
         </Route>
