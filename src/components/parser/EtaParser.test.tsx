@@ -1,6 +1,7 @@
 // import renderer from 'react-test-renderer';
 import { etaParser } from "./EtaParser";
 import { expect, test } from "@jest/globals";
+import renderer from "react-test-renderer";
 
 describe("eta parsing", () => {
   const testValues = [
@@ -30,9 +31,6 @@ describe("eta parsing", () => {
           ],
         },
       },
-      result: [
-        { etas: [], line: "No ETAs detected.", title: "480 Gordon Baker Rd" },
-      ],
     },
     {
       title: "1 predictions 1 direction",
@@ -89,32 +87,6 @@ describe("eta parsing", () => {
           "@_copyright": "All data copyright Toronto Transit Commission 2022.",
         },
       },
-      result: [
-        {
-          line: "39-Finch East",
-          title: "Old Finch Ave At Morningside Ave",
-          etas: [
-            {
-              id: 0,
-              second: "96",
-              busId: "3109",
-              branch: "39",
-            },
-            {
-              id: 1,
-              second: "1247",
-              busId: "3264",
-              branch: "39",
-            },
-            {
-              id: 2,
-              second: "2447",
-              busId: "9234",
-              branch: "39",
-            },
-          ],
-        },
-      ],
     },
     {
       title: "1 predictions 2 directions",
@@ -219,56 +191,6 @@ describe("eta parsing", () => {
           "@_copyright": "All data copyright Toronto Transit Commission 2022.",
         },
       },
-      result: [
-        {
-          line: "39",
-          title: "Finch Station",
-          etas: [
-            {
-              id: 0,
-              second: "611",
-              busId: "3124",
-              branch: "39A",
-            },
-            {
-              id: 1,
-              second: "1811",
-              busId: "3281",
-              branch: "39A",
-            },
-            {
-              id: 2,
-              second: "3011",
-              busId: "3234",
-              branch: "39A",
-            },
-          ],
-        },
-        {
-          line: "39",
-          title: "Finch Station",
-          etas: [
-            {
-              id: 0,
-              second: "11",
-              busId: "9227",
-              branch: "39B",
-            },
-            {
-              id: 1,
-              second: "1211",
-              busId: "3283",
-              branch: "39B",
-            },
-            {
-              id: 2,
-              second: "2411",
-              busId: "3109",
-              branch: "39B",
-            },
-          ],
-        },
-      ],
     },
     {
       title: "2 predictions 2 direction",
@@ -380,65 +302,18 @@ describe("eta parsing", () => {
           "@_copyright": "All data copyright Toronto Transit Commission 2022.",
         },
       },
-      result: [
-        {
-          line: "East - 39a Finch East towards Neilson",
-          title: "Finch Ave East At Wilfred Ave",
-          etas: [
-            {
-              id: 0,
-              second: "338",
-              busId: "3124",
-              branch: "39A",
-            },
-            {
-              id: 1,
-              second: "1538",
-              busId: "3281",
-              branch: "39A",
-            },
-            {
-              id: 2,
-              second: "2738",
-              busId: "3234",
-              branch: "39A",
-            },
-          ],
-        },
-        {
-          line: "East - 39b Finch East towards Old Finch and Morningview",
-          title: "Finch Ave East At Wilfred Ave",
-          etas: [
-            {
-              id: 0,
-              second: "447",
-              busId: "9227",
-              branch: "39B",
-            },
-            {
-              id: 1,
-              second: "1289",
-              busId: "3283",
-              branch: "39B",
-            },
-            {
-              id: 2,
-              second: "2489",
-              busId: "3109",
-              branch: "39B",
-            },
-          ],
-        },
-      ],
     },
     {
       title: "empty result",
       input: {},
-      result: [],
     },
   ];
 
-  test.each(testValues)("$title", ({ input, result }) => {
-    expect(etaParser(input)).toEqual(result);
+  test.each(testValues)("$title", ({ input }) => {
+    const component = renderer.create(
+      <p>{JSON.stringify(etaParser(input), null, 4)}</p>
+    );
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });
