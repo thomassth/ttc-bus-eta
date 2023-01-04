@@ -1,9 +1,12 @@
 import { Text } from "@fluentui/react-components";
+import { useTranslation } from "react-i18next";
 
 export default function Error() {
+  const { t } = useTranslation();
+
   return (
     <main>
-      <Text>Error: this page does not exist</Text>
+      <Text>{t("error.notFound")}</Text>
     </main>
   );
 }

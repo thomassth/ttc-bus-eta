@@ -43,6 +43,10 @@ body,
   }
 }
 
+.langSelect {
+  color: black;
+}
+
 .title {
   border: 1px solid transparent;
 }
@@ -77,7 +81,6 @@ main {
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  padding: 1rem;
   gap: 1rem;
 }
 

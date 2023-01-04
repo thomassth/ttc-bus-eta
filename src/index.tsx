@@ -1,9 +1,11 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+import "./i18n/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { MainRouter } from "./routes/MainRouter";
 import { FluentTheme } from "./styles/FluentTheme";
-import { createRoot } from "react-dom/client";
-import React from "react";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

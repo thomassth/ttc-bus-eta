@@ -1,28 +1,36 @@
 import { Button, Input, Text } from "@fluentui/react-components";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEventHandler, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
+
+import useNavigate from "./navigate";
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { navigate } = useNavigate();
 
-  const goto = (input: string) => {
+  const handleLineChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInput(e.currentTarget.value);
+  };
+
+  const handleSearchClick = () => {
     navigate("lines/" + input);
   };
 
   return (
     <main>
-      <Text>You&apos;ll see saved lists here, in the FUTURE.</Text>
-      <Text>For now, bookmark any pages with your line(s) on it.</Text>
+      <Text>
+        <Trans>{t("home.headline")}</Trans>
+      </Text>
       <form className="searchBlock">
         <Input
           value={input}
-          onChange={(e) => setInput(e.currentTarget.value)}
-          aria-label="enter a line number"
-          placeholder="enter a line number"
+          onChange={handleLineChange}
+          aria-label={t("lines.ariaLabel") || ""}
+          placeholder={t("lines.placeholder") || ""}
         />
-        <Button appearance="primary" type="submit" onClick={() => goto(input)}>
-          Search
+        <Button appearance="primary" type="submit" onClick={handleSearchClick}>
+          {t("buttons.search")}
         </Button>
       </form>
     </main>

@@ -7,12 +7,15 @@ import {
   Link,
   Text,
 } from "@fluentui/react-components";
-import { useCallback, useEffect, useState } from "react";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
-import { parseRoute } from "./parser/routeName";
-import { LineStop, stopsParser } from "./parser/StopsParser";
-import RawDisplay from "./RawDisplay";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { fluentStyles } from "../styles/fluent";
+import RawDisplay from "./RawDisplay";
+import { LineStop, stopsParser } from "./parser/StopsParser";
+import { parseRoute } from "./parser/routeName";
+
 const { XMLParser } = require("fast-xml-parser");
 
 interface LineStopElement {
@@ -26,6 +29,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
+  const { t } = useTranslation();
 
   const overrides = fluentStyles();
 
@@ -153,7 +157,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     return (
       <div onClick={fetchBusClick}>
         <Text as="h1" weight="semibold">
-          loading...
+          {t("reminder.loading")}
         </Text>
       </div>
     );

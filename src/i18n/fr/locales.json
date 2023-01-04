@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "label": {
+      "home": "Page d'accueil",
+      "lines": "lignes",
+      "about": "À propos du"
+    }
+  },
+  "home": {
+    "title": {
+      "name": "TTC arrivals",
+      "tooltip": "Rentrer à la maison"
+    },
+    "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br /> Pour l'instant, mettez en signet toutes les pages contenant votre ou vos lignes."
+  },
+  "lines": {
+    "ariaLabel": "entrer un numéro de ligne",
+    "placeholder": "entrer un numéro de ligne",
+    "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
+    "title": "Entrer un numéro de ligne:",
+    "number": "Lignes {{lineNum}} =",
+    "lineAndStopInfo": "Lignes {{lineNum}} Arrêt de {{stopNum}} ="
+  },
+  "stops": {
+    "stopId": "Arrêt de ID {{stopNum}} ="
+  },
+  "buttons": {
+    "search": "Chercher",
+    "refresh": "Rafraîchir"
+  },
+  "reminder": {
+    "noRoute": "Pas d'arrivées à venir.",
+    "failToLocate": "Impossible de localiser cet itinéraire.",
+    "wrongPlace": "Ne devrait pas être ici :/",
+    "loading": "Chargement..."
+  },
+  "error": {
+    "notFound": "Erreur: cette page n'existe pas."
+  },
+  "debug": {
+    "showResponse": "Afficher la réponse brute"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français"
+  }
+}

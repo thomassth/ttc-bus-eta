@@ -1,10 +1,13 @@
-import { Button, Title1, Title2, Text } from "@fluentui/react-components";
+import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import { fluentStyles } from "../styles/fluent";
+import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
 import { Eta, etaParser } from "./parser/EtaParser";
-import RawDisplay from "./RawDisplay";
-import { fluentStyles } from "../styles/fluent";
+
 const { XMLParser } = require("fast-xml-parser");
 
 export interface LineStopEta {
@@ -18,6 +21,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
+  const { t } = useTranslation();
 
   const RefreshButton = function () {
     return (
@@ -28,7 +32,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         }}
         icon={<ArrowClockwise24Regular />}
       >
-        Refresh
+        {t("buttons.refresh")}
       </Button>
     );
   };
@@ -70,7 +74,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             <CountdownGroup key={index} detail={element} />
           ))}
           {etaDb.length === 1 && etaDb[0].line === "" ? (
-            <Title1>No upcoming arrivals.</Title1>
+            <Title1>{t("reminder.noRoute")}</Title1>
           ) : null}
           <RawDisplay data={data} />
         </div>
@@ -80,7 +84,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return (
         <div>
           <RefreshButton />
-          <Title1>Cannot locate this route.</Title1>
+          <Title1>{t("reminder.failToLocate")}</Title1>
           <Text>{data.body.Error}</Text>
           <RawDisplay data={data} />
         </div>
@@ -90,7 +94,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return (
       <div>
         <RefreshButton />
-        <Title1>Loading...</Title1>
+        <Title1>{t("reminder.loading")}</Title1>
       </div>
     );
   }
