@@ -1,11 +1,16 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
 import { LargeTitle, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const { XMLParser } = require("fast-xml-parser");
 
-function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {
+function LineStopPredictionInfo(props: {
+  line: number;
+  stopNum: number;
+}): JSX.Element {
   const [data, setData] = useState<any>();
+  const { t } = useTranslation();
 
   const fetchPredictions = (
     line: Number = props.line,
@@ -42,7 +47,7 @@ function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {
     if (data.body.Error !== undefined) {
       return (
         <div onClick={fetchPredictionClick}>
-          <LargeTitle>Cannot locate this route.</LargeTitle>
+          <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
         </div>
       );
     } else if (
@@ -51,7 +56,8 @@ function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {
       return (
         <div onClick={fetchPredictionClick}>
           <LargeTitle>
-            {data.body.predictions["@_stopTitle"]}No upcoming arrivals.
+            {data.body.predictions["@_stopTitle"]}
+            {t("reminder.noRoute")}
           </LargeTitle>
         </div>
       );
@@ -100,16 +106,16 @@ function PredictionInfo(props: { line: number; stopNum: number }): JSX.Element {
       // if (data.body.Error !== undefined)
       return (
         <div onClick={fetchPredictionClick}>
-          <LargeTitle>Cannot locate this route.</LargeTitle>
+          <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
         </div>
       );
     }
   } else {
     return (
       <div onClick={fetchPredictionClick}>
-        <LargeTitle>Shouldn&apos;t be here :/</LargeTitle>
+        <LargeTitle>{t("reminder.wrongPlace")}</LargeTitle>
       </div>
     );
   }
 }
-export default PredictionInfo;
+export default LineStopPredictionInfo;

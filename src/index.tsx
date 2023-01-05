@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router-dom";
 
 import { store } from "./app/store";
 import { saveState } from "./features/bookmarks/localstorage";
+import "./i18n/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./routes/MainRouter";

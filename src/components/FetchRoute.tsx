@@ -9,6 +9,7 @@ import {
 } from "@fluentui/react-components";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
@@ -28,6 +29,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
+  const { t } = useTranslation();
 
   const overrides = fluentStyles();
 
@@ -155,7 +157,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     return (
       <div onClick={fetchBusClick}>
         <Text as="h1" weight="semibold">
-          loading...
+          {t("reminder.loading")}
         </Text>
       </div>
     );

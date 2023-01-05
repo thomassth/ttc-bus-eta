@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "label": {
+      "home": "Home",
+      "lines": "Lines",
+      "about": "About"
+    }
+  },
+  "home": {
+    "title": {
+      "name": "TTC arrivals",
+      "tooltip": "Return home"
+    },
+    "headline": "You'll see saved lists here, in the FUTURE. <br />",
+    "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit."
+  },
+  "lines": {
+    "ariaLabel": "enter a line number",
+    "placeholder": "enter a line number",
+    "browserTitle": "Line {{lineNum}} | TTC arrivals",
+    "title": "Enter a line number:",
+    "number": "Line {{lineNum}} =",
+    "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} ="
+  },
+  "stops": {
+    "stopId": "Stop ID {{stopNum}} ="
+  },
+  "buttons": {
+    "search": "Search",
+    "refresh": "Refresh",
+    "clear": "Clear All"
+  },
+  "reminder": {
+    "noRoute": "No upcoming arrivals.",
+    "failToLocate": "Cannot locate this route.",
+    "wrongPlace": "Shouldn't be here :/",
+    "loading": "Loading..."
+  },
+  "error": {
+    "notFound": "Error: this page does not exist."
+  },
+  "debug": {
+    "showResponse": "View raw response"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français"
+  }
+}

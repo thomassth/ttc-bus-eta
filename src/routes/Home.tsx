@@ -1,14 +1,20 @@
 import { Button, Input } from "@fluentui/react-components";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEventHandler, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Bookmark from "../features/bookmarks/bookmark";
+import useNavigate from "./navigate";
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { navigate } = useNavigate();
 
-  const goto = (input: string) => {
+  const handleLineChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInput(e.currentTarget.value);
+  };
+
+  const handleSearchClick = () => {
     navigate("lines/" + input);
   };
 
@@ -17,12 +23,12 @@ export default function Home() {
       <form className="searchBlock">
         <Input
           value={input}
-          onChange={(e) => setInput(e.currentTarget.value)}
-          aria-label="enter a line number"
-          placeholder="enter a line number"
+          onChange={handleLineChange}
+          aria-label={t("lines.ariaLabel") || ""}
+          placeholder={t("lines.placeholder") || ""}
         />
-        <Button appearance="primary" type="submit" onClick={() => goto(input)}>
-          Search
+        <Button appearance="primary" type="submit" onClick={handleSearchClick}>
+          {t("buttons.search")}
         </Button>
       </form>
       <Bookmark />

@@ -1,6 +1,7 @@
 import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
@@ -22,6 +23,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<any>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
+  const { t } = useTranslation();
   const overrides = fluentStyles();
 
   const RefreshButton = function () {
@@ -33,7 +35,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         }}
         icon={<ArrowClockwise24Regular />}
       >
-        Refresh
+        {t("buttons.refresh")}
       </Button>
     );
   };
@@ -86,7 +88,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             <CountdownGroup key={index} detail={element} />
           ))}
           {etaDb.length === 1 && etaDb[0].line === "" ? (
-            <Title1>No upcoming arrivals.</Title1>
+            <Title1>{t("reminder.noRoute")}</Title1>
           ) : null}
           <RawDisplay data={data} />
         </div>
@@ -95,7 +97,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       // if (data.body.Error !== undefined)
       return (
         <div>
-          <Title1>Cannot locate this route.</Title1>
+          <Title1>{t("reminder.failToLocate")}</Title1>
           <div className="countdown-row">
             <RefreshButton />
             <BookmarkButton
@@ -112,7 +114,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   } else {
     return (
       <div>
-        <Title1>Loading...</Title1>
+        <Title1>{t("reminder.loading")}</Title1>
         <div className="countdown-row">
           <RefreshButton />
         </div>

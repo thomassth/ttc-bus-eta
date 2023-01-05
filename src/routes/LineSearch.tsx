@@ -1,30 +1,34 @@
 import { Button, Input, Text } from "@fluentui/react-components";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEventHandler, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import useNavigate from "./navigate";
 
 export default function LineSearch() {
   const [input, setInput] = useState("");
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
+  const { t } = useTranslation();
 
-  const goto = (input: string) => {
+  const handleLineChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInput(e.currentTarget.value);
+  };
+
+  const handleSearchClick = () => {
     navigate(input);
   };
 
   return (
     <main>
       <form>
-        <Text>Enter a line number:</Text>
+        <Text>{t("lines.title")}</Text>
         <div className="searchBlock">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.currentTarget.value)}
-          />
+          <Input value={input} onChange={handleLineChange} />
           <Button
             appearance="primary"
-            onClick={() => goto(input)}
+            onClick={handleSearchClick}
             type="submit"
           >
-            Search
+            {t("buttons.search")}
           </Button>
         </div>
       </form>

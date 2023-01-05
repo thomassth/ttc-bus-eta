@@ -1,5 +1,6 @@
 import { Badge, Button, Link, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
@@ -8,6 +9,7 @@ import { clearStopBookmarks } from "./stopBookmarkSlice";
 export default function Bookmark() {
   const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   console.log(stopBookmarks.entities);
 
@@ -28,11 +30,8 @@ export default function Bookmark() {
       </Button> */}
       {stopBookmarks.ids.length === 0 ? (
         <section>
-          <Text>You&apos;ll see saved lists here, in the FUTURE.</Text>
-          <br />
-          <Text>
-            Try clicking the bookmark icons on a stop you frequently visit.
-          </Text>
+          <Trans>{t("home.headline")}</Trans>
+          <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : null}
       <div className="bookmarks">
@@ -42,7 +41,7 @@ export default function Bookmark() {
       </div>
       {stopBookmarks.ids.length > 0 ? (
         <Button onClick={() => dispatch(clearStopBookmarks())}>
-          Clear all
+          {t("buttons.clear")}
         </Button>
       ) : null}
 

@@ -43,6 +43,10 @@ body,
   }
 }
 
+.langSelect {
+  color: black;
+}
+
 .title {
   border: 1px solid transparent;
 }
