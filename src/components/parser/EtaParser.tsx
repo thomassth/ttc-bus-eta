@@ -1,4 +1,4 @@
-import { LineStopEta } from "../FetchStop";
+import { LineStopEta } from "../fetch/FetchStop";
 import { parseRoute } from "./routeName";
 
 export interface Eta {

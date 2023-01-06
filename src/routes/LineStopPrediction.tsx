@@ -2,7 +2,7 @@ import { Title2 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import LineStopPredictionInfo from "../components/FetchLineStop";
+import LineStopPredictionInfo from "../components/fetch/FetchLineStop";
 
 export default function LineStopPrediction() {
   const params = useParams();
