@@ -1,5 +1,5 @@
 import { Anchor, Nav as BottomNav } from "grommet";
-import { ChangeEventHandler } from "react";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 export const BottomBar = () => {
@@ -21,9 +21,12 @@ export const BottomBar = () => {
     },
   ];
 
-  const handleLangChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    i18n.changeLanguage(e.target.value);
-  };
+  const handleLangChange = useCallback(
+    (e: { target: { value: string | undefined } }) => {
+      i18n.changeLanguage(e.target.value);
+    },
+    []
+  );
 
   navItems.forEach((item, index) => {
     if (item.href === window.location.pathname) {

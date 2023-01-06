@@ -12,16 +12,18 @@ import { router } from "./routes/MainRouter";
 import { FluentTheme } from "./styles/FluentTheme";
 
 const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <FluentTheme>
-        <RouterProvider router={router} />
-      </FluentTheme>
-    </Provider>
-  </React.StrictMode>
-);
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <FluentTheme>
+          <RouterProvider router={router} />
+        </FluentTheme>
+      </Provider>
+    </React.StrictMode>
+  );
+}
 
 store.subscribe(() => {
   saveState(store.getState().stopBookmarks);

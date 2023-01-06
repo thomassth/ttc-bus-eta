@@ -1,5 +1,5 @@
 import { Button, Input, Text } from "@fluentui/react-components";
-import { ChangeEventHandler, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import useNavigate from "./navigate";
@@ -9,13 +9,16 @@ export default function LineSearch() {
   const { navigate } = useNavigate();
   const { t } = useTranslation();
 
-  const handleLineChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInput(e.currentTarget.value);
-  };
+  const handleLineChange = useCallback(
+    (e: { currentTarget: { value: SetStateAction<string> } }) => {
+      setInput(e.currentTarget.value);
+    },
+    []
+  );
 
-  const handleSearchClick = () => {
+  const handleSearchClick = useCallback(() => {
     navigate(input);
-  };
+  }, [input]);
 
   return (
     <main>

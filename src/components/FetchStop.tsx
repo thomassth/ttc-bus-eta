@@ -1,6 +1,6 @@
 import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
@@ -26,20 +26,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  const RefreshButton = function () {
-    return (
-      <Button
-        className={overrides.refreshButton}
-        onClick={() => {
-          fetchPredictions();
-        }}
-        icon={<ArrowClockwise24Regular />}
-      >
-        {t("buttons.refresh")}
-      </Button>
-    );
-  };
-
   const fetchPredictions = (stop: number = stopId) => {
     fetch(
       `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stop}`,
@@ -60,11 +46,27 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     });
   };
 
+  const fetchPredictionsClick = useCallback(() => {
+    fetchPredictions();
+  }, []);
+
+  const RefreshButton = function () {
+    return (
+      <Button
+        className={overrides.refreshButton}
+        onClick={fetchPredictionsClick}
+        icon={<ArrowClockwise24Regular />}
+      >
+        {t("buttons.refresh")}
+      </Button>
+    );
+  };
+
   useEffect(() => {
     fetchPredictions();
   }, []);
 
-  if (data != null) {
+  if (data !== undefined) {
     console.log(etaDb);
 
     if (data.body.Error === undefined) {

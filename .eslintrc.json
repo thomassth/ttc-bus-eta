@@ -32,5 +32,9 @@
   "plugins": ["react", "@typescript-eslint", "jest"],
   "globals": {
     "JSX": true
+  },
+  "rules": {
+    "eqeqeq": ["error", "always"],
+    "react/self-closing-comp": ["error"]
   }
 }

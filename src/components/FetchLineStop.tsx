@@ -1,6 +1,6 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
-import { LargeTitle, Text } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
+import { LargeTitle, Link, Text } from "@fluentui/react-components";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const { XMLParser } = require("fast-xml-parser");
@@ -13,8 +13,8 @@ function LineStopPredictionInfo(props: {
   const { t } = useTranslation();
 
   const fetchPredictions = (
-    line: Number = props.line,
-    stopNum: Number = props.stopNum
+    line: number = props.line,
+    stopNum: number = props.stopNum
   ) => {
     // let ans: Document;
     fetch(
@@ -39,27 +39,27 @@ function LineStopPredictionInfo(props: {
     fetchPredictions();
   }, []);
 
-  function fetchPredictionClick(): void {
+  const fetchPredictionClick = useCallback(() => {
     fetchPredictions();
-  }
+  }, []);
 
-  if (data != null) {
+  if (data !== undefined) {
     if (data.body.Error !== undefined) {
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
-        </div>
+        </Link>
       );
     } else if (
       data.body.predictions["@_dirTitleBecauseNoPredictions"] !== undefined
     ) {
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>
             {data.body.predictions["@_stopTitle"]}
             {t("reminder.noRoute")}
           </LargeTitle>
-        </div>
+        </Link>
       );
     } else if (data.body.Error === undefined) {
       return (
@@ -73,8 +73,8 @@ function LineStopPredictionInfo(props: {
           {Array.isArray(data.body.predictions.direction.isArray) === false ? (
             <div className="directionList list">
               {data.body.predictions.direction.prediction.map(
-                (element: any, index: number) => {
-                  return <Text key={`${index}`}>{element["@_seconds"]}s</Text>;
+                (bus: any, index: number) => {
+                  return <Text key={`${index}`}>{bus["@_seconds"]}s</Text>;
                 }
               )}
             </div>
@@ -82,19 +82,17 @@ function LineStopPredictionInfo(props: {
           {/* Common scene */}
           {data.body.predictions.direction.length > 1
             ? data.body.predictions.direction.map(
-                (element: any, index: number) => {
+                (line: any, index: number) => {
                   return (
                     <div className="directionList list" key={`${index}`}>
-                      <Text>{element["@_title"]}</Text>
-                      {element.prediction.map(
-                        (element: any, index2: number) => {
-                          return (
-                            <Text key={`${index}-${index2}`}>
-                              {element["@_seconds"]}s
-                            </Text>
-                          );
-                        }
-                      )}
+                      <Text>{line["@_title"]}</Text>
+                      {line.prediction.map((bus: any, index2: number) => {
+                        return (
+                          <Text key={`${index}-${index2}`}>
+                            {bus["@_seconds"]}s
+                          </Text>
+                        );
+                      })}
                     </div>
                   );
                 }
@@ -105,16 +103,16 @@ function LineStopPredictionInfo(props: {
     } else {
       // if (data.body.Error !== undefined)
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
-        </div>
+        </Link>
       );
     }
   } else {
     return (
-      <div onClick={fetchPredictionClick}>
+      <Link appearance="subtle" onClick={fetchPredictionClick}>
         <LargeTitle>{t("reminder.wrongPlace")}</LargeTitle>
-      </div>
+      </Link>
     );
   }
 }

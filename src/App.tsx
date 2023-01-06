@@ -35,7 +35,7 @@ export const App = () => {
         {dimensions.width >= 800 && <div />}
       </div>
       <Outlet />
-      {dimensions.width < 800 && <div className="nav-buffer"></div>}
+      {dimensions.width < 800 && <div className="nav-buffer" />}
       {/* {(dimensions.width < 800) && <BottomBar />} */}
       <BottomBar />
     </div>
