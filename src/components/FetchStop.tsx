@@ -64,7 +64,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     fetchPredictions();
   }, []);
 
-  if (data != null) {
+  if (data !== null) {
     console.log(etaDb);
 
     if (data.body.Error === undefined) {

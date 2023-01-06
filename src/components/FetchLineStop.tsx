@@ -43,7 +43,7 @@ function LineStopPredictionInfo(props: {
     fetchPredictions();
   }
 
-  if (data != null) {
+  if (data !== null) {
     if (data.body.Error !== undefined) {
       return (
         <div onClick={fetchPredictionClick}>

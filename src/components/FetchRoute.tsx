@@ -121,7 +121,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     fetchBus();
   }
 
-  if (data != null) {
+  if (data !== null) {
     if (data.body.Error === undefined) {
       return (
         <div className="directionList list">
