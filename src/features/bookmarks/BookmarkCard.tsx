@@ -1,11 +1,11 @@
 import { Badge, Link } from "@fluentui/react-components";
-import { Card } from "@fluentui/react-components/dist/unstable";
+import { Card } from "@fluentui/react-components/unstable";
 
 import { useAppSelector } from "../../app/hooks";
 
-export const BookmarkCard = (props: any) => {
+export const BookmarkCard = (props: { id: number }) => {
   const id = props.id;
-  const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
+  const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   return (
     <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
       <Card>
