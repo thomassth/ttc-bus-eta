@@ -1,6 +1,6 @@
 import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
@@ -26,13 +26,15 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
+  const fetchPredictionsClick = useCallback(() => {
+    fetchPredictions();
+  }, []);
+
   const RefreshButton = function () {
     return (
       <Button
         className={overrides.refreshButton}
-        onClick={() => {
-          fetchPredictions();
-        }}
+        onClick={fetchPredictionsClick}
         icon={<ArrowClockwise24Regular />}
       >
         {t("buttons.refresh")}

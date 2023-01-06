@@ -30,19 +30,30 @@ export const etaParser = (json: any) => {
           etas: [],
           stopTag: parseInt(predictionGroup["@_stopTag"]),
         });
-        json.body.predictions.direction.prediction.map(
-          (element: any, index: number) => {
-            result[result.length - 1].etas.push({
-              id: index,
-              second: element["@_seconds"],
-              busId: element["@_vehicle"],
-              branch: element["@_branch"],
-              tripTag: element["@_tripTag"],
-              epochTime: element["@_epochTime"],
-            });
-            return null;
-          }
-        );
+        if (Array.isArray(json.body.predictions.direction.prediction)) {
+          json.body.predictions.direction.prediction.map(
+            (element: any, index: number) => {
+              result[result.length - 1].etas.push({
+                id: index,
+                second: element["@_seconds"],
+                busId: element["@_vehicle"],
+                branch: element["@_branch"],
+                tripTag: element["@_tripTag"],
+                epochTime: element["@_epochTime"],
+              });
+              return null;
+            }
+          );
+        } else {
+          const predictionGroup = json.body.predictions.direction.prediction;
+          result.push({
+            line: predictionGroup["@_routeTag"],
+            stopName: predictionGroup["@_stopTitle"],
+            routeName: parseRoute(predictionGroup["@_routeTitle"]),
+            etas: [],
+            stopTag: parseInt(predictionGroup["@_stopTag"]),
+          });
+        }
       } else {
         // 1 prediction, 2 directions
         // Eg. stops/14761 returns 939A, 939B
@@ -51,7 +62,7 @@ export const etaParser = (json: any) => {
         const line = predictionGroup["@_routeTag"];
         const stopName = predictionGroup["@_stopTitle"];
         const stopTag = parseInt(predictionGroup["@_stopTag"]);
-        predictionGroup.direction.map((element: any, index: number) => {
+        predictionGroup.direction.map((element: any) => {
           // Only lines with etas are listed
           if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
             result.push({
@@ -112,14 +123,14 @@ export const etaParser = (json: any) => {
     }
   } else {
     console.log("multi line stop");
-    json.body.predictions.map((element: any, index: number) => {
+    json.body.predictions.map((element: any) => {
       // Only lines with etas are listed
       if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
         if (Array.isArray(element.direction)) {
           const stopName = element["@_stopTitle"];
           const line = element["@_routeTag"];
           const stopTag = parseInt(element["@_stopTag"]);
-          element.direction.map((el3: any, index3: number) => {
+          element.direction.map((el3: any) => {
             result.push({
               line,
               stopName,

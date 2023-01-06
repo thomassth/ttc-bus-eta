@@ -1,6 +1,6 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
 import { LargeTitle, Link, Text } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const { XMLParser } = require("fast-xml-parser");
@@ -39,9 +39,9 @@ function LineStopPredictionInfo(props: {
     fetchPredictions();
   }, []);
 
-  function fetchPredictionClick(): void {
+  const fetchPredictionClick = useCallback(() => {
     fetchPredictions();
-  }
+  }, []);
 
   if (data !== undefined) {
     if (data.body.Error !== undefined) {

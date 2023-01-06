@@ -87,9 +87,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     fetchBus();
   }, []);
 
-  function fetchBusClick(): void {
-    fetchBus();
-  }
+  const fetchBusClick = useCallback(() => fetchBus(), []);
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {

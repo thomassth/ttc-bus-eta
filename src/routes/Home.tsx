@@ -1,5 +1,5 @@
 import { Button, Input } from "@fluentui/react-components";
-import { ChangeEventHandler, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Bookmark from "../features/bookmarks/bookmark";
@@ -10,13 +10,16 @@ export default function Home() {
   const { t } = useTranslation();
   const { navigate } = useNavigate();
 
-  const handleLineChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInput(e.currentTarget.value);
-  };
+  const handleLineChange = useCallback(
+    (e: { currentTarget: { value: SetStateAction<string> } }) => {
+      setInput(e.currentTarget.value);
+    },
+    []
+  );
 
-  const handleSearchClick = () => {
+  const handleSearchClick = useCallback(() => {
     navigate("lines/" + input);
-  };
+  }, [input]);
 
   return (
     <main>
