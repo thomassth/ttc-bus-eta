@@ -3,7 +3,7 @@ export function parseRoute(routeName: string) {
   const dirAndTagRegex = /\w+ - \w+ /i;
   // remove line number
   const tagRegex = /\w+-/i;
-  if (routeName.match(dirAndTagRegex)) {
+  if (dirAndTagRegex.test(routeName)) {
     return routeName.replace(dirAndTagRegex, "");
   } else {
     return routeName.replace(tagRegex, "");

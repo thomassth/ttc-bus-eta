@@ -1,5 +1,5 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
-import { LargeTitle, Text } from "@fluentui/react-components";
+import { LargeTitle, Link, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -46,20 +46,20 @@ function LineStopPredictionInfo(props: {
   if (data !== undefined) {
     if (data.body.Error !== undefined) {
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
-        </div>
+        </Link>
       );
     } else if (
       data.body.predictions["@_dirTitleBecauseNoPredictions"] !== undefined
     ) {
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>
             {data.body.predictions["@_stopTitle"]}
             {t("reminder.noRoute")}
           </LargeTitle>
-        </div>
+        </Link>
       );
     } else if (data.body.Error === undefined) {
       return (
@@ -103,16 +103,16 @@ function LineStopPredictionInfo(props: {
     } else {
       // if (data.body.Error !== undefined)
       return (
-        <div onClick={fetchPredictionClick}>
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
-        </div>
+        </Link>
       );
     }
   } else {
     return (
-      <div onClick={fetchPredictionClick}>
+      <Link appearance="subtle" onClick={fetchPredictionClick}>
         <LargeTitle>{t("reminder.wrongPlace")}</LargeTitle>
-      </div>
+      </Link>
     );
   }
 }

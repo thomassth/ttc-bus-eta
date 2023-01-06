@@ -125,11 +125,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
     }
   } else {
     return (
-      <div onClick={fetchBusClick}>
+      <Link appearance="subtle" onClick={fetchBusClick}>
         <Text as="h1" weight="semibold">
           {t("reminder.loading")}
         </Text>
-      </div>
+      </Link>
     );
   }
 }
