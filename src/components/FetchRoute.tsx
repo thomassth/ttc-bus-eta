@@ -1,20 +1,12 @@
-import {
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
-  Badge,
-  Button,
-  Link,
-  Text,
-} from "@fluentui/react-components";
+import { Badge, Button, Link, Text } from "@fluentui/react-components";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
+import { StopAccordions } from "./lists/StopAccordions";
 import { LineStop, stopsParser } from "./parser/StopsParser";
-import { parseRoute } from "./parser/routeName";
 
 const { XMLParser } = require("fast-xml-parser");
 
@@ -50,28 +42,6 @@ function RouteInfo(props: { line: number }): JSX.Element {
         setStopDb(stopsParser(dataJson));
       });
     });
-  };
-
-  const StopAccordions = (props: any) => {
-    const final: JSX.Element[] = [];
-    props.result.map((element: LineStop, index: number) => {
-      final.push(
-        <AccordionPanel key={`${index}`}>
-          {element.stopId} {element.latlong} {element.id} {element.name}
-        </AccordionPanel>
-      );
-      return element;
-    });
-    return (
-      <AccordionItem value={props.title}>
-        <AccordionHeader className={overrides.accordionHeader}>
-          <Badge className={overrides.badge}>{props.direction}</Badge>
-          <Badge className={overrides.badge}>{props.lineNum}</Badge>
-          {parseRoute(props.title)}
-        </AccordionHeader>
-        {final}
-      </AccordionItem>
-    );
   };
 
   const createStopList = useCallback(
@@ -121,7 +91,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     fetchBus();
   }
 
-  if (data !== null) {
+  if (data !== undefined) {
     if (data.body.Error === undefined) {
       return (
         <div className="directionList list">

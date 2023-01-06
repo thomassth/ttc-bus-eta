@@ -1,4 +1,4 @@
-export function parseRoute(routeName: String) {
+export function parseRoute(routeName: string) {
   // remove line number, directions
   const dirAndTagRegex = /\w+ - \w+ /i;
   // remove line number
