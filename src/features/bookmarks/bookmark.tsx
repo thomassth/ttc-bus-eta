@@ -48,7 +48,7 @@ export default function Bookmark() {
         <Button onClick={clearAllBookmarks}>{t("buttons.clear")}</Button>
       ) : null}
 
-      <RawDisplay data={stopBookmarks}></RawDisplay>
+      <RawDisplay data={stopBookmarks} />
     </main>
   );
 }

@@ -27,8 +27,8 @@ export const router = createBrowserRouter(
       <Route path="stops" element={<Outlet />}>
         <Route path=":stopId" element={<StopPrediction />} />
       </Route>
-      <Route path="about" element={<About />}></Route>
-      <Route path="bookmark" element={<Bookmark />}></Route>
+      <Route path="about" element={<About />} />
+      <Route path="bookmark" element={<Bookmark />} />
       <Route path="*" element={<Error />} />
       <Route index element={<Home />} />
     </Route>

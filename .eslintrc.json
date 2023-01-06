@@ -34,6 +34,7 @@
     "JSX": true
   },
   "rules": {
-    "eqeqeq": ["error", "always"]
+    "eqeqeq": ["error", "always"],
+    "react/self-closing-comp": ["error"]
   }
 }

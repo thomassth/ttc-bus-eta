@@ -43,6 +43,6 @@ export const BookmarkButton = function (props: {
         )
       }
       onClick={checkBookmarkStatus}
-    ></Button>
+    />
   );
 };

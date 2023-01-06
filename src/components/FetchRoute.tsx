@@ -105,7 +105,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
               />
             );
           })}
-          <RawDisplay data={data}></RawDisplay>
+          <RawDisplay data={data} />
         </div>
       );
     } else {
@@ -117,7 +117,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
               {`Error: ${data.body.Error["#text"]}`}
             </Text>
           </Link>
-          <RawDisplay data={data}></RawDisplay>
+          <RawDisplay data={data} />
         </div>
       );
     }
