@@ -1,10 +1,10 @@
-import { Badge, Button, Link, Text } from "@fluentui/react-components";
-import { Card } from "@fluentui/react-components/unstable";
+import { Button, Text } from "@fluentui/react-components";
 import { useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
+import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";
 
 export default function Bookmark() {
@@ -52,18 +52,3 @@ export default function Bookmark() {
     </main>
   );
 }
-
-const BookmarkCard = (props: any) => {
-  const id = props.id;
-  const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
-  return (
-    <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
-      <Card>
-        <div className="countdown-row">
-          <Badge>{stopBookmarks.entities[id].ttcId}</Badge>
-          {stopBookmarks.entities[id].name}
-        </div>
-      </Card>
-    </Link>
-  );
-};

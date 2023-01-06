@@ -26,22 +26,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  const fetchPredictionsClick = useCallback(() => {
-    fetchPredictions();
-  }, []);
-
-  const RefreshButton = function () {
-    return (
-      <Button
-        className={overrides.refreshButton}
-        onClick={fetchPredictionsClick}
-        icon={<ArrowClockwise24Regular />}
-      >
-        {t("buttons.refresh")}
-      </Button>
-    );
-  };
-
   const fetchPredictions = (stop: number = stopId) => {
     fetch(
       `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stop}`,
@@ -60,6 +44,22 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         setEtaDb(etaParser(dataJson));
       });
     });
+  };
+
+  const fetchPredictionsClick = useCallback(() => {
+    fetchPredictions();
+  }, []);
+
+  const RefreshButton = function () {
+    return (
+      <Button
+        className={overrides.refreshButton}
+        onClick={fetchPredictionsClick}
+        icon={<ArrowClockwise24Regular />}
+      >
+        {t("buttons.refresh")}
+      </Button>
+    );
   };
 
   useEffect(() => {

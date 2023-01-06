@@ -12,15 +12,6 @@ export const BookmarkButton = function (props: {
 }) {
   const dispatch = useAppDispatch();
   const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
-
-  const checkBookmarkStatus = useCallback(() => {
-    if (stopBookmarks.ids.includes(props.stopId)) {
-      console.log(stopBookmarks.ids);
-    } else {
-      checkAndAddBookmark(props.stopId);
-    }
-  }, [props.stopId]);
-
   const checkAndAddBookmark = (stopId: number) => {
     console.log(`${stopId}`);
 
@@ -32,6 +23,13 @@ export const BookmarkButton = function (props: {
       })
     );
   };
+  const checkBookmarkStatus = useCallback(() => {
+    if (stopBookmarks.ids.includes(props.stopId)) {
+      console.log(stopBookmarks.ids);
+    } else {
+      checkAndAddBookmark(props.stopId);
+    }
+  }, [props.stopId]);
 
   return (
     <Button
