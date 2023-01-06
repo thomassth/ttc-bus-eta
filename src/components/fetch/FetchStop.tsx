@@ -8,8 +8,7 @@ import { fluentStyles } from "../../styles/fluent";
 import RawDisplay from "../RawDisplay";
 import CountdownGroup from "../countdown/CountdownGroup";
 import { Eta, etaParser } from "../parser/EtaParser";
-
-const { XMLParser } = require("fast-xml-parser");
+import { FetchXMLWithCancelToken } from "./FetchUtils";
 
 export interface LineStopEta {
   line: string;
@@ -48,28 +47,25 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
-      {
-        signal: controller.signal,
-        method: "GET",
+    const fetchEtaData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
+
+      return { parsedData, error };
+    };
+
+    fetchEtaData().then(({ parsedData, error }) => {
+      if (error !== undefined) {
+        return;
       }
-    )
-      .then((response) => {
-        response.text().then((str) => {
-          const parser = new XMLParser({
-            ignoreAttributes: false,
-            attributeNamePrefix: "@_",
-          });
-          const dataJson = parser.parse(str);
-          setData(dataJson);
-          console.log(dataJson);
-          setEtaDb(etaParser(dataJson));
-        });
-      })
-      .catch(() => {
-        // no handling required ?
-      });
+      setData(parsedData);
+      setEtaDb(etaParser(parsedData));
+    });
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {

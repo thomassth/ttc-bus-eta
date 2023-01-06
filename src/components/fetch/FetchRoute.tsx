@@ -7,8 +7,7 @@ import { fluentStyles } from "../../styles/fluent";
 import RawDisplay from "../RawDisplay";
 import { StopAccordions } from "../lists/StopAccordions";
 import { LineStop, stopsParser } from "../parser/StopsParser";
-
-const { XMLParser } = require("fast-xml-parser");
+import { FetchXMLWithCancelToken } from "./FetchUtils";
 
 interface LineStopElement {
   id: JSX.Element;
@@ -66,27 +65,26 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${lineNum}`,
-      {
-        signal: controller.signal,
-        method: "GET",
+
+    const fetchStopsData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${lineNum}`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
+
+      return { parsedData, error };
+    };
+
+    fetchStopsData().then(({ parsedData, error }) => {
+      if (error !== undefined) {
+        return;
       }
-    )
-      .then((response) => {
-        response.text().then((str) => {
-          const parser = new XMLParser({
-            ignoreAttributes: false,
-            attributeNamePrefix: "@_",
-          });
-          const dataJson = parser.parse(str);
-          setData(dataJson);
-          setStopDb(stopsParser(dataJson));
-        });
-      })
-      .catch(() => {
-        // no handling required ?
-      });
+      setData(parsedData);
+      setStopDb(stopsParser(parsedData));
+    });
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
