@@ -35,7 +35,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       response.text().then((str) => {
         const parser = new XMLParser({
           ignoreAttributes: false,
-          attributeNamePrefix: "@_",
+          attributeNamePrefix: "",
         });
         const dataJson = parser.parse(str);
         setData(dataJson);
@@ -49,7 +49,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       const result: LineStopElement[] = [];
       json.stop.map((element: any) => {
         const matchingStop = stopDb.find(
-          (searching) => parseInt(element["@_tag"]) === searching.id
+          (searching) => parseInt(element.tag) === searching.id
         );
         result.push({
           id: (
@@ -97,9 +97,9 @@ function RouteInfo(props: { line: number }): JSX.Element {
             const list = createStopList(element);
             return (
               <StopAccordions
-                title={element["@_title"]}
-                direction={element["@_name"]}
-                lineNum={element["@_branch"]}
+                title={element.title}
+                direction={element.name}
+                lineNum={element.branch}
                 result={list}
                 key={`sa-${index}`}
               />

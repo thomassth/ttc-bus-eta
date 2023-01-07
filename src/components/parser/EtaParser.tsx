@@ -19,27 +19,27 @@ export const etaParser = (json: any) => {
 
   if (Array.isArray(json.body.predictions) === false) {
     console.log("single lines stop");
-    if (json.body.predictions["@_dirTitleBecauseNoPredictions"] === undefined) {
+    if (json.body.predictions.dirTitleBecauseNoPredictions === undefined) {
       if (Array.isArray(json.body.predictions.direction) === false) {
         const predictionGroup = json.body.predictions;
         // multiple lines => multiple directions
         result.push({
-          line: predictionGroup["@_routeTag"],
-          stopName: predictionGroup["@_stopTitle"],
-          routeName: parseRoute(predictionGroup["@_routeTitle"]),
+          line: predictionGroup.routeTag,
+          stopName: predictionGroup.stopTitle,
+          routeName: parseRoute(predictionGroup.routeTitle),
           etas: [],
-          stopTag: parseInt(predictionGroup["@_stopTag"]),
+          stopTag: parseInt(predictionGroup.stopTag),
         });
         if (Array.isArray(json.body.predictions.direction.prediction)) {
           json.body.predictions.direction.prediction.map(
             (element: any, index: number) => {
               result[result.length - 1].etas.push({
                 id: index,
-                second: element["@_seconds"],
-                busId: element["@_vehicle"],
-                branch: element["@_branch"],
-                tripTag: element["@_tripTag"],
-                epochTime: element["@_epochTime"],
+                second: element.seconds,
+                busId: element.vehicle,
+                branch: element.branch,
+                tripTag: element.tripTag,
+                epochTime: element.epochTime,
               });
               return null;
             }
@@ -47,11 +47,11 @@ export const etaParser = (json: any) => {
         } else {
           const predictionGroup = json.body.predictions.direction.prediction;
           result.push({
-            line: predictionGroup["@_routeTag"],
-            stopName: predictionGroup["@_stopTitle"],
-            routeName: parseRoute(predictionGroup["@_routeTitle"]),
+            line: predictionGroup.routeTag,
+            stopName: predictionGroup.stopTitle,
+            routeName: parseRoute(predictionGroup.routeTitle),
             etas: [],
-            stopTag: parseInt(predictionGroup["@_stopTag"]),
+            stopTag: parseInt(predictionGroup.stopTag),
           });
         }
       } else {
@@ -59,12 +59,12 @@ export const etaParser = (json: any) => {
         // Eg. stops/14761 returns 939A, 939B
         const predictionGroup = json.body.predictions;
 
-        const line = predictionGroup["@_routeTag"];
-        const stopName = predictionGroup["@_stopTitle"];
-        const stopTag = parseInt(predictionGroup["@_stopTag"]);
+        const line = predictionGroup.routeTag;
+        const stopName = predictionGroup.stopTitle;
+        const stopTag = parseInt(predictionGroup.stopTag);
         predictionGroup.direction.map((element: any) => {
           // Only lines with etas are listed
-          if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
+          if (element.dirTitleBecauseNoPredictions === undefined) {
             result.push({
               line,
               stopName,
@@ -76,21 +76,21 @@ export const etaParser = (json: any) => {
               const item = element.direction.prediction;
               result[result.length - 1].etas.push({
                 id: 0,
-                second: item["@_seconds"],
-                busId: item["@_vehicle"],
-                branch: item["@_branch"],
-                tripTag: item["@_tripTag"],
-                epochTime: item["@_epochTime"],
+                second: item.seconds,
+                busId: item.vehicle,
+                branch: item.branch,
+                tripTag: item.tripTag,
+                epochTime: item.epochTime,
               });
             } else {
               element.prediction.map((el2: any, index2: number) => {
                 result[result.length - 1].etas.push({
                   id: index2,
-                  second: el2["@_seconds"],
-                  busId: el2["@_vehicle"],
-                  branch: el2["@_branch"],
-                  tripTag: el2["@_tripTag"],
-                  epochTime: el2["@_epochTime"],
+                  second: el2.seconds,
+                  busId: el2.vehicle,
+                  branch: el2.branch,
+                  tripTag: el2.tripTag,
+                  epochTime: el2.epochTime,
                 });
                 return null;
               });
@@ -103,10 +103,10 @@ export const etaParser = (json: any) => {
         if (result.length === 0) {
           result.push({
             line: "",
-            stopName: json.body.predictions[0]["@_stopTitle"],
+            stopName: json.body.predictions[0].stopTitle,
             routeName: "",
             etas: [],
-            stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
+            stopTag: parseInt(json.body.predictions[0].stopTag),
           });
         }
         return result;
@@ -115,26 +115,26 @@ export const etaParser = (json: any) => {
       console.log("no ETA at all");
       result.push({
         line: "No ETAs detected.",
-        stopName: json.body.predictions["@_stopTitle"],
+        stopName: json.body.predictions.stopTitle,
         routeName: "",
         etas: [],
-        stopTag: parseInt(json.body.predictions["@_stopTag"]),
+        stopTag: parseInt(json.body.predictions.stopTag),
       });
     }
   } else {
     console.log("multi line stop");
     json.body.predictions.map((element: any) => {
       // Only lines with etas are listed
-      if (element["@_dirTitleBecauseNoPredictions"] === undefined) {
+      if (element.dirTitleBecauseNoPredictions === undefined) {
         if (Array.isArray(element.direction)) {
-          const stopName = element["@_stopTitle"];
-          const line = element["@_routeTag"];
-          const stopTag = parseInt(element["@_stopTag"]);
+          const stopName = element.stopTitle;
+          const line = element.routeTag;
+          const stopTag = parseInt(element.stopTag);
           element.direction.map((el3: any) => {
             result.push({
               line,
               stopName,
-              routeName: parseRoute(el3["@_title"]),
+              routeName: parseRoute(el3.title),
               etas: [],
               stopTag,
             });
@@ -143,21 +143,21 @@ export const etaParser = (json: any) => {
               const item = el3.prediction;
               result[result.length - 1].etas.push({
                 id: 0,
-                second: item["@_seconds"],
-                busId: item["@_vehicle"],
-                branch: item["@_branch"],
-                tripTag: item["@_tripTag"],
-                epochTime: item["@_epochTime"],
+                second: item.seconds,
+                busId: item.vehicle,
+                branch: item.branch,
+                tripTag: item.tripTag,
+                epochTime: item.epochTime,
               });
             } else {
               el3.prediction.map((el2: any, index2: number) => {
                 result[result.length - 1].etas.push({
                   id: index2,
-                  second: el2["@_seconds"],
-                  busId: el2["@_vehicle"],
-                  branch: el2["@_branch"],
-                  tripTag: el2["@_tripTag"],
-                  epochTime: el2["@_epochTime"],
+                  second: el2.seconds,
+                  busId: el2.vehicle,
+                  branch: el2.branch,
+                  tripTag: el2.tripTag,
+                  epochTime: el2.epochTime,
                 });
                 return null;
               });
@@ -167,31 +167,31 @@ export const etaParser = (json: any) => {
           });
         } else {
           result.push({
-            line: element["@_routeTag"],
-            stopName: element["@_stopTitle"],
-            routeName: parseRoute(element["@_routeTitle"]),
+            line: element.routeTag,
+            stopName: element.stopTitle,
+            routeName: parseRoute(element.routeTitle),
             etas: [],
-            stopTag: parseInt(element["@_stopTag"]),
+            stopTag: parseInt(element.stopTag),
           });
           if (Array.isArray(element.direction.prediction) === false) {
             const item = element.direction.prediction;
             result[result.length - 1].etas.push({
               id: 0,
-              second: item["@_seconds"],
-              busId: item["@_vehicle"],
-              branch: item["@_branch"],
-              tripTag: item["@_tripTag"],
-              epochTime: item["@_epochTime"],
+              second: item.seconds,
+              busId: item.vehicle,
+              branch: item.branch,
+              tripTag: item.tripTag,
+              epochTime: item.epochTime,
             });
           } else {
             element.direction.prediction.map((el2: any, index2: number) => {
               result[result.length - 1].etas.push({
                 id: index2,
-                second: el2["@_seconds"],
-                busId: el2["@_vehicle"],
-                branch: el2["@_branch"],
-                tripTag: el2["@_tripTag"],
-                epochTime: el2["@_epochTime"],
+                second: el2.seconds,
+                busId: el2.vehicle,
+                branch: el2.branch,
+                tripTag: el2.tripTag,
+                epochTime: el2.epochTime,
               });
               return null;
             });
@@ -206,10 +206,10 @@ export const etaParser = (json: any) => {
       console.log("empty db");
       result.push({
         line: "",
-        stopName: json.body.predictions[0]["@_stopTitle"],
+        stopName: json.body.predictions[0].stopTitle,
         routeName: "",
         etas: [],
-        stopTag: parseInt(json.body.predictions[0]["@_stopTag"]),
+        stopTag: parseInt(json.body.predictions[0].stopTag),
       });
     }
   }

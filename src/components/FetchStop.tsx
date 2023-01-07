@@ -36,7 +36,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       response.text().then((str) => {
         const parser = new XMLParser({
           ignoreAttributes: false,
-          attributeNamePrefix: "@_",
+          attributeNamePrefix: "",
         });
         const dataJson = parser.parse(str);
         setData(dataJson);

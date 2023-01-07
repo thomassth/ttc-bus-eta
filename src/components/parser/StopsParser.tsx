@@ -9,14 +9,14 @@ export function stopsParser(json: any): LineStop[] {
   console.log(json);
   if (json.body.Error === undefined) {
     json.body.route.stop.map((element: any) => {
-      if (element["@_stopId"] === undefined) {
+      if (element.stopId === undefined) {
         console.log(element);
       } else {
         result.push({
-          id: parseInt(element["@_tag"]),
-          name: element["@_title"],
-          latlong: [parseFloat(element["@_lat"]), parseFloat(element["@_lon"])],
-          stopId: parseInt(element["@_stopId"]),
+          id: parseInt(element.tag),
+          name: element.title,
+          latlong: [parseFloat(element.lat), parseFloat(element.lon)],
+          stopId: parseInt(element.stopId),
         });
       }
       return element;

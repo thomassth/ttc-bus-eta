@@ -26,7 +26,7 @@ function LineStopPredictionInfo(props: {
       response.text().then((str) => {
         const parser = new XMLParser({
           ignoreAttributes: false,
-          attributeNamePrefix: "@_",
+          attributeNamePrefix: "",
         });
         const dataJson = parser.parse(str);
         setData(dataJson);
@@ -51,12 +51,12 @@ function LineStopPredictionInfo(props: {
         </Link>
       );
     } else if (
-      data.body.predictions["@_dirTitleBecauseNoPredictions"] !== undefined
+      data.body.predictions.dirTitleBecauseNoPredictions !== undefined
     ) {
       return (
         <Link appearance="subtle" onClick={fetchPredictionClick}>
           <LargeTitle>
-            {data.body.predictions["@_stopTitle"]}
+            {data.body.predictions.stopTitle}
             {t("reminder.noRoute")}
           </LargeTitle>
         </Link>
@@ -67,7 +67,7 @@ function LineStopPredictionInfo(props: {
           {/* {JSON.stringify(data.body)} */}
           {/* Only 1 time or only 1 direction */}
           {Array.isArray(data.body.predictions.direction) === false ? (
-            <Text>{data.body.predictions.direction["@_title"]}</Text>
+            <Text>{data.body.predictions.direction.title}</Text>
           ) : null}
           {/* Only 1 direction */}
           {Array.isArray(data.body.predictions.direction.isArray) === false ? (
@@ -85,12 +85,10 @@ function LineStopPredictionInfo(props: {
                 (line: any, index: number) => {
                   return (
                     <div className="directionList list" key={`${index}`}>
-                      <Text>{line["@_title"]}</Text>
+                      <Text>{line.title}</Text>
                       {line.prediction.map((bus: any, index2: number) => {
                         return (
-                          <Text key={`${index}-${index2}`}>
-                            {bus["@_seconds"]}s
-                          </Text>
+                          <Text key={`${index}-${index2}`}>{bus.seconds}s</Text>
                         );
                       })}
                     </div>
