@@ -3,7 +3,7 @@ import { Card } from "@fluentui/react-components/unstable";
 
 import { useAppSelector } from "../../app/hooks";
 
-export const BookmarkCard = (props: { id: number }) => {
+export function BookmarkCard(props: { id: number }) {
   const id = props.id;
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   return (
@@ -16,4 +16,4 @@ export const BookmarkCard = (props: { id: number }) => {
       </Card>
     </Link>
   );
-};
+}
