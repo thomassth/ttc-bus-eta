@@ -80,8 +80,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             />
           </div>
 
-          {etaDb.map((element, index) => (
-            <CountdownGroup key={index} detail={element} />
+          {etaDb.map((element) => (
+            <CountdownGroup
+              key={`${element.line}-${element.stopTag}`}
+              detail={element}
+            />
           ))}
           {etaDb.length === 1 && etaDb[0].line === "" ? (
             <Title1>{t("reminder.noRoute")}</Title1>

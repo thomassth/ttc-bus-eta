@@ -105,7 +105,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
                   direction={element.name}
                   lineNum={element.branch}
                   result={list}
-                  key={`sa-${index}`}
+                  key={`${element.branch}-${element.name}`}
                 />
               );
             }

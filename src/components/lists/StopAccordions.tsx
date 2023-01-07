@@ -18,9 +18,9 @@ export const StopAccordions = (props: {
   const overrides = fluentStyles();
 
   const final: JSX.Element[] = [];
-  props.result.map((lineStop, index: number) => {
+  props.result.map((lineStop) => {
     final.push(
-      <AccordionPanel key={`${index}`}>
+      <AccordionPanel key={`${lineStop.id}`}>
         {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}
       </AccordionPanel>
     );
