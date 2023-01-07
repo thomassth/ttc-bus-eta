@@ -1,26 +1,43 @@
-export interface LineStop {
-  id: number;
-  name: string;
-  latlong: number[];
-  stopId: number;
-}
-export function stopsParser(json: any): LineStop[] {
+import { LineStop } from "../../data/EtaObjects";
+
+export function stopsParser(json: {
+  body: {
+    Error: string | undefined;
+    route: {
+      stop: {
+        stopId: string | undefined;
+        tag: string;
+        title: string;
+        lat: string;
+        lon: string;
+      }[];
+    };
+  };
+}): LineStop[] {
   const result: LineStop[] = [];
   console.log(json);
   if (json.body.Error === undefined) {
-    json.body.route.stop.map((element: any) => {
-      if (element["@_stopId"] === undefined) {
-        console.log(element);
-      } else {
-        result.push({
-          id: parseInt(element["@_tag"]),
-          name: element["@_title"],
-          latlong: [parseFloat(element["@_lat"]), parseFloat(element["@_lon"])],
-          stopId: parseInt(element["@_stopId"]),
-        });
+    json.body.route.stop.map(
+      (element: {
+        stopId: string | undefined;
+        tag: string;
+        title: string;
+        lat: string;
+        lon: string;
+      }) => {
+        if (element.stopId === undefined) {
+          console.log(element);
+        } else {
+          result.push({
+            id: parseInt(element.tag),
+            name: element.title,
+            latlong: [parseFloat(element.lat), parseFloat(element.lon)],
+            stopId: parseInt(element.stopId),
+          });
+        }
+        return element;
       }
-      return element;
-    });
+    );
   } else {
     result.push({
       name: "Error",

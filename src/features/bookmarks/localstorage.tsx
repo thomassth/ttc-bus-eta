@@ -7,10 +7,14 @@ export const loadState = () => {
     return JSON.parse(serialState);
   } catch (err) {
     console.log(err);
+    return { ids: [], entities: {} };
   }
 };
 
-export const saveState = (state: any) => {
+export const saveState = (state: {
+  id: number[];
+  entities: { stopId: number; name: string; ttcId: number };
+}) => {
   try {
     const serialState = JSON.stringify(state);
     localStorage.setItem("appState", serialState);

@@ -3,22 +3,17 @@ import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { LineStop, LineStopElement } from "../data/EtaObjects";
+import { RouteXml } from "../data/EtaXml";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import { StopAccordions } from "./lists/StopAccordions";
-import { LineStop, stopsParser } from "./parser/StopsParser";
+import { stopsParser } from "./parser/StopsParser";
 
 const { XMLParser } = require("fast-xml-parser");
 
-interface LineStopElement {
-  id: JSX.Element;
-  name: string;
-  latlong: JSX.Element;
-  stopId: JSX.Element;
-}
-
 function RouteInfo(props: { line: number }): JSX.Element {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<RouteXml>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const { t } = useTranslation();
@@ -35,7 +30,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       response.text().then((str) => {
         const parser = new XMLParser({
           ignoreAttributes: false,
-          attributeNamePrefix: "@_",
+          attributeNamePrefix: "",
         });
         const dataJson = parser.parse(str);
         setData(dataJson);
@@ -45,11 +40,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
   };
 
   const createStopList = useCallback(
-    (json: any) => {
+    (stuff: { stop: { tag: string }[] }) => {
       const result: LineStopElement[] = [];
-      json.stop.map((element: any) => {
+      stuff.stop.map((element: { tag: string }) => {
         const matchingStop = stopDb.find(
-          (searching) => parseInt(element["@_tag"]) === searching.id
+          (searching) => parseInt(element.tag) === searching.id
         );
         result.push({
           id: (
@@ -93,18 +88,25 @@ function RouteInfo(props: { line: number }): JSX.Element {
     if (data.body.Error === undefined) {
       return (
         <div className="directionList list">
-          {data.body.route.direction.map((element: any, index: number) => {
-            const list = createStopList(element);
-            return (
-              <StopAccordions
-                title={element["@_title"]}
-                direction={element["@_name"]}
-                lineNum={element["@_branch"]}
-                result={list}
-                key={`sa-${index}`}
-              />
-            );
-          })}
+          {data.body.route.direction.map(
+            (element: {
+              title: string;
+              name: string;
+              branch: number;
+              stop: { tag: string }[];
+            }) => {
+              const list = createStopList(element);
+              return (
+                <StopAccordions
+                  title={element.title}
+                  direction={element.name}
+                  lineNum={element.branch}
+                  result={list}
+                  key={`${element.branch}-${element.name}`}
+                />
+              );
+            }
+          )}
           <RawDisplay data={data} />
         </div>
       );

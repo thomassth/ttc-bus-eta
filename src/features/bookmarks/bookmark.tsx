@@ -8,7 +8,7 @@ import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";
 
 export default function Bookmark() {
-  const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
+  const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -40,7 +40,7 @@ export default function Bookmark() {
         </section>
       ) : null}
       <div className="bookmarks">
-        {stopBookmarks.ids.map((item: any) => (
+        {stopBookmarks.ids.map((item: number) => (
           <BookmarkCard key={item} id={item} />
         ))}
       </div>

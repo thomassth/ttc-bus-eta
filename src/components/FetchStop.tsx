@@ -3,24 +3,18 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { LineStopEta } from "../data/EtaObjects";
+import { EtaPredictionXml } from "../data/EtaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
-import { Eta, etaParser } from "./parser/EtaParser";
+import { etaParser } from "./parser/EtaParser";
 
 const { XMLParser } = require("fast-xml-parser");
 
-export interface LineStopEta {
-  line: string;
-  stopName: string;
-  routeName: string;
-  etas: Eta[];
-  stopTag: number;
-}
-
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<EtaPredictionXml>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const { t } = useTranslation();
@@ -36,7 +30,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       response.text().then((str) => {
         const parser = new XMLParser({
           ignoreAttributes: false,
-          attributeNamePrefix: "@_",
+          attributeNamePrefix: "",
         });
         const dataJson = parser.parse(str);
         setData(dataJson);
@@ -50,7 +44,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     fetchPredictions();
   }, []);
 
-  const RefreshButton = function () {
+  function RefreshButton() {
     return (
       <Button
         className={overrides.refreshButton}
@@ -60,7 +54,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         {t("buttons.refresh")}
       </Button>
     );
-  };
+  }
 
   useEffect(() => {
     fetchPredictions();
@@ -86,8 +80,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             />
           </div>
 
-          {etaDb.map((element, index) => (
-            <CountdownGroup key={index} detail={element} />
+          {etaDb.map((element) => (
+            <CountdownGroup
+              key={`${element.line}-${element.stopTag}`}
+              detail={element}
+            />
           ))}
           {etaDb.length === 1 && etaDb[0].line === "" ? (
             <Title1>{t("reminder.noRoute")}</Title1>

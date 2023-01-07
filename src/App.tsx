@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import { BottomBar } from "./components/nav/BottomBar";
 
-export const App = () => {
+export function App() {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -40,4 +40,4 @@ export const App = () => {
       <BottomBar />
     </div>
   );
-};
+}

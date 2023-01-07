@@ -2,7 +2,7 @@ import { Anchor, Nav as BottomNav } from "grommet";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-export const BottomBar = () => {
+export function BottomBar() {
   const { t, i18n } = useTranslation();
 
   const nav: JSX.Element[] = [];
@@ -28,18 +28,18 @@ export const BottomBar = () => {
     []
   );
 
-  navItems.forEach((item, index) => {
+  navItems.forEach((item) => {
     if (item.href === window.location.pathname) {
       nav.push(
         <Anchor
-          key={index}
+          key={item.label}
           href={item.href}
           label={item.label}
           className="active"
         />
       );
     } else {
-      nav.push(<Anchor key={index} label={item.label} href={item.href} />);
+      nav.push(<Anchor key={item.label} label={item.label} href={item.href} />);
     }
   });
 
@@ -58,4 +58,4 @@ export const BottomBar = () => {
       </select>
     </BottomNav>
   );
-};
+}
