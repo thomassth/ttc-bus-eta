@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { RouteStopXml } from "../data/EtaXml";
-
-const { XMLParser } = require("fast-xml-parser");
+import { xmlParser } from "./parser/parserUtils";
 
 function LineStopPredictionInfo(props: {
   line: number;
@@ -26,11 +25,7 @@ function LineStopPredictionInfo(props: {
       }
     ).then((response) => {
       response.text().then((str) => {
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "",
-        });
-        const dataJson = parser.parse(str);
+        const dataJson = xmlParser.parse(str);
         setData(dataJson);
         console.log(dataJson);
       });

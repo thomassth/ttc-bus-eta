@@ -20,7 +20,9 @@ export function StopAccordions(props: {
   const final: JSX.Element[] = [];
   props.result.map((lineStop) => {
     final.push(
-      <AccordionPanel key={`${lineStop.id}`}>
+      <AccordionPanel
+        key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
+      >
         {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}
       </AccordionPanel>
     );

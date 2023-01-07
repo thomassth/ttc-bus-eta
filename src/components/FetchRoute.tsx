@@ -9,8 +9,7 @@ import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import { StopAccordions } from "./lists/StopAccordions";
 import { stopsParser } from "./parser/StopsParser";
-
-const { XMLParser } = require("fast-xml-parser");
+import { xmlParser } from "./parser/parserUtils";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
@@ -28,11 +27,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       }
     ).then((response) => {
       response.text().then((str) => {
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "",
-        });
-        const dataJson = parser.parse(str);
+        const dataJson = xmlParser.parse(str);
         setData(dataJson);
         setStopDb(stopsParser(dataJson));
       });
@@ -52,6 +47,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
               {matchingStop?.id}
             </Badge>
           ),
+          key: matchingStop?.id ?? 0,
           name: `${matchingStop?.name}`,
           latlong: (
             <Link

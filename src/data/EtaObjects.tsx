@@ -5,6 +5,7 @@ export interface LineStopElement {
   name: string;
   latlong: JSX.Element;
   stopId: JSX.Element;
+  key: number
 }
 
 export interface LineStopEta {
