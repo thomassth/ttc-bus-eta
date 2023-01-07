@@ -9,12 +9,12 @@ import { LineStopElement } from "../../data/EtaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { parseRoute } from "../parser/routeName";
 
-export const StopAccordions = (props: {
+export function StopAccordions(props: {
   result: LineStopElement[];
   title: string;
   direction: string;
   lineNum: number;
-}) => {
+}) {
   const overrides = fluentStyles();
 
   const final: JSX.Element[] = [];
@@ -36,4 +36,4 @@ export const StopAccordions = (props: {
       {final}
     </AccordionItem>
   );
-};
+}

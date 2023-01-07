@@ -89,15 +89,12 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return (
         <div className="directionList list">
           {data.body.route.direction.map(
-            (
-              element: {
-                title: string;
-                name: string;
-                branch: number;
-                stop: { tag: string }[];
-              },
-              index: number
-            ) => {
+            (element: {
+              title: string;
+              name: string;
+              branch: number;
+              stop: { tag: string }[];
+            }) => {
               const list = createStopList(element);
               return (
                 <StopAccordions

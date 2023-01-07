@@ -44,7 +44,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     fetchPredictions();
   }, []);
 
-  const RefreshButton = function () {
+  function RefreshButton() {
     return (
       <Button
         className={overrides.refreshButton}
@@ -54,7 +54,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         {t("buttons.refresh")}
       </Button>
     );
-  };
+  }
 
   useEffect(() => {
     fetchPredictions();

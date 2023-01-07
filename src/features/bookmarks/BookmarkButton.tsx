@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addStopBookmark } from "./stopBookmarkSlice";
 
-export const BookmarkButton = function (props: {
+export function BookmarkButton(props: {
   stopId: number;
   name: string;
   ttcId: number;
@@ -43,4 +43,4 @@ export const BookmarkButton = function (props: {
       onClick={checkBookmarkStatus}
     />
   );
-};
+}

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import { prefersDark } from "./theme";
 
-export const FluentTheme = ({ children }: { children: JSX.Element }) => {
+export function FluentTheme({ children }: { children: JSX.Element }) {
   const [isDark, setIsDark] = useState(prefersDark);
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -23,4 +23,4 @@ export const FluentTheme = ({ children }: { children: JSX.Element }) => {
       {children}
     </FluentProvider>
   );
-};
+}

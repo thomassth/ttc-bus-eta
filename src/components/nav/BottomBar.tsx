@@ -2,7 +2,7 @@ import { Anchor, Nav as BottomNav } from "grommet";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-export const BottomBar = () => {
+export function BottomBar() {
   const { t, i18n } = useTranslation();
 
   const nav: JSX.Element[] = [];
@@ -58,4 +58,4 @@ export const BottomBar = () => {
       </select>
     </BottomNav>
   );
-};
+}
