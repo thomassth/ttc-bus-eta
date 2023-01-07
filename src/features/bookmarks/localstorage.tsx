@@ -7,6 +7,7 @@ export const loadState = () => {
     return JSON.parse(serialState);
   } catch (err) {
     console.log(err);
+    return { ids: [], entities: {} };
   }
 };
 
