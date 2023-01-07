@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { LineStop, LineStopElement } from "../data/EtaObjects";
+import { RouteXml } from "../data/EtaXml";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import { StopAccordions } from "./lists/StopAccordions";
@@ -12,7 +13,7 @@ import { stopsParser } from "./parser/StopsParser";
 const { XMLParser } = require("fast-xml-parser");
 
 function RouteInfo(props: { line: number }): JSX.Element {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<RouteXml>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const { t } = useTranslation();

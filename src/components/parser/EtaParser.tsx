@@ -2,12 +2,12 @@ import { LineStopEta } from "../../data/EtaObjects";
 import {
   EtaBus,
   EtaDirection,
+  EtaPredictionXml,
   EtaPredictions,
-  EtaXml,
 } from "../../data/EtaXml";
 import { parseRoute } from "./routeName";
 
-export const etaParser = (json: EtaXml) => {
+export const etaParser = (json: EtaPredictionXml) => {
   console.log(typeof json);
   const result: LineStopEta[] = [];
 

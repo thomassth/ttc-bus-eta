@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { LineStopEta } from "../data/EtaObjects";
+import { EtaPredictionXml } from "../data/EtaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
@@ -13,7 +14,7 @@ import { etaParser } from "./parser/EtaParser";
 const { XMLParser } = require("fast-xml-parser");
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<EtaPredictionXml>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const { t } = useTranslation();

@@ -7,13 +7,45 @@ export interface EtaBus {
   epochTime: number;
 }
 
-export interface EtaXml {
+export interface BasicXml {
   body: {
+    Error: string | undefined;
+  };
+}
+
+export interface EtaPredictionXml {
+  body: {
+    Error: string | undefined;
     predictions:
     | EtaPredictions[]
     | EtaPredictions;
   };
 }
+
+export interface RouteXml {
+  body: {
+    Error: { ["#text"]: string } | undefined;
+    route: {
+      direction: {
+        title: string;
+        name: string;
+        branch: number;
+        stop: { tag: string }[];
+      }[]
+    }
+  };
+}
+
+export interface RouteStopXml {
+  body: {
+    Error: { ["#text"]: string } | undefined;
+    predictions: {
+      dirTitleBecauseNoPredictions: string | undefined;
+      stopTitle: string;
+      direction: EtaDirection | EtaDirection[]
+    }
+  };
+};
 
 export interface EtaDirection {
   title: string,
