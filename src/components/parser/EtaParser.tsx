@@ -200,13 +200,13 @@ export const etaParser = (json: EtaPredictionXml) => {
             }
           );
         } else {
-          const predictionGroup = json.body.predictions;
+          const predictionGroup2 = json.body.predictions;
           result.push({
-            line: predictionGroup.routeTag,
-            stopName: predictionGroup.stopTitle,
-            routeName: parseRoute(predictionGroup.routeTitle),
+            line: predictionGroup2.routeTag,
+            stopName: predictionGroup2.stopTitle,
+            routeName: parseRoute(predictionGroup2.routeTitle),
             etas: [],
-            stopTag: parseInt(predictionGroup.stopTag),
+            stopTag: parseInt(predictionGroup2.stopTag),
           });
         }
       }
