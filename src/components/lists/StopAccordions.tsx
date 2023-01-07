@@ -5,15 +5,20 @@ import {
   Badge,
 } from "@fluentui/react-components";
 
+import { LineStopElement } from "../../data/EtaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import { LineStop } from "../parser/StopsParser";
 import { parseRoute } from "../parser/routeName";
 
-export const StopAccordions = (props: any) => {
+export const StopAccordions = (props: {
+  result: LineStopElement[];
+  title: string;
+  direction: string;
+  lineNum: number;
+}) => {
   const overrides = fluentStyles();
 
   const final: JSX.Element[] = [];
-  props.result.map((lineStop: LineStop, index: number) => {
+  props.result.map((lineStop, index: number) => {
     final.push(
       <AccordionPanel key={`${index}`}>
         {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}

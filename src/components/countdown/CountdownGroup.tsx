@@ -1,7 +1,7 @@
 import { Badge, Link, Text, Title2 } from "@fluentui/react-components";
 
+import { LineStopEta } from "../../data/EtaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import { LineStopEta } from "../FetchStop";
 import { CountdownSec } from "./CountdownSec";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
@@ -20,7 +20,7 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
       {props.detail.etas.map((el2) => (
         <div className="countdown-row" key={el2.tripTag}>
           <CountdownBranch branch={el2.branch} />
-          <CountdownSec second={el2.second} epochTime={el2.epochTime} />
+          <CountdownSec second={el2.seconds} epochTime={el2.epochTime} />
         </div>
       ))}
     </div>

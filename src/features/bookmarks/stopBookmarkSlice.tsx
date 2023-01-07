@@ -4,13 +4,8 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 
+import { StopBookmark } from "../../data/EtaObjects";
 import { loadState } from "./localstorage";
-
-export interface StopBookmark {
-  stopId: number;
-  name: string;
-  ttcId: number;
-}
 
 const persistedState = loadState();
 

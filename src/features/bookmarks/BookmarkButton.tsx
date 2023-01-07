@@ -11,7 +11,7 @@ export const BookmarkButton = function (props: {
   ttcId: number;
 }) {
   const dispatch = useAppDispatch();
-  const stopBookmarks = useAppSelector((state: any) => state.stopBookmarks);
+  const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   const checkAndAddBookmark = (stopId: number) => {
     console.log(`${stopId}`);
 

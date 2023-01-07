@@ -73,8 +73,8 @@ function LineStopPredictionInfo(props: {
           {Array.isArray(data.body.predictions.direction.isArray) === false ? (
             <div className="directionList list">
               {data.body.predictions.direction.prediction.map(
-                (bus: any, index: number) => {
-                  return <Text key={`${index}`}>{bus["@_seconds"]}s</Text>;
+                (bus: { seconds: number }, index: number) => {
+                  return <Text key={`${index}`}>{bus.seconds}s</Text>;
                 }
               )}
             </div>
@@ -82,15 +82,19 @@ function LineStopPredictionInfo(props: {
           {/* Common scene */}
           {data.body.predictions.direction.length > 1
             ? data.body.predictions.direction.map(
-                (line: any, index: number) => {
+                (line: { title: string; prediction: [] }, index: number) => {
                   return (
                     <div className="directionList list" key={`${index}`}>
                       <Text>{line.title}</Text>
-                      {line.prediction.map((bus: any, index2: number) => {
-                        return (
-                          <Text key={`${index}-${index2}`}>{bus.seconds}s</Text>
-                        );
-                      })}
+                      {line.prediction.map(
+                        (bus: { seconds: number }, index2: number) => {
+                          return (
+                            <Text key={`${index}-${index2}`}>
+                              {bus.seconds}s
+                            </Text>
+                          );
+                        }
+                      )}
                     </div>
                   );
                 }

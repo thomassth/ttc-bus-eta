@@ -3,21 +3,14 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { LineStopEta } from "../data/EtaObjects";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
-import { Eta, etaParser } from "./parser/EtaParser";
+import { etaParser } from "./parser/EtaParser";
 
 const { XMLParser } = require("fast-xml-parser");
-
-export interface LineStopEta {
-  line: string;
-  stopName: string;
-  routeName: string;
-  etas: Eta[];
-  stopTag: number;
-}
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<any>();
