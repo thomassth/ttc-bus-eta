@@ -1,12 +1,13 @@
 import { Link, Title1 } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 
 import "./App.css";
 import { BottomBar } from "./components/nav/BottomBar";
 
-export function App() {
+function App() {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -41,3 +42,5 @@ export function App() {
     </div>
   );
 }
+
+export default App;

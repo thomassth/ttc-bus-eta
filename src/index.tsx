@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router";
 
 import { store } from "./app/store";
 import { saveState } from "./features/bookmarks/localstorage";
@@ -9,6 +9,7 @@ import "./i18n/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./routes/MainRouter";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { FluentTheme } from "./styles/FluentTheme";
 
 const container = document.getElementById("root");
@@ -28,6 +29,10 @@ if (container) {
 store.subscribe(() => {
   saveState(store.getState().stopBookmarks);
 });
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

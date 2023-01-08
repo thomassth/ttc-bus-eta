@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import {
   Outlet,
   Route,
@@ -5,7 +7,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { App } from "../App";
+import App from "../App";
 import Bookmark from "../features/bookmarks/bookmark";
 import About from "./About";
 import Error from "./Error";
