@@ -92,7 +92,6 @@ export const etaParser = (json: EtaPredictionXml) => {
             });
           }
         }
-        return null;
       }
       return null;
     });
@@ -158,7 +157,6 @@ export const etaParser = (json: EtaPredictionXml) => {
                   });
                 }
               }
-              return null;
             }
             return null;
           });
@@ -174,7 +172,6 @@ export const etaParser = (json: EtaPredictionXml) => {
             stopTag: parseInt(json.body.predictions[0].stopTag),
           });
         }
-        return result;
       } else {
         const predictionGroup = json.body.predictions;
         // multiple lines => multiple directions
@@ -213,7 +210,7 @@ export const etaParser = (json: EtaPredictionXml) => {
     } else {
       console.log("no ETA at all");
       result.push({
-        line: "No ETAs detected.",
+        line: "",
         stopName: json.body.predictions.stopTitle,
         routeName: "",
         etas: [],

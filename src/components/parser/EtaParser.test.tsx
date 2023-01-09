@@ -4,6 +4,15 @@ import renderer from "react-test-renderer";
 
 import { etaParser } from "./EtaParser";
 
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string): string => str,
+    };
+  },
+}));
+
 describe("eta parsing", () => {
   const testValues = [
     {
@@ -301,6 +310,104 @@ describe("eta parsing", () => {
             },
           ],
           copyright: "All data copyright Toronto Transit Commission 2022.",
+        },
+      },
+    },
+    {
+      title: "edge case 1",
+      input: {
+        "?xml": {
+          version: "1.0",
+          encoding: "utf-8",
+        },
+        body: {
+          predictions: [
+            {
+              agencyTitle: "Toronto Transit Commission",
+              routeTitle: "939-Finch Express",
+              routeTag: "939",
+              stopTitle: "Nightstar Rd At Morningside Ave North Side",
+              stopTag: "581",
+              dirTitleBecauseNoPredictions:
+                "West - 939c Finch Express towards Finch Station",
+            },
+            {
+              agencyTitle: "Toronto Transit Commission",
+              routeTitle: "133-Neilson",
+              routeTag: "133",
+              stopTitle: "Nightstar Rd At Morningside Ave North Side",
+              stopTag: "581",
+              dirTitleBecauseNoPredictions:
+                "South - 133 Neilson towards Scarborough Centre via Centenary",
+            },
+            {
+              agencyTitle: "Toronto Transit Commission",
+              routeTitle: "53-Steeles East",
+              routeTag: "53",
+              stopTitle: "Nightstar Rd At Morningside Ave North Side",
+              stopTag: "581",
+              dirTitleBecauseNoPredictions:
+                "West - 53 Steeles East towards Finch Station",
+            },
+            {
+              agencyTitle: "Toronto Transit Commission",
+              routeTitle: "953-Steeles East Express",
+              routeTag: "953",
+              stopTitle: "Nightstar Rd At Morningside Ave North Side",
+              stopTag: "581",
+              dirTitleBecauseNoPredictions:
+                "West - 953 Steeles East Express towards Finch Station",
+            },
+            {
+              direction: {
+                prediction: [
+                  {
+                    epochTime: "1673245825951",
+                    seconds: "131",
+                    minutes: "2",
+                    isDeparture: "false",
+                    branch: "133",
+                    dirTag: "133_1_133",
+                    vehicle: "3651",
+                    block: "133_5_52",
+                    tripTag: "45383927",
+                  },
+                  {
+                    epochTime: "1673247101236",
+                    seconds: "1406",
+                    minutes: "23",
+                    isDeparture: "false",
+                    affectedByLayover: "true",
+                    branch: "133",
+                    dirTag: "133_1_133",
+                    vehicle: "1235",
+                    block: "133_4_40",
+                    tripTag: "45383893",
+                  },
+                  {
+                    epochTime: "1673248901236",
+                    seconds: "3206",
+                    minutes: "53",
+                    isDeparture: "false",
+                    affectedByLayover: "true",
+                    branch: "133",
+                    dirTag: "133_1_133",
+                    vehicle: "3492",
+                    block: "133_3_30",
+                    tripTag: "45383892",
+                  },
+                ],
+                title:
+                  "North - 133 Neilson towards Morningside Heights via Centenary",
+              },
+              agencyTitle: "Toronto Transit Commission",
+              routeTitle: "133-Neilson",
+              routeTag: "133",
+              stopTitle: "Nightstar Rd At Morningside Ave North Side",
+              stopTag: "581_IB",
+            },
+          ],
+          copyright: "All data copyright Toronto Transit Commission 2023.",
         },
       },
     },

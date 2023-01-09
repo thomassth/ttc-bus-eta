@@ -20,19 +20,6 @@ export default function Bookmark() {
 
   return (
     <main>
-      {/* <Button
-        onClick={() =>
-          dispatch(
-            addStopBookmark({
-              stopId: Math.floor(Math.random() * 1000),
-              name: "test",
-              ttcId: 101,
-            })
-          )
-        }
-      >
-        Add
-      </Button> */}
       {stopBookmarks.ids.length === 0 ? (
         <section>
           <Trans>{t("home.headline")}</Trans>

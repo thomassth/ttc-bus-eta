@@ -28,13 +28,16 @@
   "buttons": {
     "search": "Chercher",
     "refresh": "Rafraîchir",
-    "clear": "Tout effacer"
+    "clear": "Tout effacer",
+    "mapPin": "",
+    "busIcon": ""
   },
   "reminder": {
     "noRoute": "Pas d'arrivées à venir.",
     "failToLocate": "Impossible de localiser cet itinéraire.",
     "wrongPlace": "Ne devrait pas être ici :/",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "noEta": ""
   },
   "error": {
     "notFound": "Erreur: cette page n'existe pas."

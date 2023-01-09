@@ -28,13 +28,16 @@
   "buttons": {
     "search": "Search",
     "refresh": "Refresh",
-    "clear": "Clear All"
+    "clear": "Clear All",
+    "mapPin": "View location in Google Maps",
+    "busIcon": "View stop ETA"
   },
   "reminder": {
     "noRoute": "No upcoming arrivals.",
     "failToLocate": "Cannot locate this route.",
     "wrongPlace": "Shouldn't be here :/",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "noEta": "No ETAs detected."
   },
   "error": {
     "notFound": "Error: this page does not exist."
