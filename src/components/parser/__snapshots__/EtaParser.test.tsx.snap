@@ -220,6 +220,36 @@ exports[`eta parsing edge case 1 1`] = `
 </p>
 `;
 
+exports[`eta parsing edge case 2 1`] = `
+<p>
+  [
+    {
+        "line": "133",
+        "stopName": "Scarborough Centre Station",
+        "routeName": "Neilson",
+        "etas": [],
+        "stopTag": 14286
+    },
+    {
+        "line": "133",
+        "stopName": "Scarborough Centre Station",
+        "routeName": "Neilson",
+        "etas": [
+            {
+                "id": 0,
+                "seconds": "589",
+                "vehicle": "3492",
+                "branch": "133",
+                "tripTag": "45383892",
+                "epochTime": "1673247600000"
+            }
+        ],
+        "stopTag": 14286
+    }
+]
+</p>
+`;
+
 exports[`eta parsing empty result 1`] = `
 <p>
   []

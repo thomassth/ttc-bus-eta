@@ -412,6 +412,41 @@ describe("eta parsing", () => {
       },
     },
     {
+      title: "edge case 2",
+      input: {
+        "?xml": {
+          version: "1.0",
+          encoding: "utf-8",
+        },
+        body: {
+          predictions: {
+            direction: {
+              prediction: {
+                epochTime: "1673247600000",
+                seconds: "589",
+                minutes: "9",
+                isDeparture: "true",
+                affectedByLayover: "true",
+                branch: "133",
+                dirTag: "133_1_133",
+                vehicle: "3492",
+                block: "133_3_30",
+                tripTag: "45383892",
+              },
+              title:
+                "North - 133 Neilson towards Morningside Heights via Centenary",
+            },
+            agencyTitle: "Toronto Transit Commission",
+            routeTitle: "133-Neilson",
+            routeTag: "133",
+            stopTitle: "Scarborough Centre Station",
+            stopTag: "14286",
+          },
+          copyright: "All data copyright Toronto Transit Commission 2023.",
+        },
+      },
+    },
+    {
       title: "empty result",
       input: {},
     },

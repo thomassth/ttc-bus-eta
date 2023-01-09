@@ -1,4 +1,4 @@
-import { LineStopEta } from "../../data/EtaObjects";
+import { EtaBusWithID, LineStopEta } from "../../data/EtaObjects";
 import {
   EtaBus,
   EtaDirection,
@@ -6,6 +6,17 @@ import {
   EtaPredictions,
 } from "../../data/EtaXml";
 import { parseRoute } from "./routeName";
+
+const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus, index = 0) => {
+  return eta.push({
+    id: index,
+    seconds: item.seconds,
+    vehicle: item.vehicle,
+    branch: item.branch,
+    tripTag: item.tripTag,
+    epochTime: item.epochTime,
+  });
+};
 
 export const etaParser = (json: EtaPredictionXml) => {
   console.log(typeof json);
@@ -35,27 +46,13 @@ export const etaParser = (json: EtaPredictionXml) => {
 
             if (Array.isArray(el3.prediction)) {
               el3.prediction.map((el2: EtaBus, index2: number) => {
-                result[result.length - 1].etas.push({
-                  id: index2,
-                  seconds: el2.seconds,
-                  vehicle: el2.vehicle,
-                  branch: el2.branch,
-                  tripTag: el2.tripTag,
-                  epochTime: el2.epochTime,
-                });
+                pushIntoEta(result[result.length - 1].etas, el2, index2);
                 return null;
               });
             } else {
               console.log("single prediction");
               const item = el3.prediction;
-              result[result.length - 1].etas.push({
-                id: 0,
-                seconds: item.seconds,
-                vehicle: item.vehicle,
-                branch: item.branch,
-                tripTag: item.tripTag,
-                epochTime: item.epochTime,
-              });
+              pushIntoEta(result[result.length - 1].etas, item);
             }
             return null;
           });
@@ -70,28 +67,15 @@ export const etaParser = (json: EtaPredictionXml) => {
 
           if (Array.isArray(element.direction.prediction)) {
             element.direction.prediction.map((el2: EtaBus, index2: number) => {
-              result[result.length - 1].etas.push({
-                id: index2,
-                seconds: el2.seconds,
-                vehicle: el2.vehicle,
-                branch: el2.branch,
-                tripTag: el2.tripTag,
-                epochTime: el2.epochTime,
-              });
+              pushIntoEta(result[result.length - 1].etas, el2, index2);
               return null;
             });
           } else {
             const item = element.direction.prediction;
-            result[result.length - 1].etas.push({
-              id: 0,
-              seconds: item.seconds,
-              vehicle: item.vehicle,
-              branch: item.branch,
-              tripTag: item.tripTag,
-              epochTime: item.epochTime,
-            });
+            pushIntoEta(result[result.length - 1].etas, item);
           }
         }
+        return null;
       }
       return null;
     });
@@ -131,14 +115,7 @@ export const etaParser = (json: EtaPredictionXml) => {
 
               if (Array.isArray(element.prediction)) {
                 element.prediction.map((el2: EtaBus, index2: number) => {
-                  result[result.length - 1].etas.push({
-                    id: index2,
-                    seconds: el2.seconds,
-                    vehicle: el2.vehicle,
-                    branch: el2.branch,
-                    tripTag: el2.tripTag,
-                    epochTime: el2.epochTime,
-                  });
+                  pushIntoEta(result[result.length - 1].etas, el2, index2);
                   return null;
                 });
               } else {
@@ -147,16 +124,10 @@ export const etaParser = (json: EtaPredictionXml) => {
                   // TODO: finish this next reorg
                   console.log("Not done yet :(");
                 } else {
-                  result[result.length - 1].etas.push({
-                    id: 0,
-                    seconds: item.seconds,
-                    vehicle: item.vehicle,
-                    branch: item.branch,
-                    tripTag: item.tripTag,
-                    epochTime: item.epochTime,
-                  });
+                  pushIntoEta(result[result.length - 1].etas, item);
                 }
               }
+              return null;
             }
             return null;
           });
@@ -172,6 +143,7 @@ export const etaParser = (json: EtaPredictionXml) => {
             stopTag: parseInt(json.body.predictions[0].stopTag),
           });
         }
+        return result;
       } else {
         const predictionGroup = json.body.predictions;
         // multiple lines => multiple directions
@@ -185,14 +157,7 @@ export const etaParser = (json: EtaPredictionXml) => {
         if (Array.isArray(json.body.predictions.direction.prediction)) {
           json.body.predictions.direction.prediction.map(
             (element: EtaBus, index: number) => {
-              result[result.length - 1].etas.push({
-                id: index,
-                seconds: element.seconds,
-                vehicle: element.vehicle,
-                branch: element.branch,
-                tripTag: element.tripTag,
-                epochTime: element.epochTime,
-              });
+              pushIntoEta(result[result.length - 1].etas, element, index);
               return null;
             }
           );
@@ -205,12 +170,16 @@ export const etaParser = (json: EtaPredictionXml) => {
             etas: [],
             stopTag: parseInt(predictionGroup2.stopTag),
           });
+          const item = json.body.predictions.direction.prediction;
+
+          console.log("single prediction");
+          pushIntoEta(result[result.length - 1].etas, item);
         }
       }
     } else {
       console.log("no ETA at all");
       result.push({
-        line: "",
+        line: "No ETAs detected.",
         stopName: json.body.predictions.stopTitle,
         routeName: "",
         etas: [],
