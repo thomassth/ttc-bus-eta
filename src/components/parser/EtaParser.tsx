@@ -179,7 +179,7 @@ export const etaParser = (json: EtaPredictionXml) => {
     } else {
       console.log("no ETA at all");
       result.push({
-        line: "No ETAs detected.",
+        line: "",
         stopName: json.body.predictions.stopTitle,
         routeName: "",
         etas: [],
