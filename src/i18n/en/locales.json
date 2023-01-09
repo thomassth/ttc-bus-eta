@@ -48,5 +48,12 @@
   "lang": {
     "en": "English",
     "fr": "Français"
+  },
+  "eta": {
+    "minuteShort": "m",
+    "secondShort": "s"
+  },
+  "badge": {
+    "arriving": "Arriving"
   }
 }

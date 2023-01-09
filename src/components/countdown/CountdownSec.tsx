@@ -1,5 +1,6 @@
 import { Badge, Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { fluentStyles } from "../../styles/fluent";
 
@@ -11,6 +12,7 @@ export function CountdownSec(props: { second: number; epochTime: number }) {
   const [epochTime, setEpochTime] = useState(props.epochTime);
   const [sec, setSec] = useState(Math.floor((epochTime - Date.now()) / 1000));
   const overrides = fluentStyles();
+  const { t } = useTranslation();
 
   // TODO: not using seconds provided in API; may make it an option later
 
@@ -28,27 +30,35 @@ export function CountdownSec(props: { second: number; epochTime: number }) {
     // Cleanup
     return () => clearTimeout(timer);
   }, [sec]);
-  if (sec > 0) {
-    return (
-      <div className="countdownSec number">
+  return (
+    <div className="countdownSec number">
+      {sec < 180 ? <ArrivingBadge /> : null}
+
+      {sec > 0 ? (
         <Title2 className={overrides.number}>
           {Math.floor(sec / 60) >= 1
-            ? `${Math.floor(sec / 60)}m `
-            : `${sec % 60}s`}
+            ? `${Math.floor(sec / 60)}${t("eta.minuteShort")} `
+            : `${sec % 60}${t("eta.secondShort")}`}
         </Title2>
+      ) : null}
 
-        {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 ? (
-          <Text className={overrides.number}>{`${sec % 60}s`}</Text>
-        ) : null}
-      </div>
-    );
-  } else {
-    return (
-      <div className="countdownSec">
-        <Badge color="danger" shape="rounded">
-          Arriving
-        </Badge>
-      </div>
-    );
-  }
+      {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 ? (
+        <Text className={overrides.number}>{`${sec % 60}${t(
+          "eta.secondShort"
+        )}`}</Text>
+      ) : null}
+    </div>
+  );
+}
+
+function ArrivingBadge() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="badge arriving">
+      <Badge color="danger" shape="rounded">
+        {t("badge.arriving")}
+      </Badge>
+    </div>
+  );
 }

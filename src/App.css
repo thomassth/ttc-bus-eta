@@ -96,6 +96,13 @@ main {
 
 .countdownSec {
   padding: 0 0.25rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.badge.arriving {
+  align-self: center;
 }
 
 .line {
