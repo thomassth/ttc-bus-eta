@@ -55,6 +55,7 @@ export function BottomBar() {
       >
         <option value="en">{t("lang.en")}</option>
         <option value="fr">{t("lang.fr")}</option>
+        <option value="zh">{t("lang.zh")}</option>
       </select>
     </BottomNav>
   );

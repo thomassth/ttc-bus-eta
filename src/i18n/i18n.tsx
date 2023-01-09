@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 
 import en from "./en/locales.json";
 import fr from "./fr/locales.json";
+import zh from "./zh/locales.json";
 
 const resources: Resource = {
   en: {
@@ -11,6 +12,9 @@ const resources: Resource = {
   },
   fr: {
     translation: fr,
+  },
+  zh: {
+    translation: zh,
   },
 };
 
@@ -23,6 +27,7 @@ i18next
     interpolation: {
       escapeValue: true, // react already safes from xss
     },
+    nonExplicitSupportedLngs: true,
   });
 
 export default i18next;
