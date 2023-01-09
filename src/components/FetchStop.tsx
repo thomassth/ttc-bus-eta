@@ -1,49 +1,36 @@
 import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { LineStopEta } from "../data/EtaObjects";
 import { EtaPredictionXml } from "../data/EtaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
+import { FetchXMLWithCancelToken } from "./FetchUtils";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
 import { etaParser } from "./parser/EtaParser";
-import { xmlParser } from "./parser/parserUtils";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
+  const [toggleFetch, setToggleFetch] = useState<boolean>(false);
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  const fetchPredictions = (stop: number = stopId) => {
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stop}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const dataJson = xmlParser.parse(str);
-        setData(dataJson);
-        console.log(dataJson);
-        setEtaDb(etaParser(dataJson));
-      });
-    });
+  const handleRefreshClick = () => {
+    setToggleFetch(!toggleFetch);
+    setData(undefined);
+    setEtaDb([]);
   };
-
-  const fetchPredictionsClick = useCallback(() => {
-    fetchPredictions();
-  }, []);
 
   function RefreshButton() {
     return (
       <Button
         className={overrides.refreshButton}
-        onClick={fetchPredictionsClick}
+        onClick={handleRefreshClick}
         icon={<ArrowClockwise24Regular />}
       >
         {t("buttons.refresh")}
@@ -52,12 +39,35 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   }
 
   useEffect(() => {
-    fetchPredictions();
-  }, []);
+    const controller = new AbortController();
 
-  if (data !== undefined) {
-    console.log(etaDb);
+    const fetchEtaData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
 
+      return { parsedData, error };
+    };
+
+    fetchEtaData().then(({ parsedData, error }) => {
+      if (error !== undefined || !parsedData) {
+        return;
+      }
+      setData(parsedData);
+      setEtaDb(etaParser(parsedData));
+    });
+
+    // when useEffect is called, the following clean-up fn will run first
+    return () => {
+      controller.abort();
+    };
+  }, [toggleFetch]);
+
+  if (data) {
     if (data.body.Error === undefined) {
       return (
         <div className="directionsList list">

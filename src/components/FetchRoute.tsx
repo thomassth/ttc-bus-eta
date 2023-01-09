@@ -6,33 +6,19 @@ import { useTranslation } from "react-i18next";
 import { LineStop, LineStopElement } from "../data/EtaObjects";
 import { RouteXml } from "../data/EtaXml";
 import { fluentStyles } from "../styles/fluent";
+import { FetchXMLWithCancelToken } from "./FetchUtils";
 import RawDisplay from "./RawDisplay";
 import { StopAccordions } from "./lists/StopAccordions";
 import { stopsParser } from "./parser/StopsParser";
-import { xmlParser } from "./parser/parserUtils";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
+  const [toggleFetch, setToggleFetch] = useState<boolean>(false);
   const { t } = useTranslation();
 
   const overrides = fluentStyles();
-
-  const fetchBus = (line = lineNum) => {
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${line}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const dataJson = xmlParser.parse(str);
-        setData(dataJson);
-        setStopDb(stopsParser(dataJson));
-      });
-    });
-  };
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
@@ -77,10 +63,39 @@ function RouteInfo(props: { line: number }): JSX.Element {
   );
 
   useEffect(() => {
-    fetchBus();
-  }, []);
+    const controller = new AbortController();
 
-  const fetchBusClick = useCallback(() => fetchBus(), []);
+    const fetchStopsData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${lineNum}`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
+
+      return { parsedData, error };
+    };
+
+    fetchStopsData().then(({ parsedData, error }) => {
+      if (error !== undefined || !parsedData) {
+        return;
+      }
+      setData(parsedData);
+      setStopDb(stopsParser(parsedData));
+    });
+
+    // when useEffect is called, the following clean-up fn will run first
+    return () => {
+      controller.abort();
+    };
+  }, [toggleFetch]);
+
+  const handleFetchBusClick = () => {
+    setToggleFetch(!toggleFetch);
+    setData(undefined);
+    setStopDb([]);
+  };
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
@@ -112,7 +127,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       // if(data.body.Error !== undefined)
       return (
         <div>
-          <Link onClick={fetchBusClick}>
+          <Link onClick={handleFetchBusClick}>
             <Text as="h1" weight="semibold">
               {`Error: ${data.body.Error["#text"]}`}
             </Text>
@@ -123,7 +138,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     }
   } else {
     return (
-      <Link appearance="subtle" onClick={fetchBusClick}>
+      <Link appearance="subtle" onClick={handleFetchBusClick}>
         <Text as="h1" weight="semibold">
           {t("reminder.loading")}
         </Text>
