@@ -78,7 +78,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     };
 
     fetchStopsData().then(({ parsedData, error }) => {
-      if (error !== undefined || !parsedData) {
+      if (error || !parsedData) {
         return;
       }
       setData(parsedData);

@@ -54,7 +54,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     };
 
     fetchEtaData().then(({ parsedData, error }) => {
-      if (error !== undefined || !parsedData) {
+      if (error || !parsedData) {
         return;
       }
       setData(parsedData);
