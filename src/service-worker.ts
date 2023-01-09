@@ -13,8 +13,8 @@ import { createHandlerBoundToURL, precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 
-declare const self: any;
-// declare const self: ServiceWorkerGlobalScope;
+// eslint-disable-next-line no-undef
+declare const self: ServiceWorkerGlobalScope;
 
 clientsClaim();
 
@@ -43,14 +43,14 @@ registerRoute(
 
     // If this looks like a URL for a resource, because it contains
     // a file extension, skip.
-    if (url.pathname.match(fileExtensionRegexp)) {
+    if (fileExtensionRegexp.test(url.pathname)) {
       return false;
     }
 
     // Return true to signal that we want to use the handler.
     return true;
   },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
+  createHandlerBoundToURL(`${process.env.PUBLIC_URL}/index.html`)
 );
 
 // An example runtime caching route for requests that aren't handled by the
@@ -72,7 +72,7 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener("message", (event: { data: { type: string } }) => {
+self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
