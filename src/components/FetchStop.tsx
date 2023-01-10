@@ -1,6 +1,6 @@
 import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { LineStopEta } from "../data/EtaObjects";
@@ -20,11 +20,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  function handleRefreshClick() {
+  const handleRefreshClick = useCallback(() => {
     setToggleFetch(!toggleFetch);
     setData(undefined);
     setEtaDb([]);
-  }
+  }, []);
 
   function RefreshButton() {
     return (

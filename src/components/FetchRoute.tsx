@@ -91,11 +91,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
     };
   }, [toggleFetch]);
 
-  function handleFetchBusClick() {
+  const handleFetchBusClick = useCallback(() => {
     setToggleFetch(!toggleFetch);
     setData(undefined);
     setStopDb([]);
-  }
+  }, []);
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
