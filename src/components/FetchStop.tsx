@@ -16,15 +16,15 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
-  const [toggleFetch, setToggleFetch] = useState<boolean>(false);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
   const handleRefreshClick = useCallback(() => {
-    setToggleFetch(!toggleFetch);
+    setLastUpdatedAt(Date.now());
     setData(undefined);
     setEtaDb([]);
-  }, [toggleFetch]);
+  }, [lastUpdatedAt]);
 
   function RefreshButton() {
     return (
@@ -65,7 +65,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return () => {
       controller.abort();
     };
-  }, [toggleFetch]);
+  }, [lastUpdatedAt]);
 
   if (data) {
     if (data.body.Error === undefined) {

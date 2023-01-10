@@ -15,7 +15,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
-  const [toggleFetch, setToggleFetch] = useState<boolean>(false);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
   const overrides = fluentStyles();
@@ -89,13 +89,13 @@ function RouteInfo(props: { line: number }): JSX.Element {
     return () => {
       controller.abort();
     };
-  }, [toggleFetch]);
+  }, [lastUpdatedAt]);
 
   const handleFetchBusClick = useCallback(() => {
-    setToggleFetch(!toggleFetch);
+    setLastUpdatedAt(Date.now());
     setData(undefined);
     setStopDb([]);
-  }, [toggleFetch]);
+  }, [lastUpdatedAt]);
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
