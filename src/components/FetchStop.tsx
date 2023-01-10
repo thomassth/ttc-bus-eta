@@ -24,7 +24,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     setToggleFetch(!toggleFetch);
     setData(undefined);
     setEtaDb([]);
-  }, []);
+  }, [toggleFetch]);
 
   function RefreshButton() {
     return (

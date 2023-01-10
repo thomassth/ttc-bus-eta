@@ -95,7 +95,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setToggleFetch(!toggleFetch);
     setData(undefined);
     setStopDb([]);
-  }, []);
+  }, [toggleFetch]);
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
