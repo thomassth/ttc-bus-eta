@@ -35,7 +35,6 @@
   },
   "rules": {
     "eqeqeq": ["error", "always"],
-    "react/self-closing-comp": ["error"],
-    "no-undef": "off"
+    "react/self-closing-comp": ["error"]
   }
 }

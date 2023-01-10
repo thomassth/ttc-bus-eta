@@ -20,11 +20,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  const handleRefreshClick = () => {
+  function handleRefreshClick() {
     setToggleFetch(!toggleFetch);
     setData(undefined);
     setEtaDb([]);
-  };
+  }
 
   function RefreshButton() {
     return (

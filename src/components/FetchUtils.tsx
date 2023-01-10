@@ -1,5 +1,6 @@
 import { xmlParser } from "./parser/parserUtils";
 
+type RequestInit = globalThis.RequestInit;
 export async function FetchXMLWithCancelToken(
   url: string,
   options: RequestInit
@@ -9,7 +10,7 @@ export async function FetchXMLWithCancelToken(
     const data = await response.text();
     const parsedData = xmlParser.parse(data);
     return { data, parsedData };
-  } catch (e: any) {
-    return { data: "", parsedData: undefined, error: Error(e) };
+  } catch (e) {
+    return { data: "", parsedData: undefined, error: Error(`${e}`) };
   }
 }
