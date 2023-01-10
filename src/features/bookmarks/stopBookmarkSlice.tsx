@@ -1,8 +1,4 @@
-import {
-  PayloadAction,
-  createEntityAdapter,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
 import { StopBookmark } from "../../data/EtaObjects";
 import { loadState } from "./localstorage";
@@ -18,20 +14,15 @@ const initialState =
     ? { ids: [], entities: {} }
     : persistedState;
 
-const stopBookmarksSlice = createSlice({
+export const stopBookmarksSlice = createSlice({
   name: "stopBookmarks",
   initialState,
   reducers: {
-    addStopBookmark: (state, input: PayloadAction<StopBookmark>) => {
-      stopBookmarksAdapter.addOne(state, input.payload);
-    },
-    clearStopBookmarks: (state) => {
-      stopBookmarksAdapter.removeAll(state);
-    },
+    addStopBookmark: stopBookmarksAdapter.addOne,
+    removeStopBookmark: stopBookmarksAdapter.removeOne,
+    clearStopBookmarks: stopBookmarksAdapter.removeAll,
   },
 });
 
-export const { addStopBookmark, clearStopBookmarks } =
+export const { addStopBookmark, clearStopBookmarks, removeStopBookmark } =
   stopBookmarksSlice.actions;
-
-export default stopBookmarksSlice.reducer;

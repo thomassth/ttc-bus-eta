@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import stopBookmarksReducer from "../features/bookmarks/stopBookmarkSlice";
+import { stopBookmarksSlice } from "../features/bookmarks/stopBookmarkSlice";
 
 export const store = configureStore({
   reducer: {
-    stopBookmarks: stopBookmarksReducer,
+    stopBookmarks: stopBookmarksSlice.reducer,
   },
 });
 
