@@ -14,11 +14,13 @@ export function StopAccordions(props: {
   title: string;
   direction: string;
   lineNum: number;
+  tag: string;
 }) {
   const overrides = fluentStyles();
 
   const final: JSX.Element[] = [];
-  props.result.map((lineStop) => {
+
+  for (const lineStop of props.result) {
     final.push(
       <AccordionPanel
         key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
@@ -26,10 +28,10 @@ export function StopAccordions(props: {
         {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}
       </AccordionPanel>
     );
-    return lineStop;
-  });
+  }
+
   return (
-    <AccordionItem value={props.title}>
+    <AccordionItem value={props.tag}>
       <AccordionHeader className={overrides.accordionHeader}>
         <Badge className={overrides.badge}>{props.direction}</Badge>
         <Badge className={overrides.badge}>{props.lineNum}</Badge>

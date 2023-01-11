@@ -1,15 +1,10 @@
 import { EtaBusWithID, LineStopEta } from "../../data/EtaObjects";
-import {
-  EtaBus,
-  EtaDirection,
-  EtaPredictionXml,
-  EtaPredictions,
-} from "../../data/EtaXml";
+import { EtaBus, EtaPredictionXml } from "../../data/EtaXml";
 import { parseRoute } from "./routeName";
 
-const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus, index = 0) => {
+const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {
   return eta.push({
-    id: index,
+    id: `${item.tripTag}`,
     seconds: item.seconds,
     vehicle: item.vehicle,
     branch: item.branch,
@@ -28,14 +23,16 @@ export const etaParser = (json: EtaPredictionXml) => {
 
   if (Array.isArray(json.body.predictions)) {
     console.log("multi line stop");
-    json.body.predictions.map((element: EtaPredictions) => {
+
+    for (const element of json.body.predictions) {
       // Only lines with etas are listed
       if (element.dirTitleBecauseNoPredictions === undefined) {
         if (Array.isArray(element.direction)) {
           const stopName = element.stopTitle;
           const line = element.routeTag;
           const stopTag = parseInt(element.stopTag);
-          element.direction.map((el3: EtaDirection) => {
+
+          for (const el3 of element.direction) {
             result.push({
               line,
               stopName,
@@ -45,17 +42,15 @@ export const etaParser = (json: EtaPredictionXml) => {
             });
 
             if (Array.isArray(el3.prediction)) {
-              el3.prediction.map((el2: EtaBus, index2: number) => {
-                pushIntoEta(result[result.length - 1].etas, el2, index2);
-                return null;
-              });
+              for (const el2 of el3.prediction) {
+                pushIntoEta(result[result.length - 1].etas, el2);
+              }
             } else {
               console.log("single prediction");
               const item = el3.prediction;
               pushIntoEta(result[result.length - 1].etas, item);
             }
-            return null;
-          });
+          }
         } else {
           result.push({
             line: element.routeTag,
@@ -66,19 +61,16 @@ export const etaParser = (json: EtaPredictionXml) => {
           });
 
           if (Array.isArray(element.direction.prediction)) {
-            element.direction.prediction.map((el2: EtaBus, index2: number) => {
-              pushIntoEta(result[result.length - 1].etas, el2, index2);
-              return null;
-            });
+            for (const el2 of element.direction.prediction) {
+              pushIntoEta(result[result.length - 1].etas, el2);
+            }
           } else {
             const item = element.direction.prediction;
             pushIntoEta(result[result.length - 1].etas, item);
           }
         }
-        return null;
       }
-      return null;
-    });
+    }
     // if no line have ETA, keep a title
     if (result.length === 0) {
       console.log("empty db");
@@ -102,7 +94,7 @@ export const etaParser = (json: EtaPredictionXml) => {
         const stopName = predictionGroup.stopTitle;
         const stopTag = parseInt(predictionGroup.stopTag);
         if (Array.isArray(predictionGroup.direction)) {
-          predictionGroup.direction.map((element: EtaDirection) => {
+          for (const element of predictionGroup.direction) {
             // Only lines with etas are listed
             if (element.dirTitleBecauseNoPredictions === undefined) {
               result.push({
@@ -114,10 +106,9 @@ export const etaParser = (json: EtaPredictionXml) => {
               });
 
               if (Array.isArray(element.prediction)) {
-                element.prediction.map((el2: EtaBus, index2: number) => {
-                  pushIntoEta(result[result.length - 1].etas, el2, index2);
-                  return null;
-                });
+                for (const el2 of element.prediction) {
+                  pushIntoEta(result[result.length - 1].etas, el2);
+                }
               } else {
                 const item = element.direction.prediction;
                 if (Array.isArray(item)) {
@@ -127,10 +118,8 @@ export const etaParser = (json: EtaPredictionXml) => {
                   pushIntoEta(result[result.length - 1].etas, item);
                 }
               }
-              return null;
             }
-            return null;
-          });
+          }
         }
 
         // if no line have ETA, keep a title
@@ -155,12 +144,9 @@ export const etaParser = (json: EtaPredictionXml) => {
           stopTag: parseInt(predictionGroup.stopTag),
         });
         if (Array.isArray(json.body.predictions.direction.prediction)) {
-          json.body.predictions.direction.prediction.map(
-            (element: EtaBus, index: number) => {
-              pushIntoEta(result[result.length - 1].etas, element, index);
-              return null;
-            }
-          );
+          for (const element of json.body.predictions.direction.prediction) {
+            pushIntoEta(result[result.length - 1].etas, element);
+          }
         } else {
           const predictionGroup2 = json.body.predictions;
           result.push({

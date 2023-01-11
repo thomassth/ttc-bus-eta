@@ -31,5 +31,5 @@ export interface StopBookmark {
 
 
 export interface EtaBusWithID extends EtaBus {
-  id: number;
+  id: string;
 }
