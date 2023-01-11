@@ -23,7 +23,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
       const result: LineStopElement[] = [];
-      stuff.stop.map((element: { tag: string }) => {
+
+      for (const element of stuff.stop) {
         const matchingStop = stopDb.find(
           (searching) => parseInt(element.tag) === searching.id
         );
@@ -55,8 +56,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
             </Link>
           ),
         });
-        return element;
-      });
+      }
       return result;
     },
     [stopDb]
@@ -99,27 +99,28 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
+      console.log(data.body.route.direction.length);
+
+      const accordionList: JSX.Element[] = [];
+
+      for (const element of data.body.route.direction) {
+        const list = createStopList(element);
+
+        accordionList.push(
+          <StopAccordions
+            title={element.title}
+            direction={element.name}
+            lineNum={element.branch}
+            result={list}
+            key={`${element.tag}`}
+            tag={element.tag}
+          />
+        );
+      }
+
       return (
         <div className="directionList list">
-          {data.body.route.direction.map(
-            (element: {
-              title: string;
-              name: string;
-              branch: number;
-              stop: { tag: string }[];
-            }) => {
-              const list = createStopList(element);
-              return (
-                <StopAccordions
-                  title={element.title}
-                  direction={element.name}
-                  lineNum={element.branch}
-                  result={list}
-                  key={`${element.branch}-${element.name}`}
-                />
-              );
-            }
-          )}
+          {accordionList}
           <RawDisplay data={data} />
         </div>
       );
