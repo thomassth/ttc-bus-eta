@@ -1,19 +1,30 @@
-import { Badge, Link } from "@fluentui/react-components";
+import { Badge, Button, Link, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
+import { Delete24Regular } from "@fluentui/react-icons";
+import { useCallback } from "react";
 
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkCard(props: { id: number }) {
   const id = props.id;
+  const dispatch = useAppDispatch();
+
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
+
+  const checkBookmarkStatus = useCallback(() => {
+    dispatch(removeStopBookmark(props.id));
+  }, [stopBookmarks.ids]);
+
   return (
-    <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
-      <Card>
-        <div className="countdown-row">
-          <Badge>{stopBookmarks.entities[id].ttcId}</Badge>
-          {stopBookmarks.entities[id].name}
-        </div>
-      </Card>
-    </Link>
+    <Card>
+      <div className="card-row">
+        <Badge>{stopBookmarks.entities[id].ttcId}</Badge>
+        <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
+          <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
+        </Link>
+        <Button icon={<Delete24Regular />} onClick={checkBookmarkStatus} />
+      </div>
+    </Card>
   );
 }

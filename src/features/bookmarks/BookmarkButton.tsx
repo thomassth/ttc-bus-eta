@@ -3,7 +3,7 @@ import { Bookmark24Filled, Bookmark24Regular } from "@fluentui/react-icons";
 import { useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addStopBookmark } from "./stopBookmarkSlice";
+import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkButton(props: {
   stopId: number;
@@ -12,34 +12,21 @@ export function BookmarkButton(props: {
 }) {
   const dispatch = useAppDispatch();
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
-  const checkAndAddBookmark = (stopId: number) => {
-    console.log(`${stopId}`);
+  const isBookmarked = useCallback(() => {
+    return stopBookmarks.ids.includes(props.stopId);
+  }, [stopBookmarks]);
 
-    dispatch(
-      addStopBookmark({
-        stopId,
-        name: props.name,
-        ttcId: props.ttcId,
-      })
-    );
-  };
   const checkBookmarkStatus = useCallback(() => {
-    if (stopBookmarks.ids.includes(props.stopId)) {
-      console.log(stopBookmarks.ids);
+    if (isBookmarked()) {
+      dispatch(removeStopBookmark(props.stopId));
     } else {
-      checkAndAddBookmark(props.stopId);
+      dispatch(addStopBookmark(props));
     }
-  }, [props.stopId]);
+  }, [stopBookmarks.ids]);
 
   return (
     <Button
-      icon={
-        stopBookmarks.ids.includes(props.stopId) ? (
-          <Bookmark24Filled />
-        ) : (
-          <Bookmark24Regular />
-        )
-      }
+      icon={isBookmarked() ? <Bookmark24Filled /> : <Bookmark24Regular />}
       onClick={checkBookmarkStatus}
     />
   );
