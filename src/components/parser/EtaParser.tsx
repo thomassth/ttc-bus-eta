@@ -13,6 +13,21 @@ const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {
   });
 };
 
+const parseSingleOrMultiEta = (
+  input: EtaBus | EtaBus[],
+  result: LineStopEta[]
+) => {
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      pushIntoEta(result[result.length - 1].etas, item);
+    }
+  } else {
+    console.log("single prediction");
+    const item = input;
+    pushIntoEta(result[result.length - 1].etas, item);
+  }
+};
+
 export const etaParser = (json: EtaPredictionXml) => {
   console.log(typeof json);
   const result: LineStopEta[] = [];
@@ -40,16 +55,7 @@ export const etaParser = (json: EtaPredictionXml) => {
               etas: [],
               stopTag,
             });
-
-            if (Array.isArray(el3.prediction)) {
-              for (const el2 of el3.prediction) {
-                pushIntoEta(result[result.length - 1].etas, el2);
-              }
-            } else {
-              console.log("single prediction");
-              const item = el3.prediction;
-              pushIntoEta(result[result.length - 1].etas, item);
-            }
+            parseSingleOrMultiEta(el3.prediction, result);
           }
         } else {
           result.push({
@@ -59,15 +65,7 @@ export const etaParser = (json: EtaPredictionXml) => {
             etas: [],
             stopTag: parseInt(element.stopTag),
           });
-
-          if (Array.isArray(element.direction.prediction)) {
-            for (const el2 of element.direction.prediction) {
-              pushIntoEta(result[result.length - 1].etas, el2);
-            }
-          } else {
-            const item = element.direction.prediction;
-            pushIntoEta(result[result.length - 1].etas, item);
-          }
+          parseSingleOrMultiEta(element.direction.prediction, result);
         }
       }
     }
@@ -104,20 +102,7 @@ export const etaParser = (json: EtaPredictionXml) => {
                 etas: [],
                 stopTag,
               });
-
-              if (Array.isArray(element.prediction)) {
-                for (const el2 of element.prediction) {
-                  pushIntoEta(result[result.length - 1].etas, el2);
-                }
-              } else {
-                const item = element.direction.prediction;
-                if (Array.isArray(item)) {
-                  // TODO: finish this next reorg
-                  console.log("Not done yet :(");
-                } else {
-                  pushIntoEta(result[result.length - 1].etas, item);
-                }
-              }
+              parseSingleOrMultiEta(element.prediction, result);
             }
           }
         }
@@ -143,24 +128,10 @@ export const etaParser = (json: EtaPredictionXml) => {
           etas: [],
           stopTag: parseInt(predictionGroup.stopTag),
         });
-        if (Array.isArray(json.body.predictions.direction.prediction)) {
-          for (const element of json.body.predictions.direction.prediction) {
-            pushIntoEta(result[result.length - 1].etas, element);
-          }
-        } else {
-          const predictionGroup2 = json.body.predictions;
-          result.push({
-            line: predictionGroup2.routeTag,
-            stopName: predictionGroup2.stopTitle,
-            routeName: parseRoute(predictionGroup2.routeTitle),
-            etas: [],
-            stopTag: parseInt(predictionGroup2.stopTag),
-          });
-          const item = json.body.predictions.direction.prediction;
-
-          console.log("single prediction");
-          pushIntoEta(result[result.length - 1].etas, item);
-        }
+        parseSingleOrMultiEta(
+          json.body.predictions.direction.prediction,
+          result
+        );
       }
     } else {
       console.log("no ETA at all");
