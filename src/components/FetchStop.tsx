@@ -7,43 +7,30 @@ import { LineStopEta } from "../data/EtaObjects";
 import { EtaPredictionXml } from "../data/EtaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
+import { FetchXMLWithCancelToken } from "./FetchUtils";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
 import { etaParser } from "./parser/EtaParser";
-import { xmlParser } from "./parser/parserUtils";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
   const overrides = fluentStyles();
 
-  const fetchPredictions = (stop: number = stopId) => {
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stop}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const dataJson = xmlParser.parse(str);
-        setData(dataJson);
-        console.log(dataJson);
-        setEtaDb(etaParser(dataJson));
-      });
-    });
-  };
-
-  const fetchPredictionsClick = useCallback(() => {
-    fetchPredictions();
-  }, []);
+  const handleRefreshClick = useCallback(() => {
+    setLastUpdatedAt(Date.now());
+    setData(undefined);
+    setEtaDb([]);
+  }, [lastUpdatedAt]);
 
   function RefreshButton() {
     return (
       <Button
         className={overrides.refreshButton}
-        onClick={fetchPredictionsClick}
+        onClick={handleRefreshClick}
         icon={<ArrowClockwise24Regular />}
       >
         {t("buttons.refresh")}
@@ -52,12 +39,35 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   }
 
   useEffect(() => {
-    fetchPredictions();
-  }, []);
+    const controller = new AbortController();
 
-  if (data !== undefined) {
-    console.log(etaDb);
+    const fetchEtaData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
 
+      return { parsedData, error };
+    };
+
+    fetchEtaData().then(({ parsedData, error }) => {
+      if (error || !parsedData) {
+        return;
+      }
+      setData(parsedData);
+      setEtaDb(etaParser(parsedData));
+    });
+
+    // when useEffect is called, the following clean-up fn will run first
+    return () => {
+      controller.abort();
+    };
+  }, [lastUpdatedAt]);
+
+  if (data) {
     if (data.body.Error === undefined) {
       return (
         <div className="directionsList list">
