@@ -116,3 +116,14 @@ main {
   gap: 1rem;
   margin: 1rem 0;
 }
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.2rem;
+}
+
+.card-row > :last-child {
+  margin-left: auto;
+}
