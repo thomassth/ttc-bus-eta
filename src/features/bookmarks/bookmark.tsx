@@ -11,17 +11,15 @@ export default function Bookmark() {
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const bookmarks: JSX.Element[] = [];
+  const bookmarks = stopBookmarks.ids.map((item: number) => {
+    return <BookmarkCard key={item} id={item} />;
+  });
 
   console.log(stopBookmarks.entities);
 
   const clearAllBookmarks = useCallback(() => {
     dispatch(clearStopBookmarks());
   }, []);
-
-  for (const item of stopBookmarks.ids) {
-    bookmarks.push(<BookmarkCard key={item} id={item} />);
-  }
 
   return (
     <main>

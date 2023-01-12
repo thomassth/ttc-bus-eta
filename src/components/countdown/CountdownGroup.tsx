@@ -1,21 +1,16 @@
 import { Badge, Link, Text, Title2 } from "@fluentui/react-components";
-import { ReactElement } from "react";
 
 import { LineStopEta } from "../../data/EtaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "./CountdownSec";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
-  const countdownRowList: ReactElement[] = [];
-
-  for (const el2 of props.detail.etas) {
-    countdownRowList.push(
-      <div className="countdown-row" key={el2.tripTag}>
-        <CountdownBranch branch={el2.branch} />
-        <CountdownSec second={el2.seconds} epochTime={el2.epochTime} />
-      </div>
-    );
-  }
+  const countdownRowList = props.detail.etas.map((el2) => (
+    <div className="countdown-row" key={el2.tripTag}>
+      <CountdownBranch branch={el2.branch} />
+      <CountdownSec second={el2.seconds} epochTime={el2.epochTime} />
+    </div>
+  ));
 
   return (
     <div className="line">

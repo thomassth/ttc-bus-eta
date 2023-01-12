@@ -69,16 +69,14 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   if (data) {
     if (data.body.Error === undefined) {
-      const countdownGroupList: JSX.Element[] = [];
-
-      for (const element of etaDb) {
-        countdownGroupList.push(
+      const countdownGroupList = etaDb.map((element) => {
+        return (
           <CountdownGroup
             key={`${element.line}-${element.stopTag}`}
             detail={element}
           />
         );
-      }
+      });
 
       return (
         <div className="directionsList list">

@@ -18,17 +18,15 @@ export function StopAccordions(props: {
 }) {
   const overrides = fluentStyles();
 
-  const final: JSX.Element[] = [];
-
-  for (const lineStop of props.result) {
-    final.push(
+  const final = props.result.map((lineStop) => {
+    return (
       <AccordionPanel
         key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
       >
         {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}
       </AccordionPanel>
     );
-  }
+  });
 
   return (
     <AccordionItem value={props.tag}>
