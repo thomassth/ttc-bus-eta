@@ -1,4 +1,4 @@
-import { makeStyles, shorthands } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const fluentStyles = makeStyles({
   badge: {
@@ -17,5 +17,11 @@ export const fluentStyles = makeStyles({
   },
   refreshButton: {
     width: "max-content",
+  },
+  bottomNav: {
+    backgroundColor: tokens.colorNeutralBackground1,
+  },
+  bottomNavButton: {
+    flexDirection: "column",
   },
 });

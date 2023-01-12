@@ -20,21 +20,20 @@ body,
 }
 
 .bottomNav {
-  padding: 10px;
-  margin-top: auto;
-  align-self: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5px 0;
   position: fixed;
   bottom: 0;
-  background-color: black;
+  background-color: #292929;
+  background-color: var(--colorNeutralBackground1)
 }
 
-.bottomNav a {
-  padding: 0 10px;
-  border-radius: 2rem;
-}
-
-.bottomNav > .active {
-  background-color: hsl(0, 0%, 76%);
+.bottomNav .fui-Button__icon{
+  margin-right:0
 }
 
 @media screen and (min-width: 800px) {

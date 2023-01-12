@@ -5,7 +5,7 @@ import {
 } from "@fluentui/react-components";
 import { useState } from "react";
 
-import { prefersDark } from "./theme";
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export function FluentTheme({ children }: { children: JSX.Element }) {
   const [isDark, setIsDark] = useState(prefersDark);
