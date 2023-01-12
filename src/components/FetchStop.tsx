@@ -3,14 +3,14 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LineStopEta } from "../data/EtaObjects";
-import { EtaPredictionXml } from "../data/EtaXml";
+import { LineStopEta } from "../data/etaObjects";
+import { EtaPredictionXml } from "../data/etaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
 import { fluentStyles } from "../styles/fluent";
-import { FetchXMLWithCancelToken } from "./FetchUtils";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
-import { etaParser } from "./parser/EtaParser";
+import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { etaParser } from "./parser/etaParser";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();

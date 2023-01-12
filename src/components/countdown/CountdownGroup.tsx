@@ -1,6 +1,6 @@
 import { Badge, Link, Text, Title2 } from "@fluentui/react-components";
 
-import { LineStopEta } from "../../data/EtaObjects";
+import { LineStopEta } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "./CountdownSec";
 

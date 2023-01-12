@@ -9,18 +9,14 @@ export interface BasicXml {
 export interface EtaPredictionXml {
   body: {
     Error: { ["#text"]: string } | undefined;
-    predictions:
-    | EtaPredictions[]
-    | EtaPredictions;
+    predictions: EtaPredictions[] | EtaPredictions;
   };
 }
 
 export interface EtaPredictions {
   dirTitleBecauseNoPredictions: string | undefined;
-  direction:
-  | EtaDirection[]
-  | EtaDirection;
-  agencyTitle: string
+  direction: EtaDirection[] | EtaDirection;
+  agencyTitle: string;
   stopTitle: string;
   routeTag: string;
   stopTag: string;
@@ -28,11 +24,9 @@ export interface EtaPredictions {
 }
 
 export interface EtaDirection {
-  title: string,
+  title: string;
   dirTitleBecauseNoPredictions: string | undefined;
-  prediction:
-  | EtaBus[]
-  | EtaBus;
+  prediction: EtaBus[] | EtaBus;
 }
 
 export interface EtaBus {
@@ -55,17 +49,17 @@ export interface RouteXml {
       color: string;
       direction: RouteLineXml[];
       latMax: string;
-      lonMax: string
-      lonMin: string
-      oppositeColor: string
+      lonMax: string;
+      lonMin: string;
+      oppositeColor: string;
       tag: string;
       title: string;
       path: {
         point: {
           lat: number;
           lon: number;
-        }[]
-      }[]
+        }[];
+      }[];
       stop: {
         stopId: string | undefined;
         tag: string;
@@ -84,11 +78,9 @@ export interface RouteLineXml {
   tag: string;
 }
 
-
-
 export interface RouteStopXml {
   body: {
     Error: { ["#text"]: string } | undefined;
-    predictions: EtaPredictions
+    predictions: EtaPredictions;
   };
-};
+}

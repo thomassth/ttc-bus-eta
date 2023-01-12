@@ -1,5 +1,5 @@
-import { EtaBusWithID, LineStopEta } from "../../data/EtaObjects";
-import { EtaBus, EtaPredictionXml } from "../../data/EtaXml";
+import { EtaBusWithID, LineStopEta } from "../../data/etaObjects";
+import { EtaBus, EtaPredictionXml } from "../../data/etaXml";
 import { parseRoute } from "./routeName";
 
 const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {

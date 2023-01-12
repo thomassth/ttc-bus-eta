@@ -5,7 +5,7 @@ import {
   Badge,
 } from "@fluentui/react-components";
 
-import { LineStopElement } from "../../data/EtaObjects";
+import { LineStopElement } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { parseRoute } from "../parser/routeName";
 

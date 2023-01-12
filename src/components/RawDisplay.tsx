@@ -6,7 +6,7 @@ import {
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionXml, RouteXml } from "../data/EtaXml";
+import { EtaPredictionXml, RouteXml } from "../data/etaXml";
 
 export default function RawDisplay(props: {
   data: EtaPredictionXml | RouteXml;

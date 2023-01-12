@@ -3,7 +3,7 @@ import { LargeTitle, Link, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { RouteStopXml } from "../data/EtaXml";
+import { RouteStopXml } from "../data/etaXml";
 import RawDisplay from "./RawDisplay";
 import { CountdownSec } from "./countdown/CountdownSec";
 import { xmlParser } from "./parser/parserUtils";

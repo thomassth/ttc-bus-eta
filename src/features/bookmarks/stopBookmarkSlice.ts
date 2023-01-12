@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { StopBookmark } from "../../data/EtaObjects";
+import { StopBookmark } from "../../data/etaObjects";
 import { loadState } from "./localstorage";
 
 const persistedState = loadState();

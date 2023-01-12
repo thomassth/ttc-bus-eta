@@ -1,11 +1,11 @@
-import { EtaBus } from "./EtaXml";
+import { EtaBus } from "./etaXml";
 
 export interface LineStopElement {
   id: JSX.Element;
   name: string;
   latlong: JSX.Element;
   stopId: JSX.Element;
-  key: number
+  key: number;
 }
 
 export interface LineStopEta {
@@ -27,8 +27,7 @@ export interface StopBookmark {
   stopId: number;
   name: string;
   ttcId: number;
-} 
-
+}
 
 export interface EtaBusWithID extends EtaBus {
   id: string;

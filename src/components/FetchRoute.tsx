@@ -3,13 +3,13 @@ import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LineStop, LineStopElement } from "../data/EtaObjects";
-import { RouteXml } from "../data/EtaXml";
+import { LineStop, LineStopElement } from "../data/etaObjects";
+import { RouteXml } from "../data/etaXml";
 import { fluentStyles } from "../styles/fluent";
-import { FetchXMLWithCancelToken } from "./FetchUtils";
 import RawDisplay from "./RawDisplay";
+import { FetchXMLWithCancelToken } from "./fetchUtils";
 import { StopAccordions } from "./lists/StopAccordions";
-import { stopsParser } from "./parser/StopsParser";
+import { stopsParser } from "./parser/stopsParser";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
