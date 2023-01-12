@@ -10,6 +10,11 @@ const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {
     branch: item.branch,
     tripTag: item.tripTag,
     epochTime: item.epochTime,
+    minutes: item.minutes,
+    isDeparture: item.isDeparture,
+    affectedByLayover: item.affectedByLayover,
+    dirTag: item.dirTag,
+    block: item.block,
   });
 };
 
@@ -29,7 +34,6 @@ const parseSingleOrMultiEta = (
 };
 
 export const etaParser = (json: EtaPredictionXml) => {
-  console.log(typeof json);
   const result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {
@@ -37,8 +41,6 @@ export const etaParser = (json: EtaPredictionXml) => {
   }
 
   if (Array.isArray(json.body.predictions)) {
-    console.log("multi line stop");
-
     for (const element of json.body.predictions) {
       // Only lines with etas are listed
       if (element.dirTitleBecauseNoPredictions === undefined) {

@@ -20,6 +20,7 @@ export interface EtaPredictions {
   direction:
   | EtaDirection[]
   | EtaDirection;
+  agencyTitle: string
   stopTitle: string;
   routeTag: string;
   stopTag: string;
@@ -36,7 +37,12 @@ export interface EtaDirection {
 
 export interface EtaBus {
   seconds: number;
+  minutes: number;
+  isDeparture: boolean;
+  affectedByLayover: boolean;
   vehicle: number;
+  dirTag: string;
+  block: string;
   branch: string;
   tripTag: number;
   epochTime: number;
@@ -46,23 +52,20 @@ export interface RouteXml {
   body: {
     Error: { ["#text"]: string } | undefined;
     route: {
-      direction: RouteLineXml[]
-    }
-  };
-}
-
-export interface RouteLineXml {
-  title: string;
-  name: string;
-  branch: number;
-  stop: { tag: string }[];
-  tag: string;
-}
-
-export interface stopsXml {
-  body: {
-    Error: { ["#text"]: string } | undefined;
-    route: {
+      color: string;
+      direction: RouteLineXml[];
+      latMax: string;
+      lonMax: string
+      lonMin: string
+      oppositeColor: string
+      tag: string;
+      title: string;
+      path: {
+        point: {
+          lat: number;
+          lon: number;
+        }[]
+      }[]
       stop: {
         stopId: string | undefined;
         tag: string;
@@ -73,14 +76,19 @@ export interface stopsXml {
     };
   };
 }
+export interface RouteLineXml {
+  title: string;
+  name: string;
+  branch: number;
+  stop: { tag: string }[];
+  tag: string;
+}
+
+
 
 export interface RouteStopXml {
   body: {
     Error: { ["#text"]: string } | undefined;
-    predictions: {
-      dirTitleBecauseNoPredictions: string | undefined;
-      stopTitle: string;
-      direction: EtaDirection | EtaDirection[]
-    }
+    predictions: EtaPredictions
   };
 };

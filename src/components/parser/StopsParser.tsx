@@ -1,7 +1,7 @@
 import { LineStop } from "../../data/EtaObjects";
-import { stopsXml } from "../../data/EtaXml";
+import { RouteXml } from "../../data/EtaXml";
 
-export function stopsParser(json: stopsXml): LineStop[] {
+export function stopsParser(json: RouteXml): LineStop[] {
   const result: LineStop[] = [];
   console.log(json);
   if (json.body.Error === undefined) {
