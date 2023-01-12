@@ -16,7 +16,7 @@ export function StopAccordions(props: {
   lineNum: number;
   tag: string;
 }) {
-  const overrides = fluentStyles();
+  const fluentStyle = fluentStyles();
 
   const final = props.result.map((lineStop) => {
     return (
@@ -30,9 +30,9 @@ export function StopAccordions(props: {
 
   return (
     <AccordionItem value={props.tag}>
-      <AccordionHeader className={overrides.accordionHeader}>
-        <Badge className={overrides.badge}>{props.direction}</Badge>
-        <Badge className={overrides.badge}>{props.lineNum}</Badge>
+      <AccordionHeader className={fluentStyle.accordionHeader}>
+        <Badge className={fluentStyle.badge}>{props.direction}</Badge>
+        <Badge className={fluentStyle.badge}>{props.lineNum}</Badge>
         {parseRoute(props.title)}
       </AccordionHeader>
       {final}

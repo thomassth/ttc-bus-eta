@@ -11,7 +11,7 @@ export const expiredStyle = {
 export function CountdownSec(props: { second: number; epochTime: number }) {
   const [epochTime, setEpochTime] = useState(props.epochTime);
   const [sec, setSec] = useState(Math.floor((epochTime - Date.now()) / 1000));
-  const overrides = fluentStyles();
+  const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
   // TODO: not using seconds provided in API; may make it an option later
@@ -35,7 +35,7 @@ export function CountdownSec(props: { second: number; epochTime: number }) {
       {sec < 180 ? <ArrivingBadge /> : null}
 
       {sec > 0 ? (
-        <Title2 className={overrides.number}>
+        <Title2 className={fluentStyle.number}>
           {Math.floor(sec / 60) >= 1
             ? `${Math.floor(sec / 60)}${t("eta.minuteShort")} `
             : `${sec % 60}${t("eta.secondShort")}`}
@@ -43,7 +43,7 @@ export function CountdownSec(props: { second: number; epochTime: number }) {
       ) : null}
 
       {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 ? (
-        <Text className={overrides.number}>{`${sec % 60}${t(
+        <Text className={fluentStyle.number}>{`${sec % 60}${t(
           "eta.secondShort"
         )}`}</Text>
       ) : null}

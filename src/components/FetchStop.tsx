@@ -18,7 +18,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
-  const overrides = fluentStyles();
+  const fluentStyle = fluentStyles();
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
@@ -29,7 +29,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   function RefreshButton() {
     return (
       <Button
-        className={overrides.refreshButton}
+        className={fluentStyle.refreshButton}
         onClick={handleRefreshClick}
         icon={<ArrowClockwise24Regular />}
       >

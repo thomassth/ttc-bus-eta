@@ -18,7 +18,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
-  const overrides = fluentStyles();
+  const fluentStyle = fluentStyles();
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
@@ -30,7 +30,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         );
         result.push({
           id: (
-            <Badge className={overrides.badge} appearance="outline">
+            <Badge className={fluentStyle.badge} appearance="outline">
               {matchingStop?.id}
             </Badge>
           ),

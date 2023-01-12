@@ -9,12 +9,10 @@ export default function About() {
         to you.
       </Text>
       <Title2>Where do they come from?</Title2>
-      <Text>
-        From City of Toronto&#39;s Open Data Catalogue:
-        <Link href="https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/">
-          https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/
-        </Link>
-      </Text>
+      <Text>From City of Toronto&#39;s Open Data Catalogue:</Text>{" "}
+      <Link href="https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/">
+        https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/
+      </Link>
       <Text>(It is way harder to parse than it looks)</Text>
       <Title2>But it&#39;s not accurate! / it&#39;s missing a bus!</Title2>
       <Text>Well tell that to TTC! I&#39;m just the messenger.</Text>
@@ -30,7 +28,7 @@ export default function About() {
       </Text>
       <Title2>Can I help?</Title2>
       <Text>
-        Yes please! Head
+        Yes please! Head{" "}
         <Link href="https://github.com/thomassth/ttc-bus-eta">here</Link> and
         leave a pull request / feature request / give me a million dollar
         buyout.

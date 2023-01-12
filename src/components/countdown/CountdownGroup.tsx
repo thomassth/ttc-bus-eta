@@ -30,10 +30,10 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
 }
 
 function CountdownBranch(props: { branch: string }) {
-  const overrides = fluentStyles();
+  const fluentStyle = fluentStyles();
 
   return (
-    <Badge className={overrides.badge} appearance="outline">
+    <Badge className={fluentStyle.badge} appearance="outline">
       {props.branch}
     </Badge>
   );
