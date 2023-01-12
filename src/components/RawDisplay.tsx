@@ -3,7 +3,6 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
-  Text,
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 
@@ -19,7 +18,7 @@ export default function RawDisplay(props: {
       <AccordionItem value="raw">
         <AccordionHeader>{t("debug.showResponse")}</AccordionHeader>
         <AccordionPanel>
-          <Text>{JSON.stringify(props.data, null, 4)}</Text>
+          <pre>{`${JSON.stringify(props.data, null, 1)}`}</pre>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

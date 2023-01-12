@@ -127,3 +127,7 @@ main {
 .card-row > :last-child {
   margin-left: auto;
 }
+
+pre {
+  white-space: pre-wrap;
+}
