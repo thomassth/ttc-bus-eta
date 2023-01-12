@@ -21,8 +21,9 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="lines" element={<Outlet />}>
-        <Route path=":lineId" element={<Line />}>
+        <Route path=":lineId" element={<Outlet />}>
           <Route path=":stopNum" element={<LineStopPrediction />} />
+          <Route index element={<Line />} />
         </Route>
         <Route index element={<LineSearch />} />
       </Route>

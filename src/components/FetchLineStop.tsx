@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { RouteStopXml } from "../data/EtaXml";
+import RawDisplay from "./RawDisplay";
+import { CountdownSec } from "./countdown/CountdownSec";
 import { xmlParser } from "./parser/parserUtils";
 
 function LineStopPredictionInfo(props: {
@@ -54,47 +56,64 @@ function LineStopPredictionInfo(props: {
       } else {
         if (data.body.predictions.dirTitleBecauseNoPredictions !== undefined) {
           return (
-            <Link appearance="subtle" onClick={fetchPredictionClick}>
-              <LargeTitle>
-                {data.body.predictions.stopTitle}
-                {t("reminder.noRoute")}
-              </LargeTitle>
-            </Link>
+            <div className="directionsList list">
+              <Link appearance="subtle" onClick={fetchPredictionClick}>
+                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+              </Link>
+              <Text> {t("reminder.noRoute")}</Text>
+              <RawDisplay data={data} />
+            </div>
           );
         }
         if (Array.isArray(data.body.predictions.direction)) {
-          return (
-            <div>
-              {data.body.predictions.direction.map((line, index: number) => {
-                return (
-                  <div className="directionList list" key={`${index}`}>
-                    <Text>{line.title}</Text>
-                    {Array.isArray(line.prediction)
-                      ? line.prediction.map(
-                          (bus: { seconds: number }, index2: number) => {
-                            return (
-                              <Text key={`${index}-${index2}`}>
-                                {bus.seconds}s
-                              </Text>
-                            );
-                          }
-                        )
-                      : null}
-                  </div>
-                );
-              })}
-            </div>
+          const directionListGroup = data.body.predictions.direction.map(
+            (line, index: number) => {
+              return (
+                <div className="directionList list" key={`${index}`}>
+                  <Text>{line.title}</Text>
+                  {Array.isArray(line.prediction) ? (
+                    line.prediction.map((bus) => {
+                      return (
+                        <CountdownSec
+                          second={bus.seconds}
+                          epochTime={bus.epochTime}
+                          key={bus.tripTag}
+                        />
+                      );
+                    })
+                  ) : (
+                    <CountdownSec
+                      second={line.prediction.seconds}
+                      epochTime={line.prediction.epochTime}
+                      key={line.prediction.tripTag}
+                    />
+                  )}
+                </div>
+              );
+            }
           );
+
+          return <div>{directionListGroup}</div>;
         } else {
           if (Array.isArray(data.body.predictions.direction.prediction)) {
+            const directionListGroup =
+              data.body.predictions.direction.prediction.map((bus) => {
+                return (
+                  <CountdownSec
+                    second={bus.seconds}
+                    epochTime={bus.epochTime}
+                    key={bus.tripTag}
+                  />
+                );
+              });
             // Only 1 direction
             return (
-              <div className="directionList list">
-                {data.body.predictions.direction.prediction.map(
-                  (bus: { seconds: number }, index: number) => {
-                    return <Text key={`${index}`}>{bus.seconds}s</Text>;
-                  }
-                )}
+              <div className="directionsList list">
+                <Link appearance="subtle" onClick={fetchPredictionClick}>
+                  <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                </Link>
+                <div className="directionList list">{directionListGroup}</div>
+                <RawDisplay data={data} />
               </div>
             );
           } else {
@@ -102,7 +121,10 @@ function LineStopPredictionInfo(props: {
 
             return (
               <div className="directionsList list">
-                <Text>{data.body.predictions.direction.title}</Text>
+                <Link appearance="subtle" onClick={fetchPredictionClick}>
+                  <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                </Link>
+                <RawDisplay data={data} />
               </div>
             );
           }
@@ -112,7 +134,7 @@ function LineStopPredictionInfo(props: {
   } else {
     return (
       <Link appearance="subtle" onClick={fetchPredictionClick}>
-        <LargeTitle>{t("reminder.wrongPlace")}</LargeTitle>
+        <LargeTitle>{t("reminder.loading")}</LargeTitle>
       </Link>
     );
   }

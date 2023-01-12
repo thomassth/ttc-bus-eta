@@ -1,7 +1,7 @@
 import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import RouteInfo from "../components/FetchRoute";
 
@@ -19,7 +19,6 @@ export default function Line() {
       <Accordion defaultOpenItems collapsible>
         <RouteInfo line={lineNum} />
       </Accordion>
-      <Outlet />
     </main>
   );
 }
