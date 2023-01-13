@@ -11,8 +11,8 @@
       "name": "TTC 到站時間",
       "tooltip": "回主頁"
     },
-    "headline": "加落書簽嘅站會出現響呢度。 <br />",
-    "bookmarkReminder": "(試下響你成日等車嘅站撳個書簽 icon)"
+    "headline": "加落書籤嘅站會出現響呢度。 <br />",
+    "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)"
   },
   "lines": {
     "ariaLabel": "輸入路線",
@@ -28,24 +28,26 @@
   "buttons": {
     "search": "搜尋",
     "refresh": "更新",
-    "clear": "清除全部"
+    "clear": "清除全部",
+    "mapPin": "響 Google 地圖睇佢個位置",
+    "busIcon": "睇巴士幾時到站",
+    "languageChange": "選擇語言",
+    "delete": "刪除",
+    "bookmarkAdd":"加呢頁落書籤",
+    "bookmarkDelete":"響書籤刪除呢頁"
   },
   "reminder": {
     "noRoute": "冇即將到站資料。",
     "failToLocate": "揾唔到呢條線",
     "wrongPlace": "唔應該睇到呢句野架囉 🫤",
-    "loading": "Load 緊..."
+    "loading": "Load 緊...",
+    "noEta": "冇即將到站資料。"
   },
   "error": {
     "notFound": "404: 我地冇呢一頁 😿"
   },
   "debug": {
     "showResponse": "原始資料"
-  },
-  "lang": {
-    "en": "English",
-    "fr": "Français",
-    "zh": "中文"
   },
   "eta": {
     "minuteShort": "分",

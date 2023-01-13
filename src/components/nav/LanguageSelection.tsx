@@ -19,9 +19,10 @@ export function LanguageSelection() {
     []
   );
   return (
-    <Popover>
+    <Popover positioning="below">
       <PopoverTrigger disableButtonEnhancement>
         <Button
+          title={t("buttons.languageChange") ?? "Language selection"}
           shape="circular"
           appearance="outline"
           icon={<LocalLanguage20Regular />}
@@ -31,7 +32,7 @@ export function LanguageSelection() {
       <PopoverSurface>
         <RadioGroup
           defaultValue={i18n.language}
-          aria-labelledby={"language selection"}
+          aria-labelledby={t("buttons.languageChange") ?? "Language selection"}
           onChange={handleLangChange}
         >
           <Radio value="en" label={t("lang.en")} />

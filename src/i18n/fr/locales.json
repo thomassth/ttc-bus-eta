@@ -1,9 +1,9 @@
 {
   "nav": {
     "label": {
-      "home": "Page d'accueil",
-      "lines": "lignes",
-      "about": "À propos du"
+      "home": "Accueil",
+      "lines": "Lignes",
+      "about": "Aide"
     }
   },
   "home": {
@@ -29,8 +29,12 @@
     "search": "Chercher",
     "refresh": "Rafraîchir",
     "clear": "Tout effacer",
-    "mapPin": "",
-    "busIcon": ""
+    "mapPin": "Voir l'emplacement sur google maps",
+    "busIcon": "voir les heures d'arrivée",
+    "languageChange": "sélection de la langue",
+    "delete": "effacer",
+    "bookmarkAdd":"Ajouter au signet",
+    "bookmarkDelete":"Supprimer le signet"
   },
   "reminder": {
     "noRoute": "Pas d'arrivées à venir.",
@@ -44,11 +48,6 @@
   },
   "debug": {
     "showResponse": "Afficher la réponse brute"
-  },
-  "lang": {
-    "en": "English",
-    "fr": "Français",
-    "zh": "中文"
   },
   "eta": {
     "minuteShort": "m",
