@@ -16,7 +16,7 @@ body,
 }
 
 .nav-buffer {
-  height: 2rem;
+  height: 4rem;
 }
 
 .bottomNav {
@@ -34,6 +34,12 @@ body,
 
 .bottomNav .fui-Button__icon {
   margin-right: 0;
+}
+
+.sideNav {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media screen and (min-width: 800px) {
@@ -55,14 +61,14 @@ body,
 }
 
 .navBar {
-  padding: 1rem;
+  padding: 1rem 0;
   display: flex;
   gap: 1rem;
   flex-direction: column;
 }
 
-.container > :nth-child(2) {
-  max-width: 50rem;
+.navBar > a {
+  padding: 0 1rem
 }
 
 main {

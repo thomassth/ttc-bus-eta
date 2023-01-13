@@ -24,4 +24,13 @@ export const fluentStyles = makeStyles({
   bottomNavButton: {
     flexDirection: "column",
   },
+  sideNavButton: {
+    ...shorthands.padding("0.5rem", " 0"),
+    width: "100%",
+    borderTopLeftRadius: "0px",
+    borderBottomLeftRadius: "0px",
+  },
+  fullWidthContent: {
+    width: "100%",
+  },
 });
