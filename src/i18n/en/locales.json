@@ -30,7 +30,11 @@
     "refresh": "Refresh",
     "clear": "Clear All",
     "mapPin": "View location in Google Maps",
-    "busIcon": "View stop ETA"
+    "busIcon": "View stop ETA",
+    "languageChange": "language selection",
+    "delete": "Delete",
+    "bookmarkAdd":"Add to bookmark",
+    "bookmarkDelete":"Remove bookmark"
   },
   "reminder": {
     "noRoute": "No upcoming arrivals.",
@@ -40,15 +44,10 @@
     "noEta": "No ETAs detected."
   },
   "error": {
-    "notFound": "Error: this page does not exist."
+    "notFound": "404: this page does not exist :("
   },
   "debug": {
     "showResponse": "View raw response"
-  },
-  "lang": {
-    "en": "English",
-    "fr": "Français",
-    "zh": "中文"
   },
   "eta": {
     "minuteShort": "m",
@@ -56,5 +55,10 @@
   },
   "badge": {
     "arriving": "Arriving"
+  },
+    "lang": {
+    "en": "English",
+    "fr": "Français (traduction automatique)",
+    "zh": "中文"
   }
 }

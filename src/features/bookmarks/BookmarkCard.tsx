@@ -1,6 +1,7 @@
 import { Badge, Button, Link, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
 import { Delete24Regular } from "@fluentui/react-icons";
+import { t } from "i18next";
 import { useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -23,7 +24,11 @@ export function BookmarkCard(props: { id: number }) {
         <Link href={`stops/${stopBookmarks.entities[id].stopId}`}>
           <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
         </Link>
-        <Button icon={<Delete24Regular />} onClick={checkBookmarkStatus} />
+        <Button
+          title={t("buttons.delete") ?? "delete"}
+          icon={<Delete24Regular />}
+          onClick={checkBookmarkStatus}
+        />
       </div>
     </Card>
   );
