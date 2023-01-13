@@ -1,4 +1,4 @@
-import { Title2 } from "@fluentui/react-components";
+import { Link, Title2 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -12,6 +12,7 @@ export default function LineStopPrediction() {
   const { t } = useTranslation();
   return (
     <main>
+      <Link href={`../${lineNum}`}>Back to {lineNum}</Link>
       <Title2>{t("lines.lineAndStopInfo", { lineNum, stopNum })}</Title2>
       <LineStopPredictionInfo line={lineNum} stopNum={stopNum} />
     </main>

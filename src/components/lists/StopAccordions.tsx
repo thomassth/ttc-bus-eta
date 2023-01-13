@@ -18,7 +18,7 @@ export function StopAccordions(props: {
 }) {
   const fluentStyle = fluentStyles();
 
-  const final = props.result.map((lineStop) => {
+  const stops = props.result.map((lineStop) => {
     return (
       <AccordionPanel
         key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
@@ -35,7 +35,7 @@ export function StopAccordions(props: {
         <Badge className={fluentStyle.badge}>{props.lineNum}</Badge>
         {parseRoute(props.title)}
       </AccordionHeader>
-      {final}
+      {stops}
     </AccordionItem>
   );
 }
