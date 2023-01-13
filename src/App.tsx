@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router";
 
 import "./App.css";
-import { BottomBar } from "./components/nav/BottomBar";
+import { BottomBar, SideBar } from "./components/nav/NavBar";
 
 function App() {
   const [dimensions, setDimensions] = useState({
@@ -33,12 +33,11 @@ function App() {
         >
           <Title1 className="text-xl font-bold">{t("home.title.name")}</Title1>
         </Link>
-        {dimensions.width >= 800 && <div />}
+        {dimensions.width >= 800 && <SideBar />}
       </div>
       <Outlet />
       {dimensions.width < 800 && <div className="nav-buffer" />}
-      {/* {(dimensions.width < 800) && <BottomBar />} */}
-      <BottomBar />
+      {dimensions.width < 800 && <BottomBar />}
     </div>
   );
 }
