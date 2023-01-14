@@ -17,7 +17,7 @@ export default function RawDisplay(props: {
     <Accordion collapsible>
       <AccordionItem value="raw">
         <AccordionHeader>{t("debug.showResponse")}</AccordionHeader>
-        <AccordionPanel>
+        <AccordionPanel className="rawResponse">
           <pre>{`${JSON.stringify(props.data, null, 1)}`}</pre>
         </AccordionPanel>
       </AccordionItem>

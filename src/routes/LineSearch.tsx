@@ -23,7 +23,7 @@ export default function LineSearch() {
   return (
     <main>
       <form>
-        <Text>{t("lines.title")}</Text>
+        <Text className="lineTitle">{t("lines.title")}</Text>
         <div className="searchBlock">
           <Input value={input} onChange={handleLineChange} />
           <Button

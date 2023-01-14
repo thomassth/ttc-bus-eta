@@ -75,10 +75,37 @@ body,
 }
 
 .navBar {
-  padding: 1rem 0;
+  padding: 1rem 1rem 0 1rem;
   display: flex;
   gap: 1rem;
   flex-direction: column;
+}
+
+.fui-AccordionHeader__button {
+  padding-left: 0 !important;
+}
+
+.fui-AccordionPanel {
+  display: grid;
+  grid-template-columns: 36px 36px auto;
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 4px;
+  padding-bottom: 4px;
+}
+
+.lineDetails {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.rawResponse {
+  display: flex;
+  gap: 1rem;
+}
+
+.lineTitle {
+  padding-left: 16px;
 }
 
 .navBar > a {
@@ -96,6 +123,7 @@ main {
 }
 
 .searchBlock {
+  justify-content: space-between;
   display: flex;
   flex-flow: wrap;
   align-items: center;
@@ -137,9 +165,10 @@ main {
 }
 
 .card-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 0 0.2rem;
 }
 
