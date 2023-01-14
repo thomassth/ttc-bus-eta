@@ -29,7 +29,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   function RefreshButton() {
     return (
       <Button
-        className={fluentStyle.refreshButton}
+        className={`refreshButton ${fluentStyle.refreshButton}`}
         onClick={handleRefreshClick}
         icon={<ArrowClockwise24Regular />}
       >

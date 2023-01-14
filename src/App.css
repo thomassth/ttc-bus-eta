@@ -30,8 +30,6 @@ body,
 
 .bottomNav {
   width: 100%;
-  white-space: nowrap;
-  overflow: auto;
   position: fixed;
   bottom: 0px;
   text-align: center;
@@ -104,7 +102,7 @@ body,
   margin-bottom: auto;
 }
 
-.rawResponse {
+.rawResponseDetail {
   display: flex;
   gap: 1rem;
 }
@@ -115,6 +113,15 @@ body,
 
 .appTitle {
   padding-left: 32px !important;
+}
+
+.bookmarkedStop {
+  color: var(--colorBrandForegroundLink);
+  cursor: pointer;
+}
+
+.refreshButton {
+  margin-right: 10px !important;
 }
 
 .navBar > a {
