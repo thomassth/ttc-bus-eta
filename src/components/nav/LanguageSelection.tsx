@@ -34,7 +34,6 @@ export function LanguageSelection({ width }: { width: number }) {
               ? fluentStyle.sideNavButton
               : fluentStyle.bottomNavButton
           }`}
-          size="large"
           title={t("buttons.languageChange") ?? "Language selection"}
           shape="circular"
           appearance="subtle"

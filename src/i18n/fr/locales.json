@@ -17,7 +17,7 @@
   },
   "lines": {
     "ariaLabel": "entrer un numéro de ligne",
-    "placeholder": "entrer un numéro de ligne",
+    "placeholder": "nombre de lignes",
     "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
     "title": "Entrer un numéro de ligne:",
     "number": "Lignes {{lineNum}} =",

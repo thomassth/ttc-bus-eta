@@ -20,12 +20,8 @@ body,
 }
 
 .bottomNavBarItems {
-  margin-left: 10px !important;
-  margin-right: 10px !important;
-  font-size: 24px !important;
-  margin-top: 4px !important;
-  margin-bottom: 4px !important;
-  padding: 8px 16px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .directionsList > span {
@@ -40,6 +36,11 @@ body,
   bottom: 0px;
   text-align: center;
   background-color: var(--colorNeutralBackground2);
+
+  padding: 4px 0px;
+  display: grid;
+  grid-column-gap: 4px 4px 4px 4px;
+  grid-template-columns: auto auto auto auto;
 }
 
 .bottomNav .fui-Button__icon {
@@ -75,7 +76,7 @@ body,
 }
 
 .navBar {
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 0 0;
   display: flex;
   gap: 1rem;
   flex-direction: column;
@@ -106,6 +107,10 @@ body,
 
 .lineTitle {
   padding-left: 16px;
+}
+
+.appTitle {
+  padding-left: 32px !important;
 }
 
 .navBar > a {

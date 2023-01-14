@@ -9,25 +9,26 @@ import {
 } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
 
+import useNavigate from "../../routes/navigate";
 import { fluentStyles } from "../../styles/fluent";
 import { LanguageSelection } from "./LanguageSelection";
 
 const navItems = [
   {
     label: "nav.label.home",
-    href: `${process.env.PUBLIC_URL}/`,
+    href: `/`,
     icon: <Home20Regular />,
     icon_active: <Home24Filled />,
   },
   {
     label: "nav.label.lines",
-    href: `${process.env.PUBLIC_URL}/lines`,
+    href: `/lines`,
     icon: <ArrowRouting20Regular />,
     icon_active: <ArrowRouting24Filled />,
   },
   {
     label: "nav.label.about",
-    href: `${process.env.PUBLIC_URL}/about`,
+    href: `/about`,
     icon: <Question20Regular />,
     icon_active: <Question24Filled />,
   },
@@ -36,6 +37,11 @@ const navItems = [
 export function BottomBar({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
+  const { navigate } = useNavigate();
+
+  const handleRouteClick = (href: string) => () => {
+    navigate(href);
+  };
 
   const BottomNavItems = navItems.map((item) => {
     if (item.href === window.location.pathname) {
@@ -46,23 +52,23 @@ export function BottomBar({ width }: { width: number }) {
           appearance="primary"
           key={t(item.label)}
           icon={item.icon_active}
-          size="large"
+          onClick={handleRouteClick(item.href)}
         >
           {width > 480 && <Text>{t(item.label)}</Text>}
         </Button>
       );
     } else {
       return (
-        <Link href={item.href} appearance="subtle" key={t(item.label)}>
-          <Button
-            className={`bottomNavBarItems ${fluentStyle.bottomNavButton}`}
-            shape="circular"
-            appearance="subtle"
-            icon={item.icon}
-          >
-            {width > 480 && <Text>{t(item.label)}</Text>}
-          </Button>
-        </Link>
+        <Button
+          className={`bottomNavBarItems ${fluentStyle.bottomNavButton}`}
+          shape="circular"
+          appearance="subtle"
+          icon={item.icon}
+          key={t(item.label)}
+          onClick={handleRouteClick(item.href)}
+        >
+          {width > 480 && <Text>{t(item.label)}</Text>}
+        </Button>
       );
     }
   });

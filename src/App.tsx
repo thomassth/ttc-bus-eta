@@ -23,6 +23,7 @@ function App() {
     <div className="container">
       <div className="navBar">
         <Link
+          className="appTitle"
           href={`${process.env.PUBLIC_URL}/`}
           title={t("home.title.tooltip") || ""}
         >
