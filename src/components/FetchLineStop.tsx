@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { RouteStopXml } from "../data/etaXml";
+import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import { CountdownSec } from "./countdown/CountdownSec";
 import { xmlParser } from "./parser/parserUtils";
@@ -15,6 +16,7 @@ function LineStopPredictionInfo(props: {
 }): JSX.Element {
   const [data, setData] = useState<RouteStopXml>();
   const { t } = useTranslation();
+  const fluentStyle = fluentStyles();
 
   const fetchPredictions = (
     line: number = props.line,
@@ -45,7 +47,11 @@ function LineStopPredictionInfo(props: {
 
   function RefreshButton() {
     return (
-      <Button onClick={fetchPredictionClick} icon={<ArrowClockwise24Regular />}>
+      <Button
+        className={fluentStyle.refreshButton}
+        onClick={fetchPredictionClick}
+        icon={<ArrowClockwise24Regular />}
+      >
         {t("buttons.refresh")}
       </Button>
     );

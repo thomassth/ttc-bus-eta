@@ -19,11 +19,6 @@ body,
   height: 4rem;
 }
 
-.bottomNavBarItems {
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
 .directionsList > span {
   padding-bottom: 4px;
 }
@@ -84,19 +79,6 @@ body,
   flex-direction: column;
 }
 
-.fui-AccordionHeader__button {
-  padding-left: 0 !important;
-}
-
-.fui-AccordionPanel {
-  display: grid;
-  grid-template-columns: 36px 36px auto;
-  grid-auto-rows: auto;
-  align-items: start;
-  gap: 4px;
-  padding-bottom: 4px;
-}
-
 .lineDetails {
   margin-top: auto;
   margin-bottom: auto;
@@ -118,10 +100,6 @@ body,
 .bookmarkedStop {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
-}
-
-.refreshButton {
-  margin-right: 10px !important;
 }
 
 .navBar > a {
@@ -186,6 +164,10 @@ main {
   align-items: center;
   gap: 1rem;
   padding: 0 0.2rem;
+}
+
+.bookmarks a {
+  text-decoration: none;
 }
 
 .card-row > :last-child {

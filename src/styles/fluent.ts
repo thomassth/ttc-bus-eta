@@ -10,6 +10,7 @@ export const fluentStyles = makeStyles({
 
     "& button": {
       height: "auto",
+      paddingLeft: "0",
     },
   },
   number: {
@@ -17,12 +18,15 @@ export const fluentStyles = makeStyles({
   },
   refreshButton: {
     width: "max-content",
+    marginRight: "10px",
   },
   bottomNav: {
     backgroundColor: tokens.colorNeutralBackground1,
   },
   bottomNavButton: {
     flexDirection: "column",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   sideNavButton: {
     ...shorthands.padding("0.5rem", " 0"),
@@ -32,5 +36,13 @@ export const fluentStyles = makeStyles({
   },
   fullWidthContent: {
     width: "100%",
+  },
+  accordionPanel: {
+    display: "grid",
+    gridTemplateColumns: "36px 36px auto",
+    gridAutoRows: "auto",
+    alignItems: "start",
+    ...shorthands.gap("0.2rem"),
+    paddingBottom: "4px",
   },
 });

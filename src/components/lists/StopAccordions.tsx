@@ -21,6 +21,7 @@ export function StopAccordions(props: {
   const stops = props.result.map((lineStop) => {
     return (
       <AccordionPanel
+        className={fluentStyle.accordionPanel}
         key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
       >
         <div className="lineDetails">{lineStop.stopId} </div>

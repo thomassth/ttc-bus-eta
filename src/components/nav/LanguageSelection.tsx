@@ -29,11 +29,11 @@ export function LanguageSelection({ width }: { width: number }) {
     <Popover positioning="below">
       <PopoverTrigger disableButtonEnhancement>
         <Button
-          className={`bottomNavBarItems ${
+          className={
             width >= 800
               ? fluentStyle.sideNavButton
               : fluentStyle.bottomNavButton
-          }`}
+          }
           title={t("buttons.languageChange") ?? "Language selection"}
           shape="circular"
           appearance="subtle"

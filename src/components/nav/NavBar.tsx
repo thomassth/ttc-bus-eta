@@ -46,7 +46,7 @@ export function BottomBar({ width }: { width: number }) {
     if (getFullRoute(item) === window.location.pathname) {
       return (
         <Button
-          className={`bottomNavBarItems ${fluentStyle.bottomNavButton}`}
+          className={fluentStyle.bottomNavButton}
           shape="circular"
           appearance="primary"
           key={t(item.label)}
@@ -59,7 +59,7 @@ export function BottomBar({ width }: { width: number }) {
     } else {
       return (
         <Button
-          className={`bottomNavBarItems ${fluentStyle.bottomNavButton}`}
+          className={fluentStyle.bottomNavButton}
           shape="circular"
           appearance="subtle"
           icon={item.icon}
