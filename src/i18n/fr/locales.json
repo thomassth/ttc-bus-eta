@@ -3,7 +3,8 @@
     "label": {
       "home": "Accueil",
       "lines": "Lignes",
-      "about": "Aide"
+      "about": "Aide",
+      "lang": "Lang"
     }
   },
   "home": {
@@ -33,8 +34,8 @@
     "busIcon": "voir les heures d'arrivée",
     "languageChange": "sélection de la langue",
     "delete": "effacer",
-    "bookmarkAdd":"Ajouter au signet",
-    "bookmarkDelete":"Supprimer le signet"
+    "bookmarkAdd": "Ajouter au signet",
+    "bookmarkDelete": "Supprimer le signet"
   },
   "reminder": {
     "noRoute": "Pas d'arrivées à venir.",

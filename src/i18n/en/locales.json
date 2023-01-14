@@ -3,7 +3,8 @@
     "label": {
       "home": "Home",
       "lines": "Lines",
-      "about": "About"
+      "about": "About",
+      "lang": "Lang"
     }
   },
   "home": {
@@ -33,8 +34,8 @@
     "busIcon": "View stop ETA",
     "languageChange": "language selection",
     "delete": "Delete",
-    "bookmarkAdd":"Add to bookmark",
-    "bookmarkDelete":"Remove bookmark"
+    "bookmarkAdd": "Add to bookmark",
+    "bookmarkDelete": "Remove bookmark"
   },
   "reminder": {
     "noRoute": "No upcoming arrivals.",
@@ -56,7 +57,7 @@
   "badge": {
     "arriving": "Arriving"
   },
-    "lang": {
+  "lang": {
     "en": "English",
     "fr": "Français (traduction automatique)",
     "zh": "中文"

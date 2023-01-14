@@ -3,7 +3,8 @@
     "label": {
       "home": "主頁",
       "lines": "路線",
-      "about": "關於"
+      "about": "關於",
+      "lang": "語言"
     }
   },
   "home": {
@@ -33,8 +34,8 @@
     "busIcon": "睇巴士幾時到站",
     "languageChange": "選擇語言",
     "delete": "刪除",
-    "bookmarkAdd":"加呢頁落書籤",
-    "bookmarkDelete":"響書籤刪除呢頁"
+    "bookmarkAdd": "加呢頁落書籤",
+    "bookmarkDelete": "響書籤刪除呢頁"
   },
   "reminder": {
     "noRoute": "冇即將到站資料。",
