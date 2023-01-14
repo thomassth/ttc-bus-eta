@@ -19,17 +19,27 @@ body,
   height: 4rem;
 }
 
+.bottomNavBarItems {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  font-size: 24px !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+  padding: 8px 16px !important;
+}
+
+.directionsList > span {
+  padding-bottom: 4px;
+}
+
 .bottomNav {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 5px 0;
+  white-space: nowrap;
+  overflow: auto;
   position: fixed;
-  bottom: 0;
-  background-color: #292929;
-  background-color: var(--colorNeutralBackground1);
+  bottom: 0px;
+  text-align: center;
+  background-color: var(--colorNeutralBackground2);
 }
 
 .bottomNav .fui-Button__icon {
@@ -38,8 +48,8 @@ body,
 
 .sideNav {
   display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (min-width: 800px) {
@@ -52,12 +62,16 @@ body,
   color: black;
 }
 
-.title {
-  border: 1px solid transparent;
+.homePage {
+  padding-top: 0px;
 }
 
-.title:hover {
-  border: 1px solid hsl(0, 0%, 82%);
+.linePage {
+  padding-left: 32px;
+}
+
+.stopPredictionPage {
+  padding-left: 32px;
 }
 
 .navBar {
@@ -68,7 +82,7 @@ body,
 }
 
 .navBar > a {
-  padding: 0 1rem
+  padding: 0 1rem;
 }
 
 main {
