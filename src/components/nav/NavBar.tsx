@@ -52,6 +52,7 @@ export function BottomBar({ width }: { width: number }) {
           key={t(item.label)}
           icon={item.iconActive}
           onClick={handleRouteClick(item.path)}
+          size="large"
         >
           {width > 480 && <Text>{t(item.label)}</Text>}
         </Button>
@@ -65,6 +66,7 @@ export function BottomBar({ width }: { width: number }) {
           icon={item.icon}
           key={t(item.label)}
           onClick={handleRouteClick(item.path)}
+          size="large"
         >
           {width > 480 && <Text>{t(item.label)}</Text>}
         </Button>

@@ -38,6 +38,7 @@ export function LanguageSelection({ width }: { width: number }) {
           shape="circular"
           appearance="subtle"
           icon={<LocalLanguage20Regular />}
+          size="large"
         >
           {width > 480 && <Text>{t("nav.label.lang")}</Text>}
         </Button>
