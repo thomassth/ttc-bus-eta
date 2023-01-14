@@ -18,7 +18,7 @@ export function BookmarkCard(props: { id: number }) {
     dispatch(removeStopBookmark(props.id));
   }, [stopBookmarks.ids]);
 
-  const handleRouteClick = (id: number) => () => {
+  const handleRouteClick = () => () => {
     navigate(`stops/${stopBookmarks.entities[id].stopId}`);
   };
 
@@ -28,7 +28,7 @@ export function BookmarkCard(props: { id: number }) {
         <Text
           className="bookmarkedStop"
           weight="semibold"
-          onClick={handleRouteClick(id)}
+          onClick={handleRouteClick()}
         >
           {stopBookmarks.entities[id].name}
         </Text>
