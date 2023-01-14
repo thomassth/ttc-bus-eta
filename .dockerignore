@@ -19,10 +19,10 @@
 !./tsconfig.\*
 !./.workbox-config.js
 
-# incldue packages and apps
+# incldue apps and other useful files
 
-!./packages
-!./apps
+!./src
+!./public
 
 # exclude npm packages
 
