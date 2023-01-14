@@ -26,7 +26,7 @@
 
 # exclude npm packages
 
-node_modules
+node_modules/
 
 # exclude build outputs
 
