@@ -30,12 +30,12 @@ node_modules/
 
 # exclude build outputs
 
-\*\*/dist/
+<!-- \*\*/dist/ -->
 
 # exclude tsc incremental build files
 
-\*_/_.tsbuildinfo
+<!-- \*_/_.tsbuildinfo -->
 
 # exlcude operating system files
 
-.DS_Store
+<!-- .DS_Store -->
