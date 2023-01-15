@@ -163,7 +163,8 @@ main {
 
 .bookmarks a,
 .bottomNav a,
-.sideNav a {
+.sideNav a,
+.routerLink {
   text-decoration: none;
 }
 
