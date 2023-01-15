@@ -50,6 +50,9 @@ body,
   .container {
     flex-direction: row;
   }
+  .navBar {
+    min-width: 13.5rem;
+  }
 }
 
 .langSelect {
@@ -166,7 +169,9 @@ main {
   padding: 0 0.2rem;
 }
 
-.bookmarks a {
+.bookmarks a,
+.bottomNav a,
+.sideNav a {
   text-decoration: none;
 }
 

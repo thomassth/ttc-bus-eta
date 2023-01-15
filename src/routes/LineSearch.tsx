@@ -2,6 +2,7 @@ import { Button, Input, Text } from "@fluentui/react-components";
 import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { fluentStyles } from "../styles/fluent";
 import useNavigate from "./navigate";
 
 export default function LineSearch() {
@@ -20,12 +21,18 @@ export default function LineSearch() {
     navigate(input);
   }, [input]);
 
+  const fluentStyle = fluentStyles();
+
   return (
     <main>
       <form>
         <Text className="lineTitle">{t("lines.title")}</Text>
         <div className="searchBlock">
-          <Input value={input} onChange={handleLineChange} />
+          <Input
+            className={fluentStyle.flexGrowContent}
+            value={input}
+            onChange={handleLineChange}
+          />
           <Button
             appearance="primary"
             onClick={handleSearchClick}

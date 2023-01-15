@@ -8,6 +8,7 @@ import {
   Question24Filled,
 } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { fluentStyles } from "../../styles/fluent";
 import { LanguageSelection } from "./LanguageSelection";
@@ -40,36 +41,44 @@ const navItems: NavItem[] = [
 export function BottomBar({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
-  const { handleRouteClick, getFullRoute } = useNavBarRouteUtils();
+  const { getFullRoute } = useNavBarRouteUtils();
 
   const BottomNavItems = navItems.map((item) => {
     if (getFullRoute(item) === window.location.pathname) {
       return (
-        <Button
-          className={fluentStyle.bottomNavButton}
-          shape="circular"
-          appearance="primary"
+        <Link
+          className={fluentStyle.navButtonLink}
+          to={item.path}
           key={t(item.label)}
-          icon={item.iconActive}
-          onClick={handleRouteClick(item.path)}
-          size="large"
         >
-          {width > 480 && <Text>{t(item.label)}</Text>}
-        </Button>
+          <Button
+            className={fluentStyle.bottomNavButton}
+            shape="circular"
+            appearance="primary"
+            icon={item.iconActive}
+            size="large"
+          >
+            {width > 480 && <Text>{t(item.label)}</Text>}
+          </Button>
+        </Link>
       );
     } else {
       return (
-        <Button
-          className={fluentStyle.bottomNavButton}
-          shape="circular"
-          appearance="subtle"
-          icon={item.icon}
+        <Link
+          className={fluentStyle.navButtonLink}
+          to={item.path}
           key={t(item.label)}
-          onClick={handleRouteClick(item.path)}
-          size="large"
         >
-          {width > 480 && <Text>{t(item.label)}</Text>}
-        </Button>
+          <Button
+            className={fluentStyle.bottomNavButton}
+            shape="circular"
+            appearance="subtle"
+            icon={item.icon}
+            size="large"
+          >
+            {width > 480 && <Text>{t(item.label)}</Text>}
+          </Button>
+        </Link>
       );
     }
   });
@@ -87,7 +96,7 @@ export function BottomBar({ width }: { width: number }) {
 export function SideBar({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
-  const { handleRouteClick, getFullRoute } = useNavBarRouteUtils();
+  const { getFullRoute } = useNavBarRouteUtils();
 
   const BottomNavItems = navItems.map((item) => {
     if (getFullRoute(item) === window.location.pathname) {
@@ -98,23 +107,26 @@ export function SideBar({ width }: { width: number }) {
           appearance="primary"
           key={t(item.label)}
           icon={item.iconActive}
-          onClick={handleRouteClick(item.path)}
         >
           <Text>{t(item.label)}</Text>
         </Button>
       );
     } else {
       return (
-        <Button
-          className={fluentStyle.sideNavButton}
-          shape="circular"
-          appearance="subtle"
-          icon={item.icon}
+        <Link
+          className={fluentStyle.navButtonLink}
+          to={item.path}
           key={t(item.label)}
-          onClick={handleRouteClick(item.path)}
         >
-          <Text>{t(item.label)}</Text>
-        </Button>
+          <Button
+            className={fluentStyle.sideNavButton}
+            shape="circular"
+            appearance="subtle"
+            icon={item.icon}
+          >
+            <Text>{t(item.label)}</Text>
+          </Button>
+        </Link>
       );
     }
   });

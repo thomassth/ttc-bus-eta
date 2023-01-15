@@ -28,14 +28,19 @@ export const fluentStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  navButtonLink: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "100%",
+  },
   sideNavButton: {
     ...shorthands.padding("0.5rem", " 0"),
     width: "100%",
     borderTopLeftRadius: "0px",
     borderBottomLeftRadius: "0px",
   },
-  fullWidthContent: {
-    width: "100%",
+  flexGrowContent: {
+    flexGrow: 1,
   },
   accordionPanel: {
     display: "grid",
