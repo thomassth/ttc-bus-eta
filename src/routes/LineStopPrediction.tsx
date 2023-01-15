@@ -1,6 +1,6 @@
-import { Title2 } from "@fluentui/react-components";
+import { Link as LinkFluent, Title2 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import LineStopPredictionInfo from "../components/FetchLineStop";
 
@@ -12,6 +12,9 @@ export default function LineStopPrediction() {
   const { t } = useTranslation();
   return (
     <main>
+      <Link to={`..`} className="routerLink">
+        <LinkFluent>Back to {lineNum}</LinkFluent>
+      </Link>
       <Title2>{t("lines.lineAndStopInfo", { lineNum, stopNum })}</Title2>
       <LineStopPredictionInfo line={lineNum} stopNum={stopNum} />
     </main>
