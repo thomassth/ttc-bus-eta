@@ -28,6 +28,12 @@ function RouteInfo(props: { line: number }): JSX.Element {
         const matchingStop = stopDb.find(
           (searching) => parseInt(element.tag) === searching.id
         );
+
+        // skip not found data
+        if (!matchingStop) {
+          continue;
+        }
+
         result.push({
           id: (
             <Badge className={fluentStyle.badge} appearance="outline">
