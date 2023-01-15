@@ -1,4 +1,10 @@
-import { Badge, Link, Text, Title2 } from "@fluentui/react-components";
+import {
+  Badge,
+  Link as LinkFluent,
+  Text,
+  Title2,
+} from "@fluentui/react-components";
+import { Link } from "react-router-dom";
 
 import { LineStopEta } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
@@ -18,8 +24,8 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
         {props.detail.etas.length === 0 ? (
           props.detail.line
         ) : (
-          <Link href={`../lines/${props.detail.line}`}>
-            {props.detail.line}
+          <Link to={`/lines/${props.detail.line}`}>
+            <LinkFluent>{props.detail.line}</LinkFluent>
           </Link>
         )}
       </Title2>
