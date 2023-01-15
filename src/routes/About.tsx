@@ -2,7 +2,7 @@ import { Link, Text, Title2 } from "@fluentui/react-components";
 
 export default function About() {
   return (
-    <main>
+    <main className="aboutPage">
       <Title2>What is this?</Title2>
       <Text>
         A extremely fast and simple website, sending TTC&#39;s ETA data straight

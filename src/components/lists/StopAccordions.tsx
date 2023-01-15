@@ -21,9 +21,12 @@ export function StopAccordions(props: {
   const stops = props.result.map((lineStop) => {
     return (
       <AccordionPanel
+        className={fluentStyle.accordionPanel}
         key={`${props.lineNum}-${props.direction}-${lineStop.key}`}
       >
-        {lineStop.stopId} {lineStop.latlong} {lineStop.id} {lineStop.name}
+        <div className="lineDetails">{lineStop.stopId} </div>
+        <div className="lineDetails">{lineStop.latlong} </div>
+        <div className="lineDetails">{lineStop.name}</div>
       </AccordionPanel>
     );
   });

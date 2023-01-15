@@ -1,8 +1,5 @@
-html,
-body,
-#root,
-#root > * {
-  height: 100%;
+body {
+  height: 100vh;
 }
 
 .App {
@@ -19,56 +16,85 @@ body,
   height: 4rem;
 }
 
-.bottomNav {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 5px 0;
-  position: fixed;
-  bottom: 0;
-  background-color: #292929;
-  background-color: var(--colorNeutralBackground1);
+.directionsList > span {
+  padding-bottom: 4px;
 }
 
-.bottomNav .fui-Button__icon {
-  margin-right: 0;
+.bottomNav {
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  text-align: center;
+  background-color: var(--colorNeutralBackground2);
+  padding: 4px 0px;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+}
+
+.bottomNav a {
+  display: flex;
+  align-items: center;
 }
 
 .sideNav {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-@media screen and (min-width: 800px) {
-  .container {
-    flex-direction: row;
-  }
+  flex-direction: column;
+  align-items: center;
 }
 
 .langSelect {
   color: black;
 }
 
-.title {
-  border: 1px solid transparent;
+.homePage {
+  padding-top: 0px;
 }
 
-.title:hover {
-  border: 1px solid hsl(0, 0%, 82%);
+.linePage {
+  padding-left: 32px;
+}
+
+.aboutPage {
+  padding-left: 32px;
+}
+
+.stopPredictionPage {
+  padding-left: 32px;
 }
 
 .navBar {
-  padding: 1rem 0;
+  padding: 1rem 1rem 0 0;
   display: flex;
   gap: 1rem;
   flex-direction: column;
 }
 
+.lineDetails {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.rawResponseDetail {
+  display: flex;
+  gap: 1rem;
+}
+
+.lineTitle {
+  padding-left: 16px;
+}
+
+.appTitle {
+  padding-left: 32px !important;
+}
+
+.bookmarkedStop {
+  color: var(--colorBrandForegroundLink);
+  cursor: pointer;
+}
+
 .navBar > a {
-  padding: 0 1rem
+  padding: 0 1rem;
 }
 
 main {
@@ -82,6 +108,7 @@ main {
 }
 
 .searchBlock {
+  justify-content: space-between;
   display: flex;
   flex-flow: wrap;
   align-items: center;
@@ -123,10 +150,17 @@ main {
 }
 
 .card-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 0 0.2rem;
+}
+
+.bookmarks a,
+.bottomNav a,
+.sideNav a {
+  text-decoration: none;
 }
 
 .card-row > :last-child {
@@ -135,4 +169,16 @@ main {
 
 pre {
   white-space: pre-wrap;
+}
+
+@media screen and (min-width: 800px) {
+  .container {
+    flex-direction: row;
+  }
+  .navBar {
+    min-width: 13.5rem;
+  }
+  main {
+    padding-top: 2rem !important;
+  }
 }

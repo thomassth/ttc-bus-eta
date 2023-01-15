@@ -14,7 +14,7 @@ export default function Line() {
     document.title = t("lines.browserTitle", { lineNum });
   });
   return (
-    <main>
+    <main className="linePage">
       <Title2>{t("lines.number", { lineNum })}</Title2>
       <Accordion defaultOpenItems collapsible>
         <RouteInfo line={lineNum} />

@@ -3,6 +3,7 @@ import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Bookmark from "../features/bookmarks/Bookmark";
+import { fluentStyles } from "../styles/fluent";
 import useNavigate from "./navigate";
 
 export default function Home() {
@@ -21,11 +22,14 @@ export default function Home() {
     navigate(`lines/${input}`);
   }, [input]);
 
+  const fluentStyle = fluentStyles();
+
   return (
-    <main>
+    <main className="homePage">
       <form className="searchBlock">
         <Input
           value={input}
+          className={fluentStyle.flexGrowContent}
           onChange={handleLineChange}
           aria-label={t("lines.ariaLabel") || ""}
           placeholder={t("lines.placeholder") || ""}

@@ -8,36 +8,31 @@ import "./App.css";
 import { BottomBar, SideBar } from "./components/nav/NavBar";
 
 function App() {
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
+  const [width, setWidth] = useState(window.innerWidth);
   const { t } = useTranslation();
 
   const handleResize = () => {
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
+    setWidth(window.innerWidth);
   };
+
   useEffect(() => {
     window.addEventListener("resize", handleResize, false);
   }, []);
+
   return (
     <div className="container">
       <div className="navBar">
         <Link
-          href={`${process.env.PUBLIC_URL}/`}
+          className="appTitle"
+          href={`${process.env.PUBLIC_URL}`}
           title={t("home.title.tooltip") || ""}
         >
           <Title1 className="text-xl font-bold">{t("home.title.name")}</Title1>
         </Link>
-        {dimensions.width >= 800 && <SideBar />}
+        {width >= 800 && <SideBar width={width} />}
       </div>
       <Outlet />
-      {dimensions.width < 800 && <div className="nav-buffer" />}
-      {dimensions.width < 800 && <BottomBar />}
+      {width < 800 && <BottomBar width={width} />}
     </div>
   );
 }
