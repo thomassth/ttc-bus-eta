@@ -1,0 +1,41 @@
+# REF: https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
+# NOTE: the last line of the .dockerignore that matches a particular file determines whether it is included or excluded.
+
+# exclude all first to specify what to incldue
+
+-
+
+# include manifest and config files
+
+!./.eslintrc.json
+!./.hintrc
+!./.prettierignore
+!./.prettierrc.json
+!./package-lock.json
+!./package.json
+!./.postcss.config.js
+!./.tailwind.config.js
+!./tsconfig.\*
+!./.workbox-config.js
+
+# incldue apps and other useful files
+
+!./src
+!./public
+
+# exclude npm packages
+
+node_modules/
+
+# exclude build outputs
+
+<!-- \*\*/dist/ -->
+
+# exclude tsc incremental build files
+
+<!-- \*_/_.tsbuildinfo -->
+
+# exlcude operating system files
+
+<!-- .DS_Store -->

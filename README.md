@@ -5,7 +5,27 @@ A extremely fast and simple website, parsing TTC's ETA data.
 ## Goals
 
 1. Parse and display data from TTC's ETA API
-2. Devrive more useful features from said data
+2. Derive more useful features from said data
+
+## Prerequisites
+
+- `npm`
+- `docker`
+
+## Getting Started
+
+Run the app locally
+
+```
+npm install
+npm run start
+```
+
+Run the app with Docker
+
+```
+docker-compose up
+```
 
 ## Contributing
 
