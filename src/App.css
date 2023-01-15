@@ -59,6 +59,10 @@ body {
   padding-left: 32px;
 }
 
+.aboutPage .linkButton {
+  padding: 0 0.5rem;
+}
+
 .stopPredictionPage {
   padding-left: 32px;
 }
