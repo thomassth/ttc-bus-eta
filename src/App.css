@@ -1,8 +1,5 @@
-html,
-body,
-#root,
-#root > * {
-  height: 100%;
+body {
+  height: 100vh;
 }
 
 .App {
@@ -29,15 +26,15 @@ body,
   bottom: 0px;
   text-align: center;
   background-color: var(--colorNeutralBackground2);
-
   padding: 4px 0px;
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
 }
 
-.bottomNav .fui-Button__icon {
-  margin-right: 0;
+.bottomNav a {
+  display: flex;
+  align-items: center;
 }
 
 .sideNav {

@@ -55,16 +55,22 @@ export function BottomBar({ width }: { width: number }) {
         className={fluentStyle.navButtonLink}
         to={item.path}
         key={t(item.label)}
+        title={t(item.label) ?? item.label}
       >
         {({ isActive }) => (
           <Button
-            className={fluentStyle.bottomNavButton}
+            className={
+              width > 390
+                ? fluentStyle.bottomNavButton
+                : fluentStyle.smallRoundNavButton
+            }
             shape="circular"
             appearance={isActive ? "primary" : "subtle"}
             icon={isActive ? item.iconActive : item.icon}
-            size="large"
+            size={width > 390 ? "medium" : "large"}
+            title={t(item.label) ?? item.label}
           >
-            {width > 480 && <Text>{t(item.label)}</Text>}
+            {width > 390 && <Text>{t(item.label)}</Text>}
           </Button>
         )}
       </NavLink>
@@ -91,6 +97,7 @@ export function SideBar({ width }: { width: number }) {
         className={fluentStyle.navButtonLink}
         to={item.path}
         key={t(item.label)}
+        title={t(item.label) ?? item.label}
       >
         {({ isActive }) => (
           <Button
@@ -98,6 +105,7 @@ export function SideBar({ width }: { width: number }) {
             shape="circular"
             appearance={isActive ? "primary" : "subtle"}
             icon={isActive ? item.iconActive : item.icon}
+            title={t(item.label) ?? item.label}
           >
             <Text>{t(item.label)}</Text>
           </Button>

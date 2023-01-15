@@ -32,15 +32,17 @@ export function LanguageSelection({ width }: { width: number }) {
           className={
             width >= 800
               ? fluentStyle.sideNavButton
-              : fluentStyle.bottomNavButton
+              : width > 390
+              ? fluentStyle.bottomNavButton
+              : fluentStyle.smallRoundNavButton
           }
           title={t("buttons.languageChange") ?? "Language selection"}
           shape="circular"
           appearance="subtle"
           icon={<LocalLanguage20Regular />}
-          size="large"
+          size={width > 390 ? "medium" : "large"}
         >
-          {width > 480 && <Text>{t("nav.label.lang")}</Text>}
+          {width > 390 && <Text>{t("nav.label.lang")}</Text>}
         </Button>
       </PopoverTrigger>
 

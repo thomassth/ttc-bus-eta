@@ -27,6 +27,9 @@ export const fluentStyles = makeStyles({
     flexDirection: "column",
     marginLeft: "auto",
     marginRight: "auto",
+    "& span": {
+      marginRight: "0",
+    },
   },
   navButtonLink: {
     marginLeft: "auto",
@@ -55,5 +58,16 @@ export const fluentStyles = makeStyles({
     alignItems: "start",
     ...shorthands.gap("0.2rem"),
     paddingBottom: "4px",
+  },
+  smallRoundNavButton: {
+    width: "3rem",
+    height: "3rem",
+    minWidth: "0 !important",
+    maxWidth: "unset",
+    marginLeft: "auto",
+    marginRight: "auto",
+    "& span": {
+      marginRight: "0",
+    },
   },
 });
