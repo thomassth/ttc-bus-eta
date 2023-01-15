@@ -38,6 +38,12 @@ export const fluentStyles = makeStyles({
     width: "100%",
     borderTopLeftRadius: "0px",
     borderBottomLeftRadius: "0px",
+    ":focus": {
+      borderTopLeftRadius: "0px",
+      borderBottomLeftRadius: "0px",
+      ...shorthands.borderColor("transparent !important"),
+      boxShadow: "0 0 0 0 transparent !important",
+    },
   },
   flexGrowContent: {
     flexGrow: 1,

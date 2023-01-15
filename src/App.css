@@ -46,15 +46,6 @@ body,
   align-items: center;
 }
 
-@media screen and (min-width: 800px) {
-  .container {
-    flex-direction: row;
-  }
-  .navBar {
-    min-width: 13.5rem;
-  }
-}
-
 .langSelect {
   color: black;
 }
@@ -181,4 +172,16 @@ main {
 
 pre {
   white-space: pre-wrap;
+}
+
+@media screen and (min-width: 800px) {
+  .container {
+    flex-direction: row;
+  }
+  .navBar {
+    min-width: 13.5rem;
+  }
+  main {
+    padding-top: 2rem !important;
+  }
 }

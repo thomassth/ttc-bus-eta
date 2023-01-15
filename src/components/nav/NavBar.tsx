@@ -8,11 +8,11 @@ import {
   Question24Filled,
 } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { fluentStyles } from "../../styles/fluent";
 import { LanguageSelection } from "./LanguageSelection";
-import { NavItem, useNavBarRouteUtils } from "./navBarRouteUtils";
+import { NavItem } from "./navBarRouteUtils";
 
 const navItems: NavItem[] = [
   {
@@ -41,46 +41,27 @@ const navItems: NavItem[] = [
 export function BottomBar({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
-  const { getFullRoute } = useNavBarRouteUtils();
 
   const BottomNavItems = navItems.map((item) => {
-    if (getFullRoute(item) === window.location.pathname) {
-      return (
-        <Link
-          className={fluentStyle.navButtonLink}
-          to={item.path}
-          key={t(item.label)}
-        >
+    return (
+      <NavLink
+        className={fluentStyle.navButtonLink}
+        to={item.path}
+        key={t(item.label)}
+      >
+        {({ isActive }) => (
           <Button
             className={fluentStyle.bottomNavButton}
             shape="circular"
-            appearance="primary"
-            icon={item.iconActive}
+            appearance={isActive ? "primary" : "subtle"}
+            icon={isActive ? item.iconActive : item.icon}
             size="large"
           >
             {width > 480 && <Text>{t(item.label)}</Text>}
           </Button>
-        </Link>
-      );
-    } else {
-      return (
-        <Link
-          className={fluentStyle.navButtonLink}
-          to={item.path}
-          key={t(item.label)}
-        >
-          <Button
-            className={fluentStyle.bottomNavButton}
-            shape="circular"
-            appearance="subtle"
-            icon={item.icon}
-            size="large"
-          >
-            {width > 480 && <Text>{t(item.label)}</Text>}
-          </Button>
-        </Link>
-      );
-    }
+        )}
+      </NavLink>
+    );
   });
 
   // add support for swithing lang
@@ -96,39 +77,26 @@ export function BottomBar({ width }: { width: number }) {
 export function SideBar({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
-  const { getFullRoute } = useNavBarRouteUtils();
 
   const BottomNavItems = navItems.map((item) => {
-    if (getFullRoute(item) === window.location.pathname) {
-      return (
-        <Button
-          className={fluentStyle.sideNavButton}
-          shape="circular"
-          appearance="primary"
-          key={t(item.label)}
-          icon={item.iconActive}
-        >
-          <Text>{t(item.label)}</Text>
-        </Button>
-      );
-    } else {
-      return (
-        <Link
-          className={fluentStyle.navButtonLink}
-          to={item.path}
-          key={t(item.label)}
-        >
+    return (
+      <NavLink
+        className={fluentStyle.navButtonLink}
+        to={item.path}
+        key={t(item.label)}
+      >
+        {({ isActive }) => (
           <Button
             className={fluentStyle.sideNavButton}
             shape="circular"
-            appearance="subtle"
-            icon={item.icon}
+            appearance={isActive ? "primary" : "subtle"}
+            icon={isActive ? item.iconActive : item.icon}
           >
             <Text>{t(item.label)}</Text>
           </Button>
-        </Link>
-      );
-    }
+        )}
+      </NavLink>
+    );
   });
   return (
     <nav className="sideNav">
