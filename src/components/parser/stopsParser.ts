@@ -8,12 +8,6 @@ export function stopsParser(json: RouteXml): LineStop[] {
     for (const element of json.body.route.stop) {
       if (element.stopId === undefined) {
         console.log(element);
-        result.push({
-          id: parseInt(element.tag),
-          name: element.title,
-          latlong: [parseFloat(element.lat), parseFloat(element.lon)],
-          stopId: undefined,
-        });
       } else {
         result.push({
           id: parseInt(element.tag),

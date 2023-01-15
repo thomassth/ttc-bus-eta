@@ -28,46 +28,34 @@ function RouteInfo(props: { line: number }): JSX.Element {
         const matchingStop = stopDb.find(
           (searching) => parseInt(element.tag) === searching.id
         );
-
-        if (matchingStop !== undefined) {
-          result.push({
-            id: (
-              <Badge className={fluentStyle.badge} appearance="outline">
-                {matchingStop.id}
-              </Badge>
-            ),
-            key: matchingStop.id,
-            name: `${matchingStop.name}`,
-            latlong: (
-              <Link
-                // menuProps={menuProps}
-                title={t("buttons.mapPin") ?? "View location in Google Maps"}
-                href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop.latlong[0]}+${matchingStop.latlong[1]}`}
-                // disabled={disabled}
-                // checked={checked}
-              >
-                <Button icon={<Map24Filled />} />
-              </Link>
-            ),
-            stopId: (
-              <Link
-                href={
-                  matchingStop.stopId === undefined
-                    ? `./${props.line}/${matchingStop.id}`
-                    : `../stops/${matchingStop.stopId}`
-                }
-                title={t("buttons.busIcon") ?? "View stop ETA"}
-              >
-                <Button
-                  appearance={
-                    matchingStop.stopId === undefined ? "subtle" : "outline"
-                  }
-                  icon={<VehicleBus16Filled />}
-                />
-              </Link>
-            ),
-          });
-        }
+        result.push({
+          id: (
+            <Badge className={fluentStyle.badge} appearance="outline">
+              {matchingStop?.id}
+            </Badge>
+          ),
+          key: matchingStop?.id ?? 0,
+          name: `${matchingStop?.name}`,
+          latlong: (
+            <Link
+              // menuProps={menuProps}
+              title={t("buttons.mapPin") ?? "View location in Google Maps"}
+              href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
+              // disabled={disabled}
+              // checked={checked}
+            >
+              <Button icon={<Map24Filled />} />
+            </Link>
+          ),
+          stopId: (
+            <Link
+              href={`../stops/${matchingStop?.stopId}`}
+              title={t("buttons.busIcon") ?? "View stop ETA"}
+            >
+              <Button icon={<VehicleBus16Filled />} />
+            </Link>
+          ),
+        });
       }
       return result;
     },

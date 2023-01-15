@@ -1,6 +1,5 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
-import { Button, LargeTitle, Text } from "@fluentui/react-components";
-import { ArrowClockwise24Regular } from "@fluentui/react-icons";
+import { LargeTitle, Link, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -45,21 +44,13 @@ function LineStopPredictionInfo(props: {
     fetchPredictions();
   }, []);
 
-  function RefreshButton() {
-    return (
-      <Button
-        className={fluentStyle.refreshButton}
-        onClick={fetchPredictionClick}
-        icon={<ArrowClockwise24Regular />}
-      >
-        {t("buttons.refresh")}
-      </Button>
-    );
-  }
-
   if (data !== undefined) {
     if (data.body.Error !== undefined) {
-      return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
+      return (
+        <Link appearance="subtle" onClick={fetchPredictionClick}>
+          <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>
+        </Link>
+      );
     } else {
       if (Array.isArray(data.body.predictions)) {
         // TODO
@@ -68,10 +59,9 @@ function LineStopPredictionInfo(props: {
         if (data.body.predictions.dirTitleBecauseNoPredictions !== undefined) {
           return (
             <div className="directionsList list">
-              <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
-              <div className="countdown-row">
-                <RefreshButton />
-              </div>
+              <Link appearance="subtle" onClick={fetchPredictionClick}>
+                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+              </Link>
               <Text> {t("reminder.noRoute")}</Text>
               <RawDisplay data={data} />
             </div>
@@ -105,14 +95,7 @@ function LineStopPredictionInfo(props: {
             }
           );
 
-          return (
-            <div>
-              <div className="countdown-row">
-                <RefreshButton />
-              </div>
-              {directionListGroup}
-            </div>
-          );
+          return <div>{directionListGroup}</div>;
         } else {
           if (Array.isArray(data.body.predictions.direction.prediction)) {
             const directionListGroup =
@@ -128,10 +111,9 @@ function LineStopPredictionInfo(props: {
             // Only 1 direction
             return (
               <div className="directionsList list">
-                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
-                <div className="countdown-row">
-                  <RefreshButton />
-                </div>
+                <Link appearance="subtle" onClick={fetchPredictionClick}>
+                  <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                </Link>
                 <div className="directionList list">{directionListGroup}</div>
                 <RawDisplay data={data} />
               </div>
@@ -141,8 +123,9 @@ function LineStopPredictionInfo(props: {
 
             return (
               <div className="directionsList list">
-                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
-                <RefreshButton />
+                <Link appearance="subtle" onClick={fetchPredictionClick}>
+                  <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                </Link>
                 <RawDisplay data={data} />
               </div>
             );
@@ -152,10 +135,9 @@ function LineStopPredictionInfo(props: {
     }
   } else {
     return (
-      <div className="directionsList list">
+      <Link appearance="subtle" onClick={fetchPredictionClick}>
         <LargeTitle>{t("reminder.loading")}</LargeTitle>
-        <RefreshButton />
-      </div>
+      </Link>
     );
   }
 }
