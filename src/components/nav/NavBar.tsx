@@ -12,7 +12,14 @@ import { NavLink } from "react-router-dom";
 
 import { fluentStyles } from "../../styles/fluent";
 import { LanguageSelection } from "./LanguageSelection";
-import { NavItem } from "./navBarRouteUtils";
+
+interface NavItem {
+  label: string;
+  prefix: string;
+  path: string;
+  icon: JSX.Element;
+  iconActive: JSX.Element;
+}
 
 const navItems: NavItem[] = [
   {
