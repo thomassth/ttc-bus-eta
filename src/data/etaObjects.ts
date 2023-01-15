@@ -20,7 +20,7 @@ export interface LineStop {
   id: number;
   name: string;
   latlong: number[];
-  stopId: number | undefined;
+  stopId: number;
 }
 
 export interface StopBookmark {
