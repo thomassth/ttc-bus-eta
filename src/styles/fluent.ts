@@ -1,6 +1,9 @@
 import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const fluentStyles = makeStyles({
+  fluentProvider: {
+    height: "100%",
+  },
   badge: {
     ...shorthands.margin("0.5rem", "0.25rem"),
     minWidth: "2.5rem",
