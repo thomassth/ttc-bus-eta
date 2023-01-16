@@ -69,14 +69,18 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   if (data) {
     if (data.body.Error === undefined) {
-      const countdownGroupList = etaDb.map((element) => {
-        return (
-          <CountdownGroup
-            key={`${element.line}-${element.stopTag}`}
-            detail={element}
-          />
-        );
-      });
+      const countdownGroupList: JSX.Element[] = [];
+
+      for (const element of etaDb) {
+        if (element.etas.length > 0) {
+          countdownGroupList.push(
+            <CountdownGroup
+              key={`${element.line}-${element.stopTag}`}
+              detail={element}
+            />
+          );
+        }
+      }
 
       return (
         <div className="directionsList list">
@@ -91,11 +95,12 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               stopId={stopId}
               name={etaDb[0].stopName}
               ttcId={etaDb[0].stopTag}
+              lines={etaDb.map((item) => item.line)}
             />
           </div>
-          {countdownGroupList}
-          {etaDb.length === 1 && etaDb[0].line === "" ? (
-            <Title1>{t("reminder.noRoute")}</Title1>
+          {countdownGroupList.length > 0 && countdownGroupList}
+          {countdownGroupList.length === 0 ? (
+            <Title1>{t("reminder.noEta")}</Title1>
           ) : null}
           <RawDisplay data={data} />
         </div>
@@ -111,6 +116,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               stopId={stopId}
               name={etaDb[0].stopName}
               ttcId={etaDb[0].stopTag}
+              lines={etaDb.map((item) => item.line)}
             />
           </div>
           <Text>{`${data.body.Error["#text"]}`}</Text>

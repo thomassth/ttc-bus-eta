@@ -18,21 +18,25 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
     </div>
   ));
 
-  return (
-    <div className="line">
-      <Title2>
-        {props.detail.etas.length === 0 ? (
-          props.detail.line
-        ) : (
-          <Link to={`/lines/${props.detail.line}`}>
-            <LinkFluent>{props.detail.line}</LinkFluent>
-          </Link>
-        )}
-      </Title2>
-      <Text>{props.detail.routeName}</Text>
-      {countdownRowList}
-    </div>
-  );
+  if (props.detail.etas.length === 0) {
+    return null;
+  } else
+    return (
+      <div className="line">
+        <Link to={`/lines/${props.detail.line}`} className="routerLink">
+          <LinkFluent>
+            <Title2>
+              {props.detail.etas.length === 0
+                ? props.detail.line
+                : props.detail.line}
+            </Title2>
+          </LinkFluent>
+        </Link>
+
+        <Text>{props.detail.routeName}</Text>
+        {countdownRowList}
+      </div>
+    );
 }
 
 function CountdownBranch(props: { branch: string }) {

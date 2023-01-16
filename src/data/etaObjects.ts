@@ -27,6 +27,7 @@ export interface StopBookmark {
   stopId: number;
   name: string;
   ttcId: number;
+  lines: string[];
 }
 
 export interface EtaBusWithID extends EtaBus {

@@ -72,7 +72,7 @@ function LineStopPredictionInfo(props: {
               <div className="countdown-row">
                 <RefreshButton />
               </div>
-              <Text> {t("reminder.noRoute")}</Text>
+              <Text> {t("reminder.noEta")}</Text>
               <RawDisplay data={data} />
             </div>
           );
