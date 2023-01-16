@@ -24,7 +24,8 @@ jobs:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
           source-directory: 'build'
-          destination-github-username: 'GitHub Action Bot'
+          destination-github-username: 'thomassth'
           destination-repository-name: 'ttc-eta'
           user-email: <>
+          user-name: 'GitHub Action Bot'
           target-branch: main
