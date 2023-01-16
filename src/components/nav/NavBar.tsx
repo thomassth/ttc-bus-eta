@@ -4,8 +4,8 @@ import {
   ArrowRouting24Filled,
   Home20Regular,
   Home24Filled,
-  Question20Regular,
-  Question24Filled,
+  QuestionCircle20Regular,
+  QuestionCircle24Filled,
 } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
@@ -40,8 +40,8 @@ const navItems: NavItem[] = [
     label: "nav.label.about",
     prefix: `${process.env.PUBLIC_URL}`,
     path: `/about`,
-    icon: <Question20Regular />,
-    iconActive: <Question24Filled />,
+    icon: <QuestionCircle20Regular />,
+    iconActive: <QuestionCircle24Filled />,
   },
 ];
 

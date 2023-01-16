@@ -2,6 +2,10 @@ body {
   height: 100vh;
 }
 
+#root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -41,6 +45,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--colorNeutralBackground2);
+  height: 100%;
 }
 
 .langSelect {
@@ -181,9 +187,14 @@ pre {
     flex-direction: row;
   }
   .navBar {
-    min-width: 13.5rem;
+    min-width: 14rem;
+    background-color: var(--colorNeutralBackground2);
   }
   main {
     padding-top: 2rem !important;
+  }
+  .sideNav button {
+    padding-left: 32px;
+    justify-content: left;
   }
 }
