@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+
+      - name: npm ci, build and test
+        run: |
+          npm ci
+          npm run build --if-present
+
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        with:
+          source-directory: 'build'
+          destination-github-username: 'GitHub Action Bot'
+          destination-repository-name: 'ttc-eta'
+          user-email: <>
+          target-branch: main
