@@ -1,6 +1,13 @@
 import { EtaBusWithID, LineStopEta } from "../../data/etaObjects";
-import { EtaBus, EtaPredictionXml } from "../../data/etaXml";
+import { EtaBus, EtaDirection, EtaPredictionXml } from "../../data/etaXml";
 import { parseRoute } from "./routeName";
+
+const parseActualLineNum = (title: string) => {
+  const found = title.match(/\w+ - (\w+) /);
+  if (found === null) {
+    return "";
+  } else return `${found[1]}`.toLocaleUpperCase();
+};
 
 const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {
   return eta.push({
@@ -34,6 +41,7 @@ const parseSingleOrMultiEta = (
 };
 
 export const etaParser = (json: EtaPredictionXml) => {
+  console.log(json);
   const result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {
@@ -46,12 +54,11 @@ export const etaParser = (json: EtaPredictionXml) => {
       if (element.dirTitleBecauseNoPredictions === undefined) {
         if (Array.isArray(element.direction)) {
           const stopName = element.stopTitle;
-          const line = element.routeTag;
           const stopTag = parseInt(element.stopTag);
 
           for (const el3 of element.direction) {
             result.push({
-              line,
+              line: parseActualLineNum(el3.title),
               stopName,
               routeName: parseRoute(el3.title),
               etas: [],
@@ -61,7 +68,7 @@ export const etaParser = (json: EtaPredictionXml) => {
           }
         } else {
           result.push({
-            line: element.routeTag,
+            line: parseActualLineNum(element.direction.title),
             stopName: element.stopTitle,
             routeName: parseRoute(element.routeTitle),
             etas: [],
@@ -69,6 +76,14 @@ export const etaParser = (json: EtaPredictionXml) => {
           });
           parseSingleOrMultiEta(element.direction.prediction, result);
         }
+      } else {
+        result.push({
+          line: parseActualLineNum(element.dirTitleBecauseNoPredictions),
+          stopName: element.stopTitle,
+          routeName: parseRoute(element.routeTitle),
+          etas: [],
+          stopTag: parseInt(element.stopTag),
+        });
       }
     }
     // if no line have ETA, keep a title
@@ -90,7 +105,7 @@ export const etaParser = (json: EtaPredictionXml) => {
         // Eg. stops/14761 returns 939A, 939B
         const predictionGroup = json.body.predictions;
 
-        const line = predictionGroup.routeTag;
+        // const line = predictionGroup.direction.title;
         const stopName = predictionGroup.stopTitle;
         const stopTag = parseInt(predictionGroup.stopTag);
         if (Array.isArray(predictionGroup.direction)) {
@@ -98,13 +113,21 @@ export const etaParser = (json: EtaPredictionXml) => {
             // Only lines with etas are listed
             if (element.dirTitleBecauseNoPredictions === undefined) {
               result.push({
-                line,
+                line: parseActualLineNum(element.title),
                 stopName,
                 routeName: "",
                 etas: [],
                 stopTag,
               });
               parseSingleOrMultiEta(element.prediction, result);
+            } else {
+              result.push({
+                line: parseActualLineNum(element.dirTitleBecauseNoPredictions),
+                stopName,
+                routeName: "",
+                etas: [],
+                stopTag,
+              });
             }
           }
         }
@@ -123,13 +146,23 @@ export const etaParser = (json: EtaPredictionXml) => {
       } else {
         const predictionGroup = json.body.predictions;
         // multiple lines => multiple directions
+
+        const getLine = (input: EtaDirection | EtaDirection[]) => {
+          if (Array.isArray(input)) {
+            return parseActualLineNum(input[0].title);
+          } else {
+            return parseActualLineNum(input.title);
+          }
+        };
+
         result.push({
-          line: predictionGroup.routeTag,
+          line: getLine(predictionGroup.direction),
           stopName: predictionGroup.stopTitle,
           routeName: parseRoute(predictionGroup.routeTitle),
           etas: [],
           stopTag: parseInt(predictionGroup.stopTag),
         });
+
         parseSingleOrMultiEta(
           json.body.predictions.direction.prediction,
           result
@@ -138,7 +171,9 @@ export const etaParser = (json: EtaPredictionXml) => {
     } else {
       console.log("no ETA at all");
       result.push({
-        line: "",
+        line: parseActualLineNum(
+          json.body.predictions.dirTitleBecauseNoPredictions
+        ),
         stopName: json.body.predictions.stopTitle,
         routeName: "",
         etas: [],

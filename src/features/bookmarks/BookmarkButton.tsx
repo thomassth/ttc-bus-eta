@@ -4,13 +4,10 @@ import { t } from "i18next";
 import { useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { StopBookmark } from "../../data/etaObjects";
 import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
 
-export function BookmarkButton(props: {
-  stopId: number;
-  name: string;
-  ttcId: number;
-}) {
+export function BookmarkButton(props: StopBookmark) {
   const dispatch = useAppDispatch();
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
   const isBookmarked = useCallback(() => {

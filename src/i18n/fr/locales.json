@@ -38,11 +38,10 @@
     "bookmarkDelete": "Supprimer le signet"
   },
   "reminder": {
-    "noRoute": "Pas d'arrivées à venir.",
     "failToLocate": "Impossible de localiser cet itinéraire.",
     "wrongPlace": "Ne devrait pas être ici :/",
     "loading": "Chargement...",
-    "noEta": ""
+    "noEta": "Pas d'arrivées à venir."
   },
   "error": {
     "notFound": "Erreur: cette page n'existe pas."
