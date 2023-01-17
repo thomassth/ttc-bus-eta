@@ -1,4 +1,4 @@
-import { Button, Text } from "@fluentui/react-components";
+import { Badge, Button, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
 import { Delete24Regular } from "@fluentui/react-icons";
 import { t } from "i18next";
@@ -6,12 +6,14 @@ import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fluentStyles } from "../../styles/fluent";
 import { removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkCard(props: { id: number }) {
   const id = props.id;
   const dispatch = useAppDispatch();
   const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
+  const fluentStyle = fluentStyles();
 
   const checkBookmarkStatus = useCallback(() => {
     dispatch(removeStopBookmark(props.id));
@@ -20,12 +22,22 @@ export function BookmarkCard(props: { id: number }) {
   return (
     <Card>
       <div className="card-row">
-        <Link to={`stops/${stopBookmarks.entities[id].stopId}`}>
-          <Text className="bookmarkedStop" weight="semibold">
-            {stopBookmarks.entities[id].name}
-          </Text>
+        {stopBookmarks.entities[id].lines !== undefined &&
+          stopBookmarks.entities[id].lines.map((line: string) => {
+            return (
+              <Badge className={fluentStyle.badge} key={line}>
+                {line}
+              </Badge>
+            );
+          })}
+        <Link
+          className="bookmarkedStop"
+          to={`stops/${stopBookmarks.entities[id].stopId}`}
+        >
+          <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
         </Link>
         <Button
+          className={fluentStyle.removeButton}
           title={t("buttons.delete") ?? "delete"}
           icon={<Delete24Regular />}
           onClick={checkBookmarkStatus}

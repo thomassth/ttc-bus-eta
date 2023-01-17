@@ -101,6 +101,11 @@ body {
 .bookmarkedStop {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
+  margin: auto 8px auto 4px;
+}
+
+.bookmarkedStop span {
+  white-space: nowrap;
 }
 
 .navBar > a {
@@ -160,11 +165,10 @@ main {
 }
 
 .card-row {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 0 0.2rem;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-height: 36px;
 }
 
 .bookmarks a,
@@ -183,6 +187,10 @@ pre {
 }
 
 @media screen and (min-width: 800px) {
+  .homePage {
+    width: 560px;
+  }
+
   .container {
     flex-direction: row;
   }

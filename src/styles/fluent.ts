@@ -4,9 +4,13 @@ export const fluentStyles = makeStyles({
   fluentProvider: {
     height: "100%",
   },
+  removeButton: {
+    maxHeight: "32px",
+    maxWidth: "32px",
+  },
   badge: {
     ...shorthands.margin("0.5rem", "0.25rem"),
-    minWidth: "2.5rem",
+    minWidth: "min-content",
   },
   accordionHeader: {
     ...shorthands.margin("0.25rem", "0"),
