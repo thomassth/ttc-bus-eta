@@ -104,10 +104,6 @@ body {
   margin: auto 8px auto 4px;
 }
 
-.bookmarkedStop span {
-  white-space: nowrap;
-}
-
 .navBar > a {
   padding: 0 1rem;
 }
@@ -164,11 +160,9 @@ main {
   margin: 1rem 0;
 }
 
-.card-row {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  max-height: 36px;
+.card-container {
+  overflow: unset !important;
+  padding: 12px 14px !important;
 }
 
 .bookmarks a,
@@ -176,10 +170,6 @@ main {
 .sideNav a,
 .routerLink {
   text-decoration: none;
-}
-
-.card-row > :last-child {
-  margin-left: auto;
 }
 
 pre {

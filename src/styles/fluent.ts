@@ -5,8 +5,17 @@ export const fluentStyles = makeStyles({
     height: "100%",
   },
   removeButton: {
-    maxHeight: "32px",
-    maxWidth: "32px",
+    minHeight: "32px",
+    minWidth: "32px",
+
+    position: "absolute",
+    top: "-16px",
+    right: "-16px",
+
+    borderTopLeftRadius: "50%",
+    borderBottomLeftRadius: "50%",
+    borderTopRightRadius: "50%",
+    borderBottomRightRadius: "50%",
   },
   badge: {
     ...shorthands.margin("0.5rem", "0.25rem"),
