@@ -123,7 +123,7 @@ main {
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  padding: 16px 16px 0px 16px;
+  padding: 8px 16px 0px 16px;
   gap: 1rem;
 }
 
@@ -193,7 +193,7 @@ pre {
     background-color: var(--colorNeutralBackground2);
   }
   main {
-    padding-top: 2rem !important;
+    padding-top: 1rem !important;
   }
   .sideNav button {
     padding-left: 32px;
