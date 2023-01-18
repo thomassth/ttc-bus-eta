@@ -160,10 +160,6 @@ main {
   margin: 1rem 0;
 }
 
-.card-row {
-  display: block;
-}
-
 .card-container {
   overflow: unset !important;
   padding: 12px 14px !important;
@@ -174,10 +170,6 @@ main {
 .sideNav a,
 .routerLink {
   text-decoration: none;
-}
-
-.card-row > :first-child {
-  margin-left: 0px;
 }
 
 pre {

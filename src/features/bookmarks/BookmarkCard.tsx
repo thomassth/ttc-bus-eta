@@ -21,28 +21,28 @@ export function BookmarkCard(props: { id: number }) {
 
   return (
     <Card className="card-container">
-      <div className="card-row">
-        {stopBookmarks.entities[id].lines !== undefined &&
-          stopBookmarks.entities[id].lines.map((line: string) => {
-            return (
-              <Badge className={fluentStyle.badge} key={line}>
-                {line}
-              </Badge>
-            );
-          })}
-        <Link
-          className="bookmarkedStop"
-          to={`stops/${stopBookmarks.entities[id].stopId}`}
-        >
-          <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
-        </Link>
-        <Button
-          className={fluentStyle.removeButton}
-          title={t("buttons.delete") ?? "delete"}
-          icon={<Dismiss12Filled />}
-          onClick={checkBookmarkStatus}
-        />
-      </div>
+      <Link
+        className="bookmarkedStop"
+        to={`stops/${stopBookmarks.entities[id].stopId}`}
+      >
+        <div className="badgeGroup">
+          {stopBookmarks.entities[id].lines !== undefined &&
+            stopBookmarks.entities[id].lines.map((line: string) => {
+              return (
+                <Badge className={fluentStyle.badge} key={line}>
+                  {line}
+                </Badge>
+              );
+            })}
+        </div>
+        <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
+      </Link>
+      <Button
+        className={fluentStyle.removeButton}
+        title={t("buttons.delete") ?? "delete"}
+        icon={<Dismiss12Filled />}
+        onClick={checkBookmarkStatus}
+      />
     </Card>
   );
 }
