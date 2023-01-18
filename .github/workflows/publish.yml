@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,12 +13,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.6.0
 
-      - name: npm ci, build and test
+      - name: npm ci, build
         run: |
           npm ci
           npm run build --if-present
 
-      - name: Pushes to another repository
+      - name: Pushes to ttc-eta
         uses: cpina/github-action-push-to-another-repository@main
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
