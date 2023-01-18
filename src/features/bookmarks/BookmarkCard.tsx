@@ -1,6 +1,6 @@
 import { Badge, Button, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
-import { Delete24Regular } from "@fluentui/react-icons";
+import { Dismiss12Filled } from "@fluentui/react-icons";
 import { t } from "i18next";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ export function BookmarkCard(props: { id: number }) {
   }, [stopBookmarks.ids]);
 
   return (
-    <Card>
+    <Card className="card-container">
       <div className="card-row">
         {stopBookmarks.entities[id].lines !== undefined &&
           stopBookmarks.entities[id].lines.map((line: string) => {
@@ -39,7 +39,7 @@ export function BookmarkCard(props: { id: number }) {
         <Button
           className={fluentStyle.removeButton}
           title={t("buttons.delete") ?? "delete"}
-          icon={<Delete24Regular />}
+          icon={<Dismiss12Filled />}
           onClick={checkBookmarkStatus}
         />
       </div>
