@@ -108,8 +108,6 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
-      console.log(data.body.route.direction.length);
-
       const accordionList: JSX.Element[] = [];
 
       for (const element of data.body.route.direction) {

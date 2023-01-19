@@ -34,14 +34,12 @@ const parseSingleOrMultiEta = (
       pushIntoEta(result[result.length - 1].etas, item);
     }
   } else {
-    console.log("single prediction");
     const item = input;
     pushIntoEta(result[result.length - 1].etas, item);
   }
 };
 
 export const etaParser = (json: EtaPredictionXml) => {
-  console.log(json);
   const result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {
@@ -88,7 +86,6 @@ export const etaParser = (json: EtaPredictionXml) => {
     }
     // if no line have ETA, keep a title
     if (result.length === 0) {
-      console.log("empty db");
       result.push({
         line: "",
         stopName: json.body.predictions[0].stopTitle,
@@ -98,7 +95,6 @@ export const etaParser = (json: EtaPredictionXml) => {
       });
     }
   } else {
-    console.log("single lines stop");
     if (json.body.predictions.dirTitleBecauseNoPredictions === undefined) {
       if (Array.isArray(json.body.predictions.direction)) {
         // 1 prediction, 2 directions
@@ -169,7 +165,6 @@ export const etaParser = (json: EtaPredictionXml) => {
         );
       }
     } else {
-      console.log("no ETA at all");
       result.push({
         line: parseActualLineNum(
           json.body.predictions.dirTitleBecauseNoPredictions

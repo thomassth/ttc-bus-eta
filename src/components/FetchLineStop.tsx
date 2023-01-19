@@ -32,7 +32,6 @@ function LineStopPredictionInfo(props: {
       response.text().then((str) => {
         const dataJson = xmlParser.parse(str);
         setData(dataJson);
-        console.log(dataJson);
       });
     });
   };

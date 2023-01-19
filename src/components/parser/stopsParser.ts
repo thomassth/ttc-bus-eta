@@ -3,12 +3,9 @@ import { RouteXml } from "../../data/etaXml";
 
 export function stopsParser(json: RouteXml): LineStop[] {
   const result: LineStop[] = [];
-  console.log(json);
   if (json.body.Error === undefined) {
     for (const element of json.body.route.stop) {
-      if (element.stopId === undefined) {
-        console.log(element);
-      } else {
+      if (element.stopId !== undefined) {
         result.push({
           id: parseInt(element.tag),
           name: element.title,
@@ -25,6 +22,5 @@ export function stopsParser(json: RouteXml): LineStop[] {
       stopId: -1,
     });
   }
-  console.log(result);
   return result;
 }
