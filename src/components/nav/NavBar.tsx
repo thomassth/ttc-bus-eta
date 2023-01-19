@@ -4,8 +4,10 @@ import { LanguageSelection } from "./LanguageSelection";
 export function BottomBar({ width }: { width: number }) {
   return (
     <nav className="bottomNav">
-      <BaseBarComponents width={width} />
-      <LanguageSelection width={width} />
+      <ul>
+        <BaseBarComponents width={width} />
+        <LanguageSelection width={width} />
+      </ul>
     </nav>
   );
 }
@@ -13,8 +15,10 @@ export function BottomBar({ width }: { width: number }) {
 export function SideBar({ width }: { width: number }) {
   return (
     <nav className="sideNav">
-      <BaseBarComponents width={width} />
-      <LanguageSelection width={width} />
+      <ul>
+        <BaseBarComponents width={width} />
+        <LanguageSelection width={width} />
+      </ul>
     </nav>
   );
 }

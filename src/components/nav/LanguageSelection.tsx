@@ -28,22 +28,24 @@ export function LanguageSelection({ width }: { width: number }) {
   return (
     <Popover positioning="below">
       <PopoverTrigger disableButtonEnhancement>
-        <Button
-          className={
-            width >= 800
-              ? fluentStyle.sideNavButton
-              : width > 390
-              ? fluentStyle.bottomNavButton
-              : fluentStyle.smallRoundNavButton
-          }
-          title={t("buttons.languageChange") ?? "Language selection"}
-          shape="circular"
-          appearance="subtle"
-          icon={<LocalLanguage20Regular />}
-          size={width > 390 ? "medium" : "large"}
-        >
-          {width > 390 && <Text>{t("nav.label.lang")}</Text>}
-        </Button>
+        <li>
+          <Button
+            className={
+              width >= 800
+                ? fluentStyle.sideNavButton
+                : width > 390
+                ? fluentStyle.bottomNavButton
+                : fluentStyle.smallRoundNavButton
+            }
+            title={t("buttons.languageChange") ?? "Language selection"}
+            shape="circular"
+            appearance="subtle"
+            icon={<LocalLanguage20Regular />}
+            size={width > 390 ? "medium" : "large"}
+          >
+            {width > 390 && <Text>{t("nav.label.lang")}</Text>}
+          </Button>
+        </li>
       </PopoverTrigger>
 
       <PopoverSurface>

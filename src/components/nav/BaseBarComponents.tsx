@@ -62,25 +62,26 @@ export function BaseBarComponents({ width }: { width: number }) {
 
   const baseBarComponents = navItems.map((item) => {
     return (
-      <NavLink
-        className={fluentStyle.navButtonLink}
-        to={item.path}
-        key={t(item.label)}
-        title={t(item.label) ?? item.label}
-      >
-        {({ isActive }) => (
-          <Button
-            className={getClassName()}
-            shape="circular"
-            appearance={isActive ? "primary" : "subtle"}
-            icon={isActive ? item.iconActive : item.icon}
-            size={width > 390 ? "medium" : "large"}
-            title={t(item.label) ?? item.label}
-          >
-            {width > 390 && <Text>{t(item.label)}</Text>}
-          </Button>
-        )}
-      </NavLink>
+      <li key={t(item.label)}>
+        <NavLink
+          className={fluentStyle.navButtonLink}
+          to={item.path}
+          title={t(item.label) ?? item.label}
+        >
+          {({ isActive }) => (
+            <Button
+              className={getClassName()}
+              shape="circular"
+              appearance={isActive ? "primary" : "subtle"}
+              icon={isActive ? item.iconActive : item.icon}
+              size={width > 390 ? "medium" : "large"}
+              title={t(item.label) ?? item.label}
+            >
+              {width > 390 && <Text>{t(item.label)}</Text>}
+            </Button>
+          )}
+        </NavLink>
+      </li>
     );
   });
 
