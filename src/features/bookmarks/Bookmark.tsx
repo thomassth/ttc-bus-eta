@@ -15,8 +15,6 @@ export default function Bookmark() {
     return <BookmarkCard key={item} id={item} />;
   });
 
-  console.log(stopBookmarks.entities);
-
   const clearAllBookmarks = useCallback(() => {
     dispatch(clearStopBookmarks());
   }, []);
