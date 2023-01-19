@@ -49,19 +49,16 @@ export function BaseBarComponents({ width }: { width: number }) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
 
-  const getClassName = useCallback(
-    (width: number) => {
-      switch (true) {
-        case width > 800:
-          return fluentStyle.sideNavButton;
-        case width > 390:
-          return fluentStyle.bottomNavButton;
-        default:
-          return fluentStyle.smallRoundNavButton;
-      }
-    },
-    [width]
-  );
+  const getClassName = useCallback(() => {
+    switch (true) {
+      case width > 800:
+        return fluentStyle.sideNavButton;
+      case width > 390:
+        return fluentStyle.bottomNavButton;
+      default:
+        return fluentStyle.smallRoundNavButton;
+    }
+  }, [width]);
 
   const baseBarComponents = navItems.map((item) => {
     return (
@@ -73,7 +70,7 @@ export function BaseBarComponents({ width }: { width: number }) {
       >
         {({ isActive }) => (
           <Button
-            className={getClassName(width)}
+            className={getClassName()}
             shape="circular"
             appearance={isActive ? "primary" : "subtle"}
             icon={isActive ? item.iconActive : item.icon}
@@ -87,5 +84,5 @@ export function BaseBarComponents({ width }: { width: number }) {
     );
   });
 
-  return <>{baseBarComponents}</>;
+  return <> {baseBarComponents}</>;
 }
