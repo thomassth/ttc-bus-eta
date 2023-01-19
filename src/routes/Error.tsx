@@ -5,8 +5,8 @@ export default function Error() {
   const { t } = useTranslation();
 
   return (
-    <main>
+    <article>
       <Text>{t("error.notFound")}</Text>
-    </main>
+    </article>
   );
 }

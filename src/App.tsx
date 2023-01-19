@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="container">
-      <div className="navBar">
+      <header className="navBar">
         <Link
           className="routerLink"
           to={"/"}
@@ -35,7 +35,7 @@ function App() {
           </LinkFluent>
         </Link>
         {width >= 800 && <SideBar width={width} />}
-      </div>
+      </header>
       <Outlet />
       {width < 800 && <div className="nav-buffer" />}
       {width < 800 && <BottomBar width={width} />}
