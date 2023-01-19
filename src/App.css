@@ -75,6 +75,13 @@ body {
   padding-left: 32px;
 }
 
+.stopsList {
+  padding-left: 0px;
+  list-style-type: none;
+  margin-block-start: 12px;
+  margin-block-end: 12px;
+}
+
 .navBar {
   padding: 1rem 1rem 0 0;
   display: flex;
@@ -148,6 +155,13 @@ main,
   align-items: center;
 }
 
+.countDownList {
+  padding-left: 0px;
+  list-style-type: none;
+  margin-block-start: 0px;
+  margin-block-end: 2rem;
+}
+
 .countdownSec {
   padding: 0 0.25rem;
   display: flex;
@@ -159,13 +173,13 @@ main,
   align-self: center;
 }
 
-.line {
+.lines {
   display: flex;
   flex-direction: column;
   padding: 2rem 0 0 0;
 }
 
-.bookmarks {
+. .bookmarks {
   display: grid;
   gap: 1rem;
   margin: 1rem 0;

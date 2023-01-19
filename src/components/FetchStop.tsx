@@ -98,7 +98,9 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          {countdownGroupList.length > 0 && countdownGroupList}
+          <ul className="countDownList">
+            {countdownGroupList.length > 0 && countdownGroupList}
+          </ul>
           {countdownGroupList.length === 0 ? (
             <Title1>{t("reminder.noEta")}</Title1>
           ) : null}
