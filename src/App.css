@@ -78,8 +78,7 @@ body {
 .stopsList {
   padding-left: 0px;
   list-style-type: none;
-  margin-block-start: 12px;
-  margin-block-end: 12px;
+  display: contents;
 }
 
 .navBar {
