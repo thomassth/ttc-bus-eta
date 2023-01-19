@@ -53,10 +53,6 @@ body {
   color: black;
 }
 
-.homePage {
-  padding-top: 0px;
-}
-
 .linePage {
   padding-left: 32px;
 }
@@ -94,8 +90,9 @@ body {
   padding-left: 16px;
 }
 
-.appTitle {
-  padding-left: 32px !important;
+.routerLink .appTitle {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .bookmarkedStop {
@@ -105,7 +102,7 @@ body {
 }
 
 .navBar > a {
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 main {
@@ -160,13 +157,9 @@ main {
   margin: 1rem 0;
 }
 
-.card-container {
-  overflow: unset !important;
-  padding: 8px 16px 16px 16px !important;
-}
-
-.bookmark-container {
-  padding-top: 16px !important;
+.bookmarks .card-container {
+  overflow: unset;
+  padding: 8px 16px 16px 16px;
 }
 
 .bookmarks a,
@@ -193,7 +186,7 @@ pre {
     background-color: var(--colorNeutralBackground2);
   }
   main {
-    padding-top: 1rem !important;
+    padding-top: 1rem;
   }
   .sideNav button {
     padding-left: 32px;

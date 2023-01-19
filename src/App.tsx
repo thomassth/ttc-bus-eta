@@ -24,12 +24,12 @@ function App() {
     <div className="container">
       <div className="navBar">
         <Link
-          className="appTitle routerLink"
+          className="routerLink"
           to={"/"}
           title={t("home.title.tooltip") || ""}
         >
           <LinkFluent>
-            <Title1 className="text-xl font-bold">
+            <Title1 className="appTitle text-xl font-bold">
               {t("home.title.name")}
             </Title1>
           </LinkFluent>
