@@ -220,3 +220,9 @@ pre {
     justify-content: left;
   }
 }
+
+@media screen and (max-width: 390px) {
+  .searchBlock button {
+    width: 100%;
+  }
+}
