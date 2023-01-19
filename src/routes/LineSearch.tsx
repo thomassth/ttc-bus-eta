@@ -18,6 +18,8 @@ export default function LineSearch() {
   );
 
   const handleSearchClick = useCallback(() => {
+    if (input === "") return;
+
     navigate(input);
   }, [input]);
 
