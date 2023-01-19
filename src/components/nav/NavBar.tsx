@@ -80,10 +80,10 @@ export function BottomBar({ width }: { width: number }) {
   // add support for swithing lang
 
   return (
-    <div className="bottomNav">
+    <nav className="bottomNav">
       {BottomNavItems}
       <LanguageSelection width={width} />
-    </div>
+    </nav>
   );
 }
 

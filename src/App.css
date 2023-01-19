@@ -105,10 +105,16 @@ body {
   padding: 0 2rem;
 }
 
-main {
+main,
+.bookmarkContainer {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.bookmarks {
+  padding: 0;
+  list-style-type: none;
 }
 
 *[role="checkbox"] {

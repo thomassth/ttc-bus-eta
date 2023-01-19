@@ -22,19 +22,19 @@ export default function Bookmark() {
   }, []);
 
   return (
-    <main className="bookmark-container">
+    <article className="bookmarkContainer">
       {stopBookmarks.ids.length === 0 ? (
         <section>
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : null}
-      <div className="bookmarks">{bookmarks}</div>
+      <ul className="bookmarks">{bookmarks}</ul>
       {stopBookmarks.ids.length > 0 ? (
         <Button onClick={clearAllBookmarks}>{t("buttons.clear")}</Button>
       ) : null}
 
       <RawDisplay data={stopBookmarks} />
-    </main>
+    </article>
   );
 }
