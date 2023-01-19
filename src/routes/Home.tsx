@@ -19,6 +19,8 @@ export default function Home() {
   );
 
   const handleSearchClick = useCallback(() => {
+    if (input === "") return;
+
     navigate(`lines/${input}`);
   }, [input]);
 
