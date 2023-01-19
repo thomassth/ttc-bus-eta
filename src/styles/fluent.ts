@@ -19,7 +19,9 @@ export const fluentStyles = makeStyles({
   },
   badge: {
     ...shorthands.margin("0.5rem", "0.25rem"),
-    minWidth: "min-content",
+    minWidth: "45px",
+    marginLeft: "0px",
+    marginRight: "8px",
   },
   accordionHeader: {
     ...shorthands.margin("0.25rem", "0"),
@@ -73,12 +75,12 @@ export const fluentStyles = makeStyles({
     gridAutoRows: "auto",
     alignItems: "start",
     ...shorthands.gap("0.2rem"),
-    paddingBottom: "4px",
+    paddingBottom: "8px",
   },
   smallRoundNavButton: {
     width: "3rem",
     height: "3rem",
-    minWidth: "0 !important",
+    minWidth: "0px",
     maxWidth: "unset",
     marginLeft: "auto",
     marginRight: "auto",

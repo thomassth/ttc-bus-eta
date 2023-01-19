@@ -1,4 +1,4 @@
-import { Accordion, Title2 } from "@fluentui/react-components";
+import { Accordion, Title1 } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Line() {
   });
   return (
     <main className="linePage">
-      <Title2>{t("lines.number", { lineNum })}</Title2>
+      <Title1>{t("lines.number", { lineNum })}</Title1>
       <Accordion defaultOpenItems collapsible>
         <RouteInfo line={lineNum} />
       </Accordion>

@@ -22,7 +22,7 @@ export default function Bookmark() {
   }, []);
 
   return (
-    <main>
+    <main className="bookmark-container">
       {stopBookmarks.ids.length === 0 ? (
         <section>
           <Trans>{t("home.headline")}</Trans>

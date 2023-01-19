@@ -35,7 +35,9 @@ export function BookmarkCard(props: { id: number }) {
               );
             })}
         </div>
-        <Text weight="semibold">{stopBookmarks.entities[id].name}</Text>
+        <Text className="stopName" weight="semibold">
+          {stopBookmarks.entities[id].name}
+        </Text>
       </Link>
       <Button
         className={fluentStyle.removeButton}

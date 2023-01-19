@@ -1,4 +1,4 @@
-import { Button, Text, Title1, Title2 } from "@fluentui/react-components";
+import { Button, Text, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -85,9 +85,9 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return (
         <div className="directionsList list">
           {etaDb[0] !== undefined ? (
-            <Title2 className="top-row">
+            <Title1 className="top-row">
               {etaDb[0].stopTag} - {etaDb[0].stopName}
-            </Title2>
+            </Title1>
           ) : null}
           <div className="countdown-row">
             <RefreshButton />
