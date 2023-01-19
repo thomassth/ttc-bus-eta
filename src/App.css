@@ -179,7 +179,7 @@ main,
   padding: 2rem 0 0 0;
 }
 
-. .bookmarks {
+.bookmarks {
   display: grid;
   gap: 1rem;
   margin: 1rem 0;
