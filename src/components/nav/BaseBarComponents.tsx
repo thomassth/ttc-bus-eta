@@ -63,7 +63,7 @@ export function BaseBarComponents({ width }: { width: number }) {
     [width]
   );
 
-  const BottomNavItems = navItems.map((item) => {
+  const baseBarComponents = navItems.map((item) => {
     return (
       <NavLink
         className={fluentStyle.navButtonLink}
@@ -87,5 +87,5 @@ export function BaseBarComponents({ width }: { width: number }) {
     );
   });
 
-  return <>{BottomNavItems}</>;
+  return <>{baseBarComponents}</>;
 }
