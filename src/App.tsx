@@ -37,7 +37,6 @@ function App() {
         {width >= 800 && <SideBar width={width} />}
       </header>
       <Outlet />
-      {width < 800 && <div className="nav-buffer" />}
       {width < 800 && <BottomBar width={width} />}
     </div>
   );

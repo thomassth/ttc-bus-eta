@@ -18,17 +18,15 @@ export const fluentStyles = makeStyles({
     borderBottomRightRadius: "50%",
   },
   badge: {
-    ...shorthands.margin("0.5rem", "0.25rem"),
-    minWidth: "45px",
-    marginLeft: "0px",
-    marginRight: "8px",
+    ...shorthands.margin("8px", "8px", "8px", "0px"),
+    minWidth: "48px",
   },
   accordionHeader: {
-    ...shorthands.margin("0", "0"),
+    ...shorthands.margin("0px", "0px"),
 
     "& button": {
       height: "auto",
-      paddingLeft: "0",
+      paddingLeft: "0px",
     },
   },
   number: {
@@ -46,7 +44,7 @@ export const fluentStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto",
     "& span": {
-      marginRight: "0",
+      marginRight: "0px",
     },
   },
   navButtonLink: {
@@ -55,7 +53,7 @@ export const fluentStyles = makeStyles({
     width: "100%",
   },
   sideNavButton: {
-    ...shorthands.padding("0.5rem", " 0"),
+    ...shorthands.padding("8px", "0px"),
     width: "100%",
     borderTopLeftRadius: "0px",
     borderBottomLeftRadius: "0px",
@@ -63,7 +61,7 @@ export const fluentStyles = makeStyles({
       borderTopLeftRadius: "0px",
       borderBottomLeftRadius: "0px",
       ...shorthands.borderColor("transparent !important"),
-      boxShadow: "0 0 0 0 transparent !important",
+      boxShadow: "0px 0px 0px 0px transparent !important",
     },
   },
   flexGrowContent: {
@@ -74,18 +72,18 @@ export const fluentStyles = makeStyles({
     gridTemplateColumns: "36px 36px auto",
     gridAutoRows: "auto",
     alignItems: "start",
-    ...shorthands.gap("0.2rem"),
+    ...shorthands.gap("8px"),
     paddingBottom: "8px",
   },
   smallRoundNavButton: {
-    width: "3rem",
-    height: "3rem",
+    width: "48px",
+    height: "48px",
     minWidth: "0px",
     maxWidth: "unset",
     marginLeft: "auto",
     marginRight: "auto",
     "& span": {
-      marginRight: "0",
+      marginRight: "0px",
     },
   },
 });

@@ -16,10 +16,6 @@ body {
   min-height: 100%;
 }
 
-.nav-buffer {
-  height: 4rem;
-}
-
 .bottomNav {
   width: 100%;
   position: fixed;
@@ -64,11 +60,11 @@ body {
 }
 
 .aboutPage {
-  padding-left: 32px;
+  padding: 16px 32px;
 }
 
 .aboutPage .linkButton {
-  padding: 0px 0.5rem;
+  padding: 0px 8px;
 }
 
 .stopPredictionPage {
@@ -82,9 +78,9 @@ body {
 }
 
 .navBar {
-  padding: 1rem 1rem 0px 0px;
+  padding: 16px 16px 0px 0px;
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   flex-direction: column;
 }
 
@@ -95,7 +91,7 @@ body {
 
 .rawResponseDetail {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .lineTitle {
@@ -113,12 +109,12 @@ body {
 }
 
 .navBar > a {
-  padding: 0px 2rem;
+  padding: 0px 32px;
 }
 
 main,
 .bookmarkContainer {
-  padding: 1rem;
+  padding: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -139,8 +135,8 @@ main,
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  padding: 0px 1rem;
-  gap: 1rem;
+  padding: 0px 16px;
+  gap: 16px;
 }
 
 .directionListContainer {
@@ -159,21 +155,21 @@ main,
 }
 
 .countdownButtonGroup {
-  margin: 0.5rem 0px 0px 0px;
+  margin: 8px 0px 0px 0px;
 }
 
 .countDownList {
   padding-left: 0px;
   list-style-type: none;
   margin-block-start: 0px;
-  margin-block-end: 2rem;
+  margin-block-end: 32px;
 }
 
 .countdownSec {
-  padding: 0px 0.25rem;
+  padding: 0px 4px;
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .badge.arriving {
@@ -183,22 +179,22 @@ main,
 .lines {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0px 0px 0px;
+  padding: 16px 0px 0px 0px;
 }
 
 .bookmarks {
   display: grid;
-  gap: 1rem;
+  gap: 16px;
   margin: 0px;
 }
 
 .bookmarkContainer .bookmarkClearButton {
-  margin-top: 0.5rem;
+  margin-top: 16px;
 }
 
 .bookmarks .card-container {
   overflow: unset;
-  padding: 6px 12px 12px 12px;
+  padding: 16px;
 }
 
 .bookmarks a,
@@ -214,7 +210,7 @@ pre {
 
 @media screen and (min-width: 800px) {
   .homePage {
-    width: 560px;
+    width: 50%;
   }
 
   .container {
@@ -222,7 +218,9 @@ pre {
   }
 
   .navBar {
-    min-width: 14rem;
+    width: 20%;
+    max-width: 300px;
+    min-width: 250px;
     background-color: var(--colorNeutralBackground2);
   }
 
