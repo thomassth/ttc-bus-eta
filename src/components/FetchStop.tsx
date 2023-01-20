@@ -89,7 +89,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               {etaDb[0].stopTag} - {etaDb[0].stopName}
             </Title1>
           ) : null}
-          <div className="countdown-row">
+          <div className="countdownButtonGroup">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -112,7 +112,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
-          <div className="countdown-row">
+          <div className="countdownButtonGroup">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -130,7 +130,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return (
       <div>
         <Title1>{t("reminder.loading")}</Title1>
-        <div className="countdown-row">
+        <div className="countdownButtonGroup">
           <RefreshButton />
         </div>
       </div>

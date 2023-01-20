@@ -20,7 +20,7 @@
     "placeholder": "輸入路線",
     "browserTitle": "{{lineNum}} 線 | TTC 到站時間",
     "title": "輸入路線:",
-    "number": "{{lineNum}} 線=",
+    "number": "{{lineNum}} 線",
     "lineAndStopInfo": "{{lineNum}} 線 #{{stopNum}} 站 ="
   },
   "stops": {

@@ -20,7 +20,7 @@
     "placeholder": "enter a line number",
     "browserTitle": "Line {{lineNum}} | TTC arrivals",
     "title": "Enter a line number:",
-    "number": "Line {{lineNum}} =",
+    "number": "Line {{lineNum}}",
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} ="
   },
   "stops": {

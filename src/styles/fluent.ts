@@ -24,7 +24,7 @@ export const fluentStyles = makeStyles({
     marginRight: "8px",
   },
   accordionHeader: {
-    ...shorthands.margin("0.25rem", "0"),
+    ...shorthands.margin("0", "0"),
 
     "& button": {
       height: "auto",

@@ -12,7 +12,7 @@ import { CountdownSec } from "./CountdownSec";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
   const countdownRowList = props.detail.etas.map((el2) => (
-    <div className="countdown-row" key={el2.tripTag}>
+    <div className="countdownRow" key={el2.tripTag}>
       <CountdownBranch branch={el2.branch} />
       <CountdownSec second={el2.seconds} epochTime={el2.epochTime} />
     </div>
