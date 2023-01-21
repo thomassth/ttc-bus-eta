@@ -152,10 +152,9 @@ main {
   align-self: center;
 }
 
-.lines {
+.stopPredictionDetails {
   display: flex;
   flex-direction: column;
-  padding: 16px 0px 0px 0px;
 }
 
 .bookmarkContainer ul {
