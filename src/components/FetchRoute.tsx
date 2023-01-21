@@ -127,8 +127,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
       }
 
       return (
-        <div className="directionListContainer">
-          <ul className="directionList">
+        <div className="stopsListContainer">
+          <ul>
             {accordionList}
             <li>
               <RawDisplay data={data} />

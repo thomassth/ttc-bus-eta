@@ -26,9 +26,9 @@ export default function LineSearch() {
   const fluentStyle = fluentStyles();
 
   return (
-    <main>
-      <form>
-        <Text className="lineTitle">{t("lines.title")}</Text>
+    <main className="linePage">
+      <form className="linePageInputForm">
+        <Text className="linePageReminder">{t("lines.title")}</Text>
         <div className="searchBlock">
           <Input
             className={fluentStyle.flexGrowContent}

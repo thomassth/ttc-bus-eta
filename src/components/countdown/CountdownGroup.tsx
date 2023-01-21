@@ -23,7 +23,7 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
   } else
     return (
       <li>
-        <div className="lines">
+        <div>
           <Link to={`/lines/${props.detail.line}`} className="routerLink">
             <LinkFluent>
               <Title2>

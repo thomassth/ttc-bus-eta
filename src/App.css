@@ -41,40 +41,20 @@ body {
   background-color: var(--colorNeutralBackground2);
 }
 
-.sideNav ul {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-left: 0px;
-  list-style-type: none;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
-}
-
 .langSelect {
   color: black;
 }
 
-.linePage {
-  padding-left: 32px;
-}
-
+.stopPredictionPage,
+.homePage,
+.linePage,
 .aboutPage {
-  padding: 16px 32px;
+  margin: 16px 32px 80px 32px;
+  padding: 0px;
 }
 
 .aboutPage .linkButton {
   padding: 0px 8px;
-}
-
-.stopPredictionPage {
-  padding-left: 32px;
-}
-
-.stopsList {
-  padding-left: 0px;
-  list-style-type: none;
-  display: contents;
 }
 
 .navBar {
@@ -89,13 +69,17 @@ body {
   margin-bottom: auto;
 }
 
-.rawResponseDetail {
+.rawResponseDetails {
   display: flex;
   gap: 16px;
 }
 
-.lineTitle {
-  padding-left: 16px;
+.linePageInputForm {
+  display: contents;
+}
+
+.linePageReminder {
+  margin-bottom: 16px;
 }
 
 .routerLink .appTitle {
@@ -112,14 +96,15 @@ body {
   padding: 0px 32px;
 }
 
-main,
-.bookmarkContainer {
-  padding: 16px;
+main {
+  padding: 32px;
   display: flex;
   flex-direction: column;
 }
 
-.bookmarks,
+.countdownListContainer ul,
+.stopsListContainer ul,
+.bookmarkContainer ul,
 .bottomNav ul,
 .sideNav ul {
   padding-left: 0px;
@@ -135,18 +120,16 @@ main,
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  padding: 0px 16px;
   gap: 16px;
 }
 
-.directionListContainer {
+.stopsListContainer {
   display: flex;
   flex-direction: column;
 }
 
-.directionList {
-  padding-left: 0px;
-  list-style-type: none;
+.countdownListContainer li {
+  margin-top: 32px;
 }
 
 .countdownRow {
@@ -156,13 +139,6 @@ main,
 
 .countdownButtonGroup {
   margin: 8px 0px 0px 0px;
-}
-
-.countDownList {
-  padding-left: 0px;
-  list-style-type: none;
-  margin-block-start: 0px;
-  margin-block-end: 32px;
 }
 
 .countdownSec {
@@ -182,22 +158,27 @@ main,
   padding: 16px 0px 0px 0px;
 }
 
-.bookmarks {
+.bookmarkContainer ul {
   display: grid;
-  gap: 16px;
+  gap: 24px;
   margin: 0px;
 }
 
+.bookmarkContainer {
+  margin-top: 32px;
+}
+
 .bookmarkContainer .bookmarkClearButton {
-  margin-top: 16px;
+  margin-top: 32px;
+  width: 100%;
 }
 
-.bookmarks .card-container {
+.bookmarkContainer ul .cardContainer {
   overflow: unset;
-  padding: 16px;
+  padding: 8px 16px 16px 16px;
 }
 
-.bookmarks a,
+/* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
 .routerLink {
@@ -218,9 +199,7 @@ pre {
   }
 
   .navBar {
-    width: 20%;
-    max-width: 300px;
-    min-width: 250px;
+    width: fit-content;
     background-color: var(--colorNeutralBackground2);
   }
 

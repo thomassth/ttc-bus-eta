@@ -27,7 +27,7 @@ export default function RawDisplay(props: {
         <AccordionHeader className={fluentStyle.accordionHeader}>
           {t("debug.showResponse")}
         </AccordionHeader>
-        <AccordionPanel className="rawResponseDetail">
+        <AccordionPanel className="rawResponseDetails">
           <pre>{`${JSON.stringify(props.data, null, 1)}`}</pre>
         </AccordionPanel>
       </AccordionItem>

@@ -37,7 +37,7 @@ export function StopAccordions(props: {
         <Badge className={fluentStyle.badge}>{props.lineNum}</Badge>
         {parseRoute(props.title)}
       </AccordionHeader>
-      <ul className="stopsList">{stops}</ul>
+      <ul>{stops}</ul>
     </AccordionItem>
   );
 }

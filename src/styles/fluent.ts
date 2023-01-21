@@ -71,8 +71,7 @@ export const fluentStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "36px 36px auto",
     gridAutoRows: "auto",
-    alignItems: "start",
-    ...shorthands.gap("8px"),
+    paddingTop: "8px",
     paddingBottom: "8px",
   },
   smallRoundNavButton: {

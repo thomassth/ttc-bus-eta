@@ -83,7 +83,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       }
 
       return (
-        <div className="directionsList list">
+        <div className="countdownListContainer">
           {etaDb[0] !== undefined ? (
             <Title1 className="top-row">
               {etaDb[0].stopTag} - {etaDb[0].stopName}
@@ -98,9 +98,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          <ul className="countDownList">
-            {countdownGroupList.length > 0 && countdownGroupList}
-          </ul>
+          <ul>{countdownGroupList.length > 0 && countdownGroupList}</ul>
           {countdownGroupList.length === 0 ? (
             <Title1>{t("reminder.noEta")}</Title1>
           ) : null}
