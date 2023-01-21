@@ -22,8 +22,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-    setData(undefined);
-    setEtaDb([]);
   }, [lastUpdatedAt]);
 
   function RefreshButton() {
