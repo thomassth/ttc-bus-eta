@@ -34,5 +34,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return isLocalDevMode ? rawDisplay : <></>;
+  return isLocalDevMode ? rawDisplay : <> {}</>;
 }
