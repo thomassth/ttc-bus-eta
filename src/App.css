@@ -16,14 +16,6 @@ body {
   min-height: 100%;
 }
 
-.nav-buffer {
-  height: 4rem;
-}
-
-.directionsList > span {
-  padding-bottom: 6px;
-}
-
 .bottomNav {
   width: 100%;
   position: fixed;
@@ -37,7 +29,7 @@ body {
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  margin: 0;
+  margin: 0px;
 }
 
 .bottomNav a {
@@ -49,36 +41,26 @@ body {
   background-color: var(--colorNeutralBackground2);
 }
 
-.sideNav ul {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .langSelect {
   color: black;
 }
 
-.linePage {
-  padding-left: 32px;
-}
-
+.stopPredictionPage,
+.homePage,
+.linePage,
 .aboutPage {
-  padding-left: 32px;
+  margin: 16px 32px 80px 32px;
+  padding: 0px;
 }
 
 .aboutPage .linkButton {
-  padding: 0 0.5rem;
-}
-
-.stopPredictionPage {
-  padding-left: 32px;
+  padding: 0px 8px;
 }
 
 .navBar {
-  padding: 1rem 1rem 0 0;
+  padding: 16px 16px 0px 0px;
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   flex-direction: column;
 }
 
@@ -87,13 +69,17 @@ body {
   margin-bottom: auto;
 }
 
-.rawResponseDetail {
+.rawResponseDetails {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
 }
 
-.lineTitle {
-  padding-left: 16px;
+.linePageInputForm {
+  display: contents;
+}
+
+.linePageReminder {
+  margin-bottom: 16px;
 }
 
 .routerLink .appTitle {
@@ -104,24 +90,24 @@ body {
 .bookmarkedStop {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
-  margin: auto 8px auto 4px;
 }
 
 .navBar > a {
-  padding: 0 2rem;
+  padding: 0px 32px;
 }
 
-main,
-.bookmarkContainer {
-  padding: 1rem;
+main {
+  padding: 32px;
   display: flex;
   flex-direction: column;
 }
 
-.bookmarks,
+.countdownListContainer ul,
+.stopsListContainer ul,
+.bookmarkContainer ul,
 .bottomNav ul,
 .sideNav ul {
-  padding-left: 0;
+  padding-left: 0px;
   list-style-type: none;
 }
 
@@ -134,49 +120,64 @@ main,
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  padding: 8px 16px 0px 16px;
-  gap: 1rem;
+  gap: 16px;
 }
 
-.list {
+.stopsListContainer {
   display: flex;
   flex-direction: column;
 }
 
-.countdown-row {
+.countdownListContainer li {
+  margin-top: 32px;
+}
+
+.countdownRow {
   display: flex;
   align-items: center;
 }
 
+.countdownButtonGroup {
+  margin: 8px 0px 0px 0px;
+}
+
 .countdownSec {
-  padding: 0 0.25rem;
+  padding: 0px 4px;
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .badge.arriving {
   align-self: center;
 }
 
-.line {
+.stopPredictionDetails {
   display: flex;
   flex-direction: column;
-  padding: 2rem 0 0 0;
 }
 
-.bookmarks {
+.bookmarkContainer ul {
   display: grid;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 24px;
+  margin: 0px;
 }
 
-.bookmarks .card-container {
+.bookmarkContainer {
+  margin-top: 32px;
+}
+
+.bookmarkContainer .bookmarkClearButton {
+  margin-top: 32px;
+  width: 100%;
+}
+
+.bookmarkContainer ul .cardContainer {
   overflow: unset;
   padding: 8px 16px 16px 16px;
 }
 
-.bookmarks a,
+/* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
 .routerLink {
@@ -189,21 +190,26 @@ pre {
 
 @media screen and (min-width: 800px) {
   .homePage {
-    width: 560px;
+    width: 50%;
   }
 
   .container {
     flex-direction: row;
   }
+
   .navBar {
-    min-width: 14rem;
+    width: fit-content;
     background-color: var(--colorNeutralBackground2);
   }
-  main {
-    padding-top: 1rem;
-  }
+
   .sideNav button {
     padding-left: 32px;
     justify-content: left;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .searchBlock button {
+    width: 100%;
   }
 }

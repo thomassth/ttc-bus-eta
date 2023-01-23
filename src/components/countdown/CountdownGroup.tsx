@@ -12,7 +12,7 @@ import { CountdownSec } from "./CountdownSec";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
   const countdownRowList = props.detail.etas.map((el2) => (
-    <div className="countdown-row" key={el2.tripTag}>
+    <div className="countdownRow" key={el2.tripTag}>
       <CountdownBranch branch={el2.branch} />
       <CountdownSec second={el2.seconds} epochTime={el2.epochTime} />
     </div>
@@ -22,20 +22,22 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
     return null;
   } else
     return (
-      <div className="line">
-        <Link to={`/lines/${props.detail.line}`} className="routerLink">
-          <LinkFluent>
-            <Title2>
-              {props.detail.etas.length === 0
-                ? props.detail.line
-                : props.detail.line}
-            </Title2>
-          </LinkFluent>
-        </Link>
+      <li>
+        <div className="stopPredictionDetails">
+          <Link to={`/lines/${props.detail.line}`} className="routerLink">
+            <LinkFluent>
+              <Title2>
+                {props.detail.etas.length === 0
+                  ? props.detail.line
+                  : props.detail.line}
+              </Title2>
+            </LinkFluent>
+          </Link>
 
-        <Text>{props.detail.routeName}</Text>
-        {countdownRowList}
-      </div>
+          <Text>{props.detail.routeName}</Text>
+          {countdownRowList}
+        </div>
+      </li>
     );
 }
 

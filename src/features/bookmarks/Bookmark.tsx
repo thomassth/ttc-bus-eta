@@ -27,9 +27,11 @@ export default function Bookmark() {
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : null}
-      <ul className="bookmarks">{bookmarks}</ul>
+      <ul>{bookmarks}</ul>
       {stopBookmarks.ids.length > 0 ? (
-        <Button onClick={clearAllBookmarks}>{t("buttons.clear")}</Button>
+        <Button className="bookmarkClearButton" onClick={clearAllBookmarks}>
+          {t("buttons.clear")}
+        </Button>
       ) : null}
 
       <RawDisplay data={stopBookmarks} />

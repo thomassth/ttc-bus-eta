@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@fluentui/react-components";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EtaPredictionXml, RouteXml } from "../data/etaXml";
@@ -15,16 +16,23 @@ export default function RawDisplay(props: {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  return (
+  const isLocalDevMode = useMemo(
+    () => process.env.NODE_ENV === "development",
+    [process.env.NODE_ENV]
+  );
+
+  const rawDisplay = (
     <Accordion collapsible>
       <AccordionItem value="raw">
         <AccordionHeader className={fluentStyle.accordionHeader}>
           {t("debug.showResponse")}
         </AccordionHeader>
-        <AccordionPanel className="rawResponseDetail">
+        <AccordionPanel className="rawResponseDetails">
           <pre>{`${JSON.stringify(props.data, null, 1)}`}</pre>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
   );
+
+  return isLocalDevMode ? rawDisplay : <> {}</>;
 }

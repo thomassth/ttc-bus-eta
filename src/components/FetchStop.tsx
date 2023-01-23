@@ -81,13 +81,13 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       }
 
       return (
-        <div className="directionsList list">
+        <div className="countdownListContainer">
           {etaDb[0] !== undefined ? (
             <Title1 className="top-row">
               {etaDb[0].stopTag} - {etaDb[0].stopName}
             </Title1>
           ) : null}
-          <div className="countdown-row">
+          <div className="countdownButtonGroup">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -96,7 +96,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          {countdownGroupList.length > 0 && countdownGroupList}
+          <ul>{countdownGroupList.length > 0 && countdownGroupList}</ul>
           {countdownGroupList.length === 0 ? (
             <Title1>{t("reminder.noEta")}</Title1>
           ) : null}
@@ -108,7 +108,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
-          <div className="countdown-row">
+          <div className="countdownButtonGroup">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -126,7 +126,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return (
       <div>
         <Title1>{t("reminder.loading")}</Title1>
-        <div className="countdown-row">
+        <div className="countdownButtonGroup">
           <RefreshButton />
         </div>
       </div>

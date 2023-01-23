@@ -21,7 +21,7 @@ export function BookmarkCard(props: { id: number }) {
 
   return (
     <li>
-      <Card className="card-container">
+      <Card className="cardContainer">
         <Link
           className="bookmarkedStop"
           to={`stops/${stopBookmarks.entities[id].stopId}`}

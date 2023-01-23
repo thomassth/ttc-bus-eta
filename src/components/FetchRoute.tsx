@@ -114,21 +114,26 @@ function RouteInfo(props: { line: number }): JSX.Element {
         const list = createStopList(element);
 
         accordionList.push(
-          <StopAccordions
-            title={element.title}
-            direction={element.name}
-            lineNum={element.branch}
-            result={list}
-            key={`${element.tag}`}
-            tag={element.tag}
-          />
+          <li key={`${element.tag}`}>
+            <StopAccordions
+              title={element.title}
+              direction={element.name}
+              lineNum={element.branch}
+              result={list}
+              tag={element.tag}
+            />
+          </li>
         );
       }
 
       return (
-        <div className="directionList list">
-          {accordionList}
-          <RawDisplay data={data} />
+        <div className="stopsListContainer">
+          <ul>
+            {accordionList}
+            <li>
+              <RawDisplay data={data} />
+            </li>
+          </ul>
         </div>
       );
     } else {
