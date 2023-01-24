@@ -8,8 +8,12 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../app/hooks";
+import { store } from "../app/store";
 import { EtaPredictionXml, RouteXml } from "../data/etaXml";
-import { settingsItem } from "../features/settings/settingsSlice";
+import {
+  settingsItem,
+  settingsSelectors,
+} from "../features/settings/settingsSlice";
 import { fluentStyles } from "../styles/fluent";
 
 export default function RawDisplay(props: {
@@ -28,12 +32,15 @@ export default function RawDisplay(props: {
   const settings: { id: number[]; entities: settingsItem[] } = useAppSelector(
     (state) => state.settings
   );
+
+  const devModeValue = settingsSelectors.selectById(
+    store.getState().settings,
+    "devMode"
+  );
   const isInDevMode = useMemo(
-    () =>
-      settings.id === undefined ? false : settings.entities[0].value === "true",
+    () => (devModeValue !== undefined ? devModeValue.value === "true" : false),
     [settings]
   );
-
   const shouldDisplayDev = isInDevMode || isLocalDevMode;
 
   const rawDisplay = (

@@ -25,11 +25,12 @@ export function Settings() {
     (state) => state.settings
   );
 
-  const test = useState(
-    settingsSelectors.selectById(store.getState().settings, "devMode")
+  const devModeValue = settingsSelectors.selectById(
+    store.getState().settings,
+    "devMode"
   );
   const [devMode, setDevMode] = useState(
-    typeof test[0] !== "undefined" ? test[0].value === "true" : false
+    typeof devModeValue !== "undefined" ? devModeValue.value === "true" : false
   );
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();
