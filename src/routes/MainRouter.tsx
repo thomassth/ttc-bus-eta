@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
+import { Settings } from "../features/settings/Settings";
 import About from "./About";
 import Error from "./Error";
 import Home from "./Home";
@@ -30,6 +31,7 @@ export const router = createBrowserRouter(
         <Route path=":stopId" element={<StopPrediction />} />
       </Route>
       <Route path="about" element={<About />} />
+      <Route path="settings" element={<Settings />} />
       <Route path="*" element={<Error />} />
       <Route index element={<Home />} />
     </Route>

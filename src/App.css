@@ -180,6 +180,7 @@ main {
 /* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
+.settingsPage a,
 .routerLink {
   text-decoration: none;
 }
