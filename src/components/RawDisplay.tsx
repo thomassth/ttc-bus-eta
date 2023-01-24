@@ -25,10 +25,6 @@ export default function RawDisplay(props: {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  const isLocalDevMode = useMemo(
-    () => process.env.NODE_ENV === "development",
-    [process.env.NODE_ENV]
-  );
   const settings: { id: number[]; entities: settingsItem[] } = useAppSelector(
     (state) => state.settings
   );
@@ -41,7 +37,6 @@ export default function RawDisplay(props: {
     () => (devModeValue !== undefined ? devModeValue.value === "true" : false),
     [settings]
   );
-  const shouldDisplayDev = isInDevMode || isLocalDevMode;
 
   const rawDisplay = (
     <Accordion collapsible>
@@ -56,5 +51,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return shouldDisplayDev ? rawDisplay : <> {}</>;
+  return isInDevMode ? rawDisplay : <> {}</>;
 }
