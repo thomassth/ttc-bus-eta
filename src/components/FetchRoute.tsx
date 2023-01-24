@@ -137,17 +137,30 @@ function RouteInfo(props: { line: number }): JSX.Element {
         </div>
       );
     } else {
-      // if(data.body.Error !== undefined)
-      return (
-        <div>
-          <LinkFluent onClick={handleFetchBusClick}>
+      const noRouteRegex = /Could not get route /;
+      const errorString = data.body.Error["#text"];
+      if (noRouteRegex.test(errorString)) {
+        return (
+          <div>
             <Text as="h1" weight="semibold">
-              {`Error: ${data.body.Error["#text"]}`}
+              Error: This line is not in the route database.
+              <br />
+              Subway lines are unsupported for now.
             </Text>
-          </LinkFluent>
-          <RawDisplay data={data} />
-        </div>
-      );
+            <RawDisplay data={data} />
+          </div>
+        );
+      } else
+        return (
+          <div>
+            <LinkFluent onClick={handleFetchBusClick}>
+              <Text as="h1" weight="semibold">
+                {`Error: ${errorString}`}
+              </Text>
+            </LinkFluent>
+            <RawDisplay data={data} />
+          </div>
+        );
     }
   } else {
     return (
