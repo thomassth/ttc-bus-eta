@@ -57,6 +57,11 @@ body {
   padding: 0px 8px;
 }
 
+.aboutPage > *,
+.settingsPage > * {
+  padding-bottom: 1rem;
+}
+
 .navBar {
   padding: 16px 16px 0px 0px;
   display: flex;
