@@ -10,11 +10,15 @@ export default function About() {
       </Text>
       <br />
       <Title2>Where do they come from?</Title2>
-      <Text>From City of Toronto&#39;s Open Data Catalogue:</Text>{" "}
-      <Link href="https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/">
-        https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/
-      </Link>
-      <Text>(It is way harder to parse than it looks)</Text>
+      <Text>
+        From City of Toronto&#39;s Open Data Catalogue:
+        <br />
+        <Link href="https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/">
+          https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/
+        </Link>
+        <br />
+        (It is way harder to parse than it looks)
+      </Text>
       <br />
       <Title2>But it&#39;s not accurate! / it&#39;s missing a bus!</Title2>
       <Text>Well tell that to TTC! I&#39;m just the messenger.</Text> <br />
@@ -22,9 +26,9 @@ export default function About() {
       <Text>
         Basically I don&#39;t like how most apps function. I just want to know
         when my bus arrive and nothing else.
-      </Text>
-      <Text>Also, it&#39;s fun to try out the latest code stuff I learnt!</Text>
-      <Text>
+        <br />
+        Also, it&#39;s fun to try out the latest code stuff I learnt!
+        <br />
         Huge thanks to <Link href="https://hkbus.app/en">HKBus ETA</Link> for
         inspiring me to do this.
       </Text>
@@ -60,8 +64,7 @@ export default function About() {
             href="https://github.com/thomassth"
           />
         </a>
-      </Text>
-      <Text>
+        <br />
         Code and visual improvement, feedback: @HoiPangCHEUNG
         <a
           className="linkButton"
@@ -82,8 +85,7 @@ export default function About() {
             }
           />
         </a>
-      </Text>
-      <Text>
+        <br />
         Code improvement: @vincentho13hk
         <a
           className="linkButton"
@@ -104,8 +106,7 @@ export default function About() {
             }
           />
         </a>
-      </Text>
-      <Text>
+        <br />
         Especially useful tool:{" "}
         <Link href="https://deepsource.io/gh/thomassth/ttc-bus-eta">
           deepsource.io

@@ -4,8 +4,8 @@ import {
   ArrowRouting24Filled,
   Home20Regular,
   Home24Filled,
-  QuestionCircle20Regular,
-  QuestionCircle24Filled,
+  Settings20Regular,
+  Settings24Filled,
 } from "@fluentui/react-icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,6 @@ import { fluentStyles } from "../../styles/fluent";
 
 interface NavItem {
   label: string;
-  prefix: string;
   path: string;
   icon: JSX.Element;
   iconActive: JSX.Element;
@@ -24,24 +23,21 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     label: "nav.label.home",
-    prefix: `${process.env.PUBLIC_URL}`,
     path: ``,
     icon: <Home20Regular />,
     iconActive: <Home24Filled />,
   },
   {
     label: "nav.label.lines",
-    prefix: `${process.env.PUBLIC_URL}`,
     path: `/lines`,
     icon: <ArrowRouting20Regular />,
     iconActive: <ArrowRouting24Filled />,
   },
   {
-    label: "nav.label.about",
-    prefix: `${process.env.PUBLIC_URL}`,
-    path: `/about`,
-    icon: <QuestionCircle20Regular />,
-    iconActive: <QuestionCircle24Filled />,
+    label: "nav.label.settings",
+    path: `/settings`,
+    icon: <Settings20Regular />,
+    iconActive: <Settings24Filled />,
   },
 ];
 

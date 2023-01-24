@@ -1,6 +1,6 @@
-export const loadStopBookmarkState = () => {
+export const loadSettingsState = () => {
   try {
-    const serialState = localStorage.getItem("stopBookmarks");
+    const serialState = localStorage.getItem("appSettings");
     if (serialState === null) {
       return { ids: [], entities: {} };
     }
@@ -11,13 +11,13 @@ export const loadStopBookmarkState = () => {
   }
 };
 
-export const saveStopBookmarkState = (state: {
+export const saveSettingsState = (state: {
   id: number[];
-  entities: { id: number; name: string; value: string };
+  entities: { stopId: number; name: string; ttcId: number };
 }) => {
   try {
     const serialState = JSON.stringify(state);
-    localStorage.setItem("stopBookmarks", serialState);
+    localStorage.setItem("appSettings", serialState);
     localStorage.setItem("version", "1");
   } catch (err) {
     console.log(err);

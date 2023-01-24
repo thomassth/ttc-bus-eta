@@ -4,7 +4,8 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 
 import { store } from "./app/store";
-import { saveState } from "./features/bookmarks/localstorage";
+import { saveStopBookmarkState } from "./features/bookmarks/localstorage";
+import { saveSettingsState } from "./features/settings/localstorage";
 import "./i18n/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -27,7 +28,8 @@ if (container) {
 }
 
 store.subscribe(() => {
-  saveState(store.getState().stopBookmarks);
+  saveStopBookmarkState(store.getState().stopBookmarks);
+  saveSettingsState(store.getState().settings);
 });
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

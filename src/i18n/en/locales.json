@@ -4,7 +4,8 @@
       "home": "Home",
       "lines": "Lines",
       "about": "About",
-      "lang": "Language"
+      "lang": "Language",
+      "settings": "Settings"
     }
   },
   "home": {

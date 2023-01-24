@@ -57,6 +57,11 @@ body {
   padding: 0px 8px;
 }
 
+.aboutPage > *,
+.settingsPage > * {
+  padding-bottom: 1rem;
+}
+
 .navBar {
   padding: 16px 16px 0px 0px;
   display: flex;
@@ -180,6 +185,7 @@ main {
 /* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
+.settingsPage a,
 .routerLink {
   text-decoration: none;
 }
@@ -198,6 +204,7 @@ pre {
   }
 
   .navBar {
+    width: -moz-fit-content;
     width: fit-content;
     background-color: var(--colorNeutralBackground2);
   }
