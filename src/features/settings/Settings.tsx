@@ -16,10 +16,12 @@ import { fluentStyles } from "../../styles/fluent";
 import { changeSettings, settingsItem } from "./settingsSlice";
 
 export function Settings() {
-  const settings: { id: number[]; entities: settingsItem[] } = useAppSelector(
+  const settings: { ids: number[]; entities: settingsItem[] } = useAppSelector(
     (state) => state.settings
   );
-  const [devMode, setDevMode] = useState(settings.entities[0].value === "true");
+  const [devMode, setDevMode] = useState(
+    settings.ids.length === 0 ? false : settings.entities[0].value === "true"
+  );
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();
   const dispatch = useAppDispatch();

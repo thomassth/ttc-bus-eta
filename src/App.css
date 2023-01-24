@@ -199,6 +199,7 @@ pre {
   }
 
   .navBar {
+    width: -moz-fit-content;
     width: fit-content;
     background-color: var(--colorNeutralBackground2);
   }

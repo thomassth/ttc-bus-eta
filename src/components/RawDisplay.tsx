@@ -16,7 +16,7 @@ export default function RawDisplay(props: {
   data:
     | EtaPredictionXml
     | RouteXml
-    | { id: number[]; entities: settingsItem[] };
+    | { ids: number[]; entities: settingsItem[] };
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
@@ -29,7 +29,8 @@ export default function RawDisplay(props: {
     (state) => state.settings
   );
   const isInDevMode = useMemo(
-    () => settings.entities[0].value === "true",
+    () =>
+      settings.id === undefined ? false : settings.entities[0].value === "true",
     [settings]
   );
 
