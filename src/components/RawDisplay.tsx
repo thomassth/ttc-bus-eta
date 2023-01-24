@@ -16,7 +16,7 @@ export default function RawDisplay(props: {
   data:
     | EtaPredictionXml
     | RouteXml
-    | { ids: number[]; entities: settingsItem[] };
+    | { ids: string[]; entities: settingsItem[] };
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();

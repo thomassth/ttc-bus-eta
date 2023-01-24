@@ -11,16 +11,25 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { store } from "../../app/store";
 import RawDisplay from "../../components/RawDisplay";
 import { fluentStyles } from "../../styles/fluent";
-import { changeSettings, settingsItem } from "./settingsSlice";
+import {
+  changeSettings,
+  settingsItem,
+  settingsSelectors,
+} from "./settingsSlice";
 
 export function Settings() {
-  const settings: { ids: number[]; entities: settingsItem[] } = useAppSelector(
+  const settings: { ids: string[]; entities: settingsItem[] } = useAppSelector(
     (state) => state.settings
   );
+
+  const test = useState(
+    settingsSelectors.selectById(store.getState().settings, "devMode")
+  );
   const [devMode, setDevMode] = useState(
-    settings.ids.length === 0 ? false : settings.entities[0].value === "true"
+    typeof test[0] !== "undefined" ? test[0].value === "true" : false
   );
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();
@@ -42,7 +51,7 @@ export function Settings() {
       setDevMode(ev.currentTarget.checked);
       dispatch(
         changeSettings({
-          id: 0,
+          id: "devMode",
           name: "devMode",
           value: valueString,
         })

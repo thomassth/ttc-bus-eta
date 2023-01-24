@@ -5,14 +5,13 @@ import { loadSettingsState } from "./localstorage";
 const persistedState = loadSettingsState();
 
 export interface settingsItem {
-  id: number;
+  id: string;
   name: string;
   value: string;
 }
 
-export const settingsAdapter = createEntityAdapter({
+const settingsAdapter = createEntityAdapter({
   selectId: (setting: settingsItem) => setting.id,
-  sortComparer: (a, b) => a.id - b.id,
 });
 const initialState =
   Object.keys(persistedState).length === 0
@@ -28,6 +27,8 @@ export const settingsSlice = createSlice({
     clearSettings: settingsAdapter.removeAll,
   },
 });
+
+export const settingsSelectors = settingsAdapter.getSelectors();
 
 export const { changeSettings, removeSettings, clearSettings } =
   settingsSlice.actions;
