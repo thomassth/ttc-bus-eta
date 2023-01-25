@@ -16,10 +16,10 @@ const ttcPalate: PartialTheme = {
   colorBrandForegroundLink: "#ae1e17",
   colorBrandForegroundLinkHover: "#ae1e17",
   colorBrandForegroundLinkPressed: "#5e110c",
-  // icon colos on hover
-  colorNeutralForeground2BrandHover: "#ae1e17",
-  colorNeutralForeground2BrandPressed: "#5e110c",
-  // buttons, badge
+  // icon colors on hover
+  colorNeutralForeground2BrandHover: "#f54747",
+  colorNeutralForeground2BrandPressed: "#de2828",
+  // buttons, badge with text
   colorBrandBackground: "#9c1b14",
   colorBrandBackgroundHover: "#70130e",
   colorBrandBackgroundPressed: "#5e110c",
@@ -32,6 +32,10 @@ const ttcPalate: PartialTheme = {
   colorCompoundBrandStroke: "#9c1b14",
   colorCompoundBrandStrokeHover: "#ae1e17",
   colorCompoundBrandStrokePressed: "#5e110c",
+  // switch
+  colorCompoundBrandBackground: "#9c1b14",
+  colorCompoundBrandBackgroundHover: "#ae1e17",
+  colorCompoundBrandBackgroundPressed: "#5e110c",
 };
 
 export const ttcEtaLightTheme: Theme = {
