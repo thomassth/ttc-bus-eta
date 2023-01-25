@@ -6,7 +6,7 @@ import {
 } from "@fluentui/react-components";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { LineStop, LineStopElement } from "../data/etaObjects";
@@ -141,18 +141,16 @@ function RouteInfo(props: { line: number }): JSX.Element {
       const errorString = data.body.Error["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
-          <div>
+          <div className="stopsListContainer">
             <Text as="h1" weight="semibold">
-              Error: This line is not in the route database.
-              <br />
-              Subway lines are unsupported for now.
+              <Trans>{t("lines.noLineInDb")}</Trans>
             </Text>
             <RawDisplay data={data} />
           </div>
         );
       } else
         return (
-          <div>
+          <div className="stopsListContainer">
             <LinkFluent onClick={handleFetchBusClick}>
               <Text as="h1" weight="semibold">
                 {`Error: ${errorString}`}
