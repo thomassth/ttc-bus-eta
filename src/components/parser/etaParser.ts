@@ -1,5 +1,6 @@
-import { EtaBusWithID, LineStopEta } from "../../data/etaObjects";
-import { EtaBus, EtaDirection, EtaPredictionXml } from "../../data/etaXml";
+import { LineStopEta } from "../../data/etaObjects";
+import { EtaDirection, EtaPredictionXml } from "../../data/etaXml";
+import { parseSingleOrMultiEta } from "./etaParserUtils";
 import { parseRoute } from "./routeName";
 
 const parseActualLineNum = (title: string) => {
@@ -7,36 +8,6 @@ const parseActualLineNum = (title: string) => {
   if (found === null) {
     return "";
   } else return `${found[1]}`.toLocaleUpperCase();
-};
-
-const pushIntoEta = (eta: EtaBusWithID[], item: EtaBus) => {
-  return eta.push({
-    id: `${item.tripTag}`,
-    seconds: item.seconds,
-    vehicle: item.vehicle,
-    branch: item.branch,
-    tripTag: item.tripTag,
-    epochTime: item.epochTime,
-    minutes: item.minutes,
-    isDeparture: item.isDeparture,
-    affectedByLayover: item.affectedByLayover,
-    dirTag: item.dirTag,
-    block: item.block,
-  });
-};
-
-const parseSingleOrMultiEta = (
-  input: EtaBus | EtaBus[],
-  result: LineStopEta[]
-) => {
-  if (Array.isArray(input)) {
-    for (const item of input) {
-      pushIntoEta(result[result.length - 1].etas, item);
-    }
-  } else {
-    const item = input;
-    pushIntoEta(result[result.length - 1].etas, item);
-  }
 };
 
 export const etaParser = (json: EtaPredictionXml) => {

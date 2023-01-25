@@ -77,10 +77,3 @@ export interface RouteLineXml {
   stop: { tag: string }[];
   tag: string;
 }
-
-export interface RouteStopXml {
-  body: {
-    Error: { ["#text"]: string } | undefined;
-    predictions: EtaPredictions;
-  };
-}

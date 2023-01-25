@@ -4,7 +4,7 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { RouteStopXml } from "../data/etaXml";
+import { EtaPredictionXml } from "../data/etaXml";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import { CountdownSec } from "./countdown/CountdownSec";
@@ -14,7 +14,7 @@ function LineStopPredictionInfo(props: {
   line: number;
   stopNum: number;
 }): JSX.Element {
-  const [data, setData] = useState<RouteStopXml>();
+  const [data, setData] = useState<EtaPredictionXml>();
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
 
