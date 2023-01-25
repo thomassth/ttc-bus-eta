@@ -63,7 +63,7 @@ export function Settings() {
 
   return (
     <main className="settingsPage">
-      <Title1>Settings</Title1>
+      <Title1>{t("nav.label.settings")}</Title1>
       <Title2>{t("buttons.languageChange")}</Title2>
       <RadioGroup
         defaultValue={i18n.language}
@@ -76,7 +76,9 @@ export function Settings() {
       </RadioGroup>
       <Switch checked={devMode} onChange={devModeChange} label="Dev mode" />
       <Link to="/about" title={t("nav.label.about") ?? "About"}>
-        <Button className={fluentStyle.navButtonLink}>About</Button>
+        <Button className={fluentStyle.navButtonLink}>
+          {t("nav.label.about")}
+        </Button>
       </Link>
       <RawDisplay data={settings} />
     </main>
