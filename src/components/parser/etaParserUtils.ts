@@ -29,4 +29,5 @@ export const parseSingleOrMultiEta = (
     const item = input;
     pushIntoEta(result[result.length - 1].etas, item);
   }
+  result[result.length - 1].etas.sort((a, b) => a.seconds - b.seconds);
 };

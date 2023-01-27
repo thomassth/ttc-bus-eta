@@ -23,6 +23,16 @@ export default function Bookmark() {
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt] = useState<number>(Date.now());
 
+  let fetchUrl = "";
+
+  for (const id of stopBookmarks.ids) {
+    const ttcStop = stopBookmarks.entities[id].ttcId;
+
+    for (const line of stopBookmarks.entities[id].lines) {
+      fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+    }
+  }
+
   // const handleRefreshClick = useCallback(() => {
   //   setLastUpdatedAt(Date.now());
   // }, [lastUpdatedAt]);
@@ -39,7 +49,7 @@ export default function Bookmark() {
 
     const fetchEtaData = async () => {
       const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictionsForMultiStops&a=ttc&stops=39|14211&stops=36|623`,
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
         {
           signal: controller.signal,
           method: "GET",

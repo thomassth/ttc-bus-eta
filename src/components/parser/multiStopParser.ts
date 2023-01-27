@@ -28,7 +28,8 @@ export const multiStopParser = (json: EtaPredictionXml) => {
           parseSingleOrMultiEta(direction.prediction, result);
         }
       } else {
-        parseSingleOrMultiEta(stop.direction.prediction, result);
+        if (stop.dirTitleBecauseNoPredictions === null)
+          parseSingleOrMultiEta(stop.direction.prediction, result);
       }
     }
   } else {
