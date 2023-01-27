@@ -2,8 +2,8 @@ import { Button, Text } from "@fluentui/react-components";
 import { useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";
 

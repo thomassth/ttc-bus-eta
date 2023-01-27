@@ -10,9 +10,9 @@ import { FormEvent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { store } from "../../app/store";
 import RawDisplay from "../../components/RawDisplay";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { store } from "../../redux/store";
 import { fluentStyles } from "../../styles/fluent";
 import {
   changeSettings,
@@ -48,7 +48,6 @@ export function Settings() {
       currentTarget: { checked: boolean | ((prevState: boolean) => boolean) };
     }) => {
       const valueString = ev.currentTarget.checked.toString();
-      console.log(valueString);
       setDevMode(ev.currentTarget.checked);
       dispatch(
         changeSettings({
@@ -63,7 +62,7 @@ export function Settings() {
 
   return (
     <main className="settingsPage">
-      <Title1>{t("nav.label.settings")}</Title1>
+      <Title1>Settings</Title1>
       <Title2>{t("buttons.languageChange")}</Title2>
       <RadioGroup
         defaultValue={i18n.language}
@@ -74,10 +73,14 @@ export function Settings() {
         <Radio value="fr" label={t("lang.fr")} />
         <Radio value="zh" label={t("lang.zh")} />
       </RadioGroup>
-      <Switch checked={devMode} onChange={devModeChange} label="Dev mode" />
+      <Switch
+        checked={devMode}
+        onChange={devModeChange}
+        label={t("settings.dev")}
+      />
       <Link to="/about" title={t("nav.label.about") ?? "About"}>
-        <Button className={fluentStyle.navButtonLink}>
-          {t("nav.label.about")}
+        <Button className={fluentStyle.aboutButton}>
+          {t("nav.label.about") ?? "About"}
         </Button>
       </Link>
       <RawDisplay data={settings} />

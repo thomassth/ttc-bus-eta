@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import Bookmark from "../features/bookmarks/Bookmark";
 import { fluentStyles } from "../styles/fluent";
-import useNavigate from "./navigate";
+import useNavigate from "./functions/navigate";
 
 export default function Home() {
   const [input, setInput] = useState("");

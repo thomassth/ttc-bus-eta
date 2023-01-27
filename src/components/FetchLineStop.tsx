@@ -22,7 +22,6 @@ function LineStopPredictionInfo(props: {
     line: number = props.line,
     stopNum: number = props.stopNum
   ) => {
-    // let ans: Document;
     fetch(
       `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&r=${line}&s=${stopNum}`,
       {

@@ -182,7 +182,6 @@ main {
   padding: 8px 16px 16px 16px;
 }
 
-/* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
 .settingsPage a,
@@ -204,8 +203,7 @@ pre {
   }
 
   .navBar {
-    width: -moz-fit-content;
-    width: fit-content;
+    width: 30%;
     background-color: var(--colorNeutralBackground2);
   }
 

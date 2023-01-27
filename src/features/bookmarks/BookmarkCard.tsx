@@ -5,7 +5,7 @@ import { t } from "i18next";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fluentStyles } from "../../styles/fluent";
 import { removeStopBookmark } from "./stopBookmarkSlice";
 

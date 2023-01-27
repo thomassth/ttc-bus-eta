@@ -3,7 +3,7 @@ import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { fluentStyles } from "../styles/fluent";
-import useNavigate from "./navigate";
+import useNavigate from "./functions/navigate";
 
 export default function LineSearch() {
   const [input, setInput] = useState("");

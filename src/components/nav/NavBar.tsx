@@ -1,20 +1,23 @@
 import { BaseBarComponents } from "./BaseBarComponents";
 
-export function BottomBar({ width }: { width: number }) {
+interface BarWidth {
+  width: number;
+}
+export function BottomBar(props: BarWidth) {
   return (
     <nav className="bottomNav">
       <ul>
-        <BaseBarComponents width={width} />
+        <BaseBarComponents width={props.width} />
       </ul>
     </nav>
   );
 }
 
-export function SideBar({ width }: { width: number }) {
+export function SideBar(props: BarWidth) {
   return (
     <nav className="sideNav">
       <ul>
-        <BaseBarComponents width={width} />
+        <BaseBarComponents width={props.width} />
       </ul>
     </nav>
   );

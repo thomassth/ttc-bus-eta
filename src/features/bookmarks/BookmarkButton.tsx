@@ -3,8 +3,8 @@ import { Bookmark24Filled, Bookmark24Regular } from "@fluentui/react-icons";
 import { t } from "i18next";
 import { useCallback } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { StopBookmark } from "../../data/etaObjects";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkButton(props: StopBookmark) {

@@ -21,9 +21,8 @@
     "placeholder": "輸入路線",
     "browserTitle": "{{lineNum}} 線 | TTC 到站時間",
     "title": "輸入路線:",
-    "number": "{{lineNum}} 號線",
-    "lineAndStopInfo": "{{lineNum}} 線 #{{stopNum}} 站 =",
-    "noLineInDb": "資料庫裏面冇呢條線嘅資料。<br />(暫時睇唔到地鐵路線)"
+    "number": "{{lineNum}} 線",
+    "lineAndStopInfo": "{{lineNum}} 線 #{{stopNum}} 站 ="
   },
   "stops": {
     "stopId": "車站編號 {{stopNum}}  ="
@@ -57,5 +56,8 @@
   },
   "badge": {
     "arriving": "就到"
+  },
+  "settings": {
+    "dev": "開發模式"
   }
 }

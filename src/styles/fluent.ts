@@ -52,6 +52,11 @@ export const fluentStyles = makeStyles({
     marginRight: "auto",
     width: "100%",
   },
+  aboutButton: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "10rem",
+  },
   sideNavButton: {
     ...shorthands.padding("8px", "0px"),
     width: "100%",

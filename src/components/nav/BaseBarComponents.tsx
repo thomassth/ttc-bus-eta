@@ -41,9 +41,14 @@ const navItems: NavItem[] = [
   },
 ];
 
-export function BaseBarComponents({ width }: { width: number }) {
+interface BarWidth {
+  width: number;
+}
+
+export function BaseBarComponents(props: BarWidth) {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
+  const { width } = props;
 
   const getClassName = useCallback(() => {
     switch (true) {
@@ -71,9 +76,8 @@ export function BaseBarComponents({ width }: { width: number }) {
               appearance={isActive ? "primary" : "subtle"}
               icon={isActive ? item.iconActive : item.icon}
               size={width > 390 ? "medium" : "large"}
-              title={t(item.label) ?? item.label}
             >
-              {width > 390 && <Text>{t(item.label)}</Text>}
+              {width > 390 && <Text>{t(item.label) ?? item.label}</Text>}
             </Button>
           )}
         </NavLink>

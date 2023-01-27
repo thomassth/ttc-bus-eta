@@ -22,8 +22,7 @@
     "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
     "title": "Entrer un numéro de ligne:",
     "number": "Lignes {{lineNum}}",
-    "lineAndStopInfo": "Lignes {{lineNum}} Arrêt de {{stopNum}} =",
-    "noLineInDb": "Erreur : Cette ligne n'est pas dans la base de données d'itinéraires.<br />Les lignes de métro ne sont pas prises en charge pour le moment."
+    "lineAndStopInfo": "Lignes {{lineNum}} Arrêt de {{stopNum}} ="
   },
   "stops": {
     "stopId": "Arrêt de ID {{stopNum}} ="
@@ -57,5 +56,8 @@
   },
   "badge": {
     "arriving": "Arrivant"
+  },
+  "settings": {
+    "dev": "mode de développement"
   }
 }

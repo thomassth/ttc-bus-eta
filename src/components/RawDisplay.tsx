@@ -7,13 +7,13 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useAppSelector } from "../app/hooks";
-import { store } from "../app/store";
 import { EtaPredictionXml, RouteXml } from "../data/etaXml";
 import {
   settingsItem,
   settingsSelectors,
 } from "../features/settings/settingsSlice";
+import { useAppSelector } from "../redux/hooks";
+import { store } from "../redux/store";
 import { fluentStyles } from "../styles/fluent";
 
 export default function RawDisplay(props: {

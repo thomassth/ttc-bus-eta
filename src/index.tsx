@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 
-import { store } from "./app/store";
 import { saveStopBookmarkState } from "./features/bookmarks/localstorage";
 import { saveSettingsState } from "./features/settings/localstorage";
 import "./i18n/i18n";
 import "./index.css";
+import { store } from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./routes/MainRouter";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";

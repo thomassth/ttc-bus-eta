@@ -22,8 +22,7 @@
     "browserTitle": "Line {{lineNum}} | TTC arrivals",
     "title": "Enter a line number:",
     "number": "Line {{lineNum}}",
-    "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",
-    "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
+    "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} ="
   },
   "stops": {
     "stopId": "Stop ID {{stopNum}} ="
@@ -62,5 +61,8 @@
     "en": "English",
     "fr": "Français (traduction automatique)",
     "zh": "中文"
+  },
+  "settings": {
+    "dev": "Dev mode"
   }
 }
