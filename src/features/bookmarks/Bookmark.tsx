@@ -6,12 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
 import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
 import { multiStopParser } from "../../components/parser/multiStopParser";
-import { LineStopEta } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
 import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";
 
 export default function Bookmark() {
-  const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
+  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+    (state) => state.stopBookmarks
+  );
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const bookmarks = stopBookmarks.ids.map((item: number) => {

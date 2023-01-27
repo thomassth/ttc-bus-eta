@@ -9,25 +9,18 @@ import { useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../app/hooks";
 import { store } from "../app/store";
+import { settingsRedux, stopBookmarkRedux } from "../data/etaObjects";
 import { EtaPredictionXml, RouteXml } from "../data/etaXml";
-import {
-  settingsItem,
-  settingsSelectors,
-} from "../features/settings/settingsSlice";
+import { settingsSelectors } from "../features/settings/settingsSlice";
 import { fluentStyles } from "../styles/fluent";
 
 export default function RawDisplay(props: {
-  data:
-    | EtaPredictionXml
-    | RouteXml
-    | { ids: string[]; entities: settingsItem[] };
+  data: EtaPredictionXml | RouteXml | settingsRedux | stopBookmarkRedux;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  const settings: { id: number[]; entities: settingsItem[] } = useAppSelector(
-    (state) => state.settings
-  );
+  const settings: settingsRedux = useAppSelector((state) => state.settings);
 
   const devModeValue = settingsSelectors.selectById(
     store.getState().settings,

@@ -13,17 +13,12 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { store } from "../../app/store";
 import RawDisplay from "../../components/RawDisplay";
+import { settingsRedux } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import {
-  changeSettings,
-  settingsItem,
-  settingsSelectors,
-} from "./settingsSlice";
+import { changeSettings, settingsSelectors } from "./settingsSlice";
 
 export function Settings() {
-  const settings: { ids: string[]; entities: settingsItem[] } = useAppSelector(
-    (state) => state.settings
-  );
+  const settings: settingsRedux = useAppSelector((state) => state.settings);
 
   const devModeValue = settingsSelectors.selectById(
     store.getState().settings,

@@ -6,13 +6,16 @@ import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { stopBookmarkRedux } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkCard(props: { id: number }) {
   const id = props.id;
   const dispatch = useAppDispatch();
-  const stopBookmarks = useAppSelector((state) => state.stopBookmarks);
+  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+    (state) => state.stopBookmarks
+  );
   const fluentStyle = fluentStyles();
 
   const checkBookmarkStatus = useCallback(() => {

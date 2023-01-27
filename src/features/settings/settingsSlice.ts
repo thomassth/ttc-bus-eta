@@ -1,14 +1,9 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
+import { settingsItem } from "../../data/etaObjects";
 import { loadSettingsState } from "./localstorage";
 
 const persistedState = loadSettingsState();
-
-export interface settingsItem {
-  id: string;
-  name: string;
-  value: string;
-}
 
 const settingsAdapter = createEntityAdapter({
   selectId: (setting: settingsItem) => setting.id,
