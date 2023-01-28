@@ -85,4 +85,9 @@ export const fluentStyles = makeStyles({
       marginRight: "0px",
     },
   },
+  etaCardContainer: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+  },
 });

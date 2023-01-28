@@ -95,6 +95,7 @@ body {
 .bookmarkedStop {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .navBar > a {
@@ -188,6 +189,16 @@ main {
 .settingsPage a,
 .routerLink {
   text-decoration: none;
+}
+
+.badgeGroup {
+  /* fluent cards have default flex settings */
+  flex: 0 0 auto !important;
+}
+
+.etaCardCountdown {
+  flex-basis: 5rem;
+  flex-grow: 0 !important;
 }
 
 pre {

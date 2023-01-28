@@ -27,7 +27,7 @@ export function BookmarkCard(props: { id: number }) {
       <Card className="cardContainer">
         <Link
           className="bookmarkedStop"
-          to={`stops/${stopBookmarks.entities[id].stopId}`}
+          to={`/stops/${stopBookmarks.entities[id].stopId}`}
         >
           <div className="badgeGroup">
             {stopBookmarks.entities[id].lines !== undefined &&

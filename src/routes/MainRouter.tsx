@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
+import Bookmark from "../features/bookmarks/Bookmark";
 import { Settings } from "../features/settings/Settings";
 import About from "./About";
 import Error from "./Error";
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="about" element={<About />} />
       <Route path="settings" element={<Settings />} />
+      <Route path="bookmarks" element={<Bookmark />} />
       <Route path="*" element={<Error />} />
       <Route index element={<Home />} />
     </Route>

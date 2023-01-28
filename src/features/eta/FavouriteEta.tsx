@@ -1,25 +1,21 @@
-import { Button, Text } from "@fluentui/react-components";
-import { useCallback, useEffect, useState } from "react";
+import { Text } from "@fluentui/react-components";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
 import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
 import { multiStopParser } from "../../components/parser/multiStopParser";
 import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
-import { BookmarkCard } from "./BookmarkCard";
-import { clearStopBookmarks } from "./stopBookmarkSlice";
+import { EtaPredictionXml } from "../../data/etaXml";
+import { BookmarkCardEta } from "./BookmarkCardEta";
 
-export default function Bookmark() {
+export default function FavouriteEta() {
   const stopBookmarks: stopBookmarkRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const bookmarks = stopBookmarks.ids.map((item: number) => {
-    return <BookmarkCard key={item} id={item} />;
-  });
-  const [, setData] = useState();
+  const [data, setData] = useState<EtaPredictionXml>();
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt] = useState<number>(Date.now());
 
@@ -32,17 +28,6 @@ export default function Bookmark() {
       fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
     }
   }
-
-  // const handleRefreshClick = useCallback(() => {
-  //   setLastUpdatedAt(Date.now());
-  // }, [lastUpdatedAt]);
-  // const bookmarks = stopBookmarks.ids.map((item: number) => {
-  //   return <BookmarkCard key={item} id={item} />;
-  // });
-
-  const clearAllBookmarks = useCallback(() => {
-    dispatch(clearStopBookmarks());
-  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -63,10 +48,8 @@ export default function Bookmark() {
       if (error || !parsedData) {
         return;
       }
-      console.log(parsedData);
       setData(parsedData);
       setEtaDb(multiStopParser(parsedData));
-      console.log(etaDb);
     });
 
     // when useEffect is called, the following clean-up fn will run first
@@ -75,24 +58,24 @@ export default function Bookmark() {
     };
   }, [lastUpdatedAt]);
 
-  return (
-    <main>
-      <article className="bookmarkContainer">
-        {stopBookmarks.ids.length === 0 ? (
-          <section>
-            <Trans>{t("home.headline")}</Trans>
-            <Text>{t("home.bookmarkReminder")}</Text>
-          </section>
-        ) : null}
-        <ul>{bookmarks}</ul>
-        {stopBookmarks.ids.length > 0 ? (
-          <Button className="bookmarkClearButton" onClick={clearAllBookmarks}>
-            {t("buttons.clear")}
-          </Button>
-        ) : null}
+  const EtaCards = [];
+  for (const item of etaDb) {
+    if (item.etas.length > 0) {
+      EtaCards.push(<BookmarkCardEta item={item} />);
+    }
+  }
 
-        <RawDisplay data={stopBookmarks} />
-      </article>
-    </main>
+  return (
+    <article className="bookmarkContainer">
+      {stopBookmarks.ids.length === 0 ? (
+        <section>
+          <Trans>{t("home.headline")}</Trans>
+          <Text>{t("home.bookmarkReminder")}</Text>
+        </section>
+      ) : null}
+      <ul>{EtaCards}</ul>
+
+      {data !== undefined && <RawDisplay data={data} />}
+    </article>
   );
 }
