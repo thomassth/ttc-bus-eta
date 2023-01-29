@@ -23,15 +23,16 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     <li key={id}>
       <Card className={fluentStyle.etaCardContainer}>
         <Link
-          className={`bookmarkedStop ${fluentStyle.etaCardContainer}`}
+          className={`bookmarkedStop`}
           to={`/lines/${props.item.line}/${props.item.stopTag}`}
         >
           <div className="badgeGroup">
             <Badge className={fluentStyle.badge} key={props.item.line}>
               {props.item.etas[0].branch}
             </Badge>
+            <Text weight="semibold">TO: {props.item.routeName}</Text>
           </div>
-          <Text weight="semibold">TO: {props.item.routeName}</Text>
+          <Text>{props.item.stopName}</Text>
         </Link>
         <div className="etaCardCountdown">
           <CountdownSec
