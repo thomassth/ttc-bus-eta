@@ -61,7 +61,8 @@ export default function FavouriteEta() {
   const EtaCards = [];
   for (const item of etaDb) {
     if (item.etas.length > 0) {
-      EtaCards.push(<BookmarkCardEta item={item} />);
+      const id = `${item.line}-${item.stopTag}`;
+      EtaCards.push(<BookmarkCardEta item={item} key={id} />);
     }
   }
 

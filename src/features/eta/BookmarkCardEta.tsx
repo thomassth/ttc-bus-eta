@@ -8,8 +8,6 @@ import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const id = `${props.item.line}-${props.item.stopTag}`;
-  console.log(id);
   const stopBookmarks: stopBookmarkRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
@@ -24,7 +22,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
   }
 
   return (
-    <li key={id}>
+    <li>
       <Card>
         <CardHeader
           header={

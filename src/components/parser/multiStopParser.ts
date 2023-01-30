@@ -4,7 +4,7 @@ import { parseSingleOrMultiEta } from "./etaParserUtils";
 import { parseRoute } from "./routeName";
 
 const parseActualLineNum = (title: string) => {
-  const found = title.match(/(\w+)-/);
+  const found = title.match(/(\w+)-([\w\s]+)/);
   if (found === null) {
     return "";
   } else return `${found[1]}`.toLocaleUpperCase();
