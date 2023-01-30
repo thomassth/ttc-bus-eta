@@ -2,30 +2,31 @@ import { Badge, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
 import { Link } from "react-router-dom";
 
+import { useAppSelector } from "../../app/hooks";
 import { CountdownSec } from "../../components/countdown/CountdownSec";
-import { LineStopEta } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
   const id = `${props.item.line}-${props.item.stopTag}`;
   console.log(id);
-  // const dispatch = useAppDispatch();
-  // const stopBookmarks: stopBookmarkRedux = useAppSelector(
-  //   (state) => state.stopBookmarks
-  // );
+  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+    (state) => state.stopBookmarks
+  );
   const fluentStyle = fluentStyles();
 
-  // const checkBookmarkStatus = useCallback(() => {
-  //   dispatch(removeStopBookmark(props.id));
-  // }, [stopBookmarks.ids]);
+  let stopUrl = `/lines/${props.item.line}/${props.item.stopTag}`;
+
+  for (const id of stopBookmarks.ids) {
+    if (stopBookmarks.entities[id].ttcId === props.item.stopTag) {
+      stopUrl = `/stops/${stopBookmarks.entities[id].stopId}`;
+    }
+  }
 
   return (
     <li key={id}>
       <Card className={fluentStyle.etaCardContainer}>
-        <Link
-          className={`bookmarkedStop`}
-          to={`/lines/${props.item.line}/${props.item.stopTag}`}
-        >
+        <Link className={`bookmarkedStop`} to={stopUrl}>
           <div className="badgeGroup">
             <Badge className={fluentStyle.badge} key={props.item.line}>
               {props.item.etas[0].branch}
