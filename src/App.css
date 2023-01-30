@@ -191,14 +191,8 @@ main {
   text-decoration: none;
 }
 
-.badgeGroup {
-  /* fluent cards have default flex settings */
-  flex: 0 0 auto !important;
-}
-
 .etaCardCountdown {
-  flex-basis: 5rem;
-  flex-grow: 0 !important;
+  min-width: 6rem;
 }
 
 pre {
