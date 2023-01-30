@@ -33,3 +33,19 @@ export interface StopBookmark {
 export interface EtaBusWithID extends EtaBus {
   id: string;
 }
+
+export interface stopBookmarkRedux {
+  ids: number[];
+  entities: StopBookmark[];
+}
+
+export interface settingsItem {
+  id: string;
+  name: string;
+  value: string;
+}
+
+export interface settingsRedux {
+  ids: string[];
+  entities: settingsItem[];
+}

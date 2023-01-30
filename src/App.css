@@ -95,6 +95,7 @@ body {
 .bookmarkedStop {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .navBar > a {
@@ -102,7 +103,7 @@ body {
 }
 
 main {
-  padding: 32px;
+  padding: 32px 32px 64px 32px;
   display: flex;
   flex-direction: column;
 }
@@ -168,12 +169,12 @@ main {
   margin: 0px;
 }
 
-.bookmarkContainer {
-  margin-top: 32px;
+.bookmarkContainer ul {
+  margin: 32px 0;
 }
 
 .bookmarkContainer .bookmarkClearButton {
-  margin-top: 32px;
+  margin-bottom: 32px;
   width: 100%;
 }
 
@@ -188,6 +189,10 @@ main {
 .settingsPage a,
 .routerLink {
   text-decoration: none;
+}
+
+.etaCardCountdown {
+  min-width: 6rem;
 }
 
 pre {

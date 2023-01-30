@@ -2,7 +2,7 @@ import { Button, Input } from "@fluentui/react-components";
 import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Bookmark from "../features/bookmarks/Bookmark";
+import FavouriteEta from "../features/eta/FavouriteEta";
 import { fluentStyles } from "../styles/fluent";
 import useNavigate from "./navigate";
 
@@ -40,7 +40,7 @@ export default function Home() {
           {t("buttons.search")}
         </Button>
       </form>
-      <Bookmark />
+      <FavouriteEta />
     </main>
   );
 }
