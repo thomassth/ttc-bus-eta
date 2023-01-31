@@ -1,6 +1,6 @@
 import { Badge, Text } from "@fluentui/react-components";
 import { Card } from "@fluentui/react-components/unstable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { FetchXMLWithCancelToken } from "./fetchUtils";
@@ -21,30 +21,32 @@ export function RoutesInfo() {
     []
   );
 
-  const fetchEtaData = async () => {
-    const { parsedData, error } = await FetchXMLWithCancelToken(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc`,
-      {
-        signal: controller.signal,
-        method: "GET",
+  useEffect(() => {
+    const fetchEtaData = async () => {
+      const { parsedData, error } = await FetchXMLWithCancelToken(
+        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc`,
+        {
+          signal: controller.signal,
+          method: "GET",
+        }
+      );
+
+      return { parsedData, error };
+    };
+
+    fetchEtaData().then(({ parsedData, error }) => {
+      if (error || !parsedData) {
+        return;
       }
-    );
+      console.log(parsedData);
 
-    return { parsedData, error };
-  };
-
-  fetchEtaData().then(({ parsedData, error }) => {
-    if (error || !parsedData) {
-      return;
-    }
-    console.log(parsedData);
-
-    setData(parsedData);
-    if (parsedData.body.route.length > 0) {
-      setRoutesDb(parsedData.body.route);
-    }
-    console.log(routesDb);
-  });
+      setData(parsedData);
+      if (parsedData.body.route.length > 0) {
+        setRoutesDb(parsedData.body.route);
+      }
+      console.log(routesDb);
+    });
+  }, [routesDb]);
 
   const routesCards = routesDb.map((routeItem) => {
     return (
