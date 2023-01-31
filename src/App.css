@@ -111,13 +111,13 @@ main {
   list-style-type: none;
 }
 
-.linePage ul {
+.routeList {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem
+  gap: 1rem;
 }
 
-.linePage li {
+.routeList li {
   min-width: 20rem;
 }
 
@@ -191,8 +191,7 @@ main {
 .bottomNav a,
 .sideNav a,
 .settingsPage a,
-.routerLink,
-.linePage a {
+.routerLink {
   text-decoration: none;
 }
 

@@ -1,11 +1,14 @@
 import { Title1 } from "@fluentui/react-components";
+import { useTranslation } from "react-i18next";
 
-import { RoutesInfo } from "../components/FetchRoutes";
+import { RoutesInfo } from "../components/FetchRouteList";
 
 export default function LineSearch() {
+  const { t } = useTranslation();
+
   return (
     <main className="linePage">
-      <Title1>All routes</Title1>
+      <Title1>{t("nav.label.lines")}</Title1>
       <RoutesInfo />
     </main>
   );

@@ -10,12 +10,17 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../app/hooks";
 import { store } from "../app/store";
 import { settingsRedux, stopBookmarkRedux } from "../data/etaObjects";
-import { EtaPredictionXml, RouteXml } from "../data/etaXml";
+import { EtaPredictionXml, RouteXml, RoutesXml } from "../data/etaXml";
 import { settingsSelectors } from "../features/settings/settingsSlice";
 import { fluentStyles } from "../styles/fluent";
 
 export default function RawDisplay(props: {
-  data: EtaPredictionXml | RouteXml | settingsRedux | stopBookmarkRedux;
+  data:
+    | EtaPredictionXml
+    | RouteXml
+    | RoutesXml
+    | settingsRedux
+    | stopBookmarkRedux;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();

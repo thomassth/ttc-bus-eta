@@ -3,6 +3,8 @@ import { Card } from "@fluentui/react-components/unstable";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { RoutesXml } from "../data/etaXml";
+import RawDisplay from "./RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
 
 const parseRouteTitle = (input: string) => {
@@ -16,7 +18,7 @@ const parseRouteTitle = (input: string) => {
 
 export function RoutesInfo() {
   const controller = new AbortController();
-  const [, setData] = useState();
+  const [data, setData] = useState<RoutesXml>();
   const [routesDb, setRoutesDb] = useState<{ tag: number; title: string }[]>(
     []
   );
@@ -38,15 +40,13 @@ export function RoutesInfo() {
       if (error || !parsedData) {
         return;
       }
-      console.log(parsedData);
 
       setData(parsedData);
       if (parsedData.body.route.length > 0) {
         setRoutesDb(parsedData.body.route);
       }
-      console.log(routesDb);
     });
-  }, [routesDb]);
+  }, []);
 
   const routesCards = routesDb.map((routeItem) => {
     return (
@@ -61,5 +61,10 @@ export function RoutesInfo() {
     );
   });
 
-  return <ul>{routesCards}</ul>;
+  return (
+    <article>
+      <ul className="routeList">{routesCards}</ul>
+      {data !== undefined && <RawDisplay data={data} />}
+    </article>
+  );
 }
