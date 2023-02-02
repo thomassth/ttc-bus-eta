@@ -3,12 +3,22 @@ import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { useAppSelector } from "../../app/hooks";
+import { store } from "../../app/store";
 import RawDisplay from "../../components/RawDisplay";
 import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
-import { multiStopParser } from "../../components/parser/multiStopParser";
-import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
+import {
+  multiStopParser,
+  multiStopUnifier,
+} from "../../components/parser/multiStopParser";
+import {
+  LineStopEta,
+  stopBookmarkRedux,
+  stopBookmarkWithEta,
+} from "../../data/etaObjects";
 import { EtaPredictionXml } from "../../data/etaXml";
+import { settingsSelectors } from "../settings/settingsSlice";
 import { BookmarkCardEta } from "./BookmarkCardEta";
+import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 
 export default function FavouriteEta() {
   const stopBookmarks: stopBookmarkRedux = useAppSelector(
@@ -16,8 +26,12 @@ export default function FavouriteEta() {
   );
   const { t } = useTranslation();
   const [data, setData] = useState<EtaPredictionXml>();
-  const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
+  const [singleEtaDb, setSingleEtaDb] = useState<LineStopEta[]>([]);
+  const [unifiedEtaDb, setUnifiedEtaDb] = useState<stopBookmarkWithEta[]>([]);
   const [lastUpdatedAt] = useState<number>(Date.now());
+  const unifiedEtaValue =
+    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
+      ?.value === "true";
 
   let fetchUrl = "";
 
@@ -49,7 +63,11 @@ export default function FavouriteEta() {
         return;
       }
       setData(parsedData);
-      setEtaDb(multiStopParser(parsedData));
+      if (unifiedEtaValue) {
+        setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
+      } else {
+        setSingleEtaDb(multiStopParser(parsedData));
+      }
     });
 
     // when useEffect is called, the following clean-up fn will run first
@@ -59,10 +77,19 @@ export default function FavouriteEta() {
   }, [lastUpdatedAt]);
 
   const EtaCards = [];
-  for (const item of etaDb) {
-    if (item.etas.length > 0) {
-      const id = `${item.line}-${item.stopTag}`;
-      EtaCards.push(<BookmarkCardEta item={item} key={id} />);
+  if (unifiedEtaValue) {
+    for (const item of unifiedEtaDb) {
+      if (item.etas.length > 0) {
+        const id = `${item.stopId}`;
+        EtaCards.push(<BookmarkCardEtaUnified item={item} key={id} />);
+      }
+    }
+  } else {
+    for (const item of singleEtaDb) {
+      if (item.etas.length > 0) {
+        const id = `${item.line}-${item.stopTag}`;
+        EtaCards.push(<BookmarkCardEta item={item} key={id} />);
+      }
     }
   }
 

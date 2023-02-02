@@ -49,3 +49,7 @@ export interface settingsRedux {
   ids: string[];
   entities: settingsItem[];
 }
+
+export interface stopBookmarkWithEta extends StopBookmark {
+  etas: EtaBusWithID[];
+}
