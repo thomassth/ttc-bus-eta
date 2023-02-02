@@ -1,4 +1,5 @@
 import { Badge } from "@fluentui/react-components";
+import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
@@ -17,7 +18,9 @@ function CountdownBranch(props: { branch: string }) {
 export function CountdownRow(props: { item: EtaBusWithID }) {
   return (
     <div className="countdownRow">
-      <CountdownBranch branch={props.item.branch} />
+      <Link to={`/lines/${props.item.branch}`}>
+        <CountdownBranch branch={props.item.branch} />
+      </Link>
       <CountdownSec
         second={props.item.seconds}
         epochTime={props.item.epochTime}
