@@ -3,12 +3,15 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LineStopEta } from "../data/etaObjects";
+import { store } from "../app/store";
+import { EtaBusWithID, LineStopEta } from "../data/etaObjects";
 import { EtaPredictionXml } from "../data/etaXml";
 import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
+import { settingsSelectors } from "../features/settings/settingsSlice";
 import { fluentStyles } from "../styles/fluent";
 import RawDisplay from "./RawDisplay";
 import CountdownGroup from "./countdown/CountdownGroup";
+import { CountdownRow } from "./countdown/CountdownRow";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
 import { etaParser } from "./parser/etaParser";
 
@@ -19,10 +22,15 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
+  const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
   }, [lastUpdatedAt]);
+
+  const unifiedEtaValue =
+    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
+      ?.value === "true";
 
   function RefreshButton() {
     return (
@@ -65,21 +73,46 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     };
   }, [lastUpdatedAt]);
 
+  useEffect(() => {
+    let templist: EtaBusWithID[] = [];
+    for (const list of etaDb) {
+      templist = templist.concat(list.etas);
+      setUnifiedEta(templist);
+      console.log(templist);
+    }
+    setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
+  }, [etaDb]);
+
   if (data) {
     if (data.body.Error === undefined) {
-      const countdownGroupList: JSX.Element[] = [];
+      let listContent: JSX.Element[];
+      if (unifiedEtaValue) {
+        const unifiedList: JSX.Element[] = [];
 
-      for (const element of etaDb) {
-        if (element.etas.length > 0) {
-          countdownGroupList.push(
-            <CountdownGroup
-              key={`${element.line}-${element.stopTag}`}
-              detail={element}
-            />
+        for (const element of unifiedEta) {
+          unifiedList.push(
+            <li key={element.tripTag}>
+              <CountdownRow item={element} />
+            </li>
           );
         }
-      }
+        listContent = unifiedList;
+      } else {
+        const countdownGroupList: JSX.Element[] = [];
 
+        for (const element of etaDb) {
+          if (element.etas.length > 0) {
+            countdownGroupList.push(
+              <CountdownGroup
+                key={`${element.line}-${element.stopTag}`}
+                detail={element}
+              />
+            );
+          }
+        }
+
+        listContent = countdownGroupList;
+      }
       return (
         <div className="countdownListContainer">
           {etaDb[0] !== undefined ? (
@@ -96,8 +129,8 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          <ul>{countdownGroupList.length > 0 && countdownGroupList}</ul>
-          {countdownGroupList.length === 0 ? (
+          <ul>{listContent.length > 0 && listContent}</ul>
+          {listContent.length === 0 ? (
             <Title1>{t("reminder.noEta")}</Title1>
           ) : null}
           <RawDisplay data={data} />

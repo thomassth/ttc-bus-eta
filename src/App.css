@@ -138,7 +138,7 @@ main {
   flex-direction: column;
 }
 
-.countdownListContainer li {
+.countdownListContainer .stopPredictionDetails {
   margin-top: 32px;
 }
 
