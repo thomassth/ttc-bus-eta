@@ -1,7 +1,7 @@
 import {
   LineStopEta,
-  stopBookmarkRedux,
   stopBookmarkWithEta,
+  stopBookmarksRedux,
 } from "../../data/etaObjects";
 import { EtaPredictionXml, EtaPredictions } from "../../data/etaXml";
 import { parseSingleOrMultiEta } from "./etaParserUtils";
@@ -48,13 +48,12 @@ export const multiStopParser = (json: EtaPredictionXml) => {
     parseEtaPredictions(stop, result);
     console.log("single stop");
   }
-  console.log(result);
   return result;
 };
 
 export function multiStopUnifier(
   json: EtaPredictionXml,
-  stopBookmarks: stopBookmarkRedux
+  stopBookmarks: stopBookmarksRedux
 ) {
   const result = multiStopParser(json);
 

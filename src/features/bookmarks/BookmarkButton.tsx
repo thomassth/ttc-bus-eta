@@ -4,12 +4,12 @@ import { t } from "i18next";
 import { useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { StopBookmark, stopBookmarkRedux } from "../../data/etaObjects";
+import { StopBookmark, stopBookmarksRedux } from "../../data/etaObjects";
 import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
 
 export function BookmarkButton(props: StopBookmark) {
   const dispatch = useAppDispatch();
-  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
   const isBookmarked = useCallback(() => {

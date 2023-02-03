@@ -77,7 +77,6 @@ export function Settings() {
     },
     [setDevMode]
   );
-  console.log(unifiedEta);
   return (
     <main className="settingsPage">
       <Title1>{t("nav.label.settings")}</Title1>

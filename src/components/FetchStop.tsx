@@ -77,8 +77,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     let templist: EtaBusWithID[] = [];
     for (const list of etaDb) {
       templist = templist.concat(list.etas);
-      setUnifiedEta(templist);
-      console.log(templist);
     }
     setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
   }, [etaDb]);
@@ -129,10 +127,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          <ul>{listContent.length > 0 && listContent}</ul>
-          {listContent.length === 0 ? (
+          {listContent.length > 0 ? (
+            <ul>{listContent}</ul>
+          ) : (
             <Title1>{t("reminder.noEta")}</Title1>
-          ) : null}
+          )}
           <RawDisplay data={data} />
         </div>
       );

@@ -15,7 +15,8 @@
       "tooltip": "Return home"
     },
     "headline": "You'll see saved lists here, in the FUTURE. <br />",
-    "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit."
+    "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit.",
+    "homeNoEta": "All your bookmarked stops have no ETA."
   },
   "lines": {
     "ariaLabel": "enter a line number",

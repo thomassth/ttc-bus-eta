@@ -12,16 +12,17 @@ import {
 } from "../../components/parser/multiStopParser";
 import {
   LineStopEta,
-  stopBookmarkRedux,
   stopBookmarkWithEta,
+  stopBookmarksRedux,
 } from "../../data/etaObjects";
 import { EtaPredictionXml } from "../../data/etaXml";
+import Bookmark from "../bookmarks/Bookmark";
 import { settingsSelectors } from "../settings/settingsSlice";
 import { BookmarkCardEta } from "./BookmarkCardEta";
 import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 
 export default function FavouriteEta() {
-  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
   const { t } = useTranslation();
@@ -100,8 +101,14 @@ export default function FavouriteEta() {
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
-      ) : null}
-      <ul>{EtaCards}</ul>
+      ) : EtaCards.length > 0 ? (
+        <ul>{EtaCards}</ul>
+      ) : (
+        <section>
+          <p>{t("home.homeNoEta")}</p>
+          <Bookmark />
+        </section>
+      )}
 
       {data !== undefined && <RawDisplay data={data} />}
     </article>

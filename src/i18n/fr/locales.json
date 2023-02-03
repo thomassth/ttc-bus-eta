@@ -15,7 +15,8 @@
       "tooltip": "Rentrer à la maison"
     },
     "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br />",
-    "bookmarkReminder": "Essayez de cliquer sur les icônes de signet sur un arrêt que vous visitez fréquemment."
+    "bookmarkReminder": "Essayez de cliquer sur les icônes de signet sur un arrêt que vous visitez fréquemment.",
+    "homeNoEta": "Tous vos arrêts marqués n'ont pas d'ETA."
   },
   "lines": {
     "ariaLabel": "entrer un numéro de ligne",

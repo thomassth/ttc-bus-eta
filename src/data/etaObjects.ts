@@ -34,7 +34,7 @@ export interface EtaBusWithID extends EtaBus {
   id: string;
 }
 
-export interface stopBookmarkRedux {
+export interface stopBookmarksRedux {
   ids: number[];
   entities: StopBookmark[];
 }
