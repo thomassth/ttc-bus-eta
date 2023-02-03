@@ -11,7 +11,7 @@ const parseActualLineNum = (title: string) => {
 };
 
 export const etaParser = (json: EtaPredictionXml) => {
-  const result: LineStopEta[] = [];
+  let result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {
     return [];
@@ -57,13 +57,15 @@ export const etaParser = (json: EtaPredictionXml) => {
     }
     // if no line have ETA, keep a title
     if (result.length === 0) {
-      result.push({
-        line: "",
-        stopName: json.body.predictions[0].stopTitle,
-        routeName: "",
-        etas: [],
-        stopTag: parseInt(json.body.predictions[0].stopTag),
-      });
+      result = [
+        {
+          line: "",
+          stopName: json.body.predictions[0].stopTitle,
+          routeName: "",
+          etas: [],
+          stopTag: parseInt(json.body.predictions[0].stopTag),
+        },
+      ];
     }
   } else {
     if (json.body.predictions.dirTitleBecauseNoPredictions === undefined) {
@@ -101,13 +103,15 @@ export const etaParser = (json: EtaPredictionXml) => {
 
         // if no line have ETA, keep a title
         if (result.length === 0 && Array.isArray(json.body.predictions)) {
-          result.push({
-            line: "",
-            stopName: json.body.predictions[0].stopTitle,
-            routeName: "",
-            etas: [],
-            stopTag: parseInt(json.body.predictions[0].stopTag),
-          });
+          result = [
+            {
+              line: "",
+              stopName: json.body.predictions[0].stopTitle,
+              routeName: "",
+              etas: [],
+              stopTag: parseInt(json.body.predictions[0].stopTag),
+            },
+          ];
         }
         return result;
       } else {

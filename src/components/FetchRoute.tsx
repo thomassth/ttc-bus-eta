@@ -108,23 +108,22 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
   if (data !== undefined) {
     if (data.body.Error === undefined) {
-      const accordionList: JSX.Element[] = [];
-
-      for (const element of data.body.route.direction) {
-        const list = createStopList(element);
-
-        accordionList.push(
-          <li key={`${element.tag}`}>
-            <StopAccordions
-              title={element.title}
-              direction={element.name}
-              lineNum={element.branch}
-              result={list}
-              tag={element.tag}
-            />
-          </li>
-        );
-      }
+      const accordionList: JSX.Element[] = data.body.route.direction.map(
+        (element) => {
+          const list = createStopList(element);
+          return (
+            <li key={`${element.tag}`}>
+              <StopAccordions
+                title={element.title}
+                direction={element.name}
+                lineNum={element.branch}
+                result={list}
+                tag={element.tag}
+              />
+            </li>
+          );
+        }
+      );
 
       return (
         <div className="stopsListContainer">

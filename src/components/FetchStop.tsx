@@ -83,33 +83,24 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   if (data) {
     if (data.body.Error === undefined) {
-      let listContent: JSX.Element[];
+      let listContent: JSX.Element[] = [];
       if (unifiedEtaValue) {
-        const unifiedList: JSX.Element[] = [];
-
-        for (const element of unifiedEta) {
-          unifiedList.push(
+        listContent = unifiedEta.map((element) => {
+          return (
             <li key={element.tripTag}>
               <CountdownRow item={element} />
             </li>
           );
-        }
-        listContent = unifiedList;
+        });
       } else {
-        const countdownGroupList: JSX.Element[] = [];
-
-        for (const element of etaDb) {
-          if (element.etas.length > 0) {
-            countdownGroupList.push(
-              <CountdownGroup
-                key={`${element.line}-${element.stopTag}`}
-                detail={element}
-              />
-            );
-          }
-        }
-
-        listContent = countdownGroupList;
+        listContent = etaDb.map((element) => {
+          return (
+            <CountdownGroup
+              key={`${element.line}-${element.stopTag}`}
+              detail={element}
+            />
+          );
+        });
       }
       return (
         <div className="countdownListContainer">

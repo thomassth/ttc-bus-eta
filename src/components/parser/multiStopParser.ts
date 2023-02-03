@@ -58,16 +58,15 @@ export function multiStopUnifier(
   const result = multiStopParser(json);
 
   // phase 2: combine a/c to stop number
-  const unifiedList: stopBookmarkWithEta[] = [];
-  for (const id of stopBookmarks.ids) {
-    unifiedList.push({
+  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.ids.map((id) => {
+    return {
       stopId: stopBookmarks.entities[id].stopId,
       name: stopBookmarks.entities[id].name,
       lines: stopBookmarks.entities[id].lines,
       ttcId: stopBookmarks.entities[id].ttcId,
       etas: [],
-    });
-  }
+    };
+  });
 
   for (const item of result) {
     const matchingStop = unifiedList.findIndex(
