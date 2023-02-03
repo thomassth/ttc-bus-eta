@@ -17,13 +17,14 @@ const parseRouteTitle = (input: string) => {
 };
 
 export function RoutesInfo() {
-  const controller = new AbortController();
-  const [data, setData] = useState<RoutesXml>();
+  const [routeXmlData, setRouteXmlData] = useState<RoutesXml>();
   const [routesDb, setRoutesDb] = useState<{ tag: number; title: string }[]>(
     []
   );
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchEtaData = async () => {
       const { parsedData, error } = await FetchXMLWithCancelToken(
         `https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc`,
@@ -41,11 +42,16 @@ export function RoutesInfo() {
         return;
       }
 
-      setData(parsedData);
+      setRouteXmlData(parsedData);
       if (parsedData.body.route.length > 0) {
         setRoutesDb(parsedData.body.route);
       }
     });
+
+    // when useEffect is called, the following clean-up fn will run first
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const routesCards = routesDb.map((routeItem) => {
@@ -64,7 +70,7 @@ export function RoutesInfo() {
   return (
     <article>
       <ul className="routeList">{routesCards}</ul>
-      {data !== undefined && <RawDisplay data={data} />}
+      {routeXmlData !== undefined && <RawDisplay data={routeXmlData} />}
     </article>
   );
 }
