@@ -30,10 +30,10 @@ export default function FavouriteEta() {
   const [data, setData] = useState<EtaPredictionXml>();
   const [singleEtaDb, setSingleEtaDb] = useState<LineStopEta[]>([]);
   const [unifiedEtaDb, setUnifiedEtaDb] = useState<stopBookmarkWithEta[]>([]);
-  const [lastUpdatedAt] = useState<number>(Date.now());
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
   const unifiedEtaValue =
     settingsSelectors.selectById(store.getState().settings, "unifiedEta")
-      ?.value === "true";
+      ?.value !== "false";
 
   let fetchUrl = "";
 
@@ -65,6 +65,7 @@ export default function FavouriteEta() {
         return;
       }
       setData(parsedData);
+      setLastUpdatedAt(Date.now());
       if (unifiedEtaValue) {
         setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
       } else {
@@ -103,15 +104,17 @@ export default function FavouriteEta() {
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : EtaCards.length > 0 ? (
-        <ul>{EtaCards}</ul>
-      ) : (
+        <article>
+          <ul>{EtaCards}</ul>
+        </article>
+      ) : lastUpdatedAt > 0 ? (
         <section>
           <p>{t("home.homeNoEta")}</p>
           <Bookmark />
         </section>
       ) : null}
       <Link to={"/bookmarks"}>
-        <Button>edit bookmarks</Button>
+        <Button>{t("buttons.bookmarkEdit")}</Button>
       </Link>
 
       {data !== undefined && <RawDisplay data={data} />}

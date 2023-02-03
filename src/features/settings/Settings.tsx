@@ -33,8 +33,8 @@ export function Settings() {
   );
   const [unifiedEta, setUnifiedEta] = useState(
     typeof unifiedEtaValue !== "undefined"
-      ? unifiedEtaValue.value === "true"
-      : false
+      ? unifiedEtaValue.value !== "false"
+      : true
   );
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();

@@ -39,7 +39,8 @@
     "languageChange": "選擇語言",
     "delete": "刪除",
     "bookmarkAdd": "加呢頁落書籤",
-    "bookmarkDelete": "響書籤刪除呢頁"
+    "bookmarkDelete": "響書籤刪除呢頁",
+    "bookmarkEdit": "整理書籤"
   },
   "reminder": {
     "failToLocate": "揾唔到呢條線",

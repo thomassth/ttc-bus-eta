@@ -1,5 +1,8 @@
 import { Button } from "@fluentui/react-components";
-import { Bookmark24Filled, Bookmark24Regular } from "@fluentui/react-icons";
+import {
+  BookmarkAdd24Regular,
+  BookmarkOff24Filled,
+} from "@fluentui/react-icons";
 import { t } from "i18next";
 import { useCallback } from "react";
 
@@ -31,7 +34,7 @@ export function BookmarkButton(props: StopBookmark) {
           ? t("buttons.bookmarkDelete") ?? "Remove bookmark"
           : t("buttons.bookmarkAdd") ?? "Add to bookmark"
       }
-      icon={isBookmarked() ? <Bookmark24Filled /> : <Bookmark24Regular />}
+      icon={isBookmarked() ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}
     />
   );

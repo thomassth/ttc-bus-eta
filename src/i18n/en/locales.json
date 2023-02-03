@@ -39,7 +39,8 @@
     "languageChange": "language selection",
     "delete": "Delete",
     "bookmarkAdd": "Add to bookmark",
-    "bookmarkDelete": "Remove bookmark"
+    "bookmarkDelete": "Remove bookmark",
+    "bookmarkEdit": "Edit bookmarks"
   },
   "reminder": {
     "failToLocate": "Cannot locate this route.",

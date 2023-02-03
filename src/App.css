@@ -187,12 +187,18 @@ main {
 .bottomNav a,
 .sideNav a,
 .settingsPage a,
-.routerLink {
+.routerLink,
+.countdownRow a,
+.bookmarkContainer a {
   text-decoration: none;
 }
 
 .etaCardCountdown {
-  min-width: 6rem;
+  min-width: 5rem;
+}
+
+.etaCardCountdown > * {
+  flex-wrap: wrap;
 }
 
 pre {
@@ -234,10 +240,25 @@ pre {
     display: flex;
     flex-wrap: wrap;
   }
+  .etaCardCountdown {
+    min-width: 9rem;
+  }
+  .etaCardCountdown > * {
+    flex-wrap: nowrap;
+  }
 }
 
 @media screen and (max-width: 390px) {
   .searchBlock button {
     width: 100%;
+  }
+
+  .bookmarkedStop .badgeGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .bookmarkedStop .badgeGroup > * {
+    margin: 0;
   }
 }
