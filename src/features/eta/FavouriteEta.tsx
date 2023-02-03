@@ -1,6 +1,7 @@
-import { Text } from "@fluentui/react-components";
+import { Button, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { useAppSelector } from "../../app/hooks";
 import { store } from "../../app/store";
@@ -108,7 +109,10 @@ export default function FavouriteEta() {
           <p>{t("home.homeNoEta")}</p>
           <Bookmark />
         </section>
-      )}
+      ) : null}
+      <Link to={"/bookmarks"}>
+        <Button>edit bookmarks</Button>
+      </Link>
 
       {data !== undefined && <RawDisplay data={data} />}
     </article>

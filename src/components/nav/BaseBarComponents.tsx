@@ -2,8 +2,6 @@ import { Button, Text } from "@fluentui/react-components";
 import {
   ArrowRouting20Regular,
   ArrowRouting24Filled,
-  Bookmark20Regular,
-  Bookmark24Filled,
   Home20Regular,
   Home24Filled,
   Settings20Regular,
@@ -28,12 +26,6 @@ const navItems: NavItem[] = [
     path: `/`,
     icon: <Home20Regular />,
     iconActive: <Home24Filled />,
-  },
-  {
-    label: "nav.label.bookmarks",
-    path: `/bookmarks`,
-    icon: <Bookmark20Regular />,
-    iconActive: <Bookmark24Filled />,
   },
   {
     label: "nav.label.lines",
