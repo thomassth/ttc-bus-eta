@@ -118,7 +118,7 @@ main {
 }
 
 .routeList li {
-  min-width: 20rem;
+  width: 100%;
 }
 
 *[role="checkbox"] {
@@ -170,10 +170,6 @@ main {
 .bookmarkContainer ul {
   display: grid;
   gap: 24px;
-  margin: 0px;
-}
-
-.bookmarkContainer ul {
   margin: 32px 0;
 }
 
@@ -227,6 +223,16 @@ pre {
   .sideNav button {
     padding-left: 32px;
     justify-content: left;
+  }
+
+  .routeList li {
+    min-width: 18rem;
+    width: auto;
+  }
+
+  .bookmarkContainer ul {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
