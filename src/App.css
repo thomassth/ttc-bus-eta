@@ -79,20 +79,13 @@ body {
   gap: 16px;
 }
 
-.linePageInputForm {
-  display: contents;
-}
-
-.linePageReminder {
-  margin-bottom: 16px;
-}
-
 .routerLink .appTitle {
   overflow: hidden;
   white-space: nowrap;
 }
 
-.bookmarkedStop {
+.bookmarkedStop,
+.routeCard {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
   text-decoration: none;
@@ -112,9 +105,20 @@ main {
 .stopsListContainer ul,
 .bookmarkContainer ul,
 .bottomNav ul,
-.sideNav ul {
+.sideNav ul,
+.linePage ul {
   padding-left: 0px;
   list-style-type: none;
+}
+
+.routeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.routeList li {
+  width: 100%;
 }
 
 *[role="checkbox"] {
@@ -166,10 +170,6 @@ main {
 .bookmarkContainer ul {
   display: grid;
   gap: 24px;
-  margin: 0px;
-}
-
-.bookmarkContainer ul {
   margin: 32px 0;
 }
 
@@ -199,6 +199,12 @@ pre {
   white-space: pre-wrap;
 }
 
+.routeCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 @media screen and (min-width: 800px) {
   .homePage {
     width: 50%;
@@ -217,6 +223,16 @@ pre {
   .sideNav button {
     padding-left: 32px;
     justify-content: left;
+  }
+
+  .routeList li {
+    min-width: 18rem;
+    width: auto;
+  }
+
+  .bookmarkContainer ul {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 

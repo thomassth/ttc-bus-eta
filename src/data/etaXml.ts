@@ -77,3 +77,13 @@ export interface RouteLineXml {
   stop: { tag: string }[];
   tag: string;
 }
+
+export interface RoutesXml {
+  body: {
+    Error: { ["#text"]: string } | undefined;
+    route: {
+      tag: number;
+      title: string;
+    }[];
+  };
+}
