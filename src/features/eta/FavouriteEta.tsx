@@ -59,19 +59,20 @@ export default function FavouriteEta() {
 
       return { parsedData, error };
     };
-
-    fetchEtaData().then(({ parsedData, error }) => {
-      if (error || !parsedData) {
-        return;
-      }
-      setData(parsedData);
-      setLastUpdatedAt(Date.now());
-      if (unifiedEtaValue) {
-        setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
-      } else {
-        setSingleEtaDb(multiStopParser(parsedData));
-      }
-    });
+    if (fetchUrl.length > 0) {
+      fetchEtaData().then(({ parsedData, error }) => {
+        if (error || !parsedData) {
+          return;
+        }
+        setData(parsedData);
+        setLastUpdatedAt(Date.now());
+        if (unifiedEtaValue) {
+          setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
+        } else {
+          setSingleEtaDb(multiStopParser(parsedData));
+        }
+      });
+    }
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
