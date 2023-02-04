@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "../../app/hooks";
 import { CountdownSec } from "../../components/countdown/CountdownSec";
-import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
   const fluentStyle = fluentStyles();

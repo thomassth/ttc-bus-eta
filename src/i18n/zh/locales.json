@@ -15,7 +15,8 @@
       "tooltip": "回主頁"
     },
     "headline": "加落書籤嘅站會出現響呢度。 <br />",
-    "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)"
+    "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
+    "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。"
   },
   "lines": {
     "ariaLabel": "輸入路線",
@@ -38,7 +39,8 @@
     "languageChange": "選擇語言",
     "delete": "刪除",
     "bookmarkAdd": "加呢頁落書籤",
-    "bookmarkDelete": "響書籤刪除呢頁"
+    "bookmarkDelete": "響書籤刪除呢頁",
+    "bookmarkEdit": "整理書籤"
   },
   "reminder": {
     "failToLocate": "揾唔到呢條線",

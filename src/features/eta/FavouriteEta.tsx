@@ -1,23 +1,39 @@
-import { Text } from "@fluentui/react-components";
+import { Button, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { useAppSelector } from "../../app/hooks";
+import { store } from "../../app/store";
 import RawDisplay from "../../components/RawDisplay";
 import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
-import { multiStopParser } from "../../components/parser/multiStopParser";
-import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
+import {
+  multiStopParser,
+  multiStopUnifier,
+} from "../../components/parser/multiStopParser";
+import {
+  LineStopEta,
+  stopBookmarkWithEta,
+  stopBookmarksRedux,
+} from "../../data/etaObjects";
 import { EtaPredictionXml } from "../../data/etaXml";
+import Bookmark from "../bookmarks/Bookmark";
+import { settingsSelectors } from "../settings/settingsSlice";
 import { BookmarkCardEta } from "./BookmarkCardEta";
+import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 
 export default function FavouriteEta() {
-  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
   const { t } = useTranslation();
   const [data, setData] = useState<EtaPredictionXml>();
-  const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
-  const [lastUpdatedAt] = useState<number>(Date.now());
+  const [singleEtaDb, setSingleEtaDb] = useState<LineStopEta[]>([]);
+  const [unifiedEtaDb, setUnifiedEtaDb] = useState<stopBookmarkWithEta[]>([]);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
+  const unifiedEtaValue =
+    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
+      ?.value !== "false";
 
   let fetchUrl = "";
 
@@ -49,7 +65,12 @@ export default function FavouriteEta() {
         return;
       }
       setData(parsedData);
-      setEtaDb(multiStopParser(parsedData));
+      setLastUpdatedAt(Date.now());
+      if (unifiedEtaValue) {
+        setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
+      } else {
+        setSingleEtaDb(multiStopParser(parsedData));
+      }
     });
 
     // when useEffect is called, the following clean-up fn will run first
@@ -59,10 +80,19 @@ export default function FavouriteEta() {
   }, [lastUpdatedAt]);
 
   const EtaCards = [];
-  for (const item of etaDb) {
-    if (item.etas.length > 0) {
-      const id = `${item.line}-${item.stopTag}`;
-      EtaCards.push(<BookmarkCardEta item={item} key={id} />);
+  if (unifiedEtaValue) {
+    for (const item of unifiedEtaDb) {
+      if (item.etas.length > 0) {
+        const id = `${item.stopId}`;
+        EtaCards.push(<BookmarkCardEtaUnified item={item} key={id} />);
+      }
+    }
+  } else {
+    for (const item of singleEtaDb) {
+      if (item.etas.length > 0) {
+        const id = `${item.line}-${item.stopTag}`;
+        EtaCards.push(<BookmarkCardEta item={item} key={id} />);
+      }
     }
   }
 
@@ -73,8 +103,19 @@ export default function FavouriteEta() {
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
+      ) : EtaCards.length > 0 ? (
+        <article>
+          <ul>{EtaCards}</ul>
+        </article>
+      ) : lastUpdatedAt > 0 ? (
+        <section>
+          <p>{t("home.homeNoEta")}</p>
+          <Bookmark />
+        </section>
       ) : null}
-      <ul>{EtaCards}</ul>
+      <Link to={"/bookmarks"}>
+        <Button>{t("buttons.bookmarkEdit")}</Button>
+      </Link>
 
       {data !== undefined && <RawDisplay data={data} />}
     </article>

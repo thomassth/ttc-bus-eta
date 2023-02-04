@@ -1,4 +1,8 @@
-import { LineStopEta } from "../../data/etaObjects";
+import {
+  LineStopEta,
+  stopBookmarkWithEta,
+  stopBookmarksRedux,
+} from "../../data/etaObjects";
 import { EtaPredictionXml, EtaPredictions } from "../../data/etaXml";
 import { parseSingleOrMultiEta } from "./etaParserUtils";
 import { parseRoute } from "./routeName";
@@ -44,6 +48,33 @@ export const multiStopParser = (json: EtaPredictionXml) => {
     parseEtaPredictions(stop, result);
     console.log("single stop");
   }
-  console.log(result);
   return result;
 };
+
+export function multiStopUnifier(
+  json: EtaPredictionXml,
+  stopBookmarks: stopBookmarksRedux
+) {
+  const result = multiStopParser(json);
+
+  // phase 2: combine a/c to stop number
+  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.ids.map((id) => {
+    return {
+      stopId: stopBookmarks.entities[id].stopId,
+      name: stopBookmarks.entities[id].name,
+      lines: stopBookmarks.entities[id].lines,
+      ttcId: stopBookmarks.entities[id].ttcId,
+      etas: [],
+    };
+  });
+
+  for (const item of result) {
+    const matchingStop = unifiedList.findIndex(
+      (searching) => item.stopTag === searching.ttcId
+    );
+    unifiedList[matchingStop].etas = unifiedList[matchingStop].etas
+      .concat(item.etas)
+      .sort((a, b) => a.epochTime - b.epochTime);
+  }
+  return unifiedList;
+}

@@ -6,12 +6,12 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import RawDisplay from "../../components/RawDisplay";
 import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
 import { multiStopParser } from "../../components/parser/multiStopParser";
-import { LineStopEta, stopBookmarkRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
 import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";
 
 export default function Bookmark() {
-  const stopBookmarks: stopBookmarkRedux = useAppSelector(
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
   const dispatch = useAppDispatch();
@@ -76,23 +76,29 @@ export default function Bookmark() {
   }, [lastUpdatedAt]);
 
   return (
-    <main>
-      <article className="bookmarkContainer">
-        {stopBookmarks.ids.length === 0 ? (
-          <section>
-            <Trans>{t("home.headline")}</Trans>
-            <Text>{t("home.bookmarkReminder")}</Text>
-          </section>
-        ) : null}
-        <ul>{bookmarks}</ul>
-        {stopBookmarks.ids.length > 0 ? (
-          <Button className="bookmarkClearButton" onClick={clearAllBookmarks}>
-            {t("buttons.clear")}
-          </Button>
-        ) : null}
+    <article className="bookmarkContainer">
+      {stopBookmarks.ids.length === 0 ? (
+        <section>
+          <Trans>{t("home.headline")}</Trans>
+          <Text>{t("home.bookmarkReminder")}</Text>
+        </section>
+      ) : null}
+      <ul>{bookmarks}</ul>
+      {stopBookmarks.ids.length > 0 ? (
+        <Button className="bookmarkClearButton" onClick={clearAllBookmarks}>
+          {t("buttons.clear")}
+        </Button>
+      ) : null}
 
-        <RawDisplay data={stopBookmarks} />
-      </article>
+      <RawDisplay data={stopBookmarks} />
+    </article>
+  );
+}
+
+export function BookmarkPage() {
+  return (
+    <main>
+      <Bookmark />
     </main>
   );
 }
