@@ -77,7 +77,7 @@ export default function FavouriteEta() {
     return () => {
       controller.abort();
     };
-  }, [lastUpdatedAt]);
+  }, []);
 
   const EtaCards = [];
   if (unifiedEtaValue) {
