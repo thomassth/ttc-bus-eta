@@ -1,0 +1,4 @@
+fare_id,price,currency_type,payment_method,transfers,transfer_duration
+express_1-1,4.75,CAD,1,,7200
+1-1,4.25,CAD,1,,7200
+
