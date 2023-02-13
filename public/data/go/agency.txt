@@ -1,0 +1,2 @@
+﻿agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone,agency_fare_url
+GO,GO Transit,http://gotransit.com,America/Toronto,en,1.888.438.6646,http://www.gotransit.com/publicroot/en/fares/farecalculator.aspx

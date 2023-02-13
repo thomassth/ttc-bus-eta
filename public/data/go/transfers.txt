@@ -1,0 +1,5 @@
+﻿from_stop_id,to_stop_id,transfer_type,min_transfer_time
+02300,02300,2,300
+UN,02300,2,300
+02300,UN,2,300
+UN,UN,2,300
