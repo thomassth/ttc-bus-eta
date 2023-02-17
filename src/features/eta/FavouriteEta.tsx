@@ -100,7 +100,7 @@ export default function FavouriteEta() {
   return (
     <article className="bookmarkContainer">
       {stopBookmarks.ids.length === 0 ? (
-        <section>
+        <section className="itemInfoPlaceholder">
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>

@@ -90,6 +90,7 @@ body {
 }
 
 .bookmarkedStop,
+.etaCardStopInfo,
 .routeCard {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
@@ -211,6 +212,15 @@ pre {
   gap: 16px;
 }
 
+.itemInfoPlaceholder {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.etaCardContainer:hover {
+  background-color: var(--colorNeutralBackground2);
+}
+
 @media screen and (min-width: 800px) {
   .homePage {
     width: 100%;
@@ -256,12 +266,12 @@ pre {
     width: 100%;
   }
 
-  .bookmarkedStop .badgeGroup {
+  .bookmarkedStop .badgeGroup .bookmarkedEta {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
   }
-  .bookmarkedStop .badgeGroup > * {
+  .bookmarkedStop .bookmarkedEta .badgeGroup > * {
     margin: 0;
   }
 }

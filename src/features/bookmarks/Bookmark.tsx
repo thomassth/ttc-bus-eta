@@ -78,7 +78,7 @@ export default function Bookmark() {
   return (
     <article className="bookmarkContainer">
       {stopBookmarks.ids.length === 0 ? (
-        <section>
+        <section className="routeInfoPlaceHolder">
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
