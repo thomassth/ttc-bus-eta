@@ -48,6 +48,7 @@ body {
 .stopPredictionPage,
 .homePage,
 .linePage,
+.settingsPage,
 .aboutPage {
   margin: 16px 32px 80px 32px;
   padding: 0px;
@@ -63,10 +64,13 @@ body {
 }
 
 .navBar {
-  padding: 16px 16px 0px 0px;
+  padding-top: 16px;
   display: flex;
-  gap: 16px;
   flex-direction: column;
+}
+
+.navBar > a {
+  padding: 0px 32px;
 }
 
 .lineDetails {
@@ -91,12 +95,7 @@ body {
   text-decoration: none;
 }
 
-.navBar > a {
-  padding: 0px 32px;
-}
-
 main {
-  padding: 32px 32px 64px 32px;
   display: flex;
   flex-direction: column;
 }
@@ -154,7 +153,7 @@ main {
 .countdownSec {
   padding: 0px 4px;
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   gap: 8px;
 }
 
@@ -169,6 +168,7 @@ main {
 
 .bookmarkContainer ul {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 24px;
   margin: 32px 0;
 }
@@ -193,12 +193,9 @@ main {
   text-decoration: none;
 }
 
-.etaCardCountdown {
-  min-width: 5rem;
-}
-
 .etaCardCountdown > * {
   flex-wrap: wrap;
+  float: right;
 }
 
 pre {
@@ -213,7 +210,7 @@ pre {
 
 @media screen and (min-width: 800px) {
   .homePage {
-    width: 50%;
+    width: 100%;
   }
 
   .container {
@@ -232,19 +229,22 @@ pre {
   }
 
   .routeList li {
-    min-width: 18rem;
+    min-width: 300px;
     width: auto;
   }
 
-  .bookmarkContainer ul {
-    display: flex;
-    flex-wrap: wrap;
-  }
   .etaCardCountdown {
-    min-width: 9rem;
+    min-width: 160px;
   }
+
   .etaCardCountdown > * {
     flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 800px) {
+  .bookmarkContainer ul {
+    grid-template-columns: auto;
   }
 }
 
