@@ -115,13 +115,10 @@ main {
 }
 
 .routeList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.routeList li {
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
 }
 
 *[role="checkbox"] {
@@ -222,6 +219,7 @@ pre {
 }
 
 @media screen and (min-width: 800px) {
+  .linePage,
   .homePage {
     width: 100%;
   }
@@ -239,11 +237,6 @@ pre {
   .sideNav button {
     padding-left: 32px;
     justify-content: left;
-  }
-
-  .routeList li {
-    min-width: 300px;
-    width: auto;
   }
 
   .etaCardCountdown {
