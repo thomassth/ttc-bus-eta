@@ -1,7 +1,7 @@
 import { Title1 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 
-import { RoutesInfo } from "../components/FetchRouteList";
+import { RoutesInfo } from "../components/fetch/FetchRouteList";
 
 export default function LineSearch() {
   const { t } = useTranslation();
