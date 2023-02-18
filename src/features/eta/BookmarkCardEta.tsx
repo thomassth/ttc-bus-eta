@@ -24,7 +24,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
   return (
     <li>
       <Link to={stopUrl}>
-        <Card className="etaCardContainer">
+        <Card className="clickableCard">
           <CardHeader
             header={
               <div className="etaCardStopInfo">

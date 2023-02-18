@@ -214,7 +214,7 @@ pre {
   margin-bottom: 16px;
 }
 
-.etaCardContainer:hover {
+.clickableCard:hover {
   background-color: var(--colorNeutralBackground2);
 }
 
