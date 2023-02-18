@@ -1,7 +1,7 @@
 import { Badge } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 
-import { EtaBusWithID } from "../../data/etaObjects";
+import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "./CountdownSec";
 

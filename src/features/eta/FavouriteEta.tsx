@@ -13,8 +13,8 @@ import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
-} from "../../data/etaObjects";
-import { EtaPredictionXml } from "../../data/etaXml";
+} from "../../models/etaObjects";
+import { EtaPredictionXml } from "../../models/etaXml";
 import { store, useAppSelector } from "../../store";
 import Bookmark from "../bookmarks/Bookmark";
 import { settingsSelectors } from "../settings/settingsSlice";

@@ -1,7 +1,7 @@
 import { Link as LinkFluent, Text, Title2 } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 
-import { LineStopEta } from "../../data/etaObjects";
+import { LineStopEta } from "../../models/etaObjects";
 import { CountdownRow } from "./CountdownRow";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {

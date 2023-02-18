@@ -6,7 +6,7 @@ import {
 import { t } from "i18next";
 import { useCallback } from "react";
 
-import { StopBookmark, stopBookmarksRedux } from "../../data/etaObjects";
+import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
 

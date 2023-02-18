@@ -5,7 +5,7 @@ import { t } from "i18next";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
-import { stopBookmarksRedux } from "../../data/etaObjects";
+import { stopBookmarksRedux } from "../../models/etaObjects";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
 import { removeStopBookmark } from "./stopBookmarkSlice";

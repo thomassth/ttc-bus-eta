@@ -3,7 +3,7 @@ import { Card, CardHeader } from "@fluentui/react-components/unstable";
 import { Link } from "react-router-dom";
 
 import { CountdownSec } from "../../components/countdown/CountdownSec";
-import { stopBookmarkWithEta } from "../../data/etaObjects";
+import { stopBookmarkWithEta } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 
 export function BookmarkCardEtaUnified(props: { item: stopBookmarkWithEta }) {

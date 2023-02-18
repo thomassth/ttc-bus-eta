@@ -7,9 +7,9 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { settingsRedux, stopBookmarksRedux } from "../../data/etaObjects";
-import { EtaPredictionXml, RouteXml, RoutesXml } from "../../data/etaXml";
 import { settingsSelectors } from "../../features/settings/settingsSlice";
+import { settingsRedux, stopBookmarksRedux } from "../../models/etaObjects";
+import { EtaPredictionXml, RouteXml, RoutesXml } from "../../models/etaXml";
 import { store, useAppSelector } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
 

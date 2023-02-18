@@ -5,7 +5,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { FetchXMLWithCancelToken } from "../../components/fetch/fetchUtils";
 import { multiStopParser } from "../../components/parser/multiStopParser";
 import RawDisplay from "../../components/rawDisplay/RawDisplay";
-import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";

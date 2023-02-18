@@ -3,7 +3,7 @@ import { Card, CardHeader } from "@fluentui/react-components/unstable";
 import { Link } from "react-router-dom";
 
 import { CountdownSec } from "../../components/countdown/CountdownSec";
-import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects";
 import { useAppSelector } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
 

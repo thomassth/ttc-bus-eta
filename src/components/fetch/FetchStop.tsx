@@ -3,10 +3,10 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaBusWithID, LineStopEta } from "../../data/etaObjects";
-import { EtaPredictionXml } from "../../data/etaXml";
 import { BookmarkButton } from "../../features/bookmarks/BookmarkButton";
 import { settingsSelectors } from "../../features/settings/settingsSlice";
+import { EtaBusWithID, LineStopEta } from "../../models/etaObjects";
+import { EtaPredictionXml } from "../../models/etaXml";
 import { store } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
 import CountdownGroup from "../countdown/CountdownGroup";

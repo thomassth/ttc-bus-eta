@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import RawDisplay from "../../components/rawDisplay/RawDisplay";
-import { settingsRedux } from "../../data/etaObjects";
+import { settingsRedux } from "../../models/etaObjects";
 import { store, useAppDispatch, useAppSelector } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
 import { changeSettings, settingsSelectors } from "./settingsSlice";

@@ -4,7 +4,7 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionXml } from "../../data/etaXml";
+import { EtaPredictionXml } from "../../models/etaXml";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "../countdown/CountdownSec";
 import { xmlParser } from "../parser/parserUtils";
