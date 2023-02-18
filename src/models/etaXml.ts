@@ -34,12 +34,12 @@ export interface EtaPredictions {
   stopTag: string;
   routeTitle: string;
 }
-export interface EtaPredictionXml {
+
+export type EtaPredictionXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     predictions: EtaPredictions[] | EtaPredictions;
   };
-}
+} & BasicXml;
 
 export interface RouteLineXml {
   title: string;
@@ -48,9 +48,9 @@ export interface RouteLineXml {
   stop: { tag: string }[];
   tag: string;
 }
-export interface RouteXml {
+
+export type RouteXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     route: {
       color: string;
       direction: RouteLineXml[];
@@ -75,14 +75,13 @@ export interface RouteXml {
       }[];
     };
   };
-}
+} & BasicXml;
 
-export interface RoutesXml {
+export type RoutesXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     route: {
       tag: number;
       title: string;
     }[];
   };
-}
+} & BasicXml;

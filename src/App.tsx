@@ -2,8 +2,7 @@ import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import "./App.css";
 import { BottomBar, SideBar } from "./components/nav/NavBar";
