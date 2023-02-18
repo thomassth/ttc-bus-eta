@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import RawDisplay from "../../components/rawDisplay/RawDisplay";
 import { settingsRedux } from "../../models/etaObjects";
 import { store, useAppDispatch, useAppSelector } from "../../store";
+import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
-import { changeSettings, settingsSelectors } from "./settingsSlice";
 
 export function Settings() {
   const settings: settingsRedux = useAppSelector((state) => state.settings);

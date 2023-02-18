@@ -16,8 +16,8 @@ import {
 } from "../../models/etaObjects";
 import { EtaPredictionXml } from "../../models/etaXml";
 import { store, useAppSelector } from "../../store";
+import { settingsSelectors } from "../../store/settings/slice";
 import Bookmark from "../bookmarks/Bookmark";
-import { settingsSelectors } from "../settings/settingsSlice";
 import { BookmarkCardEta } from "./BookmarkCardEta";
 import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { stopBookmarksSlice } from "../features/bookmarks/stopBookmarkSlice";
-import { settingsSlice } from "../features/settings/settingsSlice";
+import { settingsSlice } from "./settings/slice";
 
 export const store = configureStore({
   reducer: {
