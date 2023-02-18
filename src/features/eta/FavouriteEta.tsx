@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { useAppSelector } from "../../app/hooks";
-import { store } from "../../app/store";
 import { FetchXMLWithCancelToken } from "../../components/fetch/fetchUtils";
 import {
   multiStopParser,
@@ -17,6 +15,7 @@ import {
   stopBookmarksRedux,
 } from "../../data/etaObjects";
 import { EtaPredictionXml } from "../../data/etaXml";
+import { store, useAppSelector } from "../../store";
 import Bookmark from "../bookmarks/Bookmark";
 import { settingsSelectors } from "../settings/settingsSlice";
 import { BookmarkCardEta } from "./BookmarkCardEta";
