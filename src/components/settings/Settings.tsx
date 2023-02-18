@@ -10,11 +10,11 @@ import { FormEvent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import RawDisplay from "../../components/rawDisplay/RawDisplay";
 import { settingsRedux } from "../../models/etaObjects";
 import { store, useAppDispatch, useAppSelector } from "../../store";
 import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
+import RawDisplay from "../rawDisplay/RawDisplay";
 
 export function Settings() {
   const settings: settingsRedux = useAppSelector((state) => state.settings);
