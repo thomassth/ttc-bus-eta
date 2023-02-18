@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import RawDisplay from "../../components/RawDisplay";
-import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
+import { FetchXMLWithCancelToken } from "../../components/fetch/fetchUtils";
 import { multiStopParser } from "../../components/parser/multiStopParser";
+import RawDisplay from "../../components/rawDisplay/RawDisplay";
 import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
 import { BookmarkCard } from "./BookmarkCard";
 import { clearStopBookmarks } from "./stopBookmarkSlice";

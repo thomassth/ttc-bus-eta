@@ -3,17 +3,17 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { store } from "../app/store";
-import { EtaBusWithID, LineStopEta } from "../data/etaObjects";
-import { EtaPredictionXml } from "../data/etaXml";
-import { BookmarkButton } from "../features/bookmarks/BookmarkButton";
-import { settingsSelectors } from "../features/settings/settingsSlice";
-import { fluentStyles } from "../styles/fluent";
-import RawDisplay from "./RawDisplay";
-import CountdownGroup from "./countdown/CountdownGroup";
-import { CountdownRow } from "./countdown/CountdownRow";
+import { store } from "../../app/store";
+import { EtaBusWithID, LineStopEta } from "../../data/etaObjects";
+import { EtaPredictionXml } from "../../data/etaXml";
+import { BookmarkButton } from "../../features/bookmarks/BookmarkButton";
+import { settingsSelectors } from "../../features/settings/settingsSlice";
+import { fluentStyles } from "../../styles/fluent";
+import CountdownGroup from "../countdown/CountdownGroup";
+import { CountdownRow } from "../countdown/CountdownRow";
+import { etaParser } from "../parser/etaParser";
+import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
-import { etaParser } from "./parser/etaParser";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();

@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "../../app/hooks";
 import { store } from "../../app/store";
-import RawDisplay from "../../components/RawDisplay";
-import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
+import { FetchXMLWithCancelToken } from "../../components/fetch/fetchUtils";
 import {
   multiStopParser,
   multiStopUnifier,
 } from "../../components/parser/multiStopParser";
+import RawDisplay from "../../components/rawDisplay/RawDisplay";
 import {
   LineStopEta,
   stopBookmarkWithEta,

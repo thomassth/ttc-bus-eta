@@ -4,11 +4,11 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionXml } from "../data/etaXml";
-import { fluentStyles } from "../styles/fluent";
-import RawDisplay from "./RawDisplay";
-import { CountdownSec } from "./countdown/CountdownSec";
-import { xmlParser } from "./parser/parserUtils";
+import { EtaPredictionXml } from "../../data/etaXml";
+import { fluentStyles } from "../../styles/fluent";
+import { CountdownSec } from "../countdown/CountdownSec";
+import { xmlParser } from "../parser/parserUtils";
+import RawDisplay from "../rawDisplay/RawDisplay";
 
 function LineStopPredictionInfo(props: {
   line: number;
