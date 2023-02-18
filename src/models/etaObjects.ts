@@ -8,6 +8,10 @@ export interface LineStopElement {
   key: number;
 }
 
+export interface EtaBusWithID extends EtaBus {
+  id: string;
+}
+
 export interface LineStopEta {
   line: string;
   stopName: string;
@@ -29,11 +33,6 @@ export interface StopBookmark {
   ttcId: number;
   lines: string[];
 }
-
-export interface EtaBusWithID extends EtaBus {
-  id: string;
-}
-
 export interface stopBookmarksRedux {
   ids: number[];
   entities: StopBookmark[];

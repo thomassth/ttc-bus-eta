@@ -6,11 +6,10 @@ export interface BasicXml {
   };
 }
 
-export interface EtaPredictionXml {
-  body: {
-    Error: { ["#text"]: string } | undefined;
-    predictions: EtaPredictions[] | EtaPredictions;
-  };
+export interface EtaDirection {
+  title: string;
+  dirTitleBecauseNoPredictions: string | undefined;
+  prediction: EtaBus[] | EtaBus;
 }
 
 export interface EtaPredictions {
@@ -22,11 +21,11 @@ export interface EtaPredictions {
   stopTag: string;
   routeTitle: string;
 }
-
-export interface EtaDirection {
-  title: string;
-  dirTitleBecauseNoPredictions: string | undefined;
-  prediction: EtaBus[] | EtaBus;
+export interface EtaPredictionXml {
+  body: {
+    Error: { ["#text"]: string } | undefined;
+    predictions: EtaPredictions[] | EtaPredictions;
+  };
 }
 
 export interface EtaBus {
