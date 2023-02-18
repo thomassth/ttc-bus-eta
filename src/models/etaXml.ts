@@ -6,6 +6,19 @@ export interface BasicXml {
   };
 }
 
+export interface EtaBus {
+  seconds: number;
+  minutes: number;
+  isDeparture: boolean;
+  affectedByLayover: boolean;
+  vehicle: number;
+  dirTag: string;
+  block: string;
+  branch: string;
+  tripTag: number;
+  epochTime: number;
+}
+
 export interface EtaDirection {
   title: string;
   dirTitleBecauseNoPredictions: string | undefined;
@@ -28,19 +41,13 @@ export interface EtaPredictionXml {
   };
 }
 
-export interface EtaBus {
-  seconds: number;
-  minutes: number;
-  isDeparture: boolean;
-  affectedByLayover: boolean;
-  vehicle: number;
-  dirTag: string;
-  block: string;
-  branch: string;
-  tripTag: number;
-  epochTime: number;
+export interface RouteLineXml {
+  title: string;
+  name: string;
+  branch: number;
+  stop: { tag: string }[];
+  tag: string;
 }
-
 export interface RouteXml {
   body: {
     Error: { ["#text"]: string } | undefined;
@@ -68,13 +75,6 @@ export interface RouteXml {
       }[];
     };
   };
-}
-export interface RouteLineXml {
-  title: string;
-  name: string;
-  branch: number;
-  stop: { tag: string }[];
-  tag: string;
 }
 
 export interface RoutesXml {
