@@ -8,7 +8,10 @@ import { useCallback } from "react";
 
 import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { addStopBookmark, removeStopBookmark } from "./stopBookmarkSlice";
+import {
+  addStopBookmark,
+  removeStopBookmark,
+} from "../../store/bookmarks/slice";
 
 export function BookmarkButton(props: StopBookmark) {
   const dispatch = useAppDispatch();

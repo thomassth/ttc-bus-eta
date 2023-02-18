@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
+import { BookmarkPage } from "../components/bookmarks/Bookmark";
 import { Settings } from "../components/settings/Settings";
-import { BookmarkPage } from "../features/bookmarks/Bookmark";
 import About from "./About";
 import Error from "./Error";
 import Home from "./Home";
