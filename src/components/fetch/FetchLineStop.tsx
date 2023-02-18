@@ -78,9 +78,9 @@ function LineStopPredictionInfo(props: {
         }
         if (Array.isArray(data.body.predictions.direction)) {
           const directionListGroup = data.body.predictions.direction.map(
-            (line, index: number) => {
+            (line) => {
               return (
-                <div className="directionList list" key={`${index}`}>
+                <div className="directionList list" key={line.title}>
                   <Text>{line.title}</Text>
                   {Array.isArray(line.prediction) ? (
                     line.prediction.map((bus) => {
