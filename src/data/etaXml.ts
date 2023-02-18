@@ -6,12 +6,11 @@ export interface BasicXml {
   };
 }
 
-export interface EtaPredictionXml {
+export type EtaPredictionXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     predictions: EtaPredictions[] | EtaPredictions;
   };
-}
+} & BasicXml;
 
 export interface EtaPredictions {
   dirTitleBecauseNoPredictions: string | undefined;
@@ -42,9 +41,8 @@ export interface EtaBus {
   epochTime: number;
 }
 
-export interface RouteXml {
+export type RouteXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     route: {
       color: string;
       direction: RouteLineXml[];
@@ -69,7 +67,8 @@ export interface RouteXml {
       }[];
     };
   };
-}
+} & BasicXml;
+
 export interface RouteLineXml {
   title: string;
   name: string;
@@ -78,12 +77,11 @@ export interface RouteLineXml {
   tag: string;
 }
 
-export interface RoutesXml {
+export type RoutesXml = {
   body: {
-    Error: { ["#text"]: string } | undefined;
     route: {
       tag: number;
       title: string;
     }[];
   };
-}
+} & BasicXml;
