@@ -23,29 +23,31 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   return (
     <li>
-      <Card>
-        <CardHeader
-          header={
-            <Link className={`bookmarkedStop`} to={stopUrl}>
-              <div>
-                <Badge className={fluentStyle.badge} key={props.item.line}>
-                  {props.item.etas[0].branch}
-                </Badge>
-                <Text weight="semibold">TO: {props.item.routeName}</Text>
+      <Link to={stopUrl}>
+        <Card className="clickableCard">
+          <CardHeader
+            header={
+              <div className="etaCardStopInfo">
+                <div>
+                  <Badge className={fluentStyle.badge} key={props.item.line}>
+                    {props.item.etas[0].branch}
+                  </Badge>
+                  <Text weight="semibold">TO: {props.item.routeName}</Text>
+                </div>
+                <Text>{props.item.stopName}</Text>
               </div>
-              <Text>{props.item.stopName}</Text>
-            </Link>
-          }
-          action={
-            <div className="etaCardCountdown">
-              <CountdownSec
-                second={props.item.etas[0].seconds}
-                epochTime={props.item.etas[0].epochTime}
-              />
-            </div>
-          }
-        />
-      </Card>
+            }
+            action={
+              <div className="etaCardCountdown">
+                <CountdownSec
+                  second={props.item.etas[0].seconds}
+                  epochTime={props.item.etas[0].epochTime}
+                />
+              </div>
+            }
+          />
+        </Card>
+      </Link>
     </li>
   );
 }

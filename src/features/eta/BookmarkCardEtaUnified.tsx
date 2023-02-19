@@ -12,32 +12,34 @@ export function BookmarkCardEtaUnified(props: { item: stopBookmarkWithEta }) {
 
   return (
     <li>
-      <Card>
-        <CardHeader
-          header={
-            <Link className={`bookmarkedStop`} to={stopUrl}>
-              <div className="badgeGroup">
-                {props.item.lines.map((line: string) => {
-                  return (
-                    <Badge className={fluentStyle.badge} key={line}>
-                      {line}
-                    </Badge>
-                  );
-                })}
+      <Link className={`bookmarkedStop`} to={stopUrl}>
+        <Card className="clickableCard">
+          <CardHeader
+            header={
+              <>
+                <div className="badgeGroup">
+                  {props.item.lines.map((line: string) => {
+                    return (
+                      <Badge className={fluentStyle.badge} key={line}>
+                        {line}
+                      </Badge>
+                    );
+                  })}
+                </div>
+                <Text>{props.item.name}</Text>
+              </>
+            }
+            action={
+              <div className="etaCardCountdown">
+                <CountdownSec
+                  second={props.item.etas[0].seconds}
+                  epochTime={props.item.etas[0].epochTime}
+                />
               </div>
-              <Text>{props.item.name}</Text>
-            </Link>
-          }
-          action={
-            <div className="etaCardCountdown">
-              <CountdownSec
-                second={props.item.etas[0].seconds}
-                epochTime={props.item.etas[0].epochTime}
-              />
-            </div>
-          }
-        />
-      </Card>
+            }
+          />
+        </Card>
+      </Link>
     </li>
   );
 }

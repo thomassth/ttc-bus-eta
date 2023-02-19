@@ -48,9 +48,11 @@ body {
 .stopPredictionPage,
 .homePage,
 .linePage,
+.settingsPage,
 .aboutPage {
   margin: 16px 32px 80px 32px;
   padding: 0px;
+  width: auto;
 }
 
 .aboutPage .linkButton {
@@ -59,14 +61,17 @@ body {
 
 .aboutPage > *,
 .settingsPage > * {
-  padding-bottom: 1rem;
+  padding-bottom: 16px;
 }
 
 .navBar {
-  padding: 16px 16px 0px 0px;
+  padding: 16px 16px 0 0;
   display: flex;
-  gap: 16px;
   flex-direction: column;
+}
+
+.navBar > a {
+  padding: 0px 32px;
 }
 
 .lineDetails {
@@ -85,20 +90,18 @@ body {
 }
 
 .bookmarkedStop,
+.etaCardStopInfo,
 .routeCard {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
   text-decoration: none;
 }
 
-.navBar > a {
-  padding: 0px 32px;
-}
-
 main {
-  padding: 32px 32px 64px 32px;
+  padding: 0px 16px 16px 32px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .countdownListContainer ul,
@@ -112,13 +115,10 @@ main {
 }
 
 .routeList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.routeList li {
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
 }
 
 *[role="checkbox"] {
@@ -154,7 +154,7 @@ main {
 .countdownSec {
   padding: 0px 4px;
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   gap: 8px;
 }
 
@@ -169,6 +169,7 @@ main {
 
 .bookmarkContainer ul {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 24px;
   margin: 32px 0;
 }
@@ -193,12 +194,9 @@ main {
   text-decoration: none;
 }
 
-.etaCardCountdown {
-  min-width: 5rem;
-}
-
 .etaCardCountdown > * {
   flex-wrap: wrap;
+  float: right;
 }
 
 pre {
@@ -208,12 +206,22 @@ pre {
 .routeCard {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
+}
+
+.itemInfoPlaceholder {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.clickableCard:hover {
+  background-color: var(--colorNeutralBackground2);
 }
 
 @media screen and (min-width: 800px) {
+  .linePage,
   .homePage {
-    width: 50%;
+    width: 100%;
   }
 
   .container {
@@ -231,20 +239,18 @@ pre {
     justify-content: left;
   }
 
-  .routeList li {
-    min-width: 18rem;
-    width: auto;
+  .etaCardCountdown {
+    min-width: 160px;
   }
 
-  .bookmarkContainer ul {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .etaCardCountdown {
-    min-width: 9rem;
-  }
   .etaCardCountdown > * {
     flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 800px) {
+  .bookmarkContainer ul {
+    grid-template-columns: auto;
   }
 }
 
@@ -253,12 +259,12 @@ pre {
     width: 100%;
   }
 
-  .bookmarkedStop .badgeGroup {
+  .bookmarkedStop .badgeGroup .bookmarkedEta {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
   }
-  .bookmarkedStop .badgeGroup > * {
+  .bookmarkedStop .bookmarkedEta .badgeGroup > * {
     margin: 0;
   }
 }

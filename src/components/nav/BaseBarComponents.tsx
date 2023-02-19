@@ -47,7 +47,7 @@ export function BaseBarComponents({ width }: { width: number }) {
 
   const getClassName = useCallback(() => {
     switch (true) {
-      case width > 800:
+      case width >= 800:
         return fluentStyle.sideNavButton;
       case width > 390:
         return fluentStyle.bottomNavButton;
