@@ -57,7 +57,7 @@ export function RoutesInfo() {
   const routesCards = routesDb.map((routeItem) => {
     return (
       <li key={routeItem.tag}>
-        <Card className="cardContainer">
+        <Card className="cardContainer clickableCard">
           <Link className="routeCard" to={`/lines/${routeItem.tag}`}>
             <Badge>{routeItem.tag}</Badge>
             <Text>{parseRouteTitle(routeItem.title)}</Text>
