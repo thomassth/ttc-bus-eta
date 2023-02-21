@@ -1,15 +1,37 @@
 import { Button, Input } from "@fluentui/react-components";
-import { SetStateAction, useCallback, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import FavouriteEta from "../components/eta/FavouriteEta";
+import EtaCardContainer from "../components/etaCard/EtaCardContainer";
+import { multiRouteDataEndpoint } from "../constants/dataEndpoints";
+import { FavouriteEtaRedux } from "../models/etaObjects";
+import { useAppSelector } from "../store";
 import { fluentStyles } from "../styles/fluent";
 import useNavigate from "./navigate";
 
 export default function Home() {
   const [input, setInput] = useState("");
+  const [dataUrl, setDataUrl] = useState("");
   const { t } = useTranslation();
   const { navigate } = useNavigate();
+  const fluentStyle = fluentStyles();
+  const favouriteEtas: FavouriteEtaRedux = useAppSelector(
+    (state) => state.favouriteEtas
+  );
+
+  useEffect(() => {
+    let urlParams = "";
+
+    favouriteEtas.ids.forEach((eta) => {
+      urlParams = urlParams.concat(
+        `&stops=${favouriteEtas.entities[eta].routeTag}|${favouriteEtas.entities[eta].stopTag}`
+      );
+    });
+
+    if (urlParams === "") return;
+
+    setDataUrl(multiRouteDataEndpoint.concat(urlParams));
+  }, [favouriteEtas.ids]);
 
   const handleLineChange = useCallback(
     (e: { currentTarget: { value: SetStateAction<string> } }) => {
@@ -23,8 +45,6 @@ export default function Home() {
 
     navigate(`lines/${input}`);
   }, [input]);
-
-  const fluentStyle = fluentStyles();
 
   return (
     <main className="homePage">
@@ -40,7 +60,7 @@ export default function Home() {
           {t("buttons.search")}
         </Button>
       </form>
-      <FavouriteEta />
+      <EtaCardContainer dataUrl={dataUrl} shdFilterNonFavourite={true} />
     </main>
   );
 }

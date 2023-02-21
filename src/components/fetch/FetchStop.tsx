@@ -3,14 +3,12 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaBusWithID, LineStopEta } from "../../models/etaObjects";
+import { LineStopEta } from "../../models/etaObjects";
 import { EtaPredictionXml } from "../../models/etaXml";
-import { store } from "../../store";
-import { settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
 import { BookmarkButton } from "../bookmarks/BookmarkButton";
 import CountdownGroup from "../countdown/CountdownGroup";
-import { CountdownRow } from "../countdown/CountdownRow";
+// import { CountdownRow } from "../countdown/CountdownRow";
 import { etaParser } from "../parser/etaParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
@@ -22,15 +20,10 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
-  const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
   }, [lastUpdatedAt]);
-
-  const unifiedEtaValue =
-    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
-      ?.value === "true";
 
   function RefreshButton() {
     return (
@@ -73,35 +66,18 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     };
   }, [lastUpdatedAt]);
 
-  useEffect(() => {
-    let templist: EtaBusWithID[] = [];
-    for (const list of etaDb) {
-      templist = templist.concat(list.etas);
-    }
-    setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
-  }, [etaDb]);
-
   if (data) {
     if (data.body.Error === undefined) {
       let listContent: JSX.Element[] = [];
-      if (unifiedEtaValue) {
-        listContent = unifiedEta.map((element) => {
-          return (
-            <li key={element.tripTag}>
-              <CountdownRow item={element} />
-            </li>
-          );
-        });
-      } else {
-        listContent = etaDb.map((element) => {
-          return (
-            <CountdownGroup
-              key={`${element.line}-${element.stopTag}`}
-              detail={element}
-            />
-          );
-        });
-      }
+      listContent = etaDb.map((element) => {
+        return (
+          <CountdownGroup
+            key={`${element.line}-${element.stopTag}`}
+            detail={element}
+          />
+        );
+      });
+
       return (
         <div className="countdownListContainer">
           {etaDb[0] !== undefined ? (

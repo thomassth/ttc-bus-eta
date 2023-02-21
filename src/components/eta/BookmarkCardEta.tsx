@@ -27,7 +27,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
         <Card className="clickableCard">
           <CardHeader
             header={
-              <div className="etaCardStopInfo">
+              <div className="etaCardHeader">
                 <div>
                   <Badge className={fluentStyle.badge} key={props.item.line}>
                     {props.item.etas[0].branch}
