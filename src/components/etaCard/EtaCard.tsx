@@ -29,7 +29,6 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
   }, []);
 
   const handleFavouriteClick = useCallback(() => {
-    console.log(props.eta);
     const eta = {
       id: props.eta.id,
       stopTag: props.eta.stopTag,
@@ -38,16 +37,13 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
       routeTitle: props.eta.routeTitle,
       stopId: props.stopId ?? "",
     };
+
     favouriteEtas.ids.includes(props.eta.id)
       ? dispatch(removeFavouriteadEta(eta.id))
       : dispatch(addFavouriteadEta(eta));
-
-    console.log("HEHE");
-    console.log(favouriteEtas);
   }, [favouriteEtas.ids]);
 
   const getFavouriteEtaButtonIcon = useCallback(() => {
-    console.log(favouriteEtas.ids.includes(props.eta.id));
     return favouriteEtas.ids.includes(props.eta.id) ? (
       <BookmarkOff24Filled />
     ) : (

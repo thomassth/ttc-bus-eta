@@ -81,7 +81,6 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
     ? json.body.predictions
     : [json.body.predictions];
 
-  console.log(json);
   return predictions
     .map((prediction) => {
       if (prediction.dirTitleBecauseNoPredictions) {

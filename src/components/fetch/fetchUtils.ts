@@ -9,8 +9,7 @@ export async function FetchXMLWithCancelToken(
     const response = await fetch(url, options);
     const data = await response.text();
     const parsedData = xmlParser.parse(data);
-    console.log("data");
-    console.log(parsedData);
+
     return { data, parsedData };
   } catch (e) {
     return { data: "", parsedData: undefined, error: Error(`${e}`) };

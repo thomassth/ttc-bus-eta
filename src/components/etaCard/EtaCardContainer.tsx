@@ -54,7 +54,6 @@ export default function EtaCardContainer(props: {
       });
     }
 
-    // when useEffect is called, the following clean-up fn will run first
     return () => {
       controller.abort();
     };
@@ -67,10 +66,7 @@ export default function EtaCardContainer(props: {
       const key = `${eta.branchTag}-${eta.stopTag}`;
       if (props.shdFilterNonFavourite) {
         if (!favouriteEtas.ids.includes(key)) return [];
-        console.log("here");
-        console.log("here");
-        console.log(key);
-        console.log(favouriteEtas.entities);
+
         eta.stopId = favouriteEtas.entities[key].stopId;
       }
 

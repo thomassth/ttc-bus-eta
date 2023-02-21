@@ -63,10 +63,9 @@ export default function Bookmark() {
       if (error || !parsedData) {
         return;
       }
-      console.log(parsedData);
+
       setData(parsedData);
       setEtaDb(multiStopParser(parsedData));
-      console.log(etaDb);
     });
 
     // when useEffect is called, the following clean-up fn will run first

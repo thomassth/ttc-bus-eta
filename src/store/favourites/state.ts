@@ -3,8 +3,6 @@ import { FavouriteEtaRedux } from "../../models/etaObjects";
 export const loadFavouriteEtasState = () => {
   try {
     const serialState = localStorage.getItem("favouriteEtas");
-    console.log("getfavouriteEtas");
-    console.log(serialState);
     if (serialState === null) {
       return { ids: [], entities: {} };
     }
