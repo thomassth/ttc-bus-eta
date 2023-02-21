@@ -8,7 +8,7 @@ export const expiredStyle = {
   color: "red",
 };
 
-export function CountdownSec(props: { second: number; epochTime?: number }) {
+export function Countdown(props: { second: number; epochTime?: number }) {
   const [sec, setSec] = useState(props.second);
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export function CountdownSec(props: { second: number; epochTime?: number }) {
     return () => clearTimeout(timer);
   }, [sec]);
   return (
-    <div className="countdownSec number">
+    <div className="countdown number">
       {sec < 180 ? <ArrivingBadge /> : null}
 
       {sec > 0 ? (

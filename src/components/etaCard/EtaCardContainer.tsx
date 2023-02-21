@@ -1,12 +1,10 @@
-import { Button, Text, Title1 } from "@fluentui/react-components";
+import { Text, Title1 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { BranchEta, FavouriteEtaRedux } from "../../models/etaObjects";
 import { EtaPredictionXml } from "../../models/etaXml";
 import { useAppSelector } from "../../store";
-import Bookmark from "../bookmarks/Bookmark";
 import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
 import { extractEtaDataFromXml } from "../parser/multiStopParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
@@ -97,13 +95,8 @@ export default function EtaCardContainer(props: {
       ) : lastUpdatedAt > 0 ? (
         <section>
           <p>{t("home.homeNoEta")}</p>
-          <Bookmark />
         </section>
       ) : null}
-      <Link to={"/bookmarks"}>
-        <Button>{t("buttons.bookmarkEdit")}</Button>
-      </Link>
-
       {rawEta !== undefined && <RawDisplay data={rawEta} />}
     </div>
   );

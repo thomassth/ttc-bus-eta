@@ -151,7 +151,7 @@ main {
   margin: 8px 0px 0px 0px;
 }
 
-.countdownSec {
+.countdown {
   padding: 0px 4px;
   display: flex;
   align-items: baseline;

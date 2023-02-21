@@ -8,14 +8,12 @@ import {
 } from "react-router-dom";
 
 import App from "../App";
-import { BookmarkPage } from "../components/bookmarks/Bookmark";
 import { Settings } from "../components/settings/Settings";
 import About from "./About";
 import Error from "./Error";
 import Home from "./Home";
 import Line from "./Line";
 import LineSearch from "./LineSearch";
-import LineStopPrediction from "./LineStopPrediction";
 import StopPrediction from "./StopPrediction";
 
 export const router = createBrowserRouter(
@@ -23,7 +21,6 @@ export const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="lines" element={<Outlet />}>
         <Route path=":lineId" element={<Outlet />}>
-          <Route path=":stopNum" element={<LineStopPrediction />} />
           <Route index element={<Line />} />
         </Route>
         <Route index element={<LineSearch />} />
@@ -33,7 +30,6 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="about" element={<About />} />
       <Route path="settings" element={<Settings />} />
-      <Route path="bookmarks" element={<BookmarkPage />} />
       <Route path="*" element={<Error />} />
       <Route index element={<Home />} />
     </Route>

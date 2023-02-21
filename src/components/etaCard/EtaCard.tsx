@@ -15,7 +15,7 @@ import {
   removeFavouriteadEta,
 } from "../../store/favourites/slice";
 import { fluentStyles } from "../../styles/fluent";
-import { CountdownSec } from "../countdown/CountdownSec";
+import { Countdown } from "../countdown/Countdown";
 
 export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
   const dispatch = useAppDispatch();
@@ -76,7 +76,7 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
             }
             action={
               <div className="etaCardCountdown">
-                <CountdownSec second={getTime()} />
+                <Countdown second={getTime()} />
               </div>
             }
           />
