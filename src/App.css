@@ -90,7 +90,7 @@ body {
 }
 
 .bookmarkedStop,
-.etaCardStopInfo,
+.etaCardHeader,
 .routeCard {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
@@ -214,11 +214,40 @@ pre {
   margin-bottom: 16px;
 }
 
+div .clickableCard {
+  overflow: visible;
+}
+
 .clickableCard:hover {
   background-color: var(--colorNeutralBackground2);
 }
 
+.etaCardBranchTagAndDestination {
+  display: flex;
+}
+
+.etaCardDestinationInfo {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: grid;
+  gap: 12px;
+}
+
+div .removeButton {
+  min-height: 32px;
+  min-width: 32px;
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  border-radius: 50%;
+}
+
+.etaCard {
+  position: relative;
+}
+
 @media screen and (min-width: 800px) {
+  .stopPredictionPage,
   .linePage,
   .homePage {
     width: 100%;
@@ -240,7 +269,7 @@ pre {
   }
 
   .etaCardCountdown {
-    min-width: 160px;
+    min-width: 80px;
   }
 
   .etaCardCountdown > * {
