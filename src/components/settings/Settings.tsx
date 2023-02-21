@@ -10,7 +10,7 @@ import { FormEvent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { settingsRedux } from "../../models/etaObjects";
+import { settingsRedux } from "../../models/settings";
 import { store, useAppDispatch, useAppSelector } from "../../store";
 import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";

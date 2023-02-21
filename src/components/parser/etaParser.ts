@@ -1,5 +1,5 @@
-import { LineStopEta } from "../../models/etaObjects";
 import { EtaDirection, EtaPredictionXml } from "../../models/etaXml";
+import { LineStopEta } from "../../models/lineStop";
 import { parseSingleOrMultiEta } from "./etaParserUtils";
 import { parseRoute } from "./routeName";
 

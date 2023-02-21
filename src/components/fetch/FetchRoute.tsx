@@ -9,8 +9,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { LineStop, LineStopElement } from "../../models/etaObjects";
 import { RouteXml } from "../../models/etaXml";
+import { LineStop, LineStopElement } from "../../models/lineStop";
 import { fluentStyles } from "../../styles/fluent";
 import { StopAccordions } from "../accordions/StopAccordions";
 import { stopsParser } from "../parser/stopsParser";

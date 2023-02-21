@@ -1,4 +1,4 @@
-import { FavouriteEtaRedux } from "../../models/etaObjects";
+import { FavouriteEtaRedux } from "../../models/favouriteEta";
 
 export const loadFavouriteEtasState = () => {
   try {

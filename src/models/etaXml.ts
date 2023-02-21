@@ -6,19 +6,9 @@ export interface BasicXml {
   };
 }
 
-export interface Eta {
-  seconds: number;
-  // minutes: number;
-  // isDeparture: boolean;
-  // affectedByLayover: boolean;
-  // vehicle: number;
-  // dirTag: string;
-  // block: string;
-  // branch: string;
-  // tripTag: number;
-  // epochTime: number;
+export interface EtaBusWithID extends EtaBus {
+  id: string;
 }
-
 export interface EtaBus {
   seconds: number;
   minutes: number;

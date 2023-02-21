@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { FavouriteEta } from "../../models/etaObjects";
+import { FavouriteEta } from "../../models/favouriteEta";
 import { loadFavouriteEtasState } from "./state";
 
 const persistedState = loadFavouriteEtasState();

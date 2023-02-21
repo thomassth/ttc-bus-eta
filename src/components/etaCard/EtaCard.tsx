@@ -8,7 +8,7 @@ import { t } from "i18next";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
-import { BranchEta, FavouriteEtaRedux } from "../../models/etaObjects";
+import { BranchEta, FavouriteEtaRedux } from "../../models/favouriteEta";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   addFavouriteadEta,

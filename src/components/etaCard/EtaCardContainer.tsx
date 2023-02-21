@@ -2,8 +2,8 @@ import { Text, Title1 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { BranchEta, FavouriteEtaRedux } from "../../models/etaObjects";
 import { EtaPredictionXml } from "../../models/etaXml";
+import { BranchEta, FavouriteEtaRedux } from "../../models/favouriteEta";
 import { useAppSelector } from "../../store";
 import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
 import { extractEtaDataFromXml } from "../parser/multiStopParser";
