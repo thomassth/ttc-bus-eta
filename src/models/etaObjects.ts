@@ -55,24 +55,20 @@ export interface stopBookmarkWithEta extends StopBookmark {
 
 // routeTag = `53`A `53`B
 // branchTag = 53`A` 53`B`
-export interface BranchEta {
-  id: string;
-  routeTag: string;
+export interface BranchEta extends CommonEta {
   branchTag: string;
-  stopTag: string;
   stopTitle: string;
   destination: string;
   etas?: number[];
   routeTitle: string;
-  stopId?: string;
 }
 
-export interface FavouriteEta {
+export interface FavouriteEta extends CommonEta {}
+
+interface CommonEta {
   id: string;
   stopTag: string;
   routeTag: string;
-  destination: string;
-  routeTitle: string;
   stopId?: string;
 }
 
