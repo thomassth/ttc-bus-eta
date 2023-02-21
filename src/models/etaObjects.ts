@@ -1,4 +1,4 @@
-import { EtaBus } from "./etaXml";
+import { Eta, EtaBus } from "./etaXml";
 
 export interface LineStopElement {
   id: JSX.Element;
@@ -51,4 +51,32 @@ export interface settingsRedux {
 
 export interface stopBookmarkWithEta extends StopBookmark {
   etas: EtaBusWithID[];
+}
+
+// routeTag = `53`A `53`B
+// branchTag = 53`A` 53`B`
+export interface BranchEta {
+  id: string;
+  routeTag: string;
+  branchTag: string;
+  stopTag: string;
+  stopTitle: string;
+  destination: string;
+  etas?: number[];
+  routeTitle: string;
+  stopId?: string;
+}
+
+export interface FavouriteEta {
+  id: string;
+  stopTag: string;
+  routeTag: string;
+  destination: string;
+  routeTitle: string;
+  stopId?: string;
+}
+
+export interface FavouriteEtaRedux {
+  ids: string[];
+  entities: { [key: string]: FavouriteEta };
 }
