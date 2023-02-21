@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { stopBookmarksSlice } from "./bookmarks/slice";
+import { favouriteEtasSlice } from "./favourites/slice";
 import { settingsSlice } from "./settings/slice";
 
 export const store = configureStore({
   reducer: {
     stopBookmarks: stopBookmarksSlice.reducer,
     settings: settingsSlice.reducer,
+    favouriteEtas: favouriteEtasSlice.reducer,
   },
 });
 
