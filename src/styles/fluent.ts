@@ -17,6 +17,11 @@ export const fluentStyles = makeStyles({
     borderTopRightRadius: "50%",
     borderBottomRightRadius: "50%",
   },
+  cardBadge: {
+    marginTop: "50%",
+    marginBottom: "50%",
+    marginRight: "12px",
+  },
   badge: {
     ...shorthands.margin("8px", "8px", "8px", "0px"),
     minWidth: "48px",
