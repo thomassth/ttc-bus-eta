@@ -8,7 +8,7 @@ import { useCallback } from "react";
 
 import { StopAccordionsParams } from "../../models/lineStop";
 import { fluentStyles } from "../../styles/fluent";
-import { removeSpecialChars } from "../utils/routeNameUtils";
+import { removeSpecialChars } from "../utils/routeName";
 
 export function StopAccordions(props: StopAccordionsParams) {
   const fluentStyle = fluentStyles();

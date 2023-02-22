@@ -5,14 +5,17 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { lineDataEndpoint } from "../../constants/dataEndpoints";
+import {
+  googleMapEndpoint,
+  lineDataEndpoint,
+} from "../../constants/dataEndpoints";
 import { RouteXml } from "../../models/etaXml";
 import { LineStop } from "../../models/lineStop";
 import { fluentStyles } from "../../styles/fluent";
 import { StopAccordions } from "../accordions/StopAccordions";
 import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
-import { extractStopDataFromXml } from "../utils/xmlParserUtils";
+import { FetchXMLWithCancelToken } from "../utils/fetch";
+import { extractStopDataFromXml } from "../utils/xmlParser";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
@@ -30,7 +33,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         // skip not found data
         if (!matchingStop) return [];
 
-        const latLongLink = `http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`;
+        const latLongLink = `${googleMapEndpoint}${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`;
         const stopLink = `/stops/${matchingStop?.stopId}`;
 
         return {

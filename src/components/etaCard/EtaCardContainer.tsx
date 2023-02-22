@@ -2,6 +2,7 @@ import { Text, Title1 } from "@fluentui/react-components";
 import { t } from "i18next";
 import { useCallback, useEffect, useState } from "react";
 import { Trans } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { EtaPredictionXml } from "../../models/etaXml";
 import {
@@ -11,8 +12,8 @@ import {
 } from "../../models/favouriteEta";
 import { useAppSelector } from "../../store";
 import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
-import { extractEtaDataFromXml } from "../utils/xmlParserUtils";
+import { FetchXMLWithCancelToken } from "../utils/fetch";
+import { extractEtaDataFromXml } from "../utils/xmlParser";
 import { EtaCard } from "./EtaCard";
 
 export default function EtaCardContainer(props: EtaContainerParams) {
@@ -58,7 +59,6 @@ export default function EtaCardContainer(props: EtaContainerParams) {
     const result = processedEtaList.flatMap((eta) => {
       if (!eta.id) return [];
 
-      // const key = `${eta.branchTag}-${eta.stopTag}`;
       if (props.shdFilterNonFavourite) {
         if (!favouriteEtas.ids.includes(eta.id)) return [];
 
@@ -77,7 +77,9 @@ export default function EtaCardContainer(props: EtaContainerParams) {
 
   const Title = useCallback(() => {
     return processedEtaList[0] !== undefined && props.shdShowTitle ? (
-      <Title1 className="top-row">{processedEtaList[0].stopTitle}</Title1>
+      <Link to={`/lines/${processedEtaList[0].routeTag}`}>
+        <Title1 className="TitleLink">{processedEtaList[0].stopTitle}</Title1>
+      </Link>
     ) : null;
   }, [processedEtaList]);
 

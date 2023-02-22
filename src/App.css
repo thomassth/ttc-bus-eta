@@ -216,6 +216,10 @@ pre {
   flex: 1;
 }
 
+.TitleLink {
+  color: var(--colorBrandForegroundLink);
+}
+
 @media screen and (min-width: 800px) {
   .stopPredictionPage,
   .linePage,

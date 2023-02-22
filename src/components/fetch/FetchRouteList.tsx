@@ -7,8 +7,8 @@ import { routeListEndpoint } from "../../constants/dataEndpoints";
 import { RoutesXml } from "../../models/etaXml";
 import { fluentStyles } from "../../styles/fluent";
 import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
-import { parseRouteTitle } from "../utils/routeNameUtils";
+import { FetchXMLWithCancelToken } from "../utils/fetch";
+import { parseRouteTitle } from "../utils/routeName";
 
 export function RoutesInfo() {
   const [routeXmlData, setRouteXmlData] = useState<RoutesXml>();
