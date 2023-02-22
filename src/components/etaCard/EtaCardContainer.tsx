@@ -4,19 +4,18 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans } from "react-i18next";
 
 import { EtaPredictionXml } from "../../models/etaXml";
-import { BranchEta, FavouriteEtaRedux } from "../../models/favouriteEta";
+import {
+  BranchEta,
+  EtaContainerParams,
+  FavouriteEtaRedux,
+} from "../../models/favouriteEta";
 import { useAppSelector } from "../../store";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
 import { extractEtaDataFromXml } from "../utils/xmlParserUtils";
 import { EtaCard } from "./EtaCard";
 
-export default function EtaCardContainer(props: {
-  dataUrl: string;
-  shdShowTitle?: boolean;
-  shdFilterNonFavourite?: boolean;
-  stopId?: string;
-}) {
+export default function EtaCardContainer(props: EtaContainerParams) {
   const [rawEta, setRawEta] = useState<EtaPredictionXml>();
   const [processedEtaList, setProcessedEtaList] = useState<BranchEta[]>([]);
   const [etaCards, setEtaCards] = useState<JSX.Element[]>();
@@ -57,17 +56,17 @@ export default function EtaCardContainer(props: {
 
   useEffect(() => {
     const result = processedEtaList.flatMap((eta) => {
-      if (!eta.branchTag) return [];
+      if (!eta.id) return [];
 
-      const key = `${eta.branchTag}-${eta.stopTag}`;
+      // const key = `${eta.branchTag}-${eta.stopTag}`;
       if (props.shdFilterNonFavourite) {
-        if (!favouriteEtas.ids.includes(key)) return [];
+        if (!favouriteEtas.ids.includes(eta.id)) return [];
 
-        eta.stopId = favouriteEtas.entities[key].stopId;
+        eta.stopId = favouriteEtas.entities[eta.id].stopId;
       }
 
       return (
-        <li key={key}>
+        <li key={eta.id}>
           <EtaCard eta={eta} stopId={props.stopId} />
         </li>
       );

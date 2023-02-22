@@ -43,6 +43,7 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
             stopTitle: prediction.stopTitle,
             routeTitle: "",
             destination: "",
+            dirTag: "",
           },
         ];
       }
@@ -57,9 +58,11 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
           : [direction.prediction];
 
         let branchTag = "";
+        let dirTag = "";
         const branchEtas: number[] = etas.map((eta) => {
           branchTag =
             branchTag === "" && eta.branch !== "" ? eta.branch : branchTag;
+          dirTag = dirTag === "" && eta.dirTag !== "" ? eta.dirTag : dirTag;
           return eta.minutes;
         });
 
@@ -67,7 +70,7 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
           direction.title.split(branchTag.toLowerCase()).pop()?.trim() ?? "";
 
         return {
-          id: `${branchTag}-${prediction.stopTag}`,
+          id: dirTag,
           routeTag: prediction.routeTag,
           branchTag,
           stopTag: prediction.stopTag,

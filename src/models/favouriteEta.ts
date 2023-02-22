@@ -21,3 +21,10 @@ export interface FavouriteEtaRedux {
   ids: string[];
   entities: { [key: string]: FavouriteEta };
 }
+
+export interface EtaContainerParams {
+  dataUrl: string;
+  shdShowTitle?: boolean;
+  shdFilterNonFavourite?: boolean;
+  stopId?: string;
+}
