@@ -1,18 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import StopPredictionInfo from "../components/fetch/FetchStop";
+import EtaCardContainer from "../components/etaCard/EtaCardContainer";
+import { stopsDataEndpoint } from "../constants/dataEndpoints";
 
 export default function StopPrediction() {
   const params = useParams();
-  const stopNum = parseInt(`${params.stopId}`);
+  const stopId = params.stopId ?? "";
+  const [dataUrl, setDataUrl] = useState("");
 
   useEffect(() => {
-    document.title = `Stop ID ${stopNum} | TTC arrivals`;
+    document.title = `Stop ID ${stopId} | TTC arrivals`;
+    setDataUrl(stopsDataEndpoint.concat(stopId));
   });
   return (
     <main className="stopPredictionPage">
-      <StopPredictionInfo stopId={stopNum} />
+      <EtaCardContainer dataUrl={dataUrl} shdShowTitle={true} stopId={stopId} />
     </main>
   );
 }

@@ -6,6 +6,9 @@ export interface BasicXml {
   };
 }
 
+export interface EtaBusWithID extends EtaBus {
+  id: string;
+}
 export interface EtaBus {
   seconds: number;
   minutes: number;
