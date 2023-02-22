@@ -1,3 +1,10 @@
+export interface FavouriteEta {
+  id: string;
+  stopTag: string;
+  routeTag: string;
+  stopId?: string;
+}
+
 // routeTag = `53`A `53`B
 // branchTag = 53`A` 53`B`
 export interface BranchEta extends FavouriteEta {
@@ -6,13 +13,6 @@ export interface BranchEta extends FavouriteEta {
   destination: string;
   etas?: number[];
   routeTitle: string;
-}
-
-export interface FavouriteEta {
-  id: string;
-  stopTag: string;
-  routeTag: string;
-  stopId?: string;
 }
 
 export interface FavouriteEtaRedux {

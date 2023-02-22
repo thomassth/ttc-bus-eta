@@ -6,9 +6,6 @@ export interface BasicXml {
   };
 }
 
-export interface EtaBusWithID extends EtaBus {
-  id: string;
-}
 export interface EtaBus {
   seconds: number;
   minutes: number;
@@ -20,6 +17,10 @@ export interface EtaBus {
   branch: string;
   tripTag: number;
   epochTime: number;
+}
+
+export interface EtaBusWithID extends EtaBus {
+  id: string;
 }
 
 export interface EtaDirection {
