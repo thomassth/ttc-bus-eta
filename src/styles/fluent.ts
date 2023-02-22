@@ -17,8 +17,13 @@ export const fluentStyles = makeStyles({
     borderTopRightRadius: "50%",
     borderBottomRightRadius: "50%",
   },
+  etaLink: {
+    display: "flex",
+    height: "100%",
+    width: "100%",
+  },
   etaCard: {
-    minHeight: "120px",
+    width: "100%",
     boxShadow: "0 0 8px rgba(0,0,0,0.24), 0 14px 28px rgba(0,0,0,0.28);",
   },
   card: {
@@ -32,8 +37,6 @@ export const fluentStyles = makeStyles({
     marginBottom: "auto",
   },
   cardBadge: {
-    marginTop: "50%",
-    marginBottom: "50%",
     marginRight: "12px",
   },
   badge: {

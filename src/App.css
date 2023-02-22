@@ -203,6 +203,20 @@ pre {
   position: relative;
 }
 
+.etaBadgeContainer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.etaCardList li {
+  display: flex;
+  flex-direction: column;
+}
+
+.etaCardList li > * {
+  flex: 1;
+}
+
 @media screen and (min-width: 800px) {
   .stopPredictionPage,
   .linePage,

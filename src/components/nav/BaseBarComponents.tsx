@@ -43,7 +43,7 @@ export function BaseBarComponents({ width }: { width: number }) {
 
   const isLargerThanDefaultPhone = useCallback(() => {
     return width > 390;
-  }, []);
+  }, [width]);
 
   const getClassName = useCallback(() => {
     switch (true) {

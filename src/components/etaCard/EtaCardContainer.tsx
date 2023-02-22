@@ -101,7 +101,7 @@ export default function EtaCardContainer(props: {
       case etaCards && etaCards.length > 0:
         return (
           <div>
-            <ul>{etaCards}</ul>
+            <ul className="etaCardList">{etaCards}</ul>
           </div>
         );
       default:
