@@ -22,10 +22,12 @@ function App() {
   return (
     <div className="container">
       <header className="navBar">
-        <Link to={"/"} title={t("home.title.tooltip") || ""}>
-          <Title1 className="appTitle text-xl font-bold">
-            {t("home.title.name")}
-          </Title1>
+        <Link
+          className="appTitle"
+          to={"/"}
+          title={t("home.title.tooltip") || ""}
+        >
+          <Title1 className="text-xl font-bold">{t("home.title.name")}</Title1>
         </Link>
         <SideBar width={width} />
       </header>
