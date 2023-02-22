@@ -60,7 +60,7 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
         const branchEtas: number[] = etas.map((eta) => {
           branchTag =
             branchTag === "" && eta.branch !== "" ? eta.branch : branchTag;
-          return eta.seconds;
+          return eta.minutes;
         });
 
         const destination =
