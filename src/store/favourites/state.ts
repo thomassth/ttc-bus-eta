@@ -1,6 +1,8 @@
-export const loadStopBookmarkState = () => {
+import { FavouriteEtaRedux } from "../../models/favouriteEta";
+
+export const loadFavouriteEtasState = () => {
   try {
-    const serialState = localStorage.getItem("stopBookmarks");
+    const serialState = localStorage.getItem("favouriteEtas");
     if (serialState === null) {
       return { ids: [], entities: {} };
     }
@@ -11,13 +13,11 @@ export const loadStopBookmarkState = () => {
   }
 };
 
-export const saveStopBookmarkState = (state: {
-  id: number[];
-  entities: { id: number; name: string; value: string };
-}) => {
+export const saveFavouriteEtasState = (state: FavouriteEtaRedux) => {
   try {
     const serialState = JSON.stringify(state);
-    localStorage.setItem("stopBookmarks", serialState);
+    // localStorage.removeItem("favouriteEtas");
+    localStorage.setItem("favouriteEtas", serialState);
     localStorage.setItem("version", "1");
   } catch (err) {
     console.log(err);

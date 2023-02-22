@@ -9,7 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import { router } from "./routes/MainRouter";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { store } from "./store";
-import { saveStopBookmarkState } from "./store/bookmarks/state";
+import { saveFavouriteEtasState } from "./store/favourites/state";
 import { saveSettingsState } from "./store/settings/state";
 import { FluentTheme } from "./styles/FluentTheme";
 
@@ -28,8 +28,8 @@ if (container) {
 }
 
 store.subscribe(() => {
-  saveStopBookmarkState(store.getState().stopBookmarks);
   saveSettingsState(store.getState().settings);
+  saveFavouriteEtasState(store.getState().favouriteEtas);
 });
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

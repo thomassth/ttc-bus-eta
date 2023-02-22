@@ -10,13 +10,16 @@ import { FormEvent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { settingsRedux } from "../../models/etaObjects";
+import { settingsRedux } from "../../models/settings";
 import { store, useAppDispatch, useAppSelector } from "../../store";
 import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
 import RawDisplay from "../rawDisplay/RawDisplay";
 
 export function Settings() {
+  const { t, i18n } = useTranslation();
+  const fluentStyle = fluentStyles();
+  const dispatch = useAppDispatch();
   const settings: settingsRedux = useAppSelector((state) => state.settings);
 
   const devModeValue = settingsSelectors.selectById(
@@ -26,38 +29,12 @@ export function Settings() {
   const [devMode, setDevMode] = useState(
     typeof devModeValue !== "undefined" ? devModeValue.value === "true" : false
   );
-  const unifiedEtaValue = settingsSelectors.selectById(
-    store.getState().settings,
-    "unifiedEta"
-  );
-  const [unifiedEta, setUnifiedEta] = useState(
-    typeof unifiedEtaValue !== "undefined"
-      ? unifiedEtaValue.value !== "false"
-      : true
-  );
-  const { t, i18n } = useTranslation();
-  const fluentStyle = fluentStyles();
-  const dispatch = useAppDispatch();
 
   const handleLangChange = useCallback(
     (_: FormEvent<HTMLDivElement>, data: { value: string | undefined }) => {
       i18n.changeLanguage(data.value);
     },
     []
-  );
-
-  const handleUnifiedEtaChange = useCallback(
-    (_: FormEvent<HTMLDivElement>, data: { value: string | undefined }) => {
-      setUnifiedEta(data.value === "true");
-      dispatch(
-        changeSettings({
-          id: "unifiedEta",
-          name: "unifiedEta",
-          value: (data.value === "true").toString(),
-        })
-      );
-    },
-    [setUnifiedEta]
   );
 
   const devModeChange = useCallback(
@@ -76,6 +53,7 @@ export function Settings() {
     },
     [setDevMode]
   );
+
   return (
     <main className="settingsPage">
       <Title1>{t("nav.label.settings")}</Title1>
@@ -90,20 +68,11 @@ export function Settings() {
         <Radio value="zh" label={t("lang.zh")} />
       </RadioGroup>
       <Switch checked={devMode} onChange={devModeChange} label="Dev mode" />
-      <Link to="/about" title={t("nav.label.about") ?? "About"}>
+      <Link to="/about" title={t("nav.label.about") ?? ""}>
         <Button className={fluentStyle.navButtonLink}>
           {t("nav.label.about")}
         </Button>
       </Link>
-      <Title2>ETA lists</Title2>
-      <RadioGroup
-        defaultValue={`${unifiedEta}`}
-        aria-labelledby={"Unifed ETA mode"}
-        onChange={handleUnifiedEtaChange}
-      >
-        <Radio value="false" label={"separate for each line"} />
-        <Radio value="true" label={"single list"} />
-      </RadioGroup>
       <RawDisplay data={settings} />
     </main>
   );
