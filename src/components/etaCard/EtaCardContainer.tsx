@@ -93,7 +93,8 @@ export default function EtaCardContainer(props: EtaContainerParams) {
             </Text>
           </section>
         );
-      case etaCards === undefined || etaCards.length === 0:
+      case etaCards === undefined:
+      case etaCards && etaCards.length === 0:
         return (
           <section className="itemInfoPlaceholder">
             <Text>{t("home.homeNoEta")}</Text>
@@ -106,7 +107,7 @@ export default function EtaCardContainer(props: EtaContainerParams) {
           </div>
         );
       default:
-        return <></>;
+        return null;
     }
   }, [etaCards]);
 

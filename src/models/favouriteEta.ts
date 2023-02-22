@@ -1,6 +1,6 @@
 // routeTag = `53`A `53`B
 // branchTag = 53`A` 53`B`
-export interface BranchEta extends CommonEta {
+export interface BranchEta extends FavouriteEta {
   branchTag: string;
   stopTitle: string;
   destination: string;
@@ -8,9 +8,7 @@ export interface BranchEta extends CommonEta {
   routeTitle: string;
 }
 
-export interface FavouriteEta extends CommonEta {}
-
-interface CommonEta {
+export interface FavouriteEta {
   id: string;
   stopTag: string;
   routeTag: string;

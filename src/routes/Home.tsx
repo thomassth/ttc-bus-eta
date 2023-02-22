@@ -60,7 +60,7 @@ export default function Home() {
           {t("buttons.search")}
         </Button>
       </form>
-      <EtaCardContainer dataUrl={dataUrl} shdFilterNonFavourite={true} />
+      <EtaCardContainer dataUrl={dataUrl} shdFilterNonFavourite />
     </main>
   );
 }
