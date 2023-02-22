@@ -92,8 +92,6 @@ export const fluentStyles = makeStyles({
     ":focus": {
       borderTopLeftRadius: "0px",
       borderBottomLeftRadius: "0px",
-      ...shorthands.borderColor("transparent !important"),
-      boxShadow: "0px 0px 0px 0px transparent !important",
     },
   },
   flexGrowContent: {
