@@ -89,6 +89,7 @@ body {
   white-space: nowrap;
   color: var(--colorBrandForegroundLink);
   width: max-content;
+  display: block;
 }
 
 .etaCardHeader,
