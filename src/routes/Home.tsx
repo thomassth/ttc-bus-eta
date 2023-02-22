@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import EtaCardContainer from "../components/etaCard/EtaCardContainer";
 import { multiRouteDataEndpoint } from "../constants/dataEndpoints";
-import { FavouriteEtaRedux } from "../models/etaObjects";
+import { FavouriteEtaRedux } from "../models/favouriteEta";
 import { useAppSelector } from "../store";
 import { fluentStyles } from "../styles/fluent";
 import useNavigate from "./navigate";

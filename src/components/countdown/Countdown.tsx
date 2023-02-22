@@ -1,54 +1,47 @@
 import { Badge, Title2 } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+import { useCallback, useEffect, useState } from "react";
 
 import { fluentStyles } from "../../styles/fluent";
 
-export const expiredStyle = {
-  color: "red",
-};
-
-export function Countdown(props: { second: number; epochTime?: number }) {
-  const [sec, setSec] = useState(props.second);
+export function Countdown(props: { minute: number }) {
+  const [minute, setMinute] = useState(props.minute);
   const fluentStyle = fluentStyles();
-  const { t } = useTranslation();
 
-  // TODO: not using seconds provided in API; may make it an option later
+  const ArrivingBadge = useCallback(() => {
+    return minute <= 3 ? (
+      <div className="badge arriving">
+        <Badge color="danger" shape="rounded">
+          {t("badge.arriving")}
+        </Badge>
+      </div>
+    ) : null;
+  }, [minute]);
+
+  const EtaTime = useCallback(() => {
+    return minute >= 0 ? (
+      <Title2 className={fluentStyle.countDown}>{`${minute}${t(
+        "eta.minuteShort"
+      )}`}</Title2>
+    ) : null;
+  }, [minute]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSec(sec - 1);
-    }, 1000);
-    if (sec <= 0) {
+      setMinute(minute - 1);
+    }, 60000);
+
+    if (minute <= 0) {
       clearTimeout(timer);
     }
 
-    // Cleanup
     return () => clearTimeout(timer);
-  }, [sec]);
-  return (
-    <div className="countdown number">
-      {sec < 180 ? <ArrivingBadge /> : null}
-
-      {sec > 0 ? (
-        <Title2 className={fluentStyle.number}>
-          {Math.floor(sec / 60) >= 1
-            ? `${Math.floor(sec / 60)}${t("eta.minuteShort")} `
-            : `${sec % 60}${t("eta.secondShort")}`}
-        </Title2>
-      ) : null}
-    </div>
-  );
-}
-
-function ArrivingBadge() {
-  const { t } = useTranslation();
+  }, [minute]);
 
   return (
-    <div className="badge arriving">
-      <Badge color="danger" shape="rounded">
-        {t("badge.arriving")}
-      </Badge>
+    <div className="countdown">
+      <ArrivingBadge />
+      <EtaTime />
     </div>
   );
 }

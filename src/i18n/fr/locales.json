@@ -3,62 +3,51 @@
     "label": {
       "home": "Accueil",
       "lines": "Lignes",
-      "about": "Aide",
+      "about": "À propos",
       "lang": "Langue",
-      "settings": "Paramètres",
-      "bookmarks": "Signet"
+      "settings": "Paramètres"
     }
   },
   "home": {
     "title": {
-      "name": "TTC arrivées",
-      "tooltip": "Rentrer à la maison"
+      "name": "Arrivées TTC",
+      "tooltip": "Retourner à l'accueil"
     },
-    "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br />",
-    "bookmarkReminder": "Essayez de cliquer sur les icônes de signet sur un arrêt que vous visitez fréquemment.",
-    "homeNoEta": "Tous vos arrêts marqués n'ont pas d'ETA."
+    "headline": "Vous verrez ici des listes sauvegardées, à l'avenir. <br />",
+    "etaReminder": "Essayez de cliquer sur les icônes de signet sur un arrêt que vous fréquentez fréquemment.",
+    "homeNoEta": "Tous les arrêts que vous avez ajoutés en signet n'ont pas d'ETA."
   },
   "lines": {
     "ariaLabel": "entrer un numéro de ligne",
-    "placeholder": "nombre de lignes",
-    "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
-    "title": "Entrer un numéro de ligne:",
-    "number": "Lignes {{lineNum}}",
-    "lineAndStopInfo": "Lignes {{lineNum}} Arrêt de {{stopNum}} =",
-    "noLineInDb": "Erreur : Cette ligne n'est pas dans la base de données d'itinéraires.<br />Les lignes de métro ne sont pas prises en charge pour le moment."
-  },
-  "stops": {
-    "stopId": "Arrêt de ID {{stopNum}} ="
+    "placeholder": "entrer un numéro de ligne",
+    "browserTitle": "Ligne {{lineNum}} | Arrivées TTC",
+    "title": "Entrez un numéro de ligne :",
+    "number": "Ligne {{lineNum}}",
+    "lineAndStopInfo": "Ligne {{lineNum}} Arrêt {{stopNum}} =",
+    "noLineInDb": "Erreur : Cette ligne n'est pas dans la base de données des itinéraires. <br />Les lignes de métro ne sont pas prises en charge pour le moment."
   },
   "buttons": {
-    "search": "Chercher",
-    "refresh": "Rafraîchir",
-    "clear": "Tout effacer",
-    "mapPin": "Voir l'emplacement sur google maps",
-    "busIcon": "voir les heures d'arrivée",
-    "languageChange": "sélection de la langue",
-    "delete": "effacer",
-    "bookmarkAdd": "Ajouter au signet",
-    "bookmarkDelete": "Supprimer le signet",
-    "bookmarkEdit": "Edit bookmarks"
-  },
-  "reminder": {
-    "failToLocate": "Impossible de localiser cet itinéraire.",
-    "wrongPlace": "Ne devrait pas être ici :/",
-    "loading": "Chargement...",
-    "noEta": "Pas d'arrivées à venir."
+    "search": "Rechercher",
+    "mapPin": "Voir l'emplacement dans Google Maps",
+    "busIcon": "Voir l'ETA de l'arrêt",
+    "languageChange": "sélection de la langue"
   },
   "error": {
-    "notFound": "Erreur: cette page n'existe pas."
+    "notFound": "404 : cette page n'existe pas :("
   },
   "debug": {
-    "showResponse": "Afficher la réponse brute"
+    "showResponse": "Voir la réponse brute"
   },
   "eta": {
     "minuteShort": "m",
     "secondShort": "s"
   },
   "badge": {
-    "arriving": "Arrivant"
+    "arriving": "Arrivée"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français (Traduit par ChatGpt)",
+    "zh": "中文"
   }
 }

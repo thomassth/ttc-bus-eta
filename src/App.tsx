@@ -33,10 +33,10 @@ function App() {
             </Title1>
           </LinkFluent>
         </Link>
-        {width >= 800 && <SideBar width={width} />}
+        <SideBar width={width} />
       </header>
       <Outlet />
-      {width < 800 && <BottomBar width={width} />}
+      <BottomBar width={width} />
     </div>
   );
 }

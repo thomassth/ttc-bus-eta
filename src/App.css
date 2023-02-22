@@ -89,7 +89,6 @@ body {
   white-space: nowrap;
 }
 
-.bookmarkedStop,
 .etaCardHeader,
 .routeCard {
   color: var(--colorBrandForegroundLink);
@@ -104,9 +103,8 @@ main {
   width: 100%;
 }
 
-.countdownListContainer ul,
 .stopsListContainer ul,
-.bookmarkContainer ul,
+.etaCardContainer ul,
 .bottomNav ul,
 .sideNav ul,
 .linePage ul {
@@ -138,19 +136,6 @@ main {
   flex-direction: column;
 }
 
-.countdownListContainer .stopPredictionDetails {
-  margin-top: 32px;
-}
-
-.countdownRow {
-  display: flex;
-  align-items: center;
-}
-
-.countdownButtonGroup {
-  margin: 8px 0px 0px 0px;
-}
-
 .countdown {
   padding: 0px 4px;
   display: flex;
@@ -162,35 +147,23 @@ main {
   align-self: center;
 }
 
-.stopPredictionDetails {
-  display: flex;
-  flex-direction: column;
-}
-
-.bookmarkContainer ul {
+.etaCardContainer ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 24px;
   margin: 32px 0;
 }
 
-.bookmarkContainer .bookmarkClearButton {
+.etaCardContainer {
   margin-bottom: 32px;
   width: 100%;
 }
 
-.bookmarkContainer ul .cardContainer {
-  overflow: unset;
-  padding: 8px 16px 16px 16px;
-}
-
-/* .bookmarkContainer ul a, */
 .bottomNav a,
 .sideNav a,
 .settingsPage a,
 .routerLink,
-.countdownRow a,
-.bookmarkContainer a {
+.etaCardContainer a {
   text-decoration: none;
 }
 
@@ -206,20 +179,11 @@ pre {
 .routeCard {
   display: flex;
   align-items: center;
-  gap: 16px;
 }
 
 .itemInfoPlaceholder {
   margin-top: 16px;
   margin-bottom: 16px;
-}
-
-div .clickableCard {
-  overflow: visible;
-}
-
-.clickableCard:hover {
-  background-color: var(--colorNeutralBackground2);
 }
 
 .etaCardBranchTagAndDestination {
@@ -233,17 +197,27 @@ div .clickableCard {
   gap: 12px;
 }
 
-div .removeButton {
-  min-height: 32px;
-  min-width: 32px;
-  position: absolute;
-  top: -16px;
-  right: -16px;
-  border-radius: 50%;
-}
-
 .etaCard {
   position: relative;
+}
+
+.etaBadgeContainer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.etaCardList li {
+  display: flex;
+  flex-direction: column;
+  min-height: 136px;
+}
+
+.etaCardList li > * {
+  flex: 1;
+}
+
+.TitleLink {
+  color: var(--colorBrandForegroundLink);
 }
 
 @media screen and (min-width: 800px) {
@@ -278,7 +252,7 @@ div .removeButton {
 }
 
 @media (max-width: 800px) {
-  .bookmarkContainer ul {
+  .etaCardContainer ul {
     grid-template-columns: auto;
   }
 }
@@ -286,14 +260,5 @@ div .removeButton {
 @media screen and (max-width: 390px) {
   .searchBlock button {
     width: 100%;
-  }
-
-  .bookmarkedStop .badgeGroup .bookmarkedEta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .bookmarkedStop .bookmarkedEta .badgeGroup > * {
-    margin: 0;
   }
 }
