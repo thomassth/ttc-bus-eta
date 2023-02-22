@@ -163,12 +163,12 @@ main {
 .sideNav a,
 .settingsPage a,
 .routerLink,
-.countdownRow a,
 .etaCardContainer a {
   text-decoration: none;
 }
 
 .etaCardCountdown > * {
+  flex-wrap: wrap;
   float: right;
 }
 

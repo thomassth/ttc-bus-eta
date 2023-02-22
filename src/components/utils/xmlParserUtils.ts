@@ -66,8 +66,9 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
           return eta.minutes;
         });
 
+        // yes I know, dont't judge me...
         const destination =
-          direction.title.split(branchTag.toLowerCase()).pop()?.trim() ?? "";
+          direction.title.split("towards").pop()?.trim() ?? "";
 
         return {
           id: dirTag,

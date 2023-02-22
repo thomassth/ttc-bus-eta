@@ -56,8 +56,9 @@ export const fluentStyles = makeStyles({
       paddingLeft: "0px",
     },
   },
-  number: {
+  countDown: {
     fontFamily: ["monospace", "PT Mono"],
+    marginLeft: "auto",
   },
   refreshButton: {
     width: "max-content",
