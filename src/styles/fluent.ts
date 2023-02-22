@@ -17,6 +17,12 @@ export const fluentStyles = makeStyles({
     borderTopRightRadius: "50%",
     borderBottomRightRadius: "50%",
   },
+  card: {
+    ...shorthands.overflow("visible"),
+    "&:hover": {
+      backgroundColor: tokens.colorNeutralBackground2,
+    },
+  },
   cardBadge: {
     marginTop: "50%",
     marginBottom: "50%",

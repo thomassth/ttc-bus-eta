@@ -22,3 +22,11 @@ export interface LineStop {
   latlong: number[];
   stopId: number;
 }
+
+export interface StopAccordionsParams {
+  result: LineStopElement[];
+  title: string;
+  direction: string;
+  lineNum: number;
+  tag: string;
+}
