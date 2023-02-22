@@ -19,7 +19,7 @@ export function Countdown(props: { minute: number }) {
   }, [minute]);
 
   const EtaTime = useCallback(() => {
-    return minute > 0 ? (
+    return minute >= 0 ? (
       <Title2 className={fluentStyle.number}>{`${minute}${t(
         "eta.minuteShort"
       )}`}</Title2>

@@ -66,7 +66,7 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
   return (
     <div className="etaCard">
       <Link to={getLink()} className={fluentStyle.etaLink}>
-        <Card className={`${fluentStyle.etaCard} ${fluentStyle.card}`}>
+        <Card className={`${fluentStyle.etaCard}`}>
           <CardHeader
             className={fluentStyle.cardHeader}
             header={
@@ -74,7 +74,7 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
                 <div className="etaCardBranchTagAndDestination">
                   <div className="etaBadgeContainer">
                     <Badge
-                      className={`${fluentStyle.cardBadge}`}
+                      className={fluentStyle.cardBadge}
                       key={props.eta.routeTag}
                     >
                       {props.eta.branchTag}

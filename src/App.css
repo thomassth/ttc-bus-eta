@@ -169,7 +169,6 @@ main {
 }
 
 .etaCardCountdown > * {
-  flex-wrap: wrap;
   float: right;
 }
 
@@ -180,7 +179,6 @@ pre {
 .routeCard {
   display: flex;
   align-items: center;
-  gap: 16px;
 }
 
 .itemInfoPlaceholder {

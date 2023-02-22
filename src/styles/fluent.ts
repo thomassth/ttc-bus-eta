@@ -22,11 +22,15 @@ export const fluentStyles = makeStyles({
     height: "100%",
     width: "100%",
   },
+  card: {
+    ...shorthands.overflow("visible"),
+    "&:hover": {
+      backgroundColor: tokens.colorNeutralBackground2,
+    },
+  },
   etaCard: {
     width: "100%",
     boxShadow: "0 0 8px rgba(0,0,0,0.24), 0 14px 28px rgba(0,0,0,0.28);",
-  },
-  card: {
     ...shorthands.overflow("visible"),
     "&:hover": {
       backgroundColor: tokens.colorNeutralBackground2,
@@ -38,6 +42,7 @@ export const fluentStyles = makeStyles({
   },
   cardBadge: {
     marginRight: "12px",
+    minWidth: "48px",
   },
   badge: {
     ...shorthands.margin("8px", "8px", "8px", "0px"),
