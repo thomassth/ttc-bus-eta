@@ -1,5 +1,30 @@
-import { EtaPredictionXml } from "../../models/etaXml";
+import { XMLParser } from "fast-xml-parser";
+
+import { EtaPredictionXml, RouteXml } from "../../models/etaXml";
 import { BranchEta } from "../../models/favouriteEta";
+import { LineStop } from "../../models/lineStop";
+
+export const xmlParser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: "",
+});
+
+export function extractStopDataFromXml(json: RouteXml): LineStop[] {
+  if (json.body.Error === undefined) {
+    return json.body.route.stop.flatMap((element) => {
+      if (element.stopId === undefined) return [];
+
+      return {
+        id: parseInt(element.tag),
+        name: element.title,
+        latlong: [parseFloat(element.lat), parseFloat(element.lon)],
+        stopId: parseInt(element.stopId),
+      };
+    });
+  }
+
+  return [];
+}
 
 export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
   const predictions = Array.isArray(json.body.predictions)

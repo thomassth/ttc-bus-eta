@@ -14,7 +14,7 @@ import { settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
 
 export default function RawDisplay(props: {
-  data: EtaPredictionXml | RouteXml | RoutesXml | settingsRedux;
+  data: EtaPredictionXml | RouteXml | RoutesXml | settingsRedux | undefined;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();

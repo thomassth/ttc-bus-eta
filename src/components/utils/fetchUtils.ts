@@ -1,4 +1,4 @@
-import { xmlParser } from "../parser/parserUtils";
+import { xmlParser } from "./xmlParserUtils";
 
 type RequestInit = globalThis.RequestInit;
 export async function FetchXMLWithCancelToken(

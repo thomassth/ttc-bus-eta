@@ -1,13 +1,13 @@
 import { Text, Title1 } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { t } from "i18next";
+import { useCallback, useEffect, useState } from "react";
 
 import { EtaPredictionXml } from "../../models/etaXml";
 import { BranchEta, FavouriteEtaRedux } from "../../models/favouriteEta";
 import { useAppSelector } from "../../store";
-import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
-import { extractEtaDataFromXml } from "../parser/multiStopParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
+import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
+import { extractEtaDataFromXml } from "../utils/xmlParserUtils";
 import { EtaCard } from "./EtaCard";
 
 export default function EtaCardContainer(props: {
@@ -16,11 +16,9 @@ export default function EtaCardContainer(props: {
   shdFilterNonFavourite?: boolean;
   stopId?: string;
 }) {
-  const { t } = useTranslation();
   const [rawEta, setRawEta] = useState<EtaPredictionXml>();
   const [processedEtaList, setProcessedEtaList] = useState<BranchEta[]>([]);
   const [etaCards, setEtaCards] = useState<JSX.Element[]>();
-  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
   const favouriteEtas: FavouriteEtaRedux = useAppSelector(
     (state) => state.favouriteEtas
   );
@@ -47,7 +45,6 @@ export default function EtaCardContainer(props: {
         }
 
         setRawEta(parsedData);
-        setLastUpdatedAt(Date.now());
         setProcessedEtaList(extractEtaDataFromXml(parsedData));
       });
     }
@@ -78,26 +75,43 @@ export default function EtaCardContainer(props: {
     setEtaCards(result);
   }, [processedEtaList]);
 
+  const Title = useCallback(() => {
+    return processedEtaList[0] !== undefined && props.shdShowTitle ? (
+      <Title1 className="top-row">{processedEtaList[0].stopTitle}</Title1>
+    ) : null;
+  }, [processedEtaList]);
+
+  const EtaCards = useCallback(() => {
+    switch (true) {
+      case processedEtaList.length === 0:
+        return (
+          <section className="itemInfoPlaceholder">
+            <Text>{t("home.headline")}</Text>
+            <Text>{t("home.etaReminder")}</Text>
+          </section>
+        );
+      case etaCards === undefined || etaCards.length === 0:
+        return (
+          <section className="itemInfoPlaceholder">
+            <Text>{t("home.homeNoEta")}</Text>
+          </section>
+        );
+      case etaCards && etaCards.length > 0:
+        return (
+          <div>
+            <ul>{etaCards}</ul>
+          </div>
+        );
+      default:
+        return <></>;
+    }
+  }, [etaCards]);
+
   return (
-    <div className="bookmarkContainer">
-      {processedEtaList[0] !== undefined && props.shdShowTitle ? (
-        <Title1 className="top-row">{processedEtaList[0].stopTitle}</Title1>
-      ) : null}
-      {etaCards === undefined || etaCards.length === 0 ? (
-        <section className="itemInfoPlaceholder">
-          <Trans>{t("home.headline")}</Trans>
-          <Text>{t("home.bookmarkReminder")}</Text>
-        </section>
-      ) : etaCards && etaCards.length > 0 ? (
-        <div>
-          <ul>{etaCards}</ul>
-        </div>
-      ) : lastUpdatedAt > 0 ? (
-        <section>
-          <p>{t("home.homeNoEta")}</p>
-        </section>
-      ) : null}
-      {rawEta !== undefined && <RawDisplay data={rawEta} />}
+    <div className="etaCardContainer">
+      <Title />
+      <EtaCards />
+      <RawDisplay data={rawEta} />
     </div>
   );
 }

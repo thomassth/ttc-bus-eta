@@ -1,46 +1,39 @@
-import {
-  Badge,
-  Button,
-  Link as LinkFluent,
-  Text,
-} from "@fluentui/react-components";
+import { Badge, Button, Text } from "@fluentui/react-components";
 import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
+import { t } from "i18next";
 import { useCallback, useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import { lineDataEndpoint } from "../../constants/dataEndpoints";
 import { RouteXml } from "../../models/etaXml";
-import { LineStop, LineStopElement } from "../../models/lineStop";
+import { LineStop } from "../../models/lineStop";
 import { fluentStyles } from "../../styles/fluent";
 import { StopAccordions } from "../accordions/StopAccordions";
-import { stopsParser } from "../parser/stopsParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { FetchXMLWithCancelToken } from "../utils/fetchUtils";
+import { extractStopDataFromXml } from "../utils/xmlParserUtils";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
-  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
-  const { t } = useTranslation();
-
   const fluentStyle = fluentStyles();
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
-      const result: LineStopElement[] = [];
-
-      for (const element of stuff.stop) {
+      return stuff.stop.flatMap((element) => {
         const matchingStop = stopDb.find(
           (searching) => parseInt(element.tag) === searching.id
         );
 
         // skip not found data
-        if (!matchingStop) {
-          continue;
-        }
+        if (!matchingStop) return [];
 
-        result.push({
+        const latLongLink = `http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`;
+        const stopLink = `/stops/${matchingStop?.stopId}`;
+
+        return {
           id: (
             <Badge className={fluentStyle.badge} appearance="outline">
               {matchingStop?.id}
@@ -49,24 +42,17 @@ function RouteInfo(props: { line: number }): JSX.Element {
           key: matchingStop?.id ?? 0,
           name: `${matchingStop?.name}`,
           latlong: (
-            <a
-              title={t("buttons.mapPin") ?? "View location in Google Maps"}
-              href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
-            >
+            <a title={t("buttons.mapPin") ?? ""} href={latLongLink}>
               <Button icon={<Map24Filled />} />
             </a>
           ),
           stopId: (
-            <Link
-              to={`/stops/${matchingStop?.stopId}`}
-              title={t("buttons.busIcon") ?? "View stop ETA"}
-            >
+            <Link to={stopLink} title={t("buttons.busIcon") ?? ""}>
               <Button icon={<VehicleBus16Filled />} />
             </Link>
           ),
-        });
-      }
-      return result;
+        };
+      });
     },
     [stopDb]
   );
@@ -76,7 +62,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
     const fetchStopsData = async () => {
       const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${lineNum}`,
+        `${lineDataEndpoint}${lineNum}`,
         {
           signal: controller.signal,
           method: "GET",
@@ -90,24 +76,18 @@ function RouteInfo(props: { line: number }): JSX.Element {
       if (error || !parsedData) {
         return;
       }
+
       setData(parsedData);
-      setStopDb(stopsParser(parsedData));
+      setStopDb(extractStopDataFromXml(parsedData));
     });
 
-    // when useEffect is called, the following clean-up fn will run first
     return () => {
       controller.abort();
     };
-  }, [lastUpdatedAt]);
+  }, []);
 
-  const handleFetchBusClick = useCallback(() => {
-    setLastUpdatedAt(Date.now());
-    setData(undefined);
-    setStopDb([]);
-  }, [lastUpdatedAt]);
-
-  if (data !== undefined) {
-    if (data.body.Error === undefined) {
+  const Route = useCallback(() => {
+    if (data !== undefined && data.body.Error === undefined) {
       const accordionList: JSX.Element[] = data.body.route.direction.map(
         (element) => {
           const list = createStopList(element);
@@ -125,48 +105,21 @@ function RouteInfo(props: { line: number }): JSX.Element {
         }
       );
 
-      return (
-        <div className="stopsListContainer">
-          <ul>
-            {accordionList}
-            <li>
-              <RawDisplay data={data} />
-            </li>
-          </ul>
-        </div>
-      );
-    } else {
-      const noRouteRegex = /Could not get route /;
-      const errorString = data.body.Error["#text"];
-      if (noRouteRegex.test(errorString)) {
-        return (
-          <div className="stopsListContainer">
-            <Text as="h1" weight="semibold">
-              <Trans>{t("lines.noLineInDb")}</Trans>
-            </Text>
-            <RawDisplay data={data} />
-          </div>
-        );
-      } else
-        return (
-          <div className="stopsListContainer">
-            <LinkFluent onClick={handleFetchBusClick}>
-              <Text as="h1" weight="semibold">
-                {`Error: ${errorString}`}
-              </Text>
-            </LinkFluent>
-            <RawDisplay data={data} />
-          </div>
-        );
+      return <ul>{accordionList}</ul>;
     }
-  } else {
+
     return (
-      <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
-        <Text as="h1" weight="semibold">
-          {t("reminder.loading")}
-        </Text>
-      </LinkFluent>
+      <Text as="h1" weight="semibold">
+        <Trans>{t("lines.noLineInDb")}</Trans>
+      </Text>
     );
-  }
+  }, [data]);
+
+  return (
+    <div className="stopsListContainer">
+      <Route />
+      <RawDisplay data={data} />
+    </div>
+  );
 }
 export default RouteInfo;
