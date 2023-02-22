@@ -209,7 +209,7 @@ pre {
 .etaCardList li {
   display: flex;
   flex-direction: column;
-  min-height: 100px;
+  min-height: 136px;
 }
 
 .etaCardList li > * {

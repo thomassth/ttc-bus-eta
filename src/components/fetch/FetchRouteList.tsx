@@ -55,7 +55,7 @@ export function RoutesInfo() {
         <li key={routeItem.tag}>
           <Card className={fluentStyle.card}>
             <Link className="routeCard" to={cardLink}>
-              <Badge className={fluentStyle.cardBadge}>{routeItem.tag}</Badge>
+              <Badge className={fluentStyle.routeBadge}>{routeItem.tag}</Badge>
               <Text>{parseRouteTitle(routeItem.title)}</Text>
             </Link>
           </Card>

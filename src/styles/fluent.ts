@@ -48,6 +48,10 @@ export const fluentStyles = makeStyles({
     ...shorthands.margin("8px", "8px", "8px", "0px"),
     minWidth: "48px",
   },
+  routeBadge: {
+    ...shorthands.margin("4px", "8px", "4px", "0px"),
+    minWidth: "36px",
+  },
   accordionHeader: {
     ...shorthands.margin("0px", "0px"),
 
