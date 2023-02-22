@@ -4,42 +4,39 @@ import { useCallback, useEffect, useState } from "react";
 
 import { fluentStyles } from "../../styles/fluent";
 
-export function Countdown(props: { second: number }) {
-  const [sec, setSec] = useState(props.second);
+export function Countdown(props: { minute: number }) {
+  const [minute, setMinute] = useState(props.minute);
   const fluentStyle = fluentStyles();
 
   const ArrivingBadge = useCallback(() => {
-    return sec < 180 ? (
+    return minute <= 3 ? (
       <div className="badge arriving">
         <Badge color="danger" shape="rounded">
           {t("badge.arriving")}
         </Badge>
       </div>
     ) : null;
-  }, [sec]);
+  }, [minute]);
 
   const EtaTime = useCallback(() => {
-    const etaTime =
-      Math.floor(sec / 60) >= 1
-        ? `${Math.floor(sec / 60)}${t("eta.minuteShort")} `
-        : `${sec % 60}${t("eta.secondShort")}`;
-
-    return sec > 0 ? (
-      <Title2 className={fluentStyle.number}>{etaTime}</Title2>
+    return minute > 0 ? (
+      <Title2 className={fluentStyle.number}>{`${minute}${t(
+        "eta.minuteShort"
+      )}`}</Title2>
     ) : null;
-  }, [sec]);
+  }, [minute]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSec(sec - 1);
-    }, 1000);
+      setMinute(minute - 1);
+    }, 60000);
 
-    if (sec <= 0) {
+    if (minute <= 0) {
       clearTimeout(timer);
     }
 
     return () => clearTimeout(timer);
-  }, [sec]);
+  }, [minute]);
 
   return (
     <div className="countdown">
