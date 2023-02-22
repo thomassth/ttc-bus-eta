@@ -66,8 +66,9 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
   return (
     <div className="etaCard">
       <Link to={getLink()}>
-        <Card className={fluentStyle.card}>
+        <Card className={`${fluentStyle.etaCard} ${fluentStyle.card}`}>
           <CardHeader
+            className={fluentStyle.cardHeader}
             header={
               <div className="etaCardHeader">
                 <div className="etaCardBranchTagAndDestination">
@@ -88,7 +89,7 @@ export function EtaCard(props: { eta: BranchEta; stopId?: string }) {
             }
             action={
               <div className="etaCardCountdown">
-                <Countdown second={getEtaTime()} />
+                <Countdown minute={getEtaTime()} />
               </div>
             }
           />

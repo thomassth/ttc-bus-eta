@@ -1,6 +1,7 @@
 import { Text, Title1 } from "@fluentui/react-components";
 import { t } from "i18next";
 import { useCallback, useEffect, useState } from "react";
+import { Trans } from "react-i18next";
 
 import { EtaPredictionXml } from "../../models/etaXml";
 import { BranchEta, FavouriteEtaRedux } from "../../models/favouriteEta";
@@ -86,8 +87,9 @@ export default function EtaCardContainer(props: {
       case processedEtaList.length === 0:
         return (
           <section className="itemInfoPlaceholder">
-            <Text>{t("home.headline")}</Text>
-            <Text>{t("home.etaReminder")}</Text>
+            <Text>
+              <Trans>{t("home.etaReminder")}</Trans>
+            </Text>
           </section>
         );
       case etaCards === undefined || etaCards.length === 0:

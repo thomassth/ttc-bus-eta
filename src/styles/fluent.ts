@@ -17,11 +17,19 @@ export const fluentStyles = makeStyles({
     borderTopRightRadius: "50%",
     borderBottomRightRadius: "50%",
   },
+  etaCard: {
+    minHeight: "120px",
+    boxShadow: "0 0 8px rgba(0,0,0,0.24), 0 14px 28px rgba(0,0,0,0.28);",
+  },
   card: {
     ...shorthands.overflow("visible"),
     "&:hover": {
       backgroundColor: tokens.colorNeutralBackground2,
     },
+  },
+  cardHeader: {
+    marginTop: "auto",
+    marginBottom: "auto",
   },
   cardBadge: {
     marginTop: "50%",
