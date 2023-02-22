@@ -71,7 +71,7 @@ export const extractEtaDataFromXml = (json: EtaPredictionXml): BranchEta[] => {
           direction.title.split("towards").pop()?.trim() ?? "";
 
         return {
-          id: dirTag,
+          id: `${dirTag}-${prediction.stopTag}`,
           routeTag: prediction.routeTag,
           branchTag,
           stopTag: prediction.stopTag,
