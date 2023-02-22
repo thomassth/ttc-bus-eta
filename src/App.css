@@ -84,9 +84,11 @@ body {
   gap: 16px;
 }
 
-.routerLink .appTitle {
+.appTitle {
   overflow: hidden;
   white-space: nowrap;
+  color: var(--colorBrandForegroundLink);
+  width: max-content;
 }
 
 .etaCardHeader,

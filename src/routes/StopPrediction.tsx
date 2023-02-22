@@ -15,7 +15,7 @@ export default function StopPrediction() {
   });
   return (
     <main className="stopPredictionPage">
-      <EtaCardContainer dataUrl={dataUrl} shdShowTitle={true} stopId={stopId} />
+      <EtaCardContainer dataUrl={dataUrl} shdShowTitle stopId={stopId} />
     </main>
   );
 }
