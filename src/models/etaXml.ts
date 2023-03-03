@@ -19,6 +19,10 @@ export interface EtaBus {
   epochTime: number;
 }
 
+export interface EtaBusWithID extends EtaBus {
+  id: string;
+}
+
 export interface EtaDirection {
   title: string;
   dirTitleBecauseNoPredictions: string | undefined;

@@ -5,8 +5,7 @@
       "lines": "Lines",
       "about": "About",
       "lang": "Language",
-      "settings": "Settings",
-      "bookmarks": "Bookmarks"
+      "settings": "Settings"
     }
   },
   "home": {
@@ -14,8 +13,7 @@
       "name": "TTC arrivals",
       "tooltip": "Return home"
     },
-    "headline": "You'll see saved lists here, in the FUTURE. <br />",
-    "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit.",
+    "etaReminder": "You'll see saved lists here, in the FUTURE. <br/> Try clicking the bookmark icons on a stop you frequently visit.",
     "homeNoEta": "All your bookmarked stops have no ETA."
   },
   "lines": {
@@ -27,26 +25,11 @@
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",
     "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
   },
-  "stops": {
-    "stopId": "Stop ID {{stopNum}} ="
-  },
   "buttons": {
     "search": "Search",
-    "refresh": "Refresh",
-    "clear": "Clear All",
     "mapPin": "View location in Google Maps",
     "busIcon": "View stop ETA",
-    "languageChange": "language selection",
-    "delete": "Delete",
-    "bookmarkAdd": "Add to bookmark",
-    "bookmarkDelete": "Remove bookmark",
-    "bookmarkEdit": "Edit bookmarks"
-  },
-  "reminder": {
-    "failToLocate": "Cannot locate this route.",
-    "wrongPlace": "Shouldn't be here :/",
-    "loading": "Loading...",
-    "noEta": "No ETAs detected."
+    "languageChange": "language selection"
   },
   "error": {
     "notFound": "404: this page does not exist :("
@@ -63,7 +46,7 @@
   },
   "lang": {
     "en": "English",
-    "fr": "Français (traduction automatique)",
+    "fr": "Français (Traduit par ChatGpt)",
     "zh": "中文"
   }
 }

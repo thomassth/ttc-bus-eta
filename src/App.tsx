@@ -1,4 +1,4 @@
-import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
+import { Title1 } from "@fluentui/react-components";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -23,20 +23,16 @@ function App() {
     <div className="container">
       <header className="navBar">
         <Link
-          className="routerLink"
+          className="appTitle"
           to={"/"}
           title={t("home.title.tooltip") || ""}
         >
-          <LinkFluent>
-            <Title1 className="appTitle text-xl font-bold">
-              {t("home.title.name")}
-            </Title1>
-          </LinkFluent>
+          <Title1 className="text-xl font-bold">{t("home.title.name")}</Title1>
         </Link>
-        {width >= 800 && <SideBar width={width} />}
+        <SideBar width={width} />
       </header>
       <Outlet />
-      {width < 800 && <BottomBar width={width} />}
+      <BottomBar width={width} />
     </div>
   );
 }

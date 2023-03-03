@@ -5,8 +5,7 @@
       "lines": "路線",
       "about": "關於",
       "lang": "語言",
-      "settings": "設定",
-      "bookmarks": "書籤"
+      "settings": "設定"
     }
   },
   "home": {
@@ -15,7 +14,7 @@
       "tooltip": "回主頁"
     },
     "headline": "加落書籤嘅站會出現響呢度。 <br />",
-    "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
+    "etaReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
     "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。"
   },
   "lines": {
@@ -27,26 +26,11 @@
     "lineAndStopInfo": "{{lineNum}} 線 #{{stopNum}} 站 =",
     "noLineInDb": "資料庫裏面冇呢條線嘅資料。<br />(暫時睇唔到地鐵路線)"
   },
-  "stops": {
-    "stopId": "車站編號 {{stopNum}}  ="
-  },
   "buttons": {
     "search": "搜尋",
-    "refresh": "更新",
-    "clear": "清除全部",
     "mapPin": "響 Google 地圖睇佢個位置",
     "busIcon": "睇巴士幾時到站",
-    "languageChange": "選擇語言",
-    "delete": "刪除",
-    "bookmarkAdd": "加呢頁落書籤",
-    "bookmarkDelete": "響書籤刪除呢頁",
-    "bookmarkEdit": "整理書籤"
-  },
-  "reminder": {
-    "failToLocate": "揾唔到呢條線",
-    "wrongPlace": "唔應該睇到呢句野架囉 🫤",
-    "loading": "Load 緊...",
-    "noEta": "冇即將到站資料。"
+    "languageChange": "選擇語言"
   },
   "error": {
     "notFound": "404: 我地冇呢一頁 😿"
@@ -60,5 +44,10 @@
   },
   "badge": {
     "arriving": "就到"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français (Traduit par ChatGpt)",
+    "zh": "中文"
   }
 }

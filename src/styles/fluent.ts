@@ -17,9 +17,40 @@ export const fluentStyles = makeStyles({
     borderTopRightRadius: "50%",
     borderBottomRightRadius: "50%",
   },
+  etaLink: {
+    display: "flex",
+    height: "100%",
+    width: "100%",
+  },
+  card: {
+    ...shorthands.overflow("visible"),
+    "&:hover": {
+      backgroundColor: tokens.colorNeutralBackground2,
+    },
+  },
+  etaCard: {
+    width: "100%",
+    boxShadow: "0 0 8px rgba(0,0,0,0.24), 0 14px 28px rgba(0,0,0,0.28);",
+    ...shorthands.overflow("visible"),
+    "&:hover": {
+      backgroundColor: tokens.colorNeutralBackground2,
+    },
+  },
+  cardHeader: {
+    marginTop: "auto",
+    marginBottom: "auto",
+  },
+  cardBadge: {
+    marginRight: "12px",
+    minWidth: "48px",
+  },
   badge: {
     ...shorthands.margin("8px", "8px", "8px", "0px"),
     minWidth: "48px",
+  },
+  routeBadge: {
+    ...shorthands.margin("4px", "8px", "4px", "0px"),
+    minWidth: "36px",
   },
   accordionHeader: {
     ...shorthands.margin("0px", "0px"),
@@ -29,8 +60,9 @@ export const fluentStyles = makeStyles({
       paddingLeft: "0px",
     },
   },
-  number: {
+  countDown: {
     fontFamily: ["monospace", "PT Mono"],
+    marginLeft: "auto",
   },
   refreshButton: {
     width: "max-content",
@@ -60,8 +92,6 @@ export const fluentStyles = makeStyles({
     ":focus": {
       borderTopLeftRadius: "0px",
       borderBottomLeftRadius: "0px",
-      ...shorthands.borderColor("transparent !important"),
-      boxShadow: "0px 0px 0px 0px transparent !important",
     },
   },
   flexGrowContent: {
