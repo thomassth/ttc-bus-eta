@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import StopPredictionInfo from "../components/FetchStop";
+import StopPredictionInfo from "../components/fetch/FetchStop";
 
 export default function StopPrediction() {
   const params = useParams();

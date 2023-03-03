@@ -9,13 +9,13 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { LineStop, LineStopElement } from "../data/etaObjects";
-import { RouteXml } from "../data/etaXml";
-import { fluentStyles } from "../styles/fluent";
-import RawDisplay from "./RawDisplay";
+import { LineStop, LineStopElement } from "../../models/etaObjects";
+import { RouteXml } from "../../models/etaXml";
+import { fluentStyles } from "../../styles/fluent";
+import { StopAccordions } from "../accordions/StopAccordions";
+import { stopsParser } from "../parser/stopsParser";
+import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
-import { StopAccordions } from "./lists/StopAccordions";
-import { stopsParser } from "./parser/stopsParser";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();

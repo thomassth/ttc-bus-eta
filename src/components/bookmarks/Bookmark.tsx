@@ -2,13 +2,13 @@ import { Button, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import RawDisplay from "../../components/RawDisplay";
-import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
-import { multiStopParser } from "../../components/parser/multiStopParser";
-import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { clearStopBookmarks } from "../../store/bookmarks/slice";
+import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
+import { multiStopParser } from "../parser/multiStopParser";
+import RawDisplay from "../rawDisplay/RawDisplay";
 import { BookmarkCard } from "./BookmarkCard";
-import { clearStopBookmarks } from "./stopBookmarkSlice";
 
 export default function Bookmark() {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(

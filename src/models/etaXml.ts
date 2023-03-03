@@ -6,28 +6,6 @@ export interface BasicXml {
   };
 }
 
-export type EtaPredictionXml = {
-  body: {
-    predictions: EtaPredictions[] | EtaPredictions;
-  };
-} & BasicXml;
-
-export interface EtaPredictions {
-  dirTitleBecauseNoPredictions: string | undefined;
-  direction: EtaDirection[] | EtaDirection;
-  agencyTitle: string;
-  stopTitle: string;
-  routeTag: string;
-  stopTag: string;
-  routeTitle: string;
-}
-
-export interface EtaDirection {
-  title: string;
-  dirTitleBecauseNoPredictions: string | undefined;
-  prediction: EtaBus[] | EtaBus;
-}
-
 export interface EtaBus {
   seconds: number;
   minutes: number;
@@ -39,6 +17,36 @@ export interface EtaBus {
   branch: string;
   tripTag: number;
   epochTime: number;
+}
+
+export interface EtaDirection {
+  title: string;
+  dirTitleBecauseNoPredictions: string | undefined;
+  prediction: EtaBus[] | EtaBus;
+}
+
+export interface EtaPredictions {
+  dirTitleBecauseNoPredictions: string | undefined;
+  direction: EtaDirection[] | EtaDirection;
+  agencyTitle: string;
+  stopTitle: string;
+  routeTag: string;
+  stopTag: string;
+  routeTitle: string;
+}
+
+export type EtaPredictionXml = {
+  body: {
+    predictions: EtaPredictions[] | EtaPredictions;
+  };
+} & BasicXml;
+
+export interface RouteLineXml {
+  title: string;
+  name: string;
+  branch: number;
+  stop: { tag: string }[];
+  tag: string;
 }
 
 export type RouteXml = {
@@ -68,14 +76,6 @@ export type RouteXml = {
     };
   };
 } & BasicXml;
-
-export interface RouteLineXml {
-  title: string;
-  name: string;
-  branch: number;
-  stop: { tag: string }[];
-  tag: string;
-}
 
 export type RoutesXml = {
   body: {

@@ -3,8 +3,8 @@ import { Card } from "@fluentui/react-components/unstable";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { RoutesXml } from "../data/etaXml";
-import RawDisplay from "./RawDisplay";
+import { RoutesXml } from "../../models/etaXml";
+import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
 
 const parseRouteTitle = (input: string) => {

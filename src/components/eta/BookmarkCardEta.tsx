@@ -2,10 +2,10 @@ import { Badge, Text } from "@fluentui/react-components";
 import { Card, CardHeader } from "@fluentui/react-components/unstable";
 import { Link } from "react-router-dom";
 
-import { useAppSelector } from "../../app/hooks";
-import { CountdownSec } from "../../components/countdown/CountdownSec";
-import { LineStopEta, stopBookmarksRedux } from "../../data/etaObjects";
+import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects";
+import { useAppSelector } from "../../store";
 import { fluentStyles } from "../../styles/fluent";
+import { CountdownSec } from "../countdown/CountdownSec";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(

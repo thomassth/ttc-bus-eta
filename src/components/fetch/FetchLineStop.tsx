@@ -4,11 +4,11 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionXml } from "../data/etaXml";
-import { fluentStyles } from "../styles/fluent";
-import RawDisplay from "./RawDisplay";
-import { CountdownSec } from "./countdown/CountdownSec";
-import { xmlParser } from "./parser/parserUtils";
+import { EtaPredictionXml } from "../../models/etaXml";
+import { fluentStyles } from "../../styles/fluent";
+import { CountdownSec } from "../countdown/CountdownSec";
+import { xmlParser } from "../parser/parserUtils";
+import RawDisplay from "../rawDisplay/RawDisplay";
 
 function LineStopPredictionInfo(props: {
   line: number;
@@ -78,9 +78,9 @@ function LineStopPredictionInfo(props: {
         }
         if (Array.isArray(data.body.predictions.direction)) {
           const directionListGroup = data.body.predictions.direction.map(
-            (line, index: number) => {
+            (line) => {
               return (
-                <div className="directionList list" key={`${index}`}>
+                <div className="directionList list" key={line.title}>
                   <Text>{line.title}</Text>
                   {Array.isArray(line.prediction) ? (
                     line.prediction.map((bus) => {

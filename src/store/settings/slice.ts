@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { settingsItem } from "../../data/etaObjects";
-import { loadSettingsState } from "./localstorage";
+import { settingsItem } from "../../models/etaObjects";
+import { loadSettingsState } from "./state";
 
 const persistedState = loadSettingsState();
 

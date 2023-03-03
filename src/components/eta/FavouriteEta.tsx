@@ -3,22 +3,18 @@ import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { useAppSelector } from "../../app/hooks";
-import { store } from "../../app/store";
-import RawDisplay from "../../components/RawDisplay";
-import { FetchXMLWithCancelToken } from "../../components/fetchUtils";
-import {
-  multiStopParser,
-  multiStopUnifier,
-} from "../../components/parser/multiStopParser";
 import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
-} from "../../data/etaObjects";
-import { EtaPredictionXml } from "../../data/etaXml";
+} from "../../models/etaObjects";
+import { EtaPredictionXml } from "../../models/etaXml";
+import { store, useAppSelector } from "../../store";
+import { settingsSelectors } from "../../store/settings/slice";
 import Bookmark from "../bookmarks/Bookmark";
-import { settingsSelectors } from "../settings/settingsSlice";
+import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
+import { multiStopParser, multiStopUnifier } from "../parser/multiStopParser";
+import RawDisplay from "../rawDisplay/RawDisplay";
 import { BookmarkCardEta } from "./BookmarkCardEta";
 import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 

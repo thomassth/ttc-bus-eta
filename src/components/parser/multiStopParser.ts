@@ -2,8 +2,8 @@ import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
-} from "../../data/etaObjects";
-import { EtaPredictionXml, EtaPredictions } from "../../data/etaXml";
+} from "../../models/etaObjects";
+import { EtaPredictionXml, EtaPredictions } from "../../models/etaXml";
 import { parseSingleOrMultiEta } from "./etaParserUtils";
 import { parseRoute } from "./routeName";
 
