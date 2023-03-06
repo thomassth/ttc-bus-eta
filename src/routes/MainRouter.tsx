@@ -37,7 +37,7 @@ export const router = createBrowserRouter(
       <Route path="*" element={<Error />} />
       <Route index element={<Home />} />
     </Route>
-  ),
+  )
   // TODO: use objects?
   // [
   //   {
@@ -74,7 +74,4 @@ export const router = createBrowserRouter(
   //     ],
   //   },
   // ],
-  {
-    basename: `${process.env.PUBLIC_URL}`,
-  }
 );
