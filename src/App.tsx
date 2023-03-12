@@ -1,11 +1,11 @@
 import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 
 import "./App.css";
-import { BottomBar, SideBar } from "./components/nav/NavBar";
+import { NavBar } from "./components/nav/NavBar";
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -33,10 +33,10 @@ function App() {
             </Title1>
           </LinkFluent>
         </Link>
-        {width >= 800 && <SideBar width={width} />}
+        {width >= 800 && <NavBar width={width} />}
       </header>
       <Outlet />
-      {width < 800 && <BottomBar width={width} />}
+      {width < 800 && <NavBar width={width} />}
     </div>
   );
 }
