@@ -81,5 +81,5 @@ export function BaseBarComponents({ width }: { width: number }) {
     );
   });
 
-  return <> {baseBarComponents}</>;
+  return <ul> {baseBarComponents}</ul>;
 }

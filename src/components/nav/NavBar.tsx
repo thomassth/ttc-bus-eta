@@ -3,9 +3,7 @@ import { BaseBarComponents } from "./BaseBarComponents";
 export function BottomBar({ width }: { width: number }) {
   return (
     <nav className="bottomNav">
-      <ul>
-        <BaseBarComponents width={width} />
-      </ul>
+      <BaseBarComponents width={width} />
     </nav>
   );
 }
@@ -13,9 +11,7 @@ export function BottomBar({ width }: { width: number }) {
 export function SideBar({ width }: { width: number }) {
   return (
     <nav className="sideNav">
-      <ul>
-        <BaseBarComponents width={width} />
-      </ul>
+      <BaseBarComponents width={width} />
     </nav>
   );
 }
