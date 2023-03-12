@@ -13,7 +13,7 @@ export function EtaCard(props: {
   lines: string[];
   name: string;
   editable: boolean;
-  onDelete: any;
+  onDelete: undefined | (() => void);
   stopUrl: string;
 }) {
   const fluentStyle = fluentStyles();

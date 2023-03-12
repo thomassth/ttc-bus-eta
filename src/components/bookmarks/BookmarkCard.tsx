@@ -21,7 +21,7 @@ export function BookmarkCard(props: { id: number }) {
       etas={[]}
       lines={stopBookmarks.entities[id].lines}
       name={stopBookmarks.entities[id].name}
-      editable={true}
+      editable
       onDelete={checkBookmarkStatus}
       stopUrl={`/stops/${stopBookmarks.entities[id].stopId}`}
     />
