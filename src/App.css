@@ -98,10 +98,9 @@ body {
 }
 
 main {
-  padding: 0px 16px 16px 32px;
+  padding: 0px 32px 16px 32px;
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .countdownListContainer ul,
@@ -116,7 +115,6 @@ main {
 
 .routeList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
   margin: 32px 0;
 }
@@ -172,6 +170,15 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 24px;
   margin: 32px 0;
+}
+
+.bookmarkContainer li {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardWithButton {
+  margin-top: -32px;
 }
 
 .bookmarkContainer .bookmarkClearButton {

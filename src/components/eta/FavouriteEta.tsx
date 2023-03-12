@@ -12,11 +12,11 @@ import { EtaPredictionXml } from "../../models/etaXml";
 import { store, useAppSelector } from "../../store";
 import { settingsSelectors } from "../../store/settings/slice";
 import Bookmark from "../bookmarks/Bookmark";
+import { EtaCard } from "../etaCard/EtaCard";
 import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
 import { multiStopParser, multiStopUnifier } from "../parser/multiStopParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { BookmarkCardEta } from "./BookmarkCardEta";
-import { BookmarkCardEtaUnified } from "./BookmarkCardEtaUnified";
 
 export default function FavouriteEta() {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
@@ -81,7 +81,17 @@ export default function FavouriteEta() {
     for (const item of unifiedEtaDb) {
       if (item.etas.length > 0) {
         const id = `${item.stopId}`;
-        EtaCards.push(<BookmarkCardEtaUnified item={item} key={id} />);
+        EtaCards.push(
+          <EtaCard
+            key={id}
+            etas={item.etas}
+            lines={item.lines}
+            name={item.name}
+            editable={false}
+            onDelete={undefined}
+            stopUrl={`/stops/${item.stopId}`}
+          />
+        );
       }
     }
   } else {
