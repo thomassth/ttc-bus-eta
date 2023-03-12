@@ -1,21 +1,9 @@
 import { BaseBarComponents } from "./BaseBarComponents";
 
-export function BottomBar({ width }: { width: number }) {
+export function NavBar({ width }: { width: number }) {
   return (
-    <nav className="bottomNav">
-      <ul>
-        <BaseBarComponents width={width} />
-      </ul>
-    </nav>
-  );
-}
-
-export function SideBar({ width }: { width: number }) {
-  return (
-    <nav className="sideNav">
-      <ul>
-        <BaseBarComponents width={width} />
-      </ul>
+    <nav className={width >= 800 ? "sideNav" : "bottomNav"}>
+      <BaseBarComponents width={width} />
     </nav>
   );
 }

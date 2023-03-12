@@ -8,14 +8,12 @@ export const fluentStyles = makeStyles({
     minHeight: "32px",
     minWidth: "32px",
 
-    position: "absolute",
-    top: "-16px",
+    position: "relative",
+    top: "16px",
     right: "-16px",
-
-    borderTopLeftRadius: "50%",
-    borderBottomLeftRadius: "50%",
-    borderTopRightRadius: "50%",
-    borderBottomRightRadius: "50%",
+    alignSelf: "flex-end",
+    zIndex: 5,
+    ...shorthands.borderRadius("50%"),
   },
   badge: {
     ...shorthands.margin("8px", "8px", "8px", "0px"),
