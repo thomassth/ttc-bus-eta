@@ -1,10 +1,15 @@
-import { Badge, Button, Text } from "@fluentui/react-components";
-import { Card, CardHeader } from "@fluentui/react-components/unstable";
+import {
+  Badge,
+  Button,
+  Card,
+  CardHeader,
+  Text,
+} from "@fluentui/react-components";
 import { Dismiss12Filled } from "@fluentui/react-icons";
 import { t } from "i18next";
 import { Link } from "react-router-dom";
-import { EtaBusWithID } from "../../models/etaObjects";
 
+import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "../countdown/CountdownSec";
 

@@ -1,5 +1,4 @@
-import { Badge, Text } from "@fluentui/react-components";
-import { Card } from "@fluentui/react-components/unstable";
+import { Badge, Card, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
