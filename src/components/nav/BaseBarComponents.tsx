@@ -1,7 +1,7 @@
 import { Button, Text } from "@fluentui/react-components";
 import {
-  ArrowRouting20Regular,
-  ArrowRouting24Filled,
+  ArrowFlowUpRight20Regular,
+  ArrowFlowUpRight24Filled,
   Home20Regular,
   Home24Filled,
   Settings20Regular,
@@ -30,8 +30,8 @@ const navItems: NavItem[] = [
   {
     label: "nav.label.lines",
     path: `/lines`,
-    icon: <ArrowRouting20Regular />,
-    iconActive: <ArrowRouting24Filled />,
+    icon: <ArrowFlowUpRight20Regular />,
+    iconActive: <ArrowFlowUpRight24Filled />,
   },
   {
     label: "nav.label.settings",
