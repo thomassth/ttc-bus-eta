@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { expect, it, vi } from "vitest";
 
 import App from "./App";
-import { it, expect, vi } from "vitest";
-import { BrowserRouter } from "react-router-dom";
 
 vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
