@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { RoutesXml } from "../../models/etaXml";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { badgeColor } from "../badges";
 
 const parseRouteTitle = (input: string) => {
   const routeTitleRegex = /\d+-/;
@@ -58,7 +59,7 @@ export function RoutesInfo() {
       <li key={routeItem.tag}>
         <Card className="cardContainer clickableCard">
           <Link className="routeCard" to={`/lines/${routeItem.tag}`}>
-            <Badge>{routeItem.tag}</Badge>
+            <Badge color={badgeColor(`${routeItem.tag}`)}>{routeItem.tag}</Badge>
             <Text>{parseRouteTitle(routeItem.title)}</Text>
           </Link>
         </Card>

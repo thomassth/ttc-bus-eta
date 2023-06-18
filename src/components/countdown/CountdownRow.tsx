@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { CountdownSec } from "./CountdownSec";
+import { badgeColor } from "../badges";
 
 function CountdownBranch(props: { branch: string }) {
   const fluentStyle = fluentStyles();
 
   return (
-    <Badge className={fluentStyle.badge} appearance="outline">
+    <Badge className={fluentStyle.badge} color={badgeColor(props.branch)}>
       {props.branch}
     </Badge>
   );

@@ -8,6 +8,7 @@ import {
 import { LineStopElement } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { parseRoute } from "../parser/routeName";
+import { badgeColor } from "../badges";
 
 export function StopAccordions(props: {
   result: LineStopElement[];
@@ -34,7 +35,7 @@ export function StopAccordions(props: {
     <AccordionItem value={props.tag}>
       <AccordionHeader className={fluentStyle.accordionHeader}>
         <Badge className={fluentStyle.badge}>{props.direction}</Badge>
-        <Badge className={fluentStyle.badge}>{props.lineNum}</Badge>
+        <Badge className={fluentStyle.badge} color={badgeColor(`${props.lineNum}`)}>{props.lineNum}</Badge>
         {parseRoute(props.title)}
       </AccordionHeader>
       <ul>{stops}</ul>
