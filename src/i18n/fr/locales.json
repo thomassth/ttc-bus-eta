@@ -19,7 +19,7 @@
     "homeNoEta": "Tous vos arrêts marqués n'ont pas d'ETA."
   },
   "lines": {
-    "ariaLabel": "entrer un numéro de ligne",
+    "ariaLabel": "entrer un n° de ligne",
     "placeholder": "nombre de lignes",
     "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
     "title": "Entrer un numéro de ligne:",
@@ -28,6 +28,7 @@
     "noLineInDb": "Erreur : Cette ligne n'est pas dans la base de données d'itinéraires.<br />Les lignes de métro ne sont pas prises en charge pour le moment."
   },
   "stops": {
+    "ariaLabel": "entrer n° de arrêt",
     "stopId": "Arrêt de ID {{stopNum}} ="
   },
   "buttons": {

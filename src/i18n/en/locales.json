@@ -28,6 +28,7 @@
     "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
   },
   "stops": {
+    "ariaLabel": "enter a stop number",
     "stopId": "Stop ID {{stopNum}} ="
   },
   "buttons": {

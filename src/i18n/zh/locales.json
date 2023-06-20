@@ -28,6 +28,7 @@
     "noLineInDb": "資料庫裏面冇呢條線嘅資料。<br />(暫時睇唔到地鐵路線)"
   },
   "stops": {
+    "ariaLabel": "輸入車站號碼",
     "stopId": "車站編號 {{stopNum}}  ="
   },
   "buttons": {

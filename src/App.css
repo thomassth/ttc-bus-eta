@@ -225,6 +225,42 @@ pre {
   background-color: var(--colorNeutralBackground2);
 }
 
+.nextVehicleContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--borderRadiusXLarge);
+  overflow: hidden;
+  border: black solid 8px;
+}
+
+.nextVehicleContainer * {
+  padding: 2rem;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.nextVehicleContainer input {
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  font-size: x-large;
+}
+
+.nextVehicleContainer h1 {
+  background-color: black;
+  text-align: center;
+  font-size: xx-large;
+}
+.searchForm .separation {
+  display: flex;
+  align-items: center;
+}
+.searchForm .separation hr {
+  width: 40%;
+  height: 0;
+}
+
 @media screen and (min-width: 800px) {
   .linePage,
   .homePage {
