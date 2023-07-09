@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import { CountdownSec } from "../countdown/CountdownSec";
 import { badgeColor } from "../badges";
+import { CountdownSec } from "../countdown/CountdownSec";
 
 export function EtaCard(props: {
   etas: EtaBusWithID[];
@@ -42,7 +42,11 @@ export function EtaCard(props: {
                 <div className="badgeGroup">
                   {props.lines.map((line: string) => {
                     return (
-                      <Badge className={fluentStyle.badge} key={line} color={badgeColor(line)}>
+                      <Badge
+                        className={fluentStyle.badge}
+                        key={line}
+                        color={badgeColor(line)}
+                      >
                         {line}
                       </Badge>
                     );

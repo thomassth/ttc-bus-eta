@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import { CountdownSec } from "./CountdownSec";
 import { badgeColor } from "../badges";
+import { CountdownSec } from "./CountdownSec";
 
 function CountdownBranch(props: { branch: string }) {
   const fluentStyle = fluentStyles();
