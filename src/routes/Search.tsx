@@ -38,22 +38,22 @@ export default function NewVehicle() {
     <form className="searchForm">
       <div className="nextVehicleContainer">
         <h1>Next Vehicle</h1>
-        <div>
-          <Input
-            size="large"
-            appearance="underline"
-            type="number"
-            onChange={handleStopChange}
-            value={stopInput}
-            placeholder={t("stops.ariaLabel") || ""}
-          />
-        </div>
+        <Input
+          className={fluentStyle.centerInput}
+          size="large"
+          appearance="underline"
+          type="number"
+          onChange={handleStopChange}
+          value={stopInput}
+          placeholder={t("stops.ariaLabel") || ""}
+        />
       </div>
       <p className="separation">
         <hr /> or <hr />
       </p>
       <div className="searchBlock">
         <Input
+          disabled={stopInput.length > 0}
           value={lineInput}
           className={fluentStyle.flexGrowContent}
           onChange={handleLineChange}

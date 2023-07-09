@@ -231,6 +231,8 @@ pre {
   border-radius: var(--borderRadiusXLarge);
   overflow: hidden;
   border: black solid 8px;
+  max-width: 30rem;
+  margin: auto;
 }
 
 .nextVehicleContainer * {

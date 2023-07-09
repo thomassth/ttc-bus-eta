@@ -4,6 +4,13 @@ export const fluentStyles = makeStyles({
   fluentProvider: {
     height: "100%",
   },
+  centerInput: {
+    "& input": {
+      textAlign: "center",
+      width: "100%",
+      height: "5rem",
+    },
+  },
   removeButton: {
     minHeight: "32px",
     minWidth: "32px",
