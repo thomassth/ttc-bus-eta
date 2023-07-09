@@ -1,19 +1,11 @@
-import { Badge } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects";
-import { fluentStyles } from "../../styles/fluent";
-import { badgeColor } from "../badges";
+import { TtcBadge } from "../badges";
 import { CountdownSec } from "./CountdownSec";
 
 function CountdownBranch(props: { branch: string }) {
-  const fluentStyle = fluentStyles();
-
-  return (
-    <Badge className={fluentStyle.badge} color={badgeColor(props.branch)}>
-      {props.branch}
-    </Badge>
-  );
+  return <TtcBadge key={props.branch} lineNum={props.branch} />;
 }
 
 export function CountdownRow(props: { item: EtaBusWithID }) {

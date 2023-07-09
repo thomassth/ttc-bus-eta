@@ -1,9 +1,9 @@
-import { Badge, Card, Text } from "@fluentui/react-components";
+import { Card, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { RoutesXml } from "../../models/etaXml";
-import { badgeColor } from "../badges";
+import { TtcBadge } from "../badges";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
 
@@ -59,9 +59,7 @@ export function RoutesInfo() {
       <li key={routeItem.tag}>
         <Card className="cardContainer clickableCard">
           <Link className="routeCard" to={`/lines/${routeItem.tag}`}>
-            <Badge color={badgeColor(`${routeItem.tag}`)}>
-              {routeItem.tag}
-            </Badge>
+            <TtcBadge key={routeItem.tag} lineNum={`${routeItem.tag}`} />
             <Text>{parseRouteTitle(routeItem.title)}</Text>
           </Link>
         </Card>

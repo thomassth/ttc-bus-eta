@@ -1,17 +1,11 @@
-import {
-  Badge,
-  Button,
-  Card,
-  CardHeader,
-  Text,
-} from "@fluentui/react-components";
+import { Button, Card, CardHeader, Text } from "@fluentui/react-components";
 import { Dismiss12Filled } from "@fluentui/react-icons";
 import { t } from "i18next";
 import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
-import { badgeColor } from "../badges";
+import { TtcBadge } from "../badges";
 import { CountdownSec } from "../countdown/CountdownSec";
 
 export function EtaCard(props: {
@@ -41,15 +35,7 @@ export function EtaCard(props: {
               <>
                 <div className="badgeGroup">
                   {props.lines.map((line: string) => {
-                    return (
-                      <Badge
-                        className={fluentStyle.badge}
-                        key={line}
-                        color={badgeColor(line)}
-                      >
-                        {line}
-                      </Badge>
-                    );
+                    return <TtcBadge key={line} lineNum={line} />;
                   })}
                 </div>
                 <Text>{props.name}</Text>
