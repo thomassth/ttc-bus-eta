@@ -106,7 +106,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         <div className="countdownListContainer">
           {etaDb[0] !== undefined ? (
             <Title1 className="top-row">
-              {etaDb[0].stopTag} - {etaDb[0].stopName}
+              Stop {stopId} - {etaDb[0].stopName}
             </Title1>
           ) : null}
           <div className="countdownButtonGroup">
