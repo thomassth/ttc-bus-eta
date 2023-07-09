@@ -25,7 +25,7 @@ function App() {
         <Link
           className="routerLink"
           to={"/"}
-          title={t("home.title.tooltip") || ""}
+          title={t("home.title.tooltip") ?? ""}
         >
           <LinkFluent>
             <Title1 className="appTitle text-xl font-bold">

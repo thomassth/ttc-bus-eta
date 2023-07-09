@@ -27,7 +27,7 @@ export function RoutesInfo() {
 
     const fetchEtaData = async () => {
       const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc`,
+        "https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc",
         {
           signal: controller.signal,
           method: "GET",

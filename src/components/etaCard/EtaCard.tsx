@@ -28,7 +28,7 @@ export function EtaCard(props: {
           onClick={props.onDelete}
         />
       )}
-      <Link className={`bookmarkedStop`} to={props.stopUrl}>
+      <Link className={"bookmarkedStop"} to={props.stopUrl}>
         <Card className="clickableCard">
           <CardHeader
             header={

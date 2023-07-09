@@ -12,7 +12,7 @@ export default function LineStopPrediction() {
   const { t } = useTranslation();
   return (
     <main>
-      <Link to={`..`} className="routerLink">
+      <Link to={".."} className="routerLink">
         <LinkFluent>Back to {lineNum}</LinkFluent>
       </Link>
       <Title2>{t("lines.lineAndStopInfo", { lineNum, stopNum })}</Title2>

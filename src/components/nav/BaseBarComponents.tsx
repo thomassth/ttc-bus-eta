@@ -23,19 +23,19 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     label: "nav.label.home",
-    path: `/`,
+    path: "/",
     icon: <Home20Regular />,
     iconActive: <Home24Filled />,
   },
   {
     label: "nav.label.lines",
-    path: `/lines`,
+    path: "/lines",
     icon: <ArrowFlowUpRight20Regular />,
     iconActive: <ArrowFlowUpRight24Filled />,
   },
   {
     label: "nav.label.settings",
-    path: `/settings`,
+    path: "/settings",
     icon: <Settings20Regular />,
     iconActive: <Settings24Filled />,
   },

@@ -45,7 +45,7 @@ export default function NewVehicle() {
           type="number"
           onChange={handleStopChange}
           value={stopInput}
-          placeholder={t("stops.ariaLabel") || ""}
+          placeholder={t("stops.ariaLabel") ?? ""}
         />
       </div>
       <p className="separation">
@@ -57,7 +57,7 @@ export default function NewVehicle() {
           value={lineInput}
           className={fluentStyle.flexGrowContent}
           onChange={handleLineChange}
-          aria-label={t("lines.ariaLabel") || ""}
+          aria-label={t("lines.ariaLabel") ?? ""}
           placeholder={`${t("lines.placeholder")}`}
         />
         <Button appearance="primary" type="submit" onClick={handleSearchClick}>
