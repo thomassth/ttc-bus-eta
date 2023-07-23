@@ -1,11 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
-import {
-  Outlet,
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import App from "../App";
 import { BookmarkPage } from "../components/bookmarks/Bookmark";
@@ -19,59 +13,31 @@ import LineStopPrediction from "./LineStopPrediction";
 import StopPrediction from "./StopPrediction";
 
 export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="lines" element={<Outlet />}>
-        <Route path=":lineId" element={<Outlet />}>
-          <Route path=":stopNum" element={<LineStopPrediction />} />
-          <Route index element={<Line />} />
-        </Route>
-        <Route index element={<LineSearch />} />
-      </Route>
-      <Route path="stops" element={<Outlet />}>
-        <Route path=":stopId" element={<StopPrediction />} />
-      </Route>
-      <Route path="about" element={<About />} />
-      <Route path="settings" element={<Settings />} />
-      <Route path="bookmarks" element={<BookmarkPage />} />
-      <Route path="*" element={<Error />} />
-      <Route index element={<Home />} />
-    </Route>
-  )
-  // TODO: use objects?
-  // [
-  //   {
-  //     path: "/",
-  //     element: <App />,
-  //     children: [
-  //       {
-  //         path: "lines",
-  //         element: <LineSearch />,
-  //         children: [
-  //           {
-  //             path: ":lineId",
-  //             element: <Line />,
-  //             children: [{ path: ":stopNum", element: <LineStopPrediction /> }],
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         path: "stops",
-  //         children: [{ path: ":stopId", element: <StopPrediction /> }],
-  //       },
-  //       {
-  //         path: "about",
-  //         element: <About />,
-  //       },
-  //       {
-  //         path: "bookmark",
-  //         element: <Bookmark />,
-  //       },
-  //       {
-  //         path: "*",
-  //         element: <Error />,
-  //       },
-  //     ],
-  //   },
-  // ],
+  [
+    {
+      path: "/", Component: App,
+      children: [
+        { index: true, Component: Home },
+        { path: 'about', Component: About },
+        { path: "bookmarks", Component: BookmarkPage },
+        { path: 'settings', Component: Settings },
+        {
+          path: "lines",
+          children: [
+            { index: true, Component: LineSearch },
+            {
+              path: ":lineId",
+              children: [{ index: true, Component: Line },
+              { path: ":stopNum", Component: LineStopPrediction }],
+            },
+          ],
+        },
+        {
+          path: "stops",
+          children: [{ path: ":stopId", Component: StopPrediction }],
+        },
+
+        { path: '*', Component: Error },
+      ]
+    }]
 );

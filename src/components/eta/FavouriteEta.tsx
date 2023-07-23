@@ -89,7 +89,7 @@ export default function FavouriteEta() {
             name={item.name}
             editable={false}
             onDelete={undefined}
-            stopUrl={`/stops/${item.stopId}`}
+            stopUrl={`/stops/${id}`}
           />
         );
       }

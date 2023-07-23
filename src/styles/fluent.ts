@@ -36,6 +36,7 @@ export const fluentStyles = makeStyles({
   },
   number: {
     fontFamily: ["monospace", "PT Mono"],
+    whiteSpace: "nowrap",
   },
   refreshButton: {
     width: "max-content",
