@@ -8,21 +8,23 @@ export const expiredStyle = {
   color: "red",
 };
 
-export function CountdownSec(props: { second: number; epochTime: number }) {
+export function CountdownSec(props: { second: number; epochTime?: number }) {
   const [epochTime, setEpochTime] = useState(props.epochTime);
-  const [sec, setSec] = useState(Math.floor((epochTime - Date.now()) / 1000));
+  const [sec, setSec] = useState(props.second ?? 0);
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  // TODO: not using seconds provided in API; may make it an option later
-
   useEffect(() => {
-    if (epochTime !== props.epochTime) {
+    if (epochTime && epochTime !== props.epochTime) {
       setEpochTime(props.epochTime);
       setSec(Math.floor((epochTime - Date.now()) / 1000));
     }
     const timer = setTimeout(() => {
-      setSec(Math.floor((epochTime - Date.now()) / 1000));
+      if (epochTime) {
+        setSec(Math.floor((epochTime - Date.now()) / 1000));
+      } else {
+        setSec(sec - 1);
+      }
     }, 1000);
     if (sec <= 0) {
       clearTimeout(timer);

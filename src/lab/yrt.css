@@ -1,0 +1,17 @@
+.navBar .routerLink.yrt {
+  top: -3rem;
+  position: relative;
+  background-color: yellow;
+  transform: rotate(-5deg);
+  overflow: hidden;
+}
+@media screen and (min-width: 800px) {
+  .navBar .routerLink.yrt {
+    top: 0;
+    position: absolute;
+    left: 0;
+  }
+  .container.yrt main {
+    margin: 3rem 0;
+  }
+}

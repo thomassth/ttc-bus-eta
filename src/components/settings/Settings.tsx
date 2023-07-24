@@ -1,16 +1,18 @@
 import {
   Button,
+  Input,
   Radio,
   RadioGroup,
   Switch,
   Title1,
   Title2,
 } from "@fluentui/react-components";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { settingsRedux } from "../../models/etaObjects";
+import useNavigate from "../../routes/navigate";
 import { store, useAppDispatch, useAppSelector } from "../../store";
 import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
@@ -76,6 +78,20 @@ export function Settings() {
     },
     [setDevMode]
   );
+
+  // Temp. search box
+  const { navigate } = useNavigate();
+  const [stopInput, setStopInput] = useState("");
+  const handleStopChange = useCallback(
+    (e: { currentTarget: { value: SetStateAction<string> } }) => {
+      setStopInput(e.currentTarget.value);
+    },
+    []
+  );
+  const handleSearchClick = useCallback(() => {
+    if (stopInput !== "") navigate(`../yrt/stops/${stopInput}`);
+  }, [stopInput]);
+
   return (
     <main className="settingsPage">
       <Title1>{t("nav.label.settings")}</Title1>
@@ -104,6 +120,16 @@ export function Settings() {
         <Radio value="false" label={"separate for each line"} />
         <Radio value="true" label={"single list"} />
       </RadioGroup>
+      <form>
+        <Input
+          value={stopInput}
+          className={fluentStyle.flexGrowContent}
+          onChange={handleStopChange}
+        />
+        <Button type="submit" onClick={handleSearchClick}>
+          ???
+        </Button>
+      </form>
       <RawDisplay data={settings} />
     </main>
   );
