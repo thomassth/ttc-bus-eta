@@ -3,14 +3,14 @@ import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 
-import "./yrt.css";
+import styles from "./yrt.module.css";
 
 export default function YRTHeader() {
   const { t } = useTranslation();
 
   return (
     <div className="container yrt">
-      <header className="navBar">
+      <header className={styles.yrt_nav}>
         <Link
           className="routerLink yrt"
           to={"/yrt"}

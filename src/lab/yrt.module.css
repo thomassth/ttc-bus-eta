@@ -1,0 +1,42 @@
+.yrt_nav {
+  top: -3rem;
+  position: relative;
+  background-color: yellow;
+  transform: rotate(-5deg);
+  overflow: hidden;
+}
+
+.yrt_main {
+  margin-bottom: 3rem;
+}
+
+.lineInfo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.yrt_main ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 0;
+}
+
+.yrt_main li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media screen and (min-width: 800px) {
+  .yrt_nav {
+    top: 0;
+    position: absolute;
+    left: 0;
+  }
+
+  .yrt_main {
+    margin: 3rem 0;
+  }
+}

@@ -1,9 +1,11 @@
-import { Badge, Text, Title2 } from "@fluentui/react-components";
+import { Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { YRTBadge } from "../components/badges";
 import { CountdownSec } from "../components/countdown/CountdownSec";
 import { LinesRequest } from "../models/yrt";
+import styles from "./yrt.module.css";
 
 export default function YRT() {
   const params = useParams();
@@ -11,7 +13,9 @@ export default function YRT() {
 
   const [response, setResponse] = useState<LinesRequest>({});
   const [countdownItems, setCountdownItems] = useState<any[]>();
-
+  useEffect(() => {
+    document.title = `Stop ID ${stopNum} | YRT arrivals`;
+  });
   useEffect(() => {
     const controller = new AbortController();
 
@@ -86,7 +90,7 @@ export default function YRT() {
   if (response.result) {
     if (response.result?.[0].Validation[0].Type !== "error") {
       return (
-        <main>
+        <main className={styles.yrt_main}>
           {response.result?.[0].RealTimeResults.length === 0 && (
             <Title2>Stop {params.stopId} has no real time results.</Title2>
           )}
@@ -103,14 +107,14 @@ export default function YRT() {
       );
     } else
       return (
-        <main>
+        <main className={styles.yrt_main}>
           <Title2>Stop {params.stopId} has no results.</Title2>
           <Text>{response.result?.[0].Validation[0].Message}</Text>
         </main>
       );
   } else {
     return (
-      <main>
+      <main className={styles.yrt_main}>
         <Title2>Stop {params.stopId} loading...</Title2>
       </main>
     );
@@ -127,8 +131,10 @@ const YRTCountdownItems = (props: {
       const item = items[i];
       CountdownRows.push(
         <li>
-          <Badge>{item.LineAbbr}</Badge>
-          <Text>{item.LineName}</Text>
+          <div className={styles.lineInfo}>
+            <YRTBadge lineAbbr={item.LineAbbr} />
+            <Text>{item.LineName}</Text>
+          </div>
           <CountdownSec key={i} second={item.sec} />
         </li>
       );

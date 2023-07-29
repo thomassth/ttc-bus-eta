@@ -15,12 +15,18 @@ const badgeColor = (text: string) => {
   }
 };
 
+const customBgColor = (text: string) => {
+  if (/2[\d]{2}.*/.test(text)) {
+    return "pink";
+  }
+};
+
 const badgeOutline = (text: string) => {
-  const occasional = [10, 99, 101, 115, 119, 160, 162, 167, 169, 176];
+  const occasional = new Set([10, 99, 101, 115, 119, 160, 162, 167, 169, 176]);
   switch (true) {
     case /[9][\d]{2}.*/.test(text):
       return "filled";
-    case /[2,3,4][\d]{2}.*/.test(text):
+    case /[3,4][\d]{2}.*/.test(text):
       return "outline";
     default:
       for (const item of occasional) {
@@ -37,12 +43,36 @@ export function TtcBadge(props: { lineNum: string }) {
 
   return (
     <Badge
+      style={{ backgroundColor: customBgColor(props.lineNum) }}
       className={fluentStyle.badge}
       color={badgeColor(`${props.lineNum}`)}
       appearance={badgeOutline(props.lineNum)}
       shape="rounded"
     >
       {props.lineNum}
+    </Badge>
+  );
+}
+
+export function YRTBadge(props: { lineAbbr: string }) {
+  const vivaBgColor = new Map([
+    ["601", "#009cdb"],
+    ["603", "#9461a8"],
+    ["605", "#fbaf33"],
+  ]);
+  const vivaColor = new Map([["605", "black"]]);
+
+  const bgColor = vivaBgColor.get(props.lineAbbr);
+  const textColor = vivaColor.get(props.lineAbbr);
+
+  return (
+    <Badge
+      style={{
+        backgroundColor: bgColor,
+        color: textColor,
+      }}
+    >
+      {props.lineAbbr}
     </Badge>
   );
 }
