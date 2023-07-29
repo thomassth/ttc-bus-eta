@@ -120,7 +120,7 @@ export function Settings() {
         <Radio value="false" label={"separate for each line"} />
         <Radio value="true" label={"single list"} />
       </RadioGroup>
-      <form>
+      <form className="searchBlock">
         <Input
           value={stopInput}
           className={fluentStyle.flexGrowContent}

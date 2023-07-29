@@ -254,10 +254,12 @@ pre {
   text-align: center;
   font-size: xx-large;
 }
+
 .searchForm .separation {
   display: flex;
   align-items: center;
 }
+
 .searchForm .separation hr {
   width: 40%;
   height: 0;
@@ -309,6 +311,7 @@ pre {
     flex-wrap: wrap;
     gap: 4px;
   }
+
   .bookmarkedStop .bookmarkedEta .badgeGroup > * {
     margin: 0;
   }
