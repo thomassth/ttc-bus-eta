@@ -89,7 +89,10 @@ export function Settings() {
     []
   );
   const handleSearchClick = useCallback(() => {
-    if (stopInput !== "") navigate(`../yrt/stops/${stopInput}`);
+    if (stopInput !== "")
+      if (stopInput === "yrt") {
+        navigate(`../yrt`);
+      } else navigate(`../yrt/stops/${stopInput}`);
   }, [stopInput]);
 
   return (
