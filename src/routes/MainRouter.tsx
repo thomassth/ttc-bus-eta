@@ -1,11 +1,12 @@
-// eslint-disable-next-line no-unused-vars
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "../App";
 import { BookmarkPage } from "../components/bookmarks/Bookmark";
 import { Settings } from "../components/settings/Settings";
-import YRT from "../lab/YRT";
 import YRTHeader from "../lab/YRTheader";
+import YRTLine from "../lab/YRTline";
+import YRTLines from "../lab/YRTlines";
+import YRT from "../lab/YRTstop";
 import About from "./About";
 import Error from "./Error";
 import Home from "./Home";
@@ -27,6 +28,8 @@ export const router = createBrowserRouter([
         path: "yrt",
         Component: YRTHeader,
         children: [
+          { index: true, Component: YRTLines },
+          { path: "lines/:lineId", Component: YRTLine },
           {
             path: "stops/:stopId",
             Component: YRT,

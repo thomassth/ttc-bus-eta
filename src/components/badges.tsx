@@ -54,7 +54,7 @@ export function TtcBadge(props: { lineNum: string }) {
   );
 }
 
-export function YRTBadge(props: { lineAbbr: string }) {
+export function YRTBadge(props: { lineAbbr: string; color?: string }) {
   const vivaBgColor = new Map([
     ["601", "#009cdb"],
     ["603", "#9461a8"],
@@ -68,7 +68,7 @@ export function YRTBadge(props: { lineAbbr: string }) {
   return (
     <Badge
       style={{
-        backgroundColor: bgColor,
+        backgroundColor: props.color ? props.color : bgColor,
         color: textColor,
       }}
     >

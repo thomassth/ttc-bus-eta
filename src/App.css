@@ -107,16 +107,21 @@ main {
 .stopsListContainer ul,
 .bookmarkContainer ul,
 .bottomNav ul,
-.sideNav ul,
-.linePage ul {
+.sideNav ul {
   padding-left: 0px;
   list-style-type: none;
+}
+
+.container.yrt {
+  margin-bottom: 72px;
 }
 
 .routeList {
   display: grid;
   gap: 24px;
-  margin: 32px 0;
+  list-style-type: none;
+  margin: 32px 24px 72px 24px;
+  padding: 0;
 }
 
 *[role="checkbox"] {

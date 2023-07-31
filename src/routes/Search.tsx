@@ -28,7 +28,6 @@ export default function NewVehicle() {
 
   const handleSearchClick = useCallback(() => {
     if (stopInput !== "") {
-      console.log(stopInput);
       navigate(`stops/${stopInput}`);
     } else if (lineInput !== "") navigate(`lines/${lineInput}`);
   }, [lineInput, stopInput]);
