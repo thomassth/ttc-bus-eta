@@ -1,8 +1,9 @@
-import { Accordion } from "@fluentui/react-components";
+import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { YRTStopAccordions } from "../components/accordions/StopAccordions";
+import { YRTBadge } from "../components/badges";
 import { LineList, LineRequest } from "../models/yrt";
 
 export default function YRTLine() {
@@ -10,6 +11,12 @@ export default function YRTLine() {
 
   const [response, setResponse] = useState<LineRequest>({});
   const [lineList, setLineList] = useState<LineList[]>();
+  const { state } = useLocation();
+  const { directions, lineName, lineNum } = state;
+  const translateDirId = (dirId: number) => {
+    console.log(dirId);
+    return directions.get(dirId);
+  };
   useEffect(() => {
     document.title = `YRT arrivals`;
   });
@@ -63,8 +70,8 @@ export default function YRTLine() {
       lineRows.push(
         <li key={i}>
           <YRTStopAccordions
-            title={item.lineDirId}
-            direction={"Direction"}
+            title={translateDirId(item.lineDirId)}
+            direction={translateDirId(item.lineDirId)}
             lineNum={1}
             result={item.stops}
             tag={i}
@@ -75,6 +82,10 @@ export default function YRTLine() {
 
   return (
     <article className="stopsListContainer">
+      <Title2 className="lineTitle">
+        <YRTBadge lineAbbr={lineNum} />
+        {lineName}
+      </Title2>
       <ul>
         <Accordion collapsible>{lineRows}</Accordion>
       </ul>

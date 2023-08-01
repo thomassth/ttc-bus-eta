@@ -35,6 +35,12 @@ export interface LineItem {
   }[];
   colour: string;
   name: string;
+  directions: {
+    directionName: string;
+    lineDirIdContext: {
+      lineDirId: number;
+    }[];
+  }[];
 }
 
 export interface LinesRequest {
@@ -57,7 +63,7 @@ export interface YRTStop {
 }
 
 export interface LineList {
-  lineDirId: string;
+  lineDirId: number;
   stops: YRTStop[];
 }
 

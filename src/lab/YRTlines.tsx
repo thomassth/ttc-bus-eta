@@ -8,6 +8,8 @@ import { LineItem, LinesRequest } from "../models/yrt";
 export default function YRTLines() {
   const [response, setResponse] = useState<LinesRequest>({});
   const [lineList, setLineList] = useState<LineItem[]>();
+  const [directions, setDirections] = useState<Map<number, string>>(new Map());
+
   useEffect(() => {
     document.title = `YRT arrivals`;
   });
@@ -44,6 +46,15 @@ export default function YRTLines() {
   useEffect(() => {
     if (response.result && response.result?.validation?.[0]?.Type !== "error") {
       setLineList(response.result?.lines);
+      for (const item of response.result.lines) {
+        for (const dir of item.directions) {
+          directions.set(
+            dir.lineDirIdContext?.[0].lineDirId,
+            dir.directionName
+          );
+        }
+      }
+      setDirections(directions);
     }
 
     return () => {
@@ -62,6 +73,11 @@ export default function YRTLines() {
             <Link
               className="routeCard"
               to={`/yrt/lines/${item.lineIdContexts[0].lineId}`}
+              state={{
+                directions,
+                lineName: item.name,
+                lineNum: item.sortOrder,
+              }}
             >
               <YRTBadge color={item.colour} lineAbbr={item.sortOrder} />
               <Text>{item.name}</Text>

@@ -32,7 +32,10 @@ body {
   margin: 0px;
 }
 
-.bottomNav a {
+.bottomNav a,
+.countdownRow,
+.searchForm .separation,
+.yrt .lineTitle {
   display: flex;
   align-items: center;
 }
@@ -49,7 +52,8 @@ body {
 .homePage,
 .linePage,
 .settingsPage,
-.aboutPage {
+.aboutPage,
+.container.yrt {
   margin: 16px 32px 80px 32px;
   padding: 0px;
   width: auto;
@@ -97,6 +101,10 @@ body {
   text-decoration: none;
 }
 
+.badgeGroup {
+  padding-bottom: 8px;
+}
+
 main {
   padding: 0px 32px 16px 32px;
   display: flex;
@@ -112,16 +120,12 @@ main {
   list-style-type: none;
 }
 
-.container.yrt {
-  margin-bottom: 72px;
-}
-
 .routeList {
   display: grid;
   gap: 24px;
   list-style-type: none;
-  margin: 32px 24px 72px 24px;
   padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
 }
 
 *[role="checkbox"] {
@@ -143,11 +147,6 @@ main {
 
 .countdownListContainer .stopPredictionDetails {
   margin-top: 32px;
-}
-
-.countdownRow {
-  display: flex;
-  align-items: center;
 }
 
 .countdownButtonGroup {
@@ -260,11 +259,6 @@ pre {
   font-size: xx-large;
 }
 
-.searchForm .separation {
-  display: flex;
-  align-items: center;
-}
-
 .searchForm .separation hr {
   width: 40%;
   height: 0;
@@ -272,7 +266,9 @@ pre {
 
 @media screen and (min-width: 800px) {
   .linePage,
-  .homePage {
+  .homePage,
+  .container.yrt,
+  .container.yrt article {
     width: 100%;
   }
 
@@ -301,7 +297,8 @@ pre {
 }
 
 @media (max-width: 800px) {
-  .bookmarkContainer ul {
+  .bookmarkContainer ul,
+  .routeList {
     grid-template-columns: auto;
   }
 }

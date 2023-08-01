@@ -60,7 +60,11 @@ export function YRTBadge(props: { lineAbbr: string; color?: string }) {
     ["603", "#9461a8"],
     ["605", "#fbaf33"],
   ]);
-  const vivaColor = new Map([["605", "black"]]);
+  const vivaColor = new Map([
+    ["008", "white"],
+    ["720", "white"],
+    ["760", "white"],
+  ]);
 
   const bgColor = vivaBgColor.get(props.lineAbbr);
   const textColor = vivaColor.get(props.lineAbbr);
@@ -69,7 +73,7 @@ export function YRTBadge(props: { lineAbbr: string; color?: string }) {
     <Badge
       style={{
         backgroundColor: props.color ? props.color : bgColor,
-        color: textColor,
+        color: textColor || "black",
       }}
     >
       {props.lineAbbr}
