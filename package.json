@@ -19,19 +19,7 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.2",
     "typescript": "^5.1.6",
-    "web-vitals": "^3.4.0",
-    "workbox-background-sync": "^6.5.4",
-    "workbox-broadcast-update": "^6.6.0",
-    "workbox-cacheable-response": "^6.5.4",
-    "workbox-core": "^6.5.4",
-    "workbox-expiration": "^6.6.0",
-    "workbox-google-analytics": "^6.6.0",
-    "workbox-navigation-preload": "^6.6.0",
-    "workbox-precaching": "^6.6.0",
-    "workbox-range-requests": "^6.6.0",
-    "workbox-routing": "^6.5.4",
-    "workbox-strategies": "^6.5.4",
-    "workbox-streams": "^6.6.0"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "vite",
@@ -88,6 +76,7 @@
     "react-test-renderer": "^18.2.0",
     "ts-node": "^10.9.1",
     "vite": "^4.4.6",
+    "vite-plugin-pwa": "^0.16.4",
     "vitest": "^0.33.0"
   }
 }
