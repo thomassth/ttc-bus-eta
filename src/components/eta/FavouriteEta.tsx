@@ -114,9 +114,9 @@ export default function FavouriteEta() {
         <article>
           <ul>{EtaCards}</ul>
         </article>
-      ) : lastUpdatedAt > 0 ? (
+      ) : lastUpdatedAt > 0 || !navigator.onLine ? (
         <section>
-          <p>{t("home.homeNoEta")}</p>
+          <p>{navigator.onLine ? t("home.homeNoEta") : "Your device seems to be offline."}</p>
           <Bookmark />
         </section>
       ) : null}
