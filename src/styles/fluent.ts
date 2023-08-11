@@ -40,7 +40,6 @@ export const fluentStyles = makeStyles({
   },
   refreshButton: {
     width: "max-content",
-    marginRight: "10px",
   },
   bottomNav: {
     backgroundColor: tokens.colorNeutralBackground1,

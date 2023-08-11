@@ -63,8 +63,8 @@ body {
   padding: 0px 8px;
 }
 
-.aboutPage > *,
-.settingsPage > * {
+.aboutPage>*,
+.settingsPage>* {
   padding-bottom: 16px;
 }
 
@@ -74,7 +74,7 @@ body {
   flex-direction: column;
 }
 
-.navBar > a {
+.navBar>a {
   padding: 0px 32px;
 }
 
@@ -151,6 +151,8 @@ main {
 
 .countdownButtonGroup {
   margin: 8px 0px 0px 0px;
+  display: flex;
+  gap: 10px;
 }
 
 .countdownSec {
@@ -205,7 +207,7 @@ main {
   text-decoration: none;
 }
 
-.etaCardCountdown > * {
+.etaCardCountdown>* {
   flex-wrap: wrap;
   float: right;
 }
@@ -265,6 +267,7 @@ pre {
 }
 
 @media screen and (min-width: 800px) {
+
   .linePage,
   .homePage,
   .container.yrt,
@@ -291,12 +294,13 @@ pre {
     min-width: 160px;
   }
 
-  .etaCardCountdown > * {
+  .etaCardCountdown>* {
     flex-wrap: nowrap;
   }
 }
 
 @media (max-width: 800px) {
+
   .bookmarkContainer ul,
   .routeList {
     grid-template-columns: auto;
@@ -314,7 +318,7 @@ pre {
     gap: 4px;
   }
 
-  .bookmarkedStop .bookmarkedEta .badgeGroup > * {
+  .bookmarkedStop .bookmarkedEta .badgeGroup>* {
     margin: 0;
   }
 }

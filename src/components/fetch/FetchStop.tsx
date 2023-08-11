@@ -14,6 +14,7 @@ import { CountdownRow } from "../countdown/CountdownRow";
 import { etaParser } from "../parser/etaParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
+import SMSButton from "../eta/SMSButton";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
@@ -59,13 +60,14 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return { parsedData, error };
     };
 
-    fetchEtaData().then(({ parsedData, error }) => {
-      if (error || !parsedData) {
-        return;
-      }
-      setData(parsedData);
-      setEtaDb(etaParser(parsedData));
-    });
+    if (navigator.onLine)
+      fetchEtaData().then(({ parsedData, error }) => {
+        if (error || !parsedData) {
+          return;
+        }
+        setData(parsedData);
+        setEtaDb(etaParser(parsedData));
+      });
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
@@ -121,7 +123,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           {listContent.length > 0 ? (
             <ul>{listContent}</ul>
           ) : (
-            <Title1>{t("reminder.noEta")}</Title1>
+            <>
+              <Title1>{t("reminder.noEta")}</Title1>
+              <br />
+              <SMSButton stopId={stopId} />
+            </>
           )}
           <RawDisplay data={data} />
         </div>
@@ -139,6 +145,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               ttcId={etaDb[0].stopTag}
               lines={etaDb.map((item) => item.line)}
             />
+            <SMSButton stopId={stopId} />
           </div>
           <Text>{`${data.body.Error["#text"]}`}</Text>
           <RawDisplay data={data} />
@@ -148,12 +155,16 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   } else {
     return (
       <div>
-        <Title1>{t("reminder.loading")}</Title1>
+        {navigator.onLine ?
+          <Title1>{t("reminder.loading")}</Title1> :
+          <Title1>Your device seems to be offline.</Title1>}
         <div className="countdownButtonGroup">
           <RefreshButton />
+          <SMSButton stopId={stopId} />
         </div>
       </div>
     );
   }
 }
 export default StopPredictionInfo;
+
