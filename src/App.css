@@ -59,6 +59,10 @@ body {
   width: auto;
 }
 
+.homePage {
+  gap: 12px;
+}
+
 .aboutPage .linkButton {
   padding: 0px 8px;
 }
@@ -111,6 +115,20 @@ main {
   flex-direction: column;
 }
 
+.countdownListContainer,
+.bookmarkContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.countdownListContainer ul {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .countdownListContainer ul,
 .stopsListContainer ul,
 .bookmarkContainer ul,
@@ -145,12 +163,7 @@ main {
   flex-direction: column;
 }
 
-.countdownListContainer .stopPredictionDetails {
-  margin-top: 32px;
-}
-
 .countdownButtonGroup {
-  margin: 8px 0px 0px 0px;
   display: flex;
   gap: 10px;
 }
@@ -175,7 +188,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 24px;
-  margin: 32px 0;
+  margin: 20px 0;
 }
 
 .bookmarkContainer li {

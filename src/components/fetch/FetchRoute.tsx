@@ -160,13 +160,20 @@ function RouteInfo(props: { line: number }): JSX.Element {
         );
     }
   } else {
-    return (
-      <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
-        <Text as="h1" weight="semibold">
-          {t("reminder.loading")}
-        </Text>
-      </LinkFluent>
-    );
+    if (navigator.onLine) {
+      return (
+        <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
+          <Text as="h1" weight="semibold">
+            {t("reminder.loading")}
+          </Text>
+        </LinkFluent>
+      );
+    }
+    else {
+      return (
+        <Text>Your device seems to be offline, and no cache has been found.</Text>
+      )
+    }
   }
 }
 export default RouteInfo;

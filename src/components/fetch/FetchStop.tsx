@@ -60,14 +60,13 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return { parsedData, error };
     };
 
-    if (navigator.onLine)
-      fetchEtaData().then(({ parsedData, error }) => {
-        if (error || !parsedData) {
-          return;
-        }
-        setData(parsedData);
-        setEtaDb(etaParser(parsedData));
-      });
+    fetchEtaData().then(({ parsedData, error }) => {
+      if (error || !parsedData) {
+        return;
+      }
+      setData(parsedData);
+      setEtaDb(etaParser(parsedData));
+    });
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
@@ -120,6 +119,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
+          {navigator.onLine ? null : <Text>Device seems to be offline. Results may be inaccurate.</Text>}
           {listContent.length > 0 ? (
             <ul>{listContent}</ul>
           ) : (
@@ -157,7 +157,13 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       <div>
         {navigator.onLine ?
           <Title1>{t("reminder.loading")}</Title1> :
-          <Title1>Your device seems to be offline.</Title1>}
+          <>
+            <Title1 className="top-row">
+              Stop {stopId}
+            </Title1>
+            <br />
+            <Title1>Your device seems to be offline.</Title1>
+          </>}
         <div className="countdownButtonGroup">
           <RefreshButton />
           <SMSButton stopId={stopId} />
