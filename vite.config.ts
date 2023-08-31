@@ -7,7 +7,25 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',
     workbox: {
-      globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/webservices\.umoiq\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'ttc-eta-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 // <== 1 day
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },],
+    },
+    devOptions: {
+      enabled: true
     }
   })],
 
