@@ -11,7 +11,7 @@ export default defineConfig({
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/webservices\.umoiq\.com\/.*/i,
-          handler: 'CacheFirst',
+          handler: 'NetworkFirst',
           options: {
             cacheName: 'ttc-eta-cache',
             expiration: {
