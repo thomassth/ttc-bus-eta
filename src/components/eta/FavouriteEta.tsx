@@ -112,12 +112,18 @@ export default function FavouriteEta() {
         </section>
       ) : EtaCards.length > 0 ? (
         <>
-          {navigator.onLine ? null : <Text>Device seems to be offline. Results may be inaccurate.</Text>}
+          {navigator.onLine ? null : (
+            <Text>Device seems to be offline. Results may be inaccurate.</Text>
+          )}
           <ul>{EtaCards}</ul>
         </>
       ) : lastUpdatedAt > 0 || !navigator.onLine ? (
         <section>
-          <p>{navigator.onLine ? t("home.homeNoEta") : "Your device seems to be offline."}</p>
+          <p>
+            {navigator.onLine
+              ? t("home.homeNoEta")
+              : "Your device seems to be offline."}
+          </p>
           <Bookmark />
         </section>
       ) : null}

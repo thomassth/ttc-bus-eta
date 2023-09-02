@@ -168,11 +168,12 @@ function RouteInfo(props: { line: number }): JSX.Element {
           </Text>
         </LinkFluent>
       );
-    }
-    else {
+    } else {
       return (
-        <Text>Your device seems to be offline, and no cache has been found.</Text>
-      )
+        <Text>
+          Your device seems to be offline, and no cache has been found.
+        </Text>
+      );
     }
   }
 }

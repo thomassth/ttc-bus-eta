@@ -11,10 +11,10 @@ import { fluentStyles } from "../../styles/fluent";
 import { BookmarkButton } from "../bookmarks/BookmarkButton";
 import CountdownGroup from "../countdown/CountdownGroup";
 import { CountdownRow } from "../countdown/CountdownRow";
+import SMSButton from "../eta/SMSButton";
 import { etaParser } from "../parser/etaParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { FetchXMLWithCancelToken } from "./fetchUtils";
-import SMSButton from "../eta/SMSButton";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
@@ -119,7 +119,9 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               lines={etaDb.map((item) => item.line)}
             />
           </div>
-          {navigator.onLine ? null : <Text>Device seems to be offline. Results may be inaccurate.</Text>}
+          {navigator.onLine ? null : (
+            <Text>Device seems to be offline. Results may be inaccurate.</Text>
+          )}
           {listContent.length > 0 ? (
             <ul>{listContent}</ul>
           ) : (
@@ -155,15 +157,15 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   } else {
     return (
       <div>
-        {navigator.onLine ?
-          <Title1>{t("reminder.loading")}</Title1> :
+        {navigator.onLine ? (
+          <Title1>{t("reminder.loading")}</Title1>
+        ) : (
           <>
-            <Title1 className="top-row">
-              Stop {stopId}
-            </Title1>
+            <Title1 className="top-row">Stop {stopId}</Title1>
             <br />
             <Title1>Your device seems to be offline.</Title1>
-          </>}
+          </>
+        )}
         <div className="countdownButtonGroup">
           <RefreshButton />
           <SMSButton stopId={stopId} />
@@ -173,4 +175,3 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   }
 }
 export default StopPredictionInfo;
-
