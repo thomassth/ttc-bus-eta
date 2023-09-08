@@ -1,4 +1,4 @@
-import { Button, Input } from "@fluentui/react-components";
+import { Button, Input, Title1 } from "@fluentui/react-components";
 import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -36,7 +36,7 @@ export default function NewVehicle() {
   return (
     <form className="searchForm">
       <div className="nextVehicleContainer">
-        <h1>Next Vehicle</h1>
+        <Title1 className="title">Next Vehicle</Title1>
         <Input
           className={fluentStyle.centerInput}
           size="large"

@@ -268,10 +268,10 @@ pre {
   font-size: x-large;
 }
 
-.nextVehicleContainer h1 {
+.nextVehicleContainer .title {
   background-color: black;
   text-align: center;
-  font-size: xx-large;
+  color: white;
 }
 
 .searchForm .separation hr {
