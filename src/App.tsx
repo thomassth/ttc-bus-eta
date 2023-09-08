@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     window.addEventListener("resize", handleResize, false);
+    window.addEventListener("orientationchange", handleResize, false);
   }, []);
 
   return (

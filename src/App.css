@@ -22,6 +22,7 @@ body {
   bottom: 0px;
   text-align: center;
   background-color: var(--colorNeutralBackground2);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .bottomNav ul {
@@ -57,6 +58,7 @@ body {
   margin: 16px 32px 80px 32px;
   padding: 0px;
   width: auto;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .homePage {
