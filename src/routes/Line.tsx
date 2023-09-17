@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import RouteInfo from "../components/fetch/FetchRoute";
+import SubwayRouteInfo from "../components/fetch/FetchSubwayRoute"
 
 export default function Line() {
   const params = useParams();
@@ -17,7 +18,8 @@ export default function Line() {
     <main className="linePage">
       <Title1>{t("lines.number", { lineNum })}</Title1>
       <Accordion defaultOpenItems collapsible>
-        <RouteInfo line={lineNum} />
+        {lineNum < 6 && <SubwayRouteInfo line={lineNum} />}
+        {lineNum >= 6 && <RouteInfo line={lineNum} />}
       </Accordion>
     </main>
   );

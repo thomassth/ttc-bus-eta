@@ -8,6 +8,7 @@ const badgeColor = (text: string) => {
       return "success";
     case /3[\d]{2}.*/.test(text):
       return "brand";
+    case /^1$/.test(text):
     case /[2,4][\d]{2}.*/.test(text):
       return "important";
     default:
@@ -16,8 +17,17 @@ const badgeColor = (text: string) => {
 };
 
 const customBgColor = (text: string) => {
-  if (/2[\d]{2}.*/.test(text)) {
-    return "pink";
+  switch (true) {
+    case /^1$/.test(text):
+      return "yellow";
+    case /^2$/.test(text):
+      return "green";
+    case /^4$/.test(text):
+      return "purple";
+    case /2[\d]{2}.*/.test(text):
+      return "pink";
+    default:
+      return ''
   }
 };
 

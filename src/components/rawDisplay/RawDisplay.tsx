@@ -12,14 +12,16 @@ import { EtaPredictionXml, RouteXml, RoutesXml } from "../../models/etaXml";
 import { store, useAppSelector } from "../../store";
 import { settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
+import { SubwayStations } from "../../models/ttc";
 
 export default function RawDisplay(props: {
   data:
-    | EtaPredictionXml
-    | RouteXml
-    | RoutesXml
-    | settingsRedux
-    | stopBookmarksRedux;
+  | EtaPredictionXml
+  | RouteXml
+  | RoutesXml
+  | settingsRedux
+  | stopBookmarksRedux
+  | SubwayStations;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
@@ -48,5 +50,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return isInDevMode ? rawDisplay : <> {}</>;
+  return isInDevMode ? rawDisplay : <> { }</>;
 }
