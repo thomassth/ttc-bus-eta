@@ -27,7 +27,7 @@ const customBgColor = (text: string) => {
     case /2[\d]{2}.*/.test(text):
       return "pink";
     default:
-      return ''
+      return "";
   }
 };
 

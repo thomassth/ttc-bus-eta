@@ -9,19 +9,20 @@ import { useTranslation } from "react-i18next";
 
 import { settingsRedux, stopBookmarksRedux } from "../../models/etaObjects";
 import { EtaPredictionXml, RouteXml, RoutesXml } from "../../models/etaXml";
+import { SubwayStations, SubwayStop } from "../../models/ttc";
 import { store, useAppSelector } from "../../store";
 import { settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
-import { SubwayStations } from "../../models/ttc";
 
 export default function RawDisplay(props: {
   data:
-  | EtaPredictionXml
-  | RouteXml
-  | RoutesXml
-  | settingsRedux
-  | stopBookmarksRedux
-  | SubwayStations;
+    | EtaPredictionXml
+    | RouteXml
+    | RoutesXml
+    | settingsRedux
+    | stopBookmarksRedux
+    | SubwayStations
+    | SubwayStop;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
@@ -50,5 +51,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return isInDevMode ? rawDisplay : <> { }</>;
+  return isInDevMode ? rawDisplay : <> {}</>;
 }

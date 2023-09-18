@@ -37,6 +37,23 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: "ttc",
+        children: [
+          { index: true, Component: LineSearch },
+          {
+            path: "lines/:lineId",
+            children: [
+              { index: true, Component: Line },
+              { path: ":stopNum", Component: LineStopPrediction },
+            ],
+          },
+          {
+            path: "stops/:stopId",
+            Component: StopPrediction,
+          },
+        ],
+      },
+      {
         path: "lines",
         children: [
           { index: true, Component: LineSearch },

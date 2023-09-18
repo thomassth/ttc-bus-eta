@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
 
 import LineStopPredictionInfo from "../components/fetch/FetchLineStop";
+import SubwayStopPredictionInfo from "../components/fetch/FetchSubwayStop";
 
 export default function LineStopPrediction() {
   const params = useParams();
@@ -16,7 +17,12 @@ export default function LineStopPrediction() {
         <LinkFluent>Back to {lineNum}</LinkFluent>
       </Link>
       <Title2>{t("lines.lineAndStopInfo", { lineNum, stopNum })}</Title2>
-      <LineStopPredictionInfo line={lineNum} stopNum={stopNum} />
+      {lineNum < 6 && (
+        <SubwayStopPredictionInfo line={lineNum} stopNum={stopNum} />
+      )}
+      {lineNum >= 6 && (
+        <LineStopPredictionInfo line={lineNum} stopNum={stopNum} />
+      )}
     </main>
   );
 }
