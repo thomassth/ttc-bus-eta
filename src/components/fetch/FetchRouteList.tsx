@@ -1,4 +1,4 @@
-import { Card, Text } from "@fluentui/react-components";
+import { Card, Text, Link as LinkFluent } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -56,7 +56,7 @@ export function RoutesInfo() {
 
   const routesCards = routesDb.map((routeItem) => {
     return (
-      <li key={routeItem.tag}>
+      <li key={routeItem.tag} id={`${routeItem.tag}`}>
         <Card className="cardContainer clickableCard">
           <Link className="routeCard" to={`/lines/${routeItem.tag}`}>
             <TtcBadge key={routeItem.tag} lineNum={`${routeItem.tag}`} />
@@ -69,8 +69,45 @@ export function RoutesInfo() {
 
   return (
     <article>
+      {/* <ul className="jumpbar">
+        <li>
+          <a href="#200">
+            <LinkFluent><Button>
+              Seasonal</Button></LinkFluent>
+          </a>
+        </li>
+        <li><a href="#300"><LinkFluent><Button>Night</Button></LinkFluent></a></li>
+        <li><a href="#300"><LinkFluent><Button>Community</Button></LinkFluent></a></li>
+        <li><a href="#501"><LinkFluent><Button>Streetcar</Button></LinkFluent></a></li>
+        <li><a href="#900"><LinkFluent><Button>Express</Button></LinkFluent></a></li>
+      </ul> */}
+      <JumpBar />
       <ul className="routeList">{routesCards}</ul>
       {routeXmlData !== undefined && <RawDisplay data={routeXmlData} />}
     </article>
   );
+}
+
+function JumpBar() {
+  const jumpbarMap = [
+    [7, 'Regular'],
+    [200, "Seasonal"],
+    [300, "Night"],
+    [501, "Streetcar"],
+    [900, "Express"],
+  ]
+
+  const jumpbarItems = [];
+  for (let index = 0; index < jumpbarMap.length; index++) {
+    jumpbarItems.push(
+      <li key={index}>
+        <a href={`#${jumpbarMap[index][0]}`}>
+          <LinkFluent>{jumpbarMap[index][1]}</LinkFluent></a></li>)
+
+  }
+  return (
+    <ul className="jumpbar">
+      {jumpbarItems}
+    </ul>
+  )
 }

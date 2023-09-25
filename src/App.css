@@ -25,6 +25,23 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.jumpbar {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 5;
+  display: flex;
+  top: 20px;
+  list-style: none;
+  justify-content: center;
+}
+
+
+
+.jumpbar a {
+  padding: 1rem;
+  background-color: var(--colorNeutralBackground2);
+}
+
 .bottomNav ul {
   padding: 4px 0px;
   display: grid;
@@ -69,8 +86,8 @@ body {
   padding: 0px 8px;
 }
 
-.aboutPage > *,
-.settingsPage > * {
+.aboutPage>*,
+.settingsPage>* {
   padding-bottom: 16px;
 }
 
@@ -80,7 +97,7 @@ body {
   flex-direction: column;
 }
 
-.navBar > a {
+.navBar>a {
   padding: 0px 32px;
 }
 
@@ -146,6 +163,11 @@ main {
   list-style-type: none;
   padding: 0;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+}
+
+.routeList li {
+  scroll-margin-top: 4rem;
+  scroll-snap-margin-top: 4rem;
 }
 
 *[role="checkbox"] {
@@ -218,11 +240,12 @@ main {
 .settingsPage a,
 .routerLink,
 .countdownRow a,
-.bookmarkContainer a {
+.bookmarkContainer a,
+.jumpbar a {
   text-decoration: none;
 }
 
-.etaCardCountdown > * {
+.etaCardCountdown>* {
   flex-wrap: wrap;
   float: right;
 }
@@ -282,6 +305,7 @@ pre {
 }
 
 @media screen and (min-width: 800px) {
+
   .linePage,
   .homePage,
   .container.yrt,
@@ -308,12 +332,13 @@ pre {
     min-width: 160px;
   }
 
-  .etaCardCountdown > * {
+  .etaCardCountdown>* {
     flex-wrap: nowrap;
   }
 }
 
 @media (max-width: 800px) {
+
   .bookmarkContainer ul,
   .routeList {
     grid-template-columns: auto;
@@ -331,7 +356,7 @@ pre {
     gap: 4px;
   }
 
-  .bookmarkedStop .bookmarkedEta .badgeGroup > * {
+  .bookmarkedStop .bookmarkedEta .badgeGroup>* {
     margin: 0;
   }
 }
