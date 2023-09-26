@@ -1,4 +1,4 @@
-import { Card, Text, Link as LinkFluent } from "@fluentui/react-components";
+import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -90,24 +90,22 @@ export function RoutesInfo() {
 
 function JumpBar() {
   const jumpbarMap = [
-    [7, 'Regular'],
+    [7, "Regular"],
     [200, "Seasonal"],
     [300, "Night"],
     [501, "Streetcar"],
     [900, "Express"],
-  ]
+  ];
 
   const jumpbarItems = [];
   for (let index = 0; index < jumpbarMap.length; index++) {
     jumpbarItems.push(
       <li key={index}>
         <a href={`#${jumpbarMap[index][0]}`}>
-          <LinkFluent>{jumpbarMap[index][1]}</LinkFluent></a></li>)
-
+          <LinkFluent>{jumpbarMap[index][1]}</LinkFluent>
+        </a>
+      </li>
+    );
   }
-  return (
-    <ul className="jumpbar">
-      {jumpbarItems}
-    </ul>
-  )
+  return <ul className="jumpbar">{jumpbarItems}</ul>;
 }
