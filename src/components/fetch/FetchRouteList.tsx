@@ -115,7 +115,7 @@ function subwayCards() {
 
 function JumpBar() {
   const jumpbarMap = [
-    ['', "Regular"],
+    ["", "Regular"],
     [200, "Seasonal"],
     [300, "Night"],
     [501, "Streetcar"],

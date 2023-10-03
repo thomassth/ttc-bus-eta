@@ -23,13 +23,15 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return data;
     };
 
-    fetchSubwayData().then((res) => {
-      try {
-        setData(JSON.parse(res));
-      } catch (error) {
-        setData({ routeBranchesWithStops: [], Error: true });
-      }
-    });
+    if (lineNum !== 3) {
+      fetchSubwayData().then((res) => {
+        try {
+          setData(JSON.parse(res));
+        } catch (error) {
+          setData({ routeBranchesWithStops: [], Error: true });
+        }
+      });
+    }
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
@@ -78,7 +80,12 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return (
         <div className="stopsListContainer">
           <ul>
-            {props.line === 3 && <li>Line 3 has ceased to be.</li>}
+            {props.line === 3 && (
+              <li>
+                Line 3 is permanently closed. <br />
+                {line3Tribute()}
+              </li>
+            )}
             <li>
               <RawDisplay data={data} />
             </li>
@@ -90,7 +97,17 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return (
         <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
           <Text as="h1" weight="semibold">
-            {t("reminder.loading")}
+            <div className="stopsListContainer">
+              <ul>
+                {props.line === 3 && (
+                  <li>
+                    Line 3 is permanently closed. <br />
+                    {line3Tribute()}
+                  </li>
+                )}
+                {props.line !== 3 && t("reminder.loading")}
+              </ul>
+            </div>
           </Text>
         </LinkFluent>
       );
@@ -111,4 +128,25 @@ const filterSubwayDirection = (input: string) => {
 
 const filterSubwayTitle = (input: string) => {
   return input.split(/\(|\)/)[1];
+};
+
+const line3Tribute = () => {
+  const lines = new Map([
+    [0, "It is no more."],
+    [1, "It has ceased to be."],
+    [2, "Bereft of life, it rests in peace."],
+    [3, "It is an ex-line."],
+    [4, "It is pining for the fjords."],
+    [5, "It has kicked the bucket."],
+    [
+      6,
+      "It has shuffled off its mortal coil, run down the curtain and joined the choir invisible.",
+    ],
+    [7, "Its metallic processes are now history."],
+    [8, "It's definitely deceased."],
+    [9, "It is expired and gone to meet its maker."],
+    [10, "It's passed on."],
+  ]);
+
+  return lines.get(Math.floor(Math.random() * 11));
 };
