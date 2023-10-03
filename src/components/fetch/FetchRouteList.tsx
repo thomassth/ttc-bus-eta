@@ -82,15 +82,40 @@ export function RoutesInfo() {
         <li><a href="#900"><LinkFluent><Button>Express</Button></LinkFluent></a></li>
       </ul> */}
       <JumpBar />
-      <ul className="routeList">{routesCards}</ul>
+      <ul className="routeList">
+        {subwayCards()}
+        {routesCards}
+      </ul>
       {routeXmlData !== undefined && <RawDisplay data={routeXmlData} />}
     </article>
   );
 }
 
+function subwayCards() {
+  const subwayLines = [
+    { line: 1, name: "Yonge-University" },
+    { line: 2, name: "Bloor-Danforth" },
+    { line: 4, name: "Sheppard" },
+  ];
+
+  const result = subwayLines.map((subwayLine, index) => {
+    return (
+      <li key={subwayLine.line}>
+        <Card className="cardContainer clickableCard">
+          <Link className="routeCard" to={`/lines/${subwayLine.line}`}>
+            <TtcBadge key={subwayLine.line} lineNum={`${subwayLine.line}`} />
+            <Text>{parseRouteTitle(subwayLine.name)}</Text>
+          </Link>
+        </Card>
+      </li>
+    );
+  });
+  return result;
+}
+
 function JumpBar() {
   const jumpbarMap = [
-    [7, "Regular"],
+    ['', "Regular"],
     [200, "Seasonal"],
     [300, "Night"],
     [501, "Streetcar"],
