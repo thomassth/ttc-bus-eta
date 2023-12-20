@@ -16,13 +16,13 @@ import { fluentStyles } from "../../styles/fluent";
 
 export default function RawDisplay(props: {
   data:
-    | EtaPredictionXml
-    | RouteXml
-    | RoutesXml
-    | settingsRedux
-    | stopBookmarksRedux
-    | SubwayStations
-    | SubwayStop;
+  | EtaPredictionXml
+  | RouteXml
+  | RoutesXml
+  | settingsRedux
+  | stopBookmarksRedux
+  | SubwayStations
+  | SubwayStop;
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
@@ -45,11 +45,11 @@ export default function RawDisplay(props: {
           {t("debug.showResponse")}
         </AccordionHeader>
         <AccordionPanel className="rawResponseDetails">
-          <pre>{`${JSON.stringify(props.data, null, 1)}`}</pre>
+          <pre>{JSON.stringify(props.data, null, 1)}</pre>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
   );
 
-  return isInDevMode ? rawDisplay : <> {}</>;
+  return isInDevMode ? rawDisplay : <> { }</>;
 }

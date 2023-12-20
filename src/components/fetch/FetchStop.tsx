@@ -149,7 +149,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             />
             <SMSButton stopId={stopId} />
           </div>
-          <Text>{`${data.body.Error["#text"]}`}</Text>
+          <Text>{data.body.Error["#text"]}</Text>
           <RawDisplay data={data} />
         </div>
       );

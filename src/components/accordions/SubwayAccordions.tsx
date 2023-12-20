@@ -22,7 +22,7 @@ export function SubwayAccordions(props: {
 
   const stops = props.result.map((lineStop) => {
     return (
-      <li key={`${lineStop.id}`}>
+      <li key={lineStop.id.toString()}>
         <AccordionPanel className={fluentStyle.accordionPanel}>
           <div className="lineDetails">
             <ETAButton code={lineStop.code} line={props.lineNum} />
@@ -44,7 +44,7 @@ export function SubwayAccordions(props: {
   return (
     <AccordionItem value={props.tag}>
       <AccordionHeader className={fluentStyle.accordionHeader}>
-        <TtcBadge key={props.lineNum} lineNum={`${props.lineNum}`} />
+        <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
         {props.title}
       </AccordionHeader>
       <ul>{stops}</ul>

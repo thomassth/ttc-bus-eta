@@ -40,7 +40,7 @@ const badgeOutline = (text: string) => {
       return "outline";
     default:
       for (const item of occasional) {
-        if (text.startsWith(`${item}`)) {
+        if (text.startsWith(item.toString())) {
           return "outline";
         }
       }
@@ -55,7 +55,7 @@ export function TtcBadge(props: { lineNum: string }) {
     <Badge
       style={{ backgroundColor: customBgColor(props.lineNum) }}
       className={fluentStyle.badge}
-      color={badgeColor(`${props.lineNum}`)}
+      color={badgeColor(props.lineNum)}
       appearance={badgeOutline(props.lineNum)}
       shape="rounded"
     >

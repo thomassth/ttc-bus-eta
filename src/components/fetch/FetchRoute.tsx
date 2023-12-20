@@ -112,7 +112,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         (element) => {
           const list = createStopList(element);
           return (
-            <li key={`${element.tag}`}>
+            <li key={element.tag}>
               <StopAccordions
                 title={element.title}
                 direction={element.name}

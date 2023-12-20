@@ -39,7 +39,7 @@ export function StopAccordions(props: {
     <AccordionItem value={props.tag}>
       <AccordionHeader className={fluentStyle.accordionHeader}>
         <Badge className={fluentStyle.badge}>{props.direction}</Badge>
-        <TtcBadge key={props.lineNum} lineNum={`${props.lineNum}`} />
+        <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
         {parseRoute(props.title)}
       </AccordionHeader>
       <ul>{stops}</ul>

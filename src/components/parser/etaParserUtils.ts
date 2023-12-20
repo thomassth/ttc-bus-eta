@@ -3,7 +3,7 @@ import { EtaBus } from "../../models/etaXml";
 
 const etaItemGenerator = (item: EtaBus) => {
   return {
-    id: `${item.tripTag}`,
+    id: item.tripTag.toString(),
     seconds: item.seconds,
     vehicle: item.vehicle,
     branch: item.branch,

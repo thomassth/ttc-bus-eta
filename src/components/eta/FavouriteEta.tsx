@@ -80,7 +80,7 @@ export default function FavouriteEta() {
   if (unifiedEtaValue) {
     for (const item of unifiedEtaDb) {
       if (item.etas.length > 0) {
-        const id = `${item.stopId}`;
+        const id = item.stopId;
         EtaCards.push(
           <EtaCard
             key={id}

@@ -116,7 +116,7 @@ export function Settings() {
       </Link>
       <Title2>ETA lists</Title2>
       <RadioGroup
-        defaultValue={`${unifiedEta}`}
+        defaultValue={unifiedEta.toString()}
         aria-labelledby={"Unifed ETA mode"}
         onChange={handleUnifiedEtaChange}
       >

@@ -57,7 +57,7 @@ export default function NewVehicle() {
           className={fluentStyle.flexGrowContent}
           onChange={handleLineChange}
           aria-label={t("lines.ariaLabel") ?? ""}
-          placeholder={`${t("lines.placeholder")}`}
+          placeholder={t("lines.placeholder")}
         />
         <Button appearance="primary" type="submit" onClick={handleSearchClick}>
           {t("buttons.search")}

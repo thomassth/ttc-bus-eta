@@ -11,7 +11,7 @@ const parseActualLineNum = (title: string) => {
   const found = title.match(/(\w+)-([\w\s]+)/);
   if (found === null) {
     return "";
-  } else return `${found[1]}`.toLocaleUpperCase();
+  } else return found[1].toLocaleUpperCase();
 };
 
 const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
