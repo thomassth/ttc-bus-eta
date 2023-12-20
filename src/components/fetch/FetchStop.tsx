@@ -94,14 +94,16 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           );
         });
       } else {
-        listContent = etaDb.map((element) => {
-          return (
-            <CountdownGroup
-              key={`${element.line}-${element.stopTag}`}
-              detail={element}
-            />
-          );
-        });
+        listContent = etaDb
+          .filter((element) => element.etas.length > 0)
+          .map((element) => {
+            return (
+              <CountdownGroup
+                key={`${element.line}-${element.stopTag}`}
+                detail={element}
+              />
+            );
+          });
       }
       return (
         <div className="countdownListContainer">

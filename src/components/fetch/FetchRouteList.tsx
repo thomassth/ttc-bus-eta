@@ -103,7 +103,10 @@ function subwayCards() {
       <li key={subwayLine.line}>
         <Card className="cardContainer clickableCard">
           <Link className="routeCard" to={`/lines/${subwayLine.line}`}>
-            <TtcBadge key={subwayLine.line} lineNum={subwayLine.line.toString()} />
+            <TtcBadge
+              key={subwayLine.line}
+              lineNum={subwayLine.line.toString()}
+            />
             <Text>{parseRouteTitle(subwayLine.name)}</Text>
           </Link>
         </Card>
