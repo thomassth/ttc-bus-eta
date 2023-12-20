@@ -22,12 +22,12 @@ export const parseSingleOrMultiEta = (
   result: LineStopEta[]
 ) => {
   if (Array.isArray(input)) {
-    result[result.length - 1].etas = input.map((item) => {
+    result[result.length - 1].etas = result[result.length - 1].etas.concat(input.map((item) => {
       return etaItemGenerator(item);
-    });
+    }));
   } else {
     const item = input;
-    result[result.length - 1].etas = [etaItemGenerator(item)];
+    result[result.length - 1].etas = result[result.length - 1].etas.concat([etaItemGenerator(item)]);
   }
   result[result.length - 1].etas.sort((a, b) => a.seconds - b.seconds);
 };
