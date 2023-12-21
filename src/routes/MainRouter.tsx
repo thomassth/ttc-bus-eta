@@ -14,6 +14,7 @@ import Line from "./Line";
 import LineSearch from "./LineSearch";
 import LineStopPrediction from "./LineStopPrediction";
 import StopPrediction from "./StopPrediction";
+import RelativeVehiclePosition from "./RelativeVehiclePosition";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,14 @@ export const router = createBrowserRouter([
           },
           {
             path: "stops/:stopId",
-            Component: StopPrediction,
+            children: [
+              { index: true, Component: StopPrediction },
+              {
+                path: ":vehicle",
+                Component: RelativeVehiclePosition
+              }
+            ]
+            ,
           },
         ],
       },
@@ -68,7 +76,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "stops/:stopId",
-        Component: StopPrediction,
+        children: [
+          { index: true, Component: StopPrediction },
+          {
+            path: ":vehicle",
+            Component: RelativeVehiclePosition
+          }
+        ]
+        ,
       },
 
       { path: "*", Component: Error },

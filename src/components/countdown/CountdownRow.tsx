@@ -17,6 +17,7 @@ export function CountdownRow(props: { item: EtaBusWithID }) {
       <CountdownSec
         second={props.item.seconds}
         epochTime={props.item.epochTime}
+        vehicle={props.item.vehicle}
       />
     </div>
   );

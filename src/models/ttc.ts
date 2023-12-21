@@ -25,3 +25,8 @@ export interface SubwayStop {
   directionText: string;
   Error?: boolean;
 }
+
+export interface parsedVehicleLocation {
+  Error?: { content: string },
+  vehicle?: { id: string, heading: string, speedKmHr: string, routeTag: string, lat: number, lon: number }
+}
