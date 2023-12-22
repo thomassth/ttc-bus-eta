@@ -173,8 +173,8 @@ main {
 }
 
 .routeList li {
-  scroll-margin-top: 4rem;
   scroll-snap-margin-top: 4rem;
+  scroll-margin-top: 4rem;
 }
 
 *[role="checkbox"] {

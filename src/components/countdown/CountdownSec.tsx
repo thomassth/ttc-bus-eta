@@ -1,11 +1,15 @@
 import { Badge, Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-import { fluentStyles } from "../../styles/fluent";
 import { Link } from "react-router-dom";
 
-export function CountdownSec(props: { second: number; epochTime?: number, vehicle?: number }) {
+import { fluentStyles } from "../../styles/fluent";
+
+export function CountdownSec(props: {
+  second: number;
+  epochTime?: number;
+  vehicle?: number;
+}) {
   const [epochTime, setEpochTime] = useState(props.epochTime);
   const [sec, setSec] = useState(props.second ?? 0);
   const fluentStyle = fluentStyles();
@@ -31,7 +35,11 @@ export function CountdownSec(props: { second: number; epochTime?: number, vehicl
   }, [sec]);
   return (
     <div className="countdownSec number">
-      {sec < 180 ? <Link to={`${props.vehicle}`}><ArrivingBadge /></Link> : null}
+      {sec < 180 ? (
+        <Link to={`${props.vehicle}`}>
+          <ArrivingBadge />
+        </Link>
+      ) : null}
 
       {sec >= 60 * 60 ? (
         <>
