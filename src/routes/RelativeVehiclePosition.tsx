@@ -1,46 +1,61 @@
-import { Suspense, useEffect, lazy } from "react";
-import { Await, useParams } from "react-router-dom";
-import { getVehicleLocation } from "../components/fetch/ttcVehicleLocation";
-import { Title1 } from "@fluentui/react-components";
+import { Button, Title1 } from "@fluentui/react-components";
+import { ArrowClockwise24Regular } from "@fluentui/react-icons";
+import { Suspense, lazy, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-const VehicleLocation = lazy(() => import("../components/display/VehicleLocation"));
+import { getVehicleLocation } from "../components/fetch/ttcVehicleLocation";
+import { fluentStyles } from "../styles/fluent";
+
+const VehicleLocation = lazy(
+  () => import("../components/display/VehicleLocation")
+);
 
 export default function RelativeVehiclePosition() {
-    const params = useParams();
-    const stopNum = parseInt(`${params.stopId}`);
-    const vehicleId = parseInt(`${params.vehicle}`)
-    // const [data, setData] = useState({})
+  const params = useParams();
+  const stopNum = parseInt(`${params.stopId}`);
+  const vehicleId = parseInt(`${params.vehicle}`);
+  const [data, setData] = useState({});
 
-    useEffect(() => {
-        document.title = `Stop ID ${stopNum} | TTC arrivals`;
+  useEffect(() => {
+    document.title = `Stop ID ${stopNum} | TTC arrivals`;
+  });
+  useEffect(() => {
+    updateData();
+  }, []);
+
+  const updateData = (vehicle: number = vehicleId) => {
+    getVehicleLocation(vehicle).then((res) => {
+      setData(res);
     });
-    // useEffect(() => {
-    //     getVehicleLocation(vehicleId).then(res => {
-    //         setData(res)
+  };
 
-    //     });
-    // }, [])
-
-    return (
-        <main className="stopPredictionPage">
-            <Title1>Route: {vehicleId}</Title1>
-
-            <Suspense>
-                <Await
-                    resolve={getVehicleLocation(vehicleId)}
-                    errorElement={
-                        <div>Could not load vehicle data 😬</div>
-                    }
-                    // eslint-disable-next-line react/no-children-prop
-                    children={(resolved) => (
-                        <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={resolved} />
-                    )}
-                />
-            </Suspense>
-            {/* <Suspense>
-                <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={data} />
-            </Suspense> */}
-        </main>
-    );
+  return (
+    <main className="stopPredictionPage">
+      <Title1>Vehicle {vehicleId}</Title1>
+      <RefreshButton onClick={() => updateData()} />
+      <Suspense>
+        <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={data} />
+      </Suspense>
+    </main>
+  );
 }
 
+function RefreshButton({ onClick }: { onClick: () => void }) {
+  const fluentStyle = fluentStyles();
+  const { t } = useTranslation();
+
+  const useOnClick = () => {
+    onClick();
+  };
+
+  return (
+    <Button
+      className={fluentStyle.refreshButton}
+      onClick={useOnClick}
+      icon={<ArrowClockwise24Regular />}
+    >
+      {t("buttons.refresh")}
+    </Button>
+  );
+}

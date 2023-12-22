@@ -13,7 +13,7 @@ export default function VehicleLocation(props: {
   vehicleId?: number;
   data: parsedVehicleLocation;
 }) {
-  const [data, setData] = useState<parsedVehicleLocation>({});
+  const data = props.data;
   const [error, setError] = useState(false);
   const [center, setCenter] = useState([-8827495.913945649, 5436686.505484939]);
   const [view, setView] = useState<RView>({ center, zoom: 16 });
@@ -30,7 +30,6 @@ export default function VehicleLocation(props: {
     if (props.data?.Error) {
       setError(true);
     }
-    setData(props.data);
     if (data.vehicle) {
       const center = fromLonLat([data.vehicle?.lon, data.vehicle?.lat]);
       setView({ center, zoom: 16 });
@@ -46,7 +45,7 @@ export default function VehicleLocation(props: {
   }
 
   return (
-    <main>
+    <div className="vehicleView">
       <RMap
         width={"100%"}
         height={"60vh"}
@@ -58,11 +57,11 @@ export default function VehicleLocation(props: {
           <RFeature geometry={new Point(center)} />
         </RLayerVector>
       </RMap>
-      <Title1>Route: {data.vehicle?.routeTag}</Title1>
-
-      <Title2>Bus ID: {data.vehicle?.id}</Title2>
-
-      <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
-    </main>
+      <div className="desc">
+        <Title1>Route: {data.vehicle?.routeTag}</Title1>
+        <Title2>Bus ID: {data.vehicle?.id}</Title2>
+        <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
+      </div>
+    </div>
   );
 }

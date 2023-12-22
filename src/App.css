@@ -365,3 +365,18 @@ pre {
     margin: 0;
   }
 }
+
+.stopPredictionPage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.vehicleView .desc {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
