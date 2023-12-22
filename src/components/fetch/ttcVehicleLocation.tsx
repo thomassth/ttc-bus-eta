@@ -6,7 +6,7 @@ export const getVehicleLocation = async (vehicle: number) => {
   if (data.Error) {
     return data;
   }
-
+  data.vehicle.heading = parseInt(data.vehicle?.heading) ?? 0;
   data.vehicle.lon = parseFloat(data.vehicle?.lon);
   data.vehicle.lat = parseFloat(data.vehicle?.lat);
   return data;

@@ -30,7 +30,7 @@ export interface parsedVehicleLocation {
   Error?: { content: string };
   vehicle?: {
     id: string;
-    heading: string;
+    heading: number;
     speedKmHr: string;
     routeTag: string;
     lat: number;

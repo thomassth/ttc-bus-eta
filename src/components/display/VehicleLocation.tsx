@@ -3,9 +3,10 @@ import { Point } from "ol/geom";
 import "ol/ol.css";
 import { fromLonLat } from "ol/proj";
 import { useEffect, useState } from "react";
-import { RFeature, RLayerVector, RMap, ROSMWebGL } from "rlayers";
+import { RFeature, RLayerVector, RMap, ROSMWebGL, ROverlay } from "rlayers";
 import { RView } from "rlayers/RMap";
 
+import arrow from "../../../public/arrow.svg";
 import { parsedVehicleLocation } from "../../models/ttc";
 
 export default function VehicleLocation(props: {
@@ -54,13 +55,31 @@ export default function VehicleLocation(props: {
       >
         <ROSMWebGL />
         <RLayerVector zIndex={10}>
-          <RFeature geometry={new Point(center)} />
+          <RFeature geometry={new Point(center)}>
+            <ROverlay className="no-interaction">
+              <img
+                src={arrow}
+                style={{
+                  position: "relative",
+                  top: -12,
+                  left: -12,
+                  userSelect: "none",
+                  pointerEvents: "none",
+                  transform: `rotate(${data.vehicle?.heading ?? 0}deg)`,
+                }}
+                width={24}
+                height={24}
+                alt="bus icon"
+              />
+            </ROverlay>
+          </RFeature>
         </RLayerVector>
       </RMap>
       <div className="desc">
         <Title1>Route: {data.vehicle?.routeTag}</Title1>
         <Title2>Bus ID: {data.vehicle?.id}</Title2>
         <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
+        <Text>Heading: {data.vehicle?.heading}</Text>
       </div>
     </div>
   );
