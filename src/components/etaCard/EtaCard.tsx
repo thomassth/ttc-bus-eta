@@ -7,6 +7,7 @@ import { EtaBusWithID } from "../../models/etaObjects";
 import { fluentStyles } from "../../styles/fluent";
 import { TtcBadge } from "../badges";
 import { CountdownSec } from "../countdown/CountdownSec";
+import style from "./EtaCard.module.css";
 
 export function EtaCard(props: {
   etas: EtaBusWithID[];
@@ -19,7 +20,11 @@ export function EtaCard(props: {
   const fluentStyle = fluentStyles();
 
   return (
-    <li className={props.editable ? "cardWithButton" : ""}>
+    <li
+      className={
+        "eta-card" + (props.editable ? " " + style["card-with-button"] : "")
+      }
+    >
       {props.editable && (
         <Button
           className={fluentStyle.removeButton}
@@ -28,12 +33,12 @@ export function EtaCard(props: {
           onClick={props.onDelete}
         />
       )}
-      <Link className={"bookmarkedStop"} to={props.stopUrl}>
-        <Card className="clickableCard">
+      <Link to={props.stopUrl}>
+        <Card className={style["clickable-card"]}>
           <CardHeader
             header={
               <>
-                <div className="badgeGroup">
+                <div className={style["badge-group"]}>
                   {props.lines.map((line: string) => {
                     return <TtcBadge key={line} lineNum={line} />;
                   })}
@@ -42,7 +47,7 @@ export function EtaCard(props: {
               </>
             }
             action={
-              <div className="etaCardCountdown">
+              <div className={style["eta-card-countdown"]}>
                 {props.etas.length > 0 && (
                   <CountdownSec
                     second={props.etas[0].seconds}

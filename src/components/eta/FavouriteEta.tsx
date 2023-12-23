@@ -17,6 +17,7 @@ import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
 import { multiStopParser, multiStopUnifier } from "../parser/multiStopParser";
 import RawDisplay from "../rawDisplay/RawDisplay";
 import { BookmarkCardEta } from "./BookmarkCardEta";
+import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
@@ -104,9 +105,9 @@ export default function FavouriteEta() {
   }
 
   return (
-    <article className="bookmarkContainer">
+    <article className={style["favorite-eta"]}>
       {stopBookmarks.ids.length === 0 ? (
-        <section className="itemInfoPlaceholder">
+        <section className={style["item-info-placeholder"]}>
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>

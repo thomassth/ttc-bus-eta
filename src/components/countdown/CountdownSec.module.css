@@ -1,0 +1,10 @@
+.countdown-sec {
+  padding: 0 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.arriving {
+  align-self: center;
+}

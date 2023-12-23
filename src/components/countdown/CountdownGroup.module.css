@@ -1,0 +1,4 @@
+.stop-prediction-details {
+  display: flex;
+  flex-direction: column;
+}

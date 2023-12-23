@@ -1,0 +1,28 @@
+.favorite-eta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.favorite-eta ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 24px;
+  margin: 20px 0;
+}
+
+.item-info-placeholder {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+@media (width <= 800px) {
+  .favorite-eta ul {
+    grid-template-columns: auto;
+  }
+}

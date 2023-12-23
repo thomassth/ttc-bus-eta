@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects";
 import { TtcBadge } from "../badges";
+import style from "./CountdownRow.module.css";
 import { CountdownSec } from "./CountdownSec";
 
 function CountdownBranch(props: { branch: string }) {
@@ -10,7 +11,7 @@ function CountdownBranch(props: { branch: string }) {
 
 export function CountdownRow(props: { item: EtaBusWithID }) {
   return (
-    <div className="countdownRow">
+    <div className={style["countdown-row"]}>
       <Link to={`/lines/${props.item.branch}`}>
         <CountdownBranch branch={props.item.branch} />
       </Link>

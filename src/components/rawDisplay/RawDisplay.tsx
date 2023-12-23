@@ -39,12 +39,12 @@ export default function RawDisplay(props: {
   );
 
   const rawDisplay = (
-    <Accordion collapsible>
+    <Accordion collapsible className="raw-display">
       <AccordionItem value="raw">
         <AccordionHeader className={fluentStyle.accordionHeader}>
           {t("debug.showResponse")}
         </AccordionHeader>
-        <AccordionPanel className="rawResponseDetails">
+        <AccordionPanel>
           <pre>{JSON.stringify(props.data, null, 1)}</pre>
         </AccordionPanel>
       </AccordionItem>

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { fluentStyles } from "../../styles/fluent";
+import style from "./CountdownSec.module.css";
 
 export function CountdownSec(props: {
   second: number;
@@ -34,12 +35,8 @@ export function CountdownSec(props: {
     return () => clearTimeout(timer);
   }, [sec]);
   return (
-    <div className="countdownSec number">
-      {sec < 180 ? (
-        <Link to={`${props.vehicle}`}>
-          <ArrivingBadge />
-        </Link>
-      ) : null}
+    <div className={style["countdown-sec"]}>
+      {sec < 180 ? <ArrivingBadge vehicle={props.vehicle} /> : null}
 
       {sec >= 60 * 60 ? (
         <>
@@ -69,14 +66,22 @@ export function CountdownSec(props: {
   );
 }
 
-function ArrivingBadge() {
+function ArrivingBadge({ vehicle }: { vehicle?: number }) {
   const { t } = useTranslation();
 
   return (
-    <div className="badge arriving">
-      <Badge color="danger" shape="rounded">
-        {t("badge.arriving")}
-      </Badge>
+    <div className={style.arriving}>
+      {vehicle ? (
+        <Link to={`${vehicle}`}>
+          <Badge color="danger" shape="rounded">
+            {t("badge.arriving")}
+          </Badge>
+        </Link>
+      ) : (
+        <Badge color="danger" shape="rounded">
+          {t("badge.arriving")}
+        </Badge>
+      )}
     </div>
   );
 }

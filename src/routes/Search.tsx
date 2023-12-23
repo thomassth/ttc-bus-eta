@@ -3,6 +3,7 @@ import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { fluentStyles } from "../styles/fluent";
+import style from "./Search.module.css";
 // import { useParams } from "react-router-dom";
 import useNavigate from "./navigate";
 
@@ -34,9 +35,9 @@ export default function NewVehicle() {
 
   const fluentStyle = fluentStyles();
   return (
-    <form className="searchForm">
-      <div className="nextVehicleContainer">
-        <Title1 className="title">Next Vehicle</Title1>
+    <form className="search-form">
+      <div className={style["next-vehicle-container"]}>
+        <Title1 className={style.title}>Next Vehicle</Title1>
         <Input
           className={fluentStyle.centerInput}
           size="large"
@@ -47,10 +48,10 @@ export default function NewVehicle() {
           placeholder={t("stops.ariaLabel") ?? ""}
         />
       </div>
-      <p className="separation">
+      <p className={style.separation}>
         <hr /> or <hr />
       </p>
-      <div className="searchBlock">
+      <div className={style["search-block"]}>
         <Input
           disabled={stopInput.length > 0}
           value={lineInput}

@@ -17,6 +17,7 @@ import { store, useAppDispatch, useAppSelector } from "../../store";
 import { changeSettings, settingsSelectors } from "../../store/settings/slice";
 import { fluentStyles } from "../../styles/fluent";
 import RawDisplay from "../rawDisplay/RawDisplay";
+import style from "./Settings.module.css";
 
 export function Settings() {
   const settings: settingsRedux = useAppSelector((state) => state.settings);
@@ -96,7 +97,7 @@ export function Settings() {
   }, [stopInput]);
 
   return (
-    <main className="settingsPage">
+    <main className={style["settings-page"]}>
       <Title1>{t("nav.label.settings")}</Title1>
       <Title2>{t("buttons.languageChange")}</Title2>
       <RadioGroup
@@ -123,7 +124,7 @@ export function Settings() {
         <Radio value="false" label={"separate for each line"} />
         <Radio value="true" label={"single list"} />
       </RadioGroup>
-      <form className="searchBlock">
+      <form className={style["search-block"]}>
         <Input
           value={stopInput}
           className={fluentStyle.flexGrowContent}

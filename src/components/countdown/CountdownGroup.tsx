@@ -2,6 +2,7 @@ import { Link as LinkFluent, Text, Title2 } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 
 import { LineStopEta } from "../../models/etaObjects";
+import style from "./CountdownGroup.module.css";
 import { CountdownRow } from "./CountdownRow";
 
 export default function CountdownGroup(props: { detail: LineStopEta }) {
@@ -13,8 +14,8 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
     return null;
   } else
     return (
-      <li>
-        <div className="stopPredictionDetails">
+      <li className="countdown-group">
+        <div className={style["stop-prediction-details"]}>
           <Link to={`/lines/${props.detail.line}`} className="routerLink">
             <LinkFluent>
               <Title2>

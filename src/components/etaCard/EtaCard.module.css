@@ -1,0 +1,37 @@
+.badge-group {
+  padding-bottom: 8px;
+  padding-right: 8px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  grid-auto-flow: column;
+}
+
+.card-with-button {
+  margin-top: -32px;
+}
+
+.eta-card-countdown > * {
+  flex-wrap: wrap;
+  float: right;
+}
+
+.bookmarked-stop {
+  color: var(--colorBrandForegroundLink);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.clickable-card:hover {
+  background-color: var(--colorNeutralBackground2);
+}
+
+@media screen and (width >= 800px) {
+  .eta-card-countdown {
+    min-width: 160px;
+  }
+
+  .eta-card-countdown > * {
+    flex-wrap: nowrap;
+  }
+}

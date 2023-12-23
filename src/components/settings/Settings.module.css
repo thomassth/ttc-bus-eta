@@ -1,0 +1,24 @@
+.settings-page > * {
+    padding-bottom: 16px;
+  }
+
+  .settings-page{
+    margin: 16px 32px 80px;
+    padding: 0;
+    width: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .search-block {
+    justify-content: space-between;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  @media screen and (width <= 390px) {
+    .search-block button {
+      width: 100%;
+    }
+  }

@@ -1,0 +1,31 @@
+.nav-bar {
+  background-color: var(--colorNeutralBackground2);
+}
+
+.nav-bar ul {
+  padding: 4px 0;
+  display: grid;
+  grid-auto-columns: 1fr;
+  margin: 0;
+}
+
+.bottom-nav {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav ul {
+  grid-auto-flow: column;
+}
+
+.side-nav ul {
+  grid-auto-flow: row;
+}
+
+.side-nav button {
+  padding-left: 32px;
+  justify-content: left;
+}
