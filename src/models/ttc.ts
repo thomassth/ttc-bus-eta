@@ -35,5 +35,6 @@ export interface parsedVehicleLocation {
     routeTag: string;
     lat: number;
     lon: number;
+    line: string;
   };
 }

@@ -76,7 +76,7 @@ export default function VehicleLocation(props: {
         </RLayerVector>
       </RMap>
       <div className="desc">
-        <Title1>Route: {data.vehicle?.routeTag}</Title1>
+        <Title1>Route: {data.vehicle?.line}</Title1>
         <Title2>Bus ID: {data.vehicle?.id}</Title2>
         <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
         <Text>Heading: {data.vehicle?.heading}</Text>
