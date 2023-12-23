@@ -29,6 +29,10 @@ a {
   text-decoration: none;
 }
 
+.navBar > a {
+  padding: 0 32px;
+}
+
 .jumpbar a {
   padding: 1rem 0.5rem;
   background-color: var(--colorNeutralBackground2);
@@ -57,7 +61,7 @@ a {
 .linePage,
 .aboutPage,
 .container.yrt {
-  margin: 16px 32px 80px 32px;
+  margin: 16px 32px 80px;
   padding: 0;
   width: auto;
   padding-bottom: env(safe-area-inset-bottom);
@@ -81,9 +85,6 @@ a {
   flex-direction: column;
 }
 
-.navBar > a {
-  padding: 0 32px;
-}
 
 .lineDetails {
   margin-top: auto;
@@ -124,7 +125,7 @@ main {
 
 .countdownListContainer ul,
 .stopsListContainer ul,
-.bookmarkContainer ul,
+.bookmarkContainer ul
 {
   padding-left: 0;
   list-style-type: none;
@@ -176,7 +177,7 @@ main {
 
 .bookmarkContainer ul .cardContainer {
   overflow: unset;
-  padding: 8px 16px 16px 16px;
+  padding: 8px 16px 16px;
 }
 
 pre {
@@ -194,7 +195,7 @@ pre {
   margin-bottom: 16px;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (width >= 800px) {
   .linePage,
   .homePage,
   .container.yrt,
@@ -213,7 +214,7 @@ pre {
   }
 }
 
-@media (max-width: 800px) {
+@media (width <= 800px) {
   .bookmarkContainer ul,
   .routeList {
     grid-template-columns: auto;
