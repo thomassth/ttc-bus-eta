@@ -8,6 +8,7 @@ import { RView } from "rlayers/RMap";
 
 import arrow from "../../../public/arrow.svg";
 import { parsedVehicleLocation } from "../../models/ttc";
+import styles from "./vehicleLoaction.module.css";
 
 export default function VehicleLocation(props: {
   stopId?: number;
@@ -75,7 +76,7 @@ export default function VehicleLocation(props: {
           </RFeature>
         </RLayerVector>
       </RMap>
-      <div className="desc">
+      <div className={styles.desc}>
         <Title1>Route: {data.vehicle?.line}</Title1>
         <Title2>Bus ID: {data.vehicle?.id}</Title2>
         <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>

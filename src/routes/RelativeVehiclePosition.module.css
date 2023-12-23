@@ -1,0 +1,12 @@
+.stop-prediction-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (width <= 800px) {
+  .stop-prediction-page {
+    width: auto;
+  }
+}

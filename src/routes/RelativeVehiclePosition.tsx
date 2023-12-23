@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 
 import { getVehicleLocation } from "../components/fetch/ttcVehicleLocation";
 import { fluentStyles } from "../styles/fluent";
+import styles from "./RelativeVehiclePosition.module.css";
 
 const VehicleLocation = lazy(
   () => import("../components/display/VehicleLocation")
@@ -31,7 +32,7 @@ export default function RelativeVehiclePosition() {
   };
 
   return (
-    <main className="stopPredictionPage">
+    <main className={styles["stop-prediction-page"]}>
       <Title1>Vehicle {vehicleId}</Title1>
       <RefreshButton onClick={() => updateData()} />
       <Suspense>
