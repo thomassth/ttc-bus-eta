@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import react from "@vitejs/plugin-react";
+import postcssNesting from "postcss-nesting";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -32,7 +33,11 @@ export default defineConfig({
       },
     }),
   ],
-
+  css: {
+    postcss: {
+      plugins: [postcssNesting],
+    },
+  },
   test: {
     globals: true,
     environment: "jsdom",

@@ -15,7 +15,7 @@ export default function Line() {
     document.title = t("lines.browserTitle", { lineNum });
   });
   return (
-    <main className="linePage">
+    <main className="line-page">
       <Title1>{t("lines.number", { lineNum })}</Title1>
       <Accordion defaultOpenItems collapsible>
         {lineNum < 6 && <SubwayRouteInfo line={lineNum} />}

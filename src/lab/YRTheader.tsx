@@ -10,9 +10,9 @@ export default function YRTHeader() {
 
   return (
     <div className="container yrt">
-      <header className={styles.yrt_nav}>
+      <header className={styles["yrt-nav"]}>
         <Link
-          className="routerLink yrt"
+          className="router-link yrt"
           to={"/yrt"}
           title={t("home.title.tooltip") ?? ""}
         >

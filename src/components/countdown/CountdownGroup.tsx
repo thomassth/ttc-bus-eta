@@ -16,7 +16,7 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
     return (
       <li className="countdown-group">
         <div className={style["stop-prediction-details"]}>
-          <Link to={`/lines/${props.detail.line}`} className="routerLink">
+          <Link to={`/lines/${props.detail.line}`} className="router-link">
             <LinkFluent>
               <Title2>
                 {props.detail.etas.length === 0

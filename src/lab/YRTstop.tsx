@@ -86,7 +86,7 @@ export default function YRT() {
   if (response.result) {
     if (response.result?.[0].Validation[0].Type !== "error") {
       return (
-        <main className={styles.yrt_main}>
+        <main className={styles["yrt-main"]}>
           {response.result?.[0].RealTimeResults.length === 0 && (
             <Title2>Stop {params.stopId} has no real time results.</Title2>
           )}
@@ -103,14 +103,14 @@ export default function YRT() {
       );
     } else
       return (
-        <main className={styles.yrt_main}>
+        <main className={styles["yrt-main"]}>
           <Title2>Stop {params.stopId} has no results.</Title2>
           <Text>{response.result?.[0].Validation[0].Message}</Text>
         </main>
       );
   } else {
     return (
-      <main className={styles.yrt_main}>
+      <main className={styles["yrt-main"]}>
         <Title2>Stop {params.stopId} loading...</Title2>
       </main>
     );
@@ -127,7 +127,7 @@ const YRTCountdownItems = (props: {
       const item = items[i];
       CountdownRows.push(
         <li>
-          <div className={styles.lineInfo}>
+          <div className={styles["line-info"]}>
             <YRTBadge lineAbbr={item.LineAbbr} />
             <Text>{item.LineName}</Text>
           </div>

@@ -126,7 +126,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
 
       return (
-        <div className="stopsListContainer">
+        <div className="stop-prediction-page">
           <ul>
             {accordionList}
             <li>
@@ -140,7 +140,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       const errorString = data.body.Error["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
-          <div className="stopsListContainer">
+          <div className="stop-prediction-page">
             <Text as="h1" weight="semibold">
               <Trans>{t("lines.noLineInDb")}</Trans>
             </Text>
@@ -149,7 +149,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         );
       } else
         return (
-          <div className="stopsListContainer">
+          <div className="stop-prediction-page">
             <LinkFluent onClick={handleFetchBusClick}>
               <Text as="h1" weight="semibold">
                 {`Error: ${errorString}`}

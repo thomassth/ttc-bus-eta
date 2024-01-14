@@ -47,7 +47,7 @@ export default function VehicleLocation(props: {
   }
 
   return (
-    <div className="vehicleView">
+    <div className="vehicle-view">
       <RMap
         width={"100%"}
         height={"60vh"}

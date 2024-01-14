@@ -11,7 +11,7 @@ export default function StopPrediction() {
     document.title = `Stop ID ${stopNum} | TTC arrivals`;
   });
   return (
-    <main className="stopPredictionPage">
+    <main className="stop-prediction-page">
       <StopPredictionInfo stopId={stopNum} />
     </main>
   );

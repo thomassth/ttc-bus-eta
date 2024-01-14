@@ -81,8 +81,8 @@ export default function YRTLine() {
     }
 
   return (
-    <article className="stopsListContainer">
-      <Title2 className="lineTitle">
+    <article className="stop-prediction-page">
+      <Title2 className="line-title">
         <YRTBadge lineAbbr={lineNum} />
         {lineName}
       </Title2>

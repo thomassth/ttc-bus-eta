@@ -1,12 +1,17 @@
-.stop-prediction-page {
+.relative-vehicle-position {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
 }
 
 @media (width <= 800px) {
-  .stop-prediction-page {
+  .relative-vehicle-position {
     width: auto;
+  }
+}
+
+@media (width >= 800px) {
+  .relative-vehicle-position {
+    width: 100%;
   }
 }

@@ -76,16 +76,16 @@ export default function Bookmark() {
   }, [lastUpdatedAt]);
 
   return (
-    <article className="bookmarkContainer">
+    <article className="bookmark-container">
       {stopBookmarks.ids.length === 0 ? (
-        <section className="itemInfoPlaceholder">
+        <section className="item-info-placeholder">
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : null}
       <ul>{bookmarks}</ul>
       {stopBookmarks.ids.length > 0 ? (
-        <Button className="bookmarkClearButton" onClick={clearAllBookmarks}>
+        <Button className="bookmark-clear-button" onClick={clearAllBookmarks}>
           {t("buttons.clear")}
         </Button>
       ) : null}

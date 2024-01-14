@@ -27,9 +27,9 @@ export function StopAccordions(props: {
     return (
       <li key={`${props.lineNum}-${props.direction}-${lineStop.key}`}>
         <AccordionPanel className={fluentStyle.accordionPanel}>
-          <div className="lineDetails">{lineStop.stopId} </div>
-          <div className="lineDetails">{lineStop.latlong} </div>
-          <div className="lineDetails">{lineStop.name}</div>
+          <div className="line-details">{lineStop.stopId} </div>
+          <div className="line-details">{lineStop.latlong} </div>
+          <div className="line-details">{lineStop.name}</div>
         </AccordionPanel>
       </li>
     );
@@ -62,13 +62,13 @@ export function YRTStopAccordions(props: {
         className={fluentStyle.accordionPanel}
         key={`${props.lineNum}-${props.direction}-${lineStop.stopId}`}
       >
-        <div className="lineDetails">
+        <div className="line-details">
           <ETAButton stopId={lineStop.stopId} />
         </div>
-        <div className="lineDetails">
+        <div className="line-details">
           <LocationButton latlon={lineStop.coordinate} />
         </div>
-        <div className="lineDetails">{lineStop.name}</div>
+        <div className="line-details">{lineStop.name}</div>
       </AccordionPanel>
     );
   });

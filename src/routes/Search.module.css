@@ -46,7 +46,7 @@
   gap: 16px;
 }
 
-@media screen and (width <= 390px) {
+@media (width <= 390px) {
   .search-block button {
     width: 100%;
   }

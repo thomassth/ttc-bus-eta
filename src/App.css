@@ -13,8 +13,22 @@ body {
   min-height: 100%;
 }
 
+/* .bookmark-container ul a, */
+a {
+  text-decoration: none;
+}
+
+.nav-bar {
+  padding: 16px 16px 0 0;
+  display: flex;
+  flex-direction: column;
+
+  > a {
+    padding: 0 32px;
+  }
+}
+
 .jumpbar {
-  position: -webkit-sticky;
   position: sticky;
   z-index: 5;
   display: flex;
@@ -22,40 +36,31 @@ body {
   list-style: none;
   justify-content: center;
   padding: 1rem 0;
-}
 
-/* .bookmarkContainer ul a, */
-a {
-  text-decoration: none;
-}
+  a {
+    padding: 1rem 0.5rem;
+    background-color: var(--colorNeutralBackground2);
+  }
 
-.jumpbar a {
-  padding: 1rem 0.5rem;
-  background-color: var(--colorNeutralBackground2);
-}
+  li:first-of-type a {
+    border-radius: var(--borderRadiusXLarge) 0 0 var(--borderRadiusXLarge);
+  }
 
-.jumpbar li:first-of-type a {
-  border-radius: var(--borderRadiusXLarge) 0 0 var(--borderRadiusXLarge);
-}
-
-.jumpbar li:last-of-type a {
-  border-radius: 0 var(--borderRadiusXLarge) var(--borderRadiusXLarge) 0;
+  li:last-of-type a {
+    border-radius: 0 var(--borderRadiusXLarge) var(--borderRadiusXLarge) 0;
+  }
 }
 
 /* .bottomNav a, */
-.yrt .lineTitle {
+.yrt .line-title {
   display: flex;
   align-items: center;
 }
 
-.langSelect {
-  color: black;
-}
-
-.stopPredictionPage,
-.homePage,
-.linePage,
-.aboutPage,
+.stop-prediction-page,
+.home-page,
+.line-page,
+.about-page,
 .container.yrt {
   margin: 16px 32px 80px;
   padding: 0;
@@ -63,43 +68,37 @@ a {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-.homePage {
+.home-page {
   gap: 12px;
 }
 
-.aboutPage .linkButton {
-  padding: 0 8px;
+.about-page {
+  > * {
+    padding-bottom: 16px;
+  }
+
+  .link-button {
+    padding: 0 8px;
+  }
 }
 
-.aboutPage > * {
-  padding-bottom: 16px;
-}
-
-.nav-bar > a {
-  padding: 0 32px;
-}
-
-.nav-bar {
-  padding: 16px 16px 0 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.lineDetails {
+.line-details {
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.routerLink .appTitle {
+.router-link .app-title {
   overflow: hidden;
   white-space: nowrap;
 }
 
-.etaCardStopInfo,
-.routeCard {
+.route-card {
   color: var(--colorBrandForegroundLink);
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 main {
@@ -108,94 +107,90 @@ main {
   flex-direction: column;
 }
 
-.countdownListContainer,
-.bookmarkContainer {
+.countdown-list-container,
+.bookmark-container {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.countdownListContainer ul {
+.countdown-list-container ul {
   margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.countdownListContainer ul,
-.stopsListContainer ul,
-.bookmarkContainer ul {
+.countdown-list-container ul,
+.stop-prediction-page ul,
+.bookmark-container ul {
   padding-left: 0;
   list-style-type: none;
 }
 
-.routeList {
+.route-list {
   display: grid;
   gap: 24px;
   list-style-type: none;
   padding: 0;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-}
 
-.routeList li {
-  scroll-snap-margin-top: 4rem;
-  scroll-margin-top: 4rem;
+  li {
+    scroll-snap-margin-top: 4rem;
+    scroll-margin-top: 4rem;
+  }
 }
 
 *[role="checkbox"] {
   display: none;
 }
 
-.stopsListContainer {
+.stop-prediction-page {
   display: flex;
   flex-direction: column;
 }
 
-.countdownButtonGroup {
+.countdown-button-group {
   display: flex;
   gap: 10px;
 }
 
-.bookmarkContainer ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  gap: 24px;
-  margin: 20px 0;
-}
+.bookmark-container {
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 24px;
+    margin: 20px 0;
 
-.bookmarkContainer li {
-  display: flex;
-  flex-direction: column;
-}
+    .card-container {
+      overflow: unset;
+      padding: 8px 16px 16px;
+    }
+  }
 
-.bookmarkContainer .bookmarkClearButton {
-  margin-bottom: 32px;
-  width: 100%;
-}
+  li {
+    display: flex;
+    flex-direction: column;
+  }
 
-.bookmarkContainer ul .cardContainer {
-  overflow: unset;
-  padding: 8px 16px 16px;
+  .bookmark-clear-button {
+    margin-bottom: 32px;
+    width: 100%;
+  }
 }
 
 pre {
   white-space: pre-wrap;
 }
 
-.routeCard {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.itemInfoPlaceholder {
+.item-info-placeholder {
   margin-top: 16px;
   margin-bottom: 16px;
 }
 
-@media screen and (width >= 800px) {
-  .linePage,
-  .homePage,
+@media (width >=800px) {
+  .line-page,
+  .home-page,
   .container.yrt,
   .container.yrt article {
     width: 100%;
@@ -206,15 +201,14 @@ pre {
   }
 
   .nav-bar {
-    width: -moz-fit-content;
     width: fit-content;
     background-color: var(--colorNeutralBackground2);
   }
 }
 
-@media (width <= 800px) {
-  .bookmarkContainer ul,
-  .routeList {
+@media (width <=800px) {
+  .bookmark-container ul,
+  .route-list {
     grid-template-columns: auto;
   }
 

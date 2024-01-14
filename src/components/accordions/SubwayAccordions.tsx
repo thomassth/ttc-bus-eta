@@ -24,10 +24,10 @@ export function SubwayAccordions(props: {
     return (
       <li key={lineStop.id.toString()}>
         <AccordionPanel className={fluentStyle.accordionPanel}>
-          <div className="lineDetails">
+          <div className="line-details">
             <ETAButton code={lineStop.code} line={props.lineNum} />
           </div>
-          <div className="lineDetails">
+          <div className="line-details">
             <LocationButton
               latlon={{
                 lat: lineStop.latitude,
@@ -35,7 +35,7 @@ export function SubwayAccordions(props: {
               }}
             />
           </div>
-          <div className="lineDetails">{lineStop.name}</div>
+          <div className="line-details">{lineStop.name}</div>
         </AccordionPanel>
       </li>
     );

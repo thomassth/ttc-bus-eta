@@ -62,7 +62,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         });
 
       return (
-        <div className="stopsListContainer">
+        <div className="stop-prediction-page">
           <Title1>
             {filterSubwayTitle(
               data.routeBranchesWithStops[0].routeBranch.headsign
@@ -78,7 +78,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
     } else
       return (
-        <div className="stopsListContainer">
+        <div className="stop-prediction-page">
           <ul>
             {props.line === 3 && (
               <li>
@@ -97,7 +97,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return (
         <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
           <Text as="h1" weight="semibold">
-            <div className="stopsListContainer">
+            <div className="stop-prediction-page">
               <ul>
                 {props.line === 3 && (
                   <li>

@@ -2,7 +2,7 @@ import { Button, Link, Text, Title2 } from "@fluentui/react-components";
 
 export default function About() {
   return (
-    <main className="aboutPage">
+    <main className="about-page">
       <Title2>What is this?</Title2>
       <Text>
         A extremely fast and simple website, sending TTC&#39;s ETA data straight
@@ -45,7 +45,7 @@ export default function About() {
       <Text>
         Concepts, main dev: @thomassth
         <a
-          className="linkButton"
+          className="link-button"
           title="GitHub"
           href="https://github.com/thomassth"
         >
@@ -67,7 +67,7 @@ export default function About() {
         <br />
         Code and visual improvement, feedback: @HoiPangCHEUNG
         <a
-          className="linkButton"
+          className="link-button"
           title="GitHub"
           href="https://github.com/HoiPangCHEUNG"
         >
@@ -88,7 +88,7 @@ export default function About() {
         <br />
         Code improvement: @vincentho13hk
         <a
-          className="linkButton"
+          className="link-button"
           title="GitHub"
           href="https://github.com/vincentho13hk"
         >

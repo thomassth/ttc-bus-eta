@@ -69,9 +69,9 @@ export default function YRTLines() {
       const item = lineList[i];
       lineRows.push(
         <li key={item.sortOrder}>
-          <Card className="cardContainer clickableCard">
+          <Card className="card-container clickableCard">
             <Link
-              className="routeCard"
+              className="route-card"
               to={`/yrt/lines/${item.lineIdContexts[0].lineId}`}
               state={{
                 directions,
@@ -89,7 +89,7 @@ export default function YRTLines() {
 
   return (
     <article>
-      <ul className="routeList">{lineRows}</ul>
+      <ul className="route-list">{lineRows}</ul>
     </article>
   );
 }

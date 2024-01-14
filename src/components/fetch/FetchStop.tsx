@@ -106,13 +106,13 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           });
       }
       return (
-        <div className="countdownListContainer">
+        <div className="countdown-list-container">
           {etaDb[0] !== undefined ? (
             <Title1 className="top-row">
               Stop {stopId} - {etaDb[0].stopName}
             </Title1>
           ) : null}
-          <div className="countdownButtonGroup">
+          <div className="countdown-button-group">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -141,7 +141,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
-          <div className="countdownButtonGroup">
+          <div className="countdown-button-group">
             <RefreshButton />
             <BookmarkButton
               stopId={stopId}
@@ -168,7 +168,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             <Title1>Your device seems to be offline.</Title1>
           </>
         )}
-        <div className="countdownButtonGroup">
+        <div className="countdown-button-group">
           <RefreshButton />
           <SMSButton stopId={stopId} />
         </div>

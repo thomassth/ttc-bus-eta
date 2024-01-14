@@ -57,8 +57,8 @@ export function RoutesInfo() {
   const routesCards = routesDb.map((routeItem) => {
     return (
       <li key={routeItem.tag} id={routeItem.tag.toString()}>
-        <Card className="cardContainer clickableCard">
-          <Link className="routeCard" to={`/lines/${routeItem.tag}`}>
+        <Card className="card-container clickableCard">
+          <Link className="route-card" to={`/lines/${routeItem.tag}`}>
             <TtcBadge key={routeItem.tag} lineNum={`${routeItem.tag}`} />
             <Text>{parseRouteTitle(routeItem.title)}</Text>
           </Link>
@@ -82,7 +82,7 @@ export function RoutesInfo() {
         <li><a href="#900"><LinkFluent><Button>Express</Button></LinkFluent></a></li>
       </ul> */}
       <JumpBar />
-      <ul className="routeList">
+      <ul className="route-list">
         {subwayCards()}
         {routesCards}
       </ul>
@@ -101,8 +101,8 @@ function subwayCards() {
   const result = subwayLines.map((subwayLine, index) => {
     return (
       <li key={subwayLine.line}>
-        <Card className="cardContainer clickableCard">
-          <Link className="routeCard" to={`/lines/${subwayLine.line}`}>
+        <Card className="card-container clickableCard">
+          <Link className="route-card" to={`/lines/${subwayLine.line}`}>
             <TtcBadge
               key={subwayLine.line}
               lineNum={subwayLine.line.toString()}

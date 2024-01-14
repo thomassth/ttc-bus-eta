@@ -1,4 +1,4 @@
-.yrt_nav {
+.yrt-nav {
   top: -3rem;
   position: relative;
   background-color: yellow;
@@ -6,16 +6,16 @@
   overflow: hidden;
 }
 
-.yrt_main {
+.yrt-main {
   margin-bottom: 3rem;
 }
 
-.lineInfo {
+.line-info {
   display: flex;
   gap: 0.5rem;
 }
 
-.yrt_main ul {
+.yrt-main ul {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -23,20 +23,20 @@
   padding-left: 0;
 }
 
-.yrt_main li {
+.yrt-main li {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-@media screen and (min-width: 800px) {
-  .yrt_nav {
+@media (width >= 800px) {
+  .yrt-nav {
     top: 0;
     position: absolute;
     left: 0;
   }
 
-  .yrt_main {
+  .yrt-main {
     margin: 3rem 0;
   }
 }

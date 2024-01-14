@@ -7,7 +7,7 @@ export default function LineSearch() {
   const { t } = useTranslation();
 
   return (
-    <main className="linePage">
+    <main className="line-page">
       <Title1>{t("nav.label.lines")}</Title1>
       <RoutesInfo />
     </main>

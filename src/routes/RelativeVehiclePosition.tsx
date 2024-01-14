@@ -32,7 +32,7 @@ export default function RelativeVehiclePosition() {
   };
 
   return (
-    <main className={styles["stop-prediction-page"]}>
+    <main className={styles["relative-vehicle-position"]}>
       <Title1>Vehicle {vehicleId}</Title1>
       <RefreshButton onClick={() => updateData()} />
       <Suspense>
