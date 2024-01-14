@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="container">
-      <header className="navBar">
+      <header className="nav-bar">
         <Link
           className="routerLink"
           to={"/"}

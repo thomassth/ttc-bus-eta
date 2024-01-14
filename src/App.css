@@ -29,10 +29,6 @@ a {
   text-decoration: none;
 }
 
-.navBar > a {
-  padding: 0 32px;
-}
-
 .jumpbar a {
   padding: 1rem 0.5rem;
   background-color: var(--colorNeutralBackground2);
@@ -79,7 +75,11 @@ a {
   padding-bottom: 16px;
 }
 
-.navBar {
+.nav-bar > a {
+  padding: 0 32px;
+}
+
+.nav-bar {
   padding: 16px 16px 0 0;
   display: flex;
   flex-direction: column;
@@ -205,7 +205,7 @@ pre {
     flex-direction: row;
   }
 
-  .navBar {
+  .nav-bar {
     width: -moz-fit-content;
     width: fit-content;
     background-color: var(--colorNeutralBackground2);
@@ -216,5 +216,9 @@ pre {
   .bookmarkContainer ul,
   .routeList {
     grid-template-columns: auto;
+  }
+
+  main {
+    margin-bottom: 80px;
   }
 }
