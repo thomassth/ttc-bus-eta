@@ -8,7 +8,7 @@ import { RView } from "rlayers/RMap";
 
 import arrow from "../../../public/arrow.svg";
 import { parsedVehicleLocation } from "../../models/ttc";
-import styles from "./vehicleLoaction.module.css";
+import styles from "./VehicleLoaction.module.css";
 
 export default function VehicleLocation(props: {
   stopId?: number;
