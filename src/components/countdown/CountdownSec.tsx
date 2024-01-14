@@ -36,9 +36,9 @@ export function CountdownSec(props: {
   }, [sec]);
   return (
     <div className={style["countdown-sec"]}>
-      {sec < 180 ? <ArrivingBadge vehicle={props.vehicle} /> : null}
+      {sec < 180 && <ArrivingBadge vehicle={props.vehicle} />}
 
-      {sec >= 60 * 60 ? (
+      {sec >= 60 * 60 && (
         <>
           <Title2 className={fluentStyle.number}>
             {`${Math.floor(sec / 3600)}h`}
@@ -47,21 +47,21 @@ export function CountdownSec(props: {
             {`${Math.floor((sec % 3600) / 60)}${t("eta.minuteShort")}`}
           </Text>
         </>
-      ) : null}
+      )}
 
-      {sec > 0 && sec < 60 * 60 ? (
+      {sec > 0 && sec < 60 * 60 && (
         <Title2 className={fluentStyle.number}>
           {Math.floor(sec / 60) >= 1
             ? `${Math.floor(sec / 60)}${t("eta.minuteShort")}`
             : `${sec % 60}${t("eta.secondShort")}`}
         </Title2>
-      ) : null}
+      )}
 
-      {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 ? (
+      {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 && (
         <Text className={fluentStyle.number}>
           {`${sec % 60}${t("eta.secondShort")}`}
         </Text>
-      ) : null}
+      )}
     </div>
   );
 }

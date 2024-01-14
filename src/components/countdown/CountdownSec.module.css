@@ -7,4 +7,5 @@
 
 .arriving {
   align-self: center;
+  min-width: 3.5rem;
 }
