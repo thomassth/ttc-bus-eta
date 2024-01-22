@@ -4,12 +4,12 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { getVehicleLocation } from "../components/fetch/ttcVehicleLocation";
-import { fluentStyles } from "../styles/fluent";
+import { getVehicleLocation } from "../components/fetch/fetchUtils.js";
+import { fluentStyles } from "../styles/fluent.js";
 import styles from "./RelativeVehiclePosition.module.css";
 
 const VehicleLocation = lazy(
-  () => import("../components/display/VehicleLocation")
+  () => import("../components/display/VehicleLocation.js")
 );
 
 export default function RelativeVehiclePosition() {
@@ -26,7 +26,7 @@ export default function RelativeVehiclePosition() {
   }, []);
 
   const updateData = (vehicle: number = vehicleId) => {
-    getVehicleLocation(vehicle).then((res) => {
+    getVehicleLocation(vehicle, {}).then((res) => {
       setData(res);
     });
   };

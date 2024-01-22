@@ -2,10 +2,10 @@ import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { RoutesXml } from "../../models/etaXml";
-import { TtcBadge } from "../badges";
-import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { RoutesXml } from "../../models/etaXml.js";
+import { TtcBadge } from "../badges.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { FetchJSONWithCancelToken } from "./fetchUtils.js";
 
 const parseRouteTitle = (input: string) => {
   const routeTitleRegex = /\d+-/;
@@ -26,25 +26,22 @@ export function RoutesInfo() {
     const controller = new AbortController();
 
     const fetchEtaData = async () => {
-      const { parsedData, error } = await FetchXMLWithCancelToken(
-        "https://webservices.umoiq.com/service/publicXMLFeed?command=routeList&a=ttc",
-        {
-          signal: controller.signal,
-          method: "GET",
-        }
+      const { data, Error } = await FetchJSONWithCancelToken(
+        "https://webservices.umoiq.com/service/publicJSONFeed?command=routeList&a=ttc",
+        { signal: controller.signal }
       );
 
-      return { parsedData, error };
+      return { data, Error };
     };
 
-    fetchEtaData().then(({ parsedData, error }) => {
-      if (error || !parsedData) {
+    fetchEtaData().then(({ data, Error }) => {
+      if (Error || !data) {
         return;
       }
 
-      setRouteXmlData(parsedData);
-      if (parsedData.body.route.length > 0) {
-        setRoutesDb(parsedData.body.route);
+      setRouteXmlData(data);
+      if (data.route.length > 0) {
+        setRoutesDb(data.route);
       }
     });
 
@@ -98,7 +95,7 @@ function subwayCards() {
     { line: 4, name: "Sheppard" },
   ];
 
-  const result = subwayLines.map((subwayLine, index) => {
+  const result = subwayLines.map((subwayLine) => {
     return (
       <li key={subwayLine.line}>
         <Card className="card-container clickableCard">

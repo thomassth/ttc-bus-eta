@@ -1,9 +1,7 @@
 // Only store types directly inside parsed XMLs here
 
 export interface BasicXml {
-  body: {
-    Error: { ["#text"]: string } | undefined;
-  };
+  Error: { ["#text"]: string } | undefined;
 }
 
 export interface EtaBus {
@@ -36,9 +34,7 @@ export interface EtaPredictions {
 }
 
 export type EtaPredictionXml = {
-  body: {
-    predictions: EtaPredictions[] | EtaPredictions;
-  };
+  predictions: EtaPredictions[] | EtaPredictions;
 } & BasicXml;
 
 export interface RouteLineXml {
@@ -50,7 +46,6 @@ export interface RouteLineXml {
 }
 
 export type RouteXml = {
-  body: {
     route: {
       color: string;
       direction: RouteLineXml[];
@@ -73,7 +68,6 @@ export type RouteXml = {
         lat: string;
         lon: string;
       }[];
-    };
   };
 } & BasicXml;
 

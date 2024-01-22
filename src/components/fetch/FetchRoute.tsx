@@ -9,13 +9,13 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { LineStop, LineStopElement } from "../../models/etaObjects";
-import { RouteXml } from "../../models/etaXml";
-import { fluentStyles } from "../../styles/fluent";
-import { StopAccordions } from "../accordions/StopAccordions";
-import { stopsParser } from "../parser/stopsParser";
-import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { LineStop, LineStopElement } from "../../models/etaObjects.js";
+import { RouteXml } from "../../models/etaXml.js";
+import { fluentStyles } from "../../styles/fluent.js";
+import { StopAccordions } from "../accordions/StopAccordions.js";
+import { stopsParser } from "../parser/stopsParser.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteXml>();
@@ -75,19 +75,15 @@ function RouteInfo(props: { line: number }): JSX.Element {
     const controller = new AbortController();
 
     const fetchStopsData = async () => {
-      const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=routeConfig&a=ttc&r=${lineNum}`,
-        {
-          signal: controller.signal,
-          method: "GET",
-        }
-      );
+      const data = await getTTCRouteData(lineNum, {
+        signal: controller.signal,
+      });
 
-      return { parsedData, error };
+      return { parsedData: data };
     };
 
-    fetchStopsData().then(({ parsedData, error }) => {
-      if (error || !parsedData) {
+    fetchStopsData().then(({ parsedData }) => {
+      if (!parsedData) {
         return;
       }
       setData(parsedData);
@@ -107,8 +103,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }, [lastUpdatedAt]);
 
   if (data !== undefined) {
-    if (data.body.Error === undefined) {
-      const accordionList: JSX.Element[] = data.body.route.direction.map(
+    if (data.Error === undefined) {
+      const accordionList: JSX.Element[] = data.route.direction.map(
         (element) => {
           const list = createStopList(element);
           return (
@@ -137,7 +133,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
     } else {
       const noRouteRegex = /Could not get route /;
-      const errorString = data.body.Error["#text"];
+      const errorString = data.Error["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
           <div className="stop-prediction-page">

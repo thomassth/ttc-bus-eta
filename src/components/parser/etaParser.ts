@@ -1,7 +1,7 @@
-import { LineStopEta } from "../../models/etaObjects";
-import { EtaDirection, EtaPredictionXml } from "../../models/etaXml";
-import { parseSingleOrMultiEta } from "./etaParserUtils";
-import { parseRoute } from "./routeName";
+import { LineStopEta } from "../../models/etaObjects.js";
+import { EtaDirection, EtaPredictionXml } from "../../models/etaXml.js";
+import { parseSingleOrMultiEta } from "./etaParserUtils.js";
+import { parseRoute } from "./routeName.js";
 
 const parseActualLineNum = (title: string) => {
   const found = title.match(/(\w+) - (\w+) ([\w\s]+)/);
@@ -17,8 +17,8 @@ export const etaParser = (json: EtaPredictionXml) => {
     return [];
   }
 
-  if (Array.isArray(json.body.predictions)) {
-    for (const element of json.body.predictions) {
+  if (Array.isArray(json.predictions)) {
+    for (const element of json.predictions) {
       // Only lines with etas are listed
       if (element.dirTitleBecauseNoPredictions === undefined) {
         if (Array.isArray(element.direction)) {
@@ -60,19 +60,19 @@ export const etaParser = (json: EtaPredictionXml) => {
       result = [
         {
           line: "",
-          stopName: json.body.predictions[0].stopTitle,
+          stopName: json.predictions[0].stopTitle,
           routeName: "",
           etas: [],
-          stopTag: parseInt(json.body.predictions[0].stopTag),
+          stopTag: parseInt(json.predictions[0].stopTag),
         },
       ];
     }
   } else {
-    if (json.body.predictions.dirTitleBecauseNoPredictions === undefined) {
-      if (Array.isArray(json.body.predictions.direction)) {
+    if (json.predictions.dirTitleBecauseNoPredictions === undefined) {
+      if (Array.isArray(json.predictions.direction)) {
         // 1 prediction, 2 directions
         // Eg. stops/14761 returns 939A, 939B
-        const predictionGroup = json.body.predictions;
+        const predictionGroup = json.predictions;
 
         // const line = predictionGroup.direction.title;
         const stopName = predictionGroup.stopTitle;
@@ -102,20 +102,20 @@ export const etaParser = (json: EtaPredictionXml) => {
         }
 
         // if no line have ETA, keep a title
-        if (result.length === 0 && Array.isArray(json.body.predictions)) {
+        if (result.length === 0 && Array.isArray(json.predictions)) {
           result = [
             {
               line: "",
-              stopName: json.body.predictions[0].stopTitle,
+              stopName: json.predictions[0].stopTitle,
               routeName: "",
               etas: [],
-              stopTag: parseInt(json.body.predictions[0].stopTag),
+              stopTag: parseInt(json.predictions[0].stopTag),
             },
           ];
         }
         return result;
       } else {
-        const predictionGroup = json.body.predictions;
+        const predictionGroup = json.predictions;
         // multiple lines => multiple directions
 
         const getLine = (input: EtaDirection | EtaDirection[]) => {
@@ -134,20 +134,15 @@ export const etaParser = (json: EtaPredictionXml) => {
           stopTag: parseInt(predictionGroup.stopTag),
         });
 
-        parseSingleOrMultiEta(
-          json.body.predictions.direction.prediction,
-          result
-        );
+        parseSingleOrMultiEta(json.predictions.direction.prediction, result);
       }
     } else {
       result.push({
-        line: parseActualLineNum(
-          json.body.predictions.dirTitleBecauseNoPredictions
-        ),
-        stopName: json.body.predictions.stopTitle,
+        line: parseActualLineNum(json.predictions.dirTitleBecauseNoPredictions),
+        stopName: json.predictions.stopTitle,
         routeName: "",
         etas: [],
-        stopTag: parseInt(json.body.predictions.stopTag),
+        stopTag: parseInt(json.predictions.stopTag),
       });
     }
   }

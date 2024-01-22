@@ -4,11 +4,11 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionXml } from "../../models/etaXml";
-import { fluentStyles } from "../../styles/fluent";
-import { CountdownSec } from "../countdown/CountdownSec";
-import { xmlParser } from "../parser/parserUtils";
-import RawDisplay from "../rawDisplay/RawDisplay";
+import { EtaPredictionXml } from "../../models/etaXml.js";
+import { fluentStyles } from "../../styles/fluent.js";
+import { CountdownSec } from "../countdown/CountdownSec.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { getLineStopPredictions } from "./fetchUtils.js";
 
 function LineStopPredictionInfo(props: {
   line: number;
@@ -18,22 +18,13 @@ function LineStopPredictionInfo(props: {
   const { t } = useTranslation();
   const fluentStyle = fluentStyles();
 
-  const fetchPredictions = (
-    line: number = props.line,
-    stopNum: number = props.stopNum
+  const fetchPredictions = async (
+    line = props.line,
+    stopNum = props.stopNum
   ) => {
     // let ans: Document;
-    fetch(
-      `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&r=${line}&s=${stopNum}`,
-      {
-        method: "GET",
-      }
-    ).then((response) => {
-      response.text().then((str) => {
-        const dataJson = xmlParser.parse(str);
-        setData(dataJson);
-      });
-    });
+    const data = await getLineStopPredictions(line, stopNum, {});
+    setData(data);
   };
 
   useEffect(() => {
@@ -57,17 +48,17 @@ function LineStopPredictionInfo(props: {
   }
 
   if (data !== undefined) {
-    if (data.body.Error !== undefined) {
+    if (data.Error !== undefined) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
     } else {
-      if (Array.isArray(data.body.predictions)) {
+      if (Array.isArray(data.predictions)) {
         // TODO
         return <div />;
       } else {
-        if (data.body.predictions.dirTitleBecauseNoPredictions !== undefined) {
+        if (data.predictions.dirTitleBecauseNoPredictions !== undefined) {
           return (
             <div className="directionsList list">
-              <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+              <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
               <div className="countdown-row">
                 <RefreshButton />
               </div>
@@ -76,33 +67,31 @@ function LineStopPredictionInfo(props: {
             </div>
           );
         }
-        if (Array.isArray(data.body.predictions.direction)) {
-          const directionListGroup = data.body.predictions.direction.map(
-            (line) => {
-              return (
-                <div className="directionList list" key={line.title}>
-                  <Text>{line.title}</Text>
-                  {Array.isArray(line.prediction) ? (
-                    line.prediction.map((bus) => {
-                      return (
-                        <CountdownSec
-                          second={bus.seconds}
-                          epochTime={bus.epochTime}
-                          key={bus.tripTag}
-                        />
-                      );
-                    })
-                  ) : (
-                    <CountdownSec
-                      second={line.prediction.seconds}
-                      epochTime={line.prediction.epochTime}
-                      key={line.prediction.tripTag}
-                    />
-                  )}
-                </div>
-              );
-            }
-          );
+        if (Array.isArray(data.predictions.direction)) {
+          const directionListGroup = data.predictions.direction.map((line) => {
+            return (
+              <div className="directionList list" key={line.title}>
+                <Text>{line.title}</Text>
+                {Array.isArray(line.prediction) ? (
+                  line.prediction.map((bus) => {
+                    return (
+                      <CountdownSec
+                        second={bus.seconds}
+                        epochTime={bus.epochTime}
+                        key={bus.tripTag}
+                      />
+                    );
+                  })
+                ) : (
+                  <CountdownSec
+                    second={line.prediction.seconds}
+                    epochTime={line.prediction.epochTime}
+                    key={line.prediction.tripTag}
+                  />
+                )}
+              </div>
+            );
+          });
 
           return (
             <div>
@@ -113,9 +102,9 @@ function LineStopPredictionInfo(props: {
             </div>
           );
         } else {
-          if (Array.isArray(data.body.predictions.direction.prediction)) {
+          if (Array.isArray(data.predictions.direction.prediction)) {
             const directionListGroup =
-              data.body.predictions.direction.prediction.map((bus) => {
+              data.predictions.direction.prediction.map((bus) => {
                 return (
                   <CountdownSec
                     second={bus.seconds}
@@ -127,7 +116,7 @@ function LineStopPredictionInfo(props: {
             // Only 1 direction
             return (
               <div className="directionsList list">
-                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
                 <div className="countdown-row">
                   <RefreshButton />
                 </div>
@@ -140,7 +129,7 @@ function LineStopPredictionInfo(props: {
 
             return (
               <div className="directionsList list">
-                <LargeTitle>{data.body.predictions.stopTitle}</LargeTitle>
+                <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
                 <RefreshButton />
                 <RawDisplay data={data} />
               </div>

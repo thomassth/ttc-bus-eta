@@ -3,18 +3,18 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaBusWithID, LineStopEta } from "../../models/etaObjects";
-import { EtaPredictionXml } from "../../models/etaXml";
-import { store } from "../../store";
-import { settingsSelectors } from "../../store/settings/slice";
-import { fluentStyles } from "../../styles/fluent";
-import { BookmarkButton } from "../bookmarks/BookmarkButton";
-import CountdownGroup from "../countdown/CountdownGroup";
-import { CountdownRow } from "../countdown/CountdownRow";
-import SMSButton from "../eta/SMSButton";
-import { etaParser } from "../parser/etaParser";
-import RawDisplay from "../rawDisplay/RawDisplay";
-import { FetchXMLWithCancelToken } from "./fetchUtils";
+import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
+import { EtaPredictionXml } from "../../models/etaXml.js";
+import { store } from "../../store/index.js";
+import { settingsSelectors } from "../../store/settings/slice.js";
+import { fluentStyles } from "../../styles/fluent.js";
+import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
+import CountdownGroup from "../countdown/CountdownGroup.js";
+import { CountdownRow } from "../countdown/CountdownRow.js";
+import SMSButton from "../eta/SMSButton.js";
+import { etaParser } from "../parser/etaParser.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { getStopPredictions } from "./fetchUtils.js";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [data, setData] = useState<EtaPredictionXml>();
@@ -48,24 +48,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   useEffect(() => {
     const controller = new AbortController();
 
-    const fetchEtaData = async () => {
-      const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=${stopId}`,
-        {
-          signal: controller.signal,
-          method: "GET",
-        }
-      );
-
-      return { parsedData, error };
-    };
-
-    fetchEtaData().then(({ parsedData, error }) => {
-      if (error || !parsedData) {
-        return;
+    getStopPredictions(stopId, { signal: controller.signal }).then((data) => {
+      if (data) {
+        setData(data);
+        setEtaDb(etaParser(data));
       }
-      setData(parsedData);
-      setEtaDb(etaParser(parsedData));
     });
 
     // when useEffect is called, the following clean-up fn will run first
@@ -83,7 +70,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   }, [etaDb]);
 
   if (data) {
-    if (data.body.Error === undefined) {
+    if (data.Error === undefined) {
       let listContent: JSX.Element[] = [];
       if (unifiedEtaValue) {
         listContent = unifiedEta.map((element) => {
@@ -137,7 +124,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         </div>
       );
     } else {
-      // if (data.body.Error !== undefined)
+      // if (data.Error !== undefined)
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
@@ -151,7 +138,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             />
             <SMSButton stopId={stopId} />
           </div>
-          <Text>{data.body.Error["#text"]}</Text>
+          <Text>{data.Error["#text"]}</Text>
           <RawDisplay data={data} />
         </div>
       );

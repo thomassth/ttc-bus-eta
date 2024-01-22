@@ -2,9 +2,11 @@ import { Link as LinkFluent, Text, Title1 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SubwayStations } from "../../models/ttc";
-import { SubwayAccordions } from "../accordions/SubwayAccordions";
-import RawDisplay from "../rawDisplay/RawDisplay";
+import { SubwayStations } from "../../models/ttc.js";
+import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import styles from "./FetchSubwayRoute.module.css";
+import { getTTCSubwayData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<SubwayStations>();
@@ -16,17 +18,14 @@ function RouteInfo(props: { line: number }): JSX.Element {
     const controller = new AbortController();
 
     const fetchSubwayData = async () => {
-      const response = await fetch(
-        `https://www.ttc.ca/ttcapi/routedetail/get?id=${lineNum}`
-      );
-      const data = await response.text();
-      return data;
+      const response = await getTTCSubwayData(lineNum, {});
+      return response;
     };
 
     if (lineNum !== 3) {
       fetchSubwayData().then((res) => {
         try {
-          setData(JSON.parse(res));
+          setData(res);
         } catch (error) {
           setData({ routeBranchesWithStops: [], Error: true });
         }
@@ -63,7 +62,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
       return (
         <div className="stop-prediction-page">
-          <Title1>
+          <Title1 className={styles["subway-title"]}>
             {filterSubwayTitle(
               data.routeBranchesWithStops[0].routeBranch.headsign
             )}
@@ -123,11 +122,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
 export default RouteInfo;
 
 const filterSubwayDirection = (input: string) => {
-  return input.replace(/LINE \d \([\w-]+\) /, "");
+  return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
 };
 
 const filterSubwayTitle = (input: string) => {
-  return input.split(/\(|\)/)[1];
+  return input.split(/\(|\)/)[1].toLowerCase() + " Line";
 };
 
 const line3Tribute = () => {
