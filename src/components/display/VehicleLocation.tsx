@@ -1,13 +1,13 @@
 import { Text, Title1, Title2 } from "@fluentui/react-components";
-import { Point } from "ol/geom";
+import { Point } from "ol/geom.js";
 import "ol/ol.css";
-import { fromLonLat } from "ol/proj";
+import { fromLonLat } from "ol/proj.js";
 import { useEffect, useState } from "react";
 import { RFeature, RLayerVector, RMap, ROSMWebGL, ROverlay } from "rlayers";
 import { RView } from "rlayers/RMap";
 
 import arrow from "../../../public/arrow.svg";
-import { parsedVehicleLocation } from "../../models/ttc";
+import { parsedVehicleLocation } from "../../models/ttc.js";
 import styles from "./VehicleLoaction.module.css";
 
 export default function VehicleLocation(props: {

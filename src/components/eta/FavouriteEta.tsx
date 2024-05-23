@@ -7,16 +7,19 @@ import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
-} from "../../models/etaObjects";
-import { EtaPredictionXml } from "../../models/etaXml";
-import { store, useAppSelector } from "../../store";
-import { settingsSelectors } from "../../store/settings/slice";
-import Bookmark from "../bookmarks/Bookmark";
-import { EtaCard } from "../etaCard/EtaCard";
-import { FetchXMLWithCancelToken } from "../fetch/fetchUtils";
-import { multiStopParser, multiStopUnifier } from "../parser/multiStopParser";
-import RawDisplay from "../rawDisplay/RawDisplay";
-import { BookmarkCardEta } from "./BookmarkCardEta";
+} from "../../models/etaObjects.js";
+import { EtaPredictionXml } from "../../models/etaXml.js";
+import { store, useAppSelector } from "../../store/index.js";
+import { settingsSelectors } from "../../store/settings/slice.js";
+import Bookmark from "../bookmarks/Bookmark.js";
+import { EtaCard } from "../etaCard/EtaCard.js";
+import { FetchXMLWithCancelToken } from "../fetch/fetchUtils.js";
+import {
+  multiStopParser,
+  multiStopUnifier,
+} from "../parser/multiStopParser.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { BookmarkCardEta } from "./BookmarkCardEta.js";
 import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
@@ -37,9 +40,14 @@ export default function FavouriteEta() {
   for (const id of stopBookmarks.ids) {
     const ttcStop = stopBookmarks.entities[id].ttcId;
 
-    for (const line of stopBookmarks.entities[id].lines) {
-      fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
-    }
+    const lines = stopBookmarks.entities[id].enabled
+      ? stopBookmarks.entities[id].enabled
+      : stopBookmarks.entities[id].lines;
+
+    if (lines && lines.length > 0)
+      for (const line of lines) {
+        fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+      }
   }
 
   useEffect(() => {
@@ -84,9 +92,11 @@ export default function FavouriteEta() {
         const id = item.stopId;
         EtaCards.push(
           <EtaCard
+            enabled={item.enabled}
             key={id}
+            id={id.toString()}
             etas={item.etas}
-            lines={item.lines}
+            lines={item.enabled ? item.enabled : item.lines}
             name={item.name}
             editable={false}
             onDelete={undefined}

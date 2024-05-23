@@ -2,10 +2,10 @@ import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
-} from "../../models/etaObjects";
-import { EtaPredictionXml, EtaPredictions } from "../../models/etaXml";
-import { parseSingleOrMultiEta } from "./etaParserUtils";
-import { parseRoute } from "./routeName";
+} from "../../models/etaObjects.js";
+import { EtaPredictionXml, EtaPredictions } from "../../models/etaXml.js";
+import { parseSingleOrMultiEta } from "./etaParserUtils.js";
+import { parseRoute } from "./routeName.js";
 
 const parseActualLineNum = (title: string) => {
   const found = title.match(/(\w+)-([\w\s]+)/);
@@ -62,7 +62,9 @@ export function multiStopUnifier(
     return {
       stopId: stopBookmarks.entities[id].stopId,
       name: stopBookmarks.entities[id].name,
-      lines: stopBookmarks.entities[id].lines,
+      lines: stopBookmarks.entities[id].enabled
+      ? stopBookmarks.entities[id].enabled
+      : stopBookmarks.entities[id].lines,
       ttcId: stopBookmarks.entities[id].ttcId,
       etas: [],
     };

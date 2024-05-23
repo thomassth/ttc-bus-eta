@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { StopBookmark } from "../../models/etaObjects";
-import { loadStopBookmarkState } from "./state";
+import { StopBookmark } from "../../models/etaObjects.js";
+import { loadStopBookmarkState } from "./state.js";
 
 const persistedState = loadStopBookmarkState();
 
@@ -19,10 +19,11 @@ export const stopBookmarksSlice = createSlice({
   initialState,
   reducers: {
     addStopBookmark: stopBookmarksAdapter.addOne,
+    editStopBookmark: stopBookmarksAdapter.updateOne,
     removeStopBookmark: stopBookmarksAdapter.removeOne,
     clearStopBookmarks: stopBookmarksAdapter.removeAll,
   },
 });
 
-export const { addStopBookmark, clearStopBookmarks, removeStopBookmark } =
+export const { addStopBookmark, editStopBookmark, clearStopBookmarks, removeStopBookmark } =
   stopBookmarksSlice.actions;
