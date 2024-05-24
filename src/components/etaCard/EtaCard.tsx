@@ -149,16 +149,15 @@ function FavouriteEditor(props: {
   return (
     <DialogContent>
       <div className={style["checkbox-list"]}>
-        {props.lines.map((line) => {
-          return (
-            <Checkbox
-              key={props.id + line}
-              label={<TtcBadge lineNum={line} />}
-              checked={!props.enabled || props.enabled?.includes(line)}
-              onChange={(_e) => onChangeFunction(line)}
-            />
-          );
-        })}
+        {props.lines.map((line) => (
+          <LineCheckbox
+            key={props.id + line}
+            id={props.id}
+            line={line}
+            enabled={props.enabled}
+            onChangeFunction={onChangeFunction}
+          />
+        ))}
       </div>
 
       <Button
@@ -169,5 +168,22 @@ function FavouriteEditor(props: {
         Delete this stop
       </Button>
     </DialogContent>
+  );
+}
+
+function LineCheckbox(props: {
+  id: string;
+  line: string;
+  enabled?: string[];
+  onChangeFunction: (line: string) => void;
+}) {
+  const handleClick = () => props.onChangeFunction(props.line);
+  return (
+    <Checkbox
+      key={props.id + props.line}
+      label={<TtcBadge lineNum={props.line} />}
+      checked={!props.enabled || props.enabled?.includes(props.line)}
+      onChange={handleClick}
+    />
   );
 }
