@@ -7,8 +7,25 @@
   grid-auto-flow: column;
 }
 
-.card-with-button {
-  margin-top: -32px;
+.grid-item {
+  grid-area: 1 / 1;
+}
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.edit-button {
+  grid-area: 1 / 1;
+  min-height: 32px;
+  min-width: 32px;
+  position: relative;
+  top: -16px;
+  right: -16px;
+  place-self: flex-start flex-end;
+  border-radius: 50% !important;
 }
 
 .eta-card-countdown > * {

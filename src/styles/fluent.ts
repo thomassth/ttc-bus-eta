@@ -11,17 +11,6 @@ export const fluentStyles = makeStyles({
       height: "5rem",
     },
   },
-  removeButton: {
-    minHeight: "32px",
-    minWidth: "32px",
-
-    position: "relative",
-    top: "16px",
-    right: "-16px",
-    alignSelf: "flex-end",
-    zIndex: 5,
-    borderRadius:"50%"
-  },
   badge: {
     ...shorthands.margin("0px", "8px", "0px", "0px"),
     minWidth: "48px",

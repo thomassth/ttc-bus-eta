@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";
 import { useAppDispatch } from "../../store/index.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { TtcBadge } from "../badges.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
@@ -27,104 +26,18 @@ export function EtaCard(props: {
   lines: string[];
   name: string;
   editable: boolean;
-  onDelete: undefined | (() => void);
+  onDelete?: () => void;
   stopUrl: string;
   id: string;
-  enabled: undefined | string[];
+  enabled?: string[];
 }) {
-  const dispatch = useAppDispatch();
-
-  const fluentStyle = fluentStyles();
-
   return (
     <li
       className={
         "eta-card" + (props.editable ? " " + style["card-with-button"] : "")
       }
     >
-      {props.editable && (
-        <Dialog>
-          <DialogTrigger>
-            <Button
-              className={fluentStyle.removeButton}
-              title={t("buttons.edit") ?? "edit"}
-              icon={<Edit12Filled />}
-            />
-          </DialogTrigger>
-          <DialogSurface
-            mountNode={document.querySelector(".fui-FluentProvider")}
-          >
-            <DialogTrigger>
-              <Button
-                className={style["remove-button"]}
-                title="Close"
-                icon={<Dismiss12Filled />}
-              />
-            </DialogTrigger>
-            <DialogTitle>Choose which bus(es) to show</DialogTitle>
-            <DialogContent>
-              {props.lines.map((line) => {
-                return (
-                  <Checkbox
-                    key={props.id + line}
-                    label={line}
-                    checked={!props.enabled || props.enabled?.includes(line)}
-                    onChange={(_e) => {
-                      if (!props.enabled) {
-                        const cutOffEnabled = [...props.lines];
-                        const cutOffIndex = cutOffEnabled.indexOf(line);
-                        cutOffEnabled.splice(cutOffIndex, 1);
-                        dispatch(
-                          editStopBookmark({
-                            id: parseInt(props.id),
-                            changes: {
-                              enabled: cutOffEnabled,
-                            },
-                          })
-                        );
-                      } else {
-                        const lineArray = [...props.enabled];
-                        if (lineArray.includes(line)) {
-                          // Remove
-                          const lineIndex = lineArray.indexOf(line);
-                          lineArray.splice(lineIndex, 1);
-                          dispatch(
-                            editStopBookmark({
-                              id: parseInt(props.id),
-                              changes: {
-                                enabled: lineArray,
-                              },
-                            })
-                          );
-                        } else {
-                          // Add
-                          lineArray.push(line);
-                          dispatch(
-                            editStopBookmark({
-                              id: parseInt(props.id),
-                              changes: {
-                                enabled: lineArray,
-                              },
-                            })
-                          );
-                        }
-                      }
-                    }}
-                  />
-                );
-              })}
-              <Button
-                title={t("buttons.delete") ?? "delete"}
-                icon={<Dismiss12Filled />}
-                onClick={props.onDelete}
-              >
-                Delete this stop
-              </Button>
-            </DialogContent>
-          </DialogSurface>
-        </Dialog>
-      )}
-      <Link to={props.stopUrl}>
+      <Link to={props.stopUrl} className={style["grid-item"]}>
         <Card className={style["clickable-card"]}>
           <CardHeader
             header={
@@ -150,6 +63,111 @@ export function EtaCard(props: {
           />
         </Card>
       </Link>
+      {props.editable && (
+        <Dialog>
+          <DialogTrigger>
+            <Button
+              className={style["edit-button"]}
+              title="edit"
+              icon={<Edit12Filled />}
+            />
+          </DialogTrigger>
+          <DialogSurface
+            mountNode={document.querySelector(".fui-FluentProvider")}
+          >
+            <DialogTrigger>
+              <Button
+                className={style["remove-button"]}
+                title="Close"
+                icon={<Dismiss12Filled />}
+              />
+            </DialogTrigger>
+            <DialogTitle>Choose which bus(es) to show</DialogTitle>
+            <FavouriteEditor
+              id={props.id}
+              lines={props.lines}
+              enabled={props.enabled}
+              onDelete={props.onDelete}
+            />
+          </DialogSurface>
+        </Dialog>
+      )}
     </li>
+  );
+}
+
+function FavouriteEditor(props: {
+  id: string;
+  lines: string[];
+  enabled?: string[];
+  onDelete?: () => void;
+}) {
+  const dispatch = useAppDispatch();
+
+  const onChangeFunction = (line: string) => {
+    if (!props.enabled) {
+      const cutOffEnabled = [...props.lines];
+      const cutOffIndex = cutOffEnabled.indexOf(line);
+      cutOffEnabled.splice(cutOffIndex, 1);
+      dispatch(
+        editStopBookmark({
+          id: parseInt(props.id),
+          changes: {
+            enabled: cutOffEnabled,
+          },
+        })
+      );
+    } else {
+      const lineArray = [...props.enabled];
+      if (lineArray.includes(line)) {
+        // Remove
+        const lineIndex = lineArray.indexOf(line);
+        lineArray.splice(lineIndex, 1);
+        dispatch(
+          editStopBookmark({
+            id: parseInt(props.id),
+            changes: {
+              enabled: lineArray,
+            },
+          })
+        );
+      } else {
+        // Add
+        lineArray.push(line);
+        dispatch(
+          editStopBookmark({
+            id: parseInt(props.id),
+            changes: {
+              enabled: lineArray,
+            },
+          })
+        );
+      }
+    }
+  };
+
+  return (
+    <DialogContent>
+      <div className={style["checkbox-list"]}>
+        {props.lines.map((line) => {
+          return (
+            <Checkbox
+              key={props.id + line}
+              label={<TtcBadge lineNum={line} />}
+              checked={!props.enabled || props.enabled?.includes(line)}
+              onChange={(_e) => onChangeFunction(line)}
+            />
+          );
+        })}
+      </div>
+
+      <Button
+        title={t("buttons.delete") ?? "delete"}
+        icon={<Dismiss12Filled />}
+        onClick={props.onDelete}
+      >
+        Delete this stop
+      </Button>
+    </DialogContent>
   );
 }
