@@ -3,7 +3,7 @@ import {
   stopBookmarkWithEta,
   stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import { EtaPredictionXml, EtaPredictions } from "../../models/etaXml.js";
+import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
@@ -34,17 +34,17 @@ const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
   }
 };
 
-export const multiStopParser = (json: EtaPredictionXml) => {
+export const multiStopParser = (json: EtaPredictionJson) => {
   const result: LineStopEta[] = [];
   console.log(json);
 
-  if (Array.isArray(json.body.predictions)) {
+  if (Array.isArray(json.predictions)) {
     console.log("multi stops");
-    for (const stop of json.body.predictions) {
+    for (const stop of json.predictions) {
       parseEtaPredictions(stop, result);
     }
   } else {
-    const stop = json.body.predictions;
+    const stop = json.predictions;
     parseEtaPredictions(stop, result);
     console.log("single stop");
   }
@@ -52,7 +52,7 @@ export const multiStopParser = (json: EtaPredictionXml) => {
 };
 
 export function multiStopUnifier(
-  json: EtaPredictionXml,
+  json: EtaPredictionJson,
   stopBookmarks: stopBookmarksRedux
 ) {
   const result = multiStopParser(json);
@@ -62,9 +62,8 @@ export function multiStopUnifier(
     return {
       stopId: stopBookmarks.entities[id].stopId,
       name: stopBookmarks.entities[id].name,
-      lines: stopBookmarks.entities[id].enabled
-      ? stopBookmarks.entities[id].enabled
-      : stopBookmarks.entities[id].lines,
+      enabled: stopBookmarks.entities[id].enabled,
+      lines: stopBookmarks.entities[id].enabled ? stopBookmarks.entities[id].enabled : stopBookmarks.entities[id].lines,
       ttcId: stopBookmarks.entities[id].ttcId,
       etas: [],
     };

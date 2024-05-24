@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import { EtaPredictionJson } from "../../models/etaJson.js";
 import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import { EtaPredictionXml } from "../../models/etaXml.js";
 import { store, useAppSelector } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { FetchXMLWithCancelToken } from "../fetch/fetchUtils.js";
+import { FetchJSONWithCancelToken } from "../fetch/fetchUtils.js";
 import {
   multiStopParser,
   multiStopUnifier,
@@ -27,7 +27,7 @@ export default function FavouriteEta() {
     (state) => state.stopBookmarks
   );
   const { t } = useTranslation();
-  const [data, setData] = useState<EtaPredictionXml>();
+  const [data, setData] = useState<EtaPredictionJson>();
   const [singleEtaDb, setSingleEtaDb] = useState<LineStopEta[]>([]);
   const [unifiedEtaDb, setUnifiedEtaDb] = useState<stopBookmarkWithEta[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
@@ -54,15 +54,15 @@ export default function FavouriteEta() {
     const controller = new AbortController();
 
     const fetchEtaData = async () => {
-      const { parsedData, error } = await FetchXMLWithCancelToken(
-        `https://webservices.umoiq.com/service/publicXMLFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
+      const { data, Error } = await FetchJSONWithCancelToken(
+        `https://retro.umoiq.com/service/publicJSONFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
         {
           signal: controller.signal,
           method: "GET",
         }
       );
 
-      return { parsedData, error };
+      return { parsedData: data, error: Error };
     };
     if (fetchUrl.length > 0) {
       fetchEtaData().then(({ parsedData, error }) => {

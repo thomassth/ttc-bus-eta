@@ -69,7 +69,7 @@ export function EtaCard(props: {
                     key={props.id + line}
                     label={line}
                     checked={!props.enabled || props.enabled?.includes(line)}
-                    onChange={(e) => {
+                    onChange={(_e) => {
                       if (!props.enabled) {
                         const cutOffEnabled = [...props.lines];
                         const cutOffIndex = cutOffEnabled.indexOf(line);
