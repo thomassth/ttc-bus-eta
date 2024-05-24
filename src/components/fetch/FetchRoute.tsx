@@ -9,8 +9,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
-import { RouteXml } from "../../models/etaXml.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
@@ -18,7 +18,7 @@ import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
-  const [data, setData] = useState<RouteXml>();
+  const [data, setData] = useState<RouteJson>();
   const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());

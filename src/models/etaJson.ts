@@ -1,6 +1,6 @@
 // Only store types directly inside parsed XMLs here
 
-export interface BasicXml {
+export interface BasicJson {
   Error: { ["#text"]: string } | undefined;
 }
 
@@ -33,11 +33,11 @@ export interface EtaPredictions {
   routeTitle: string;
 }
 
-export type EtaPredictionXml = {
+export type EtaPredictionJson = {
   predictions: EtaPredictions[] | EtaPredictions;
-} & BasicXml;
+} & BasicJson;
 
-export interface RouteLineXml {
+export interface RouteLineJson {
   title: string;
   name: string;
   branch: number;
@@ -45,10 +45,10 @@ export interface RouteLineXml {
   tag: string;
 }
 
-export type RouteXml = {
+export type RouteJson = {
     route: {
       color: string;
-      direction: RouteLineXml[];
+      direction: RouteLineJson[];
       latMax: string;
       lonMax: string;
       lonMin: string;
@@ -69,13 +69,13 @@ export type RouteXml = {
         lon: string;
       }[];
   };
-} & BasicXml;
+} & BasicJson;
 
-export type RoutesXml = {
+export type RoutesJson = {
   body: {
     route: {
       tag: number;
       title: string;
     }[];
   };
-} & BasicXml;
+} & BasicJson;

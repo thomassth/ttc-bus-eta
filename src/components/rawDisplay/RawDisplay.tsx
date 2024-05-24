@@ -7,18 +7,22 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { settingsRedux, stopBookmarksRedux } from "../../models/etaObjects";
-import { EtaPredictionXml, RouteXml, RoutesXml } from "../../models/etaXml";
-import { SubwayStations, SubwayStop } from "../../models/ttc";
-import { store, useAppSelector } from "../../store";
-import { settingsSelectors } from "../../store/settings/slice";
-import { fluentStyles } from "../../styles/fluent";
+import {
+  EtaPredictionJson,
+  RouteJson,
+  RoutesJson,
+} from "../../models/etaJson.js";
+import { settingsRedux, stopBookmarksRedux } from "../../models/etaObjects.js";
+import { SubwayStations, SubwayStop } from "../../models/ttc.js";
+import { store, useAppSelector } from "../../store/index.js";
+import { settingsSelectors } from "../../store/settings/slice.js";
+import { fluentStyles } from "../../styles/fluent.js";
 
 export default function RawDisplay(props: {
   data:
-    | EtaPredictionXml
-    | RouteXml
-    | RoutesXml
+    | EtaPredictionJson
+    | RouteJson
+    | RoutesJson
     | settingsRedux
     | stopBookmarksRedux
     | SubwayStations

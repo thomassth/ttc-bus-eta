@@ -1,5 +1,5 @@
 import { LineStopEta } from "../../models/etaObjects.js";
-import { EtaDirection, EtaPredictionXml } from "../../models/etaXml.js";
+import { EtaDirection, EtaPredictionJson } from "../../models/etaJson.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
@@ -10,7 +10,7 @@ const parseActualLineNum = (title: string) => {
   } else return found[2].toLocaleUpperCase();
 };
 
-export const etaParser = (json: EtaPredictionXml) => {
+export const etaParser = (json: EtaPredictionJson) => {
   let result: LineStopEta[] = [];
 
   if (Object.keys(json).length === 0) {

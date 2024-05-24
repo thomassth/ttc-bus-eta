@@ -2,7 +2,7 @@ import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { RoutesXml } from "../../models/etaXml.js";
+import { RoutesJson } from "../../models/etaJson.js";
 import { TtcBadge } from "../badges.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { FetchJSONWithCancelToken } from "./fetchUtils.js";
@@ -17,7 +17,7 @@ const parseRouteTitle = (input: string) => {
 };
 
 export function RoutesInfo() {
-  const [routeXmlData, setRouteXmlData] = useState<RoutesXml>();
+  const [routeJsonData, setRouteJsonData] = useState<RoutesJson>();
   const [routesDb, setRoutesDb] = useState<{ tag: number; title: string }[]>(
     []
   );
@@ -39,7 +39,7 @@ export function RoutesInfo() {
         return;
       }
 
-      setRouteXmlData(data);
+      setRouteJsonData(data);
       if (data.route.length > 0) {
         setRoutesDb(data.route);
       }
@@ -83,7 +83,7 @@ export function RoutesInfo() {
         {subwayCards()}
         {routesCards}
       </ul>
-      {routeXmlData !== undefined && <RawDisplay data={routeXmlData} />}
+      {routeJsonData !== undefined && <RawDisplay data={routeJsonData} />}
     </article>
   );
 }

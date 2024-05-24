@@ -3,8 +3,8 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
-import { EtaPredictionXml } from "../../models/etaXml.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import { fluentStyles } from "../../styles/fluent.js";
@@ -17,7 +17,7 @@ import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getStopPredictions } from "./fetchUtils.js";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
-  const [data, setData] = useState<EtaPredictionXml>();
+  const [data, setData] = useState<EtaPredictionJson>();
   const [stopId] = useState(props.stopId);
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());

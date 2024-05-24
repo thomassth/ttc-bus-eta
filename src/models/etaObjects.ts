@@ -1,4 +1,4 @@
-import { EtaBus } from "./etaXml.js";
+import { EtaBus } from "./etaJson.js";
 
 export interface LineStopElement {
   id: JSX.Element;

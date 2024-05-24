@@ -1,5 +1,5 @@
-import { LineStopEta } from "../../models/etaObjects";
-import { EtaBus } from "../../models/etaXml";
+import { LineStopEta } from "../../models/etaObjects.js";
+import { EtaBus } from "../../models/etaJson.js";
 
 const etaItemGenerator = (item: EtaBus) => {
   return {
