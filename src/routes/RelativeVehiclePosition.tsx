@@ -1,6 +1,6 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -30,11 +30,15 @@ export default function RelativeVehiclePosition() {
     });
   };
 
+  const onRefreshClick = useCallback(() => {
+    updateData();
+  }, []);
+
   return (
     <main className={styles["relative-vehicle-position"]}>
       <Title1>Vehicle {vehicleId}</Title1>
       <div className="buttons-row">
-        <RefreshButton onClick={() => updateData()} />
+        <RefreshButton onClick={onRefreshClick} />
       </div>
       <Suspense>
         <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={data} />
@@ -46,9 +50,9 @@ export default function RelativeVehiclePosition() {
 function RefreshButton({ onClick }: { onClick: () => void }) {
   const { t } = useTranslation();
 
-  const useOnClick = () => {
+  const useOnClick = useCallback(() => {
     onClick();
-  };
+  }, []);
 
   return (
     <Button onClick={useOnClick} icon={<ArrowClockwise24Regular />}>
