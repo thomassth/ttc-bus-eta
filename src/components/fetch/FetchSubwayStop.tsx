@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStop } from "../../models/ttc.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getTTCSubwayPredictions } from "./fetchUtils.js";
@@ -15,7 +14,6 @@ function LineStopPredictionInfo(props: {
 }): JSX.Element {
   const [data, setData] = useState<SubwayStop>();
   const { t } = useTranslation();
-  const fluentStyle = fluentStyles();
 
   const fetchPredictions = (stopNum = props.stopNum) => {
     getTTCSubwayPredictions(stopNum, {}).then((dataJson) => {
@@ -33,11 +31,7 @@ function LineStopPredictionInfo(props: {
 
   function RefreshButton() {
     return (
-      <Button
-        className={fluentStyle.refreshButton}
-        onClick={fetchPredictionClick}
-        icon={<ArrowClockwise24Regular />}
-      >
+      <Button onClick={fetchPredictionClick} icon={<ArrowClockwise24Regular />}>
         {t("buttons.refresh")}
       </Button>
     );

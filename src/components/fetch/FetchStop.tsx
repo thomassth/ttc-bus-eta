@@ -7,7 +7,6 @@ import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
 import { CountdownRow } from "../countdown/CountdownRow.js";
@@ -22,7 +21,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
-  const fluentStyle = fluentStyles();
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
 
   const handleRefreshClick = useCallback(() => {
@@ -35,11 +33,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   function RefreshButton() {
     return (
-      <Button
-        className={fluentStyle.refreshButton}
-        onClick={handleRefreshClick}
-        icon={<ArrowClockwise24Regular />}
-      >
+      <Button onClick={handleRefreshClick} icon={<ArrowClockwise24Regular />}>
         {t("buttons.refresh")}
       </Button>
     );
@@ -73,10 +67,10 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     if (data.Error === undefined) {
       let listContent: JSX.Element[] = [];
       if (unifiedEtaValue) {
-        listContent = unifiedEta.map((element) => {
+        listContent = unifiedEta.map((element, index) => {
           return (
             <li key={element.tripTag}>
-              <CountdownRow item={element} />
+              <CountdownRow item={element} index={index} />
             </li>
           );
         });

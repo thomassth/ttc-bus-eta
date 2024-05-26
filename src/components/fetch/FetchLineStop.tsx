@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EtaPredictionJson } from "../../models/etaJson.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getLineStopPredictions } from "./fetchUtils.js";
@@ -16,7 +15,6 @@ function LineStopPredictionInfo(props: {
 }): JSX.Element {
   const [data, setData] = useState<EtaPredictionJson>();
   const { t } = useTranslation();
-  const fluentStyle = fluentStyles();
 
   const fetchPredictions = async (
     line = props.line,
@@ -37,11 +35,7 @@ function LineStopPredictionInfo(props: {
 
   function RefreshButton() {
     return (
-      <Button
-        className={fluentStyle.refreshButton}
-        onClick={fetchPredictionClick}
-        icon={<ArrowClockwise24Regular />}
-      >
+      <Button onClick={fetchPredictionClick} icon={<ArrowClockwise24Regular />}>
         {t("buttons.refresh")}
       </Button>
     );
