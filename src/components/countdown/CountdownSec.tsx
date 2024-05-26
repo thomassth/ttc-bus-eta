@@ -3,17 +3,16 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { fluentStyles } from "../../styles/fluent";
 import style from "./CountdownSec.module.css";
 
 export function CountdownSec(props: {
   second: number;
   epochTime?: number;
   vehicle?: number;
+  index?: number;
 }) {
   const [epochTime, setEpochTime] = useState(props.epochTime);
   const [sec, setSec] = useState(props.second ?? 0);
-  const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -36,21 +35,23 @@ export function CountdownSec(props: {
   }, [sec]);
   return (
     <div className={style["countdown-sec"]}>
-      {sec < 180 && <ArrivingBadge vehicle={props.vehicle} />}
+      {(sec < 180 || props.index === 0) && (
+        <ArrivingBadge vehicle={props.vehicle} />
+      )}
 
       {sec >= 60 * 60 && (
         <>
-          <Title2 className={fluentStyle.number}>
+          <Title2 className={style.number}>
             {`${Math.floor(sec / 3600)}h`}
           </Title2>
-          <Text className={fluentStyle.number}>
+          <Text className={style.number}>
             {`${Math.floor((sec % 3600) / 60)}${t("eta.minuteShort")}`}
           </Text>
         </>
       )}
 
       {sec > 0 && sec < 60 * 60 && (
-        <Title2 className={fluentStyle.number}>
+        <Title2 className={style.number}>
           {Math.floor(sec / 60) >= 1
             ? `${Math.floor(sec / 60)}${t("eta.minuteShort")}`
             : `${sec % 60}${t("eta.secondShort")}`}
@@ -58,7 +59,7 @@ export function CountdownSec(props: {
       )}
 
       {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 && (
-        <Text className={fluentStyle.number}>
+        <Text className={style.number}>
           {`${sec % 60}${t("eta.secondShort")}`}
         </Text>
       )}
@@ -73,9 +74,7 @@ function ArrivingBadge({ vehicle }: { vehicle?: number }) {
     <div className={style.arriving}>
       {vehicle ? (
         <Link to={`${vehicle}`}>
-          <Badge color="danger" shape="rounded">
-            {t("badge.arriving")}
-          </Badge>
+          <Badge shape="rounded">Track location</Badge>
         </Link>
       ) : (
         <Badge color="danger" shape="rounded">

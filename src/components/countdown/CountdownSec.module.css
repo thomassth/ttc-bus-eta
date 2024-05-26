@@ -9,3 +9,9 @@
   align-self: center;
   min-width: 3.5rem;
 }
+
+.number {
+  margin: 0;
+  font-family: "PT Mono", monospace !important;
+  white-space: nowrap !important;
+}

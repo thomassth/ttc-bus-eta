@@ -1,11 +1,10 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { getVehicleLocation } from "../components/fetch/fetchUtils.js";
-import { fluentStyles } from "../styles/fluent.js";
 import styles from "./RelativeVehiclePosition.module.css";
 
 const VehicleLocation = lazy(
@@ -31,10 +30,16 @@ export default function RelativeVehiclePosition() {
     });
   };
 
+  const onRefreshClick = useCallback(() => {
+    updateData();
+  }, []);
+
   return (
     <main className={styles["relative-vehicle-position"]}>
       <Title1>Vehicle {vehicleId}</Title1>
-      <RefreshButton onClick={() => updateData()} />
+      <div className="buttons-row">
+        <RefreshButton onClick={onRefreshClick} />
+      </div>
       <Suspense>
         <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={data} />
       </Suspense>
@@ -43,19 +48,14 @@ export default function RelativeVehiclePosition() {
 }
 
 function RefreshButton({ onClick }: { onClick: () => void }) {
-  const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  const useOnClick = () => {
+  const useOnClick = useCallback(() => {
     onClick();
-  };
+  }, []);
 
   return (
-    <Button
-      className={fluentStyle.refreshButton}
-      onClick={useOnClick}
-      icon={<ArrowClockwise24Regular />}
-    >
+    <Button onClick={useOnClick} icon={<ArrowClockwise24Regular />}>
       {t("buttons.refresh")}
     </Button>
   );

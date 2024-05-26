@@ -2,15 +2,10 @@ import { Button } from "@fluentui/react-components";
 import { Comment24Filled } from "@fluentui/react-icons";
 import { Link } from "react-router-dom";
 
-import { fluentStyles } from "../../styles/fluent";
-
 export default function SMSButton(props: { stopId: number }) {
-  const fluentStyle = fluentStyles();
   return (
     <Link to={`sms://+1898882;?&body=${props.stopId}`} title="SMS">
-      <Button className={fluentStyle.refreshButton} icon={<Comment24Filled />}>
-        use TTC SMS
-      </Button>
+      <Button icon={<Comment24Filled />}>check via SMS</Button>
     </Link>
   );
 }

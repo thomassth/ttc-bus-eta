@@ -23,13 +23,6 @@ export const fluentStyles = makeStyles({
       paddingLeft: "0px",
     },
   },
-  number: {
-    fontFamily: ["monospace", "PT Mono"],
-    whiteSpace: "nowrap",
-  },
-  refreshButton: {
-    width: "max-content",
-  },
   bottomNav: {
     backgroundColor: tokens.colorNeutralBackground1,
   },
