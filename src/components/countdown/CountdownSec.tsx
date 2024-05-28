@@ -74,10 +74,16 @@ function ArrivingBadge({ vehicle }: { vehicle?: number }) {
     <div className={style.arriving}>
       {vehicle ? (
         <Link to={`${vehicle}`}>
-          <Badge shape="rounded">Track location</Badge>
+          <Badge className={style["badge-in-link"]} shape="rounded">
+            Track location
+          </Badge>
         </Link>
       ) : (
-        <Badge color="danger" shape="rounded">
+        <Badge
+          className={style["badge-in-link"]}
+          color="danger"
+          shape="rounded"
+        >
           {t("badge.arriving")}
         </Badge>
       )}

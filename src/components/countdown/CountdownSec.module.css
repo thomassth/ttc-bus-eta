@@ -7,11 +7,16 @@
 
 .arriving {
   align-self: center;
-  min-width: 3.5rem;
 }
 
 .number {
   margin: 0;
   font-family: "PT Mono", monospace !important;
   white-space: nowrap !important;
+}
+
+/* only needed for safari */
+.badge-in-link {
+  display: unset !important;
+  padding: 3px 6px !important
 }
