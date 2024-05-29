@@ -32,7 +32,8 @@ export interface StopBookmark {
   name: string;
   ttcId: number;
   lines: string[];
-  enabled?: string[]
+  enabled?: string[];
+  type?: string;
 }
 export interface stopBookmarksRedux {
   ids: number[];

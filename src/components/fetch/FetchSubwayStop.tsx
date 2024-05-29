@@ -4,11 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStop } from "../../models/ttc.js";
+import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getTTCSubwayPredictions } from "./fetchUtils.js";
 
-function LineStopPredictionInfo(props: {
+function SubwayStopPredictionInfo(props: {
   line: number;
   stopNum: number;
 }): JSX.Element {
@@ -56,6 +57,13 @@ function LineStopPredictionInfo(props: {
             <LargeTitle>{data.directionText}</LargeTitle>
             <div className="countdown-row">
               <RefreshButton />
+              <BookmarkButton
+                stopId={props.stopNum}
+                name={data.directionText}
+                ttcId={props.stopNum}
+                lines={[props.line.toString()]}
+                type="ttc-subway"
+              />
             </div>
             {listGroup}
             <RawDisplay data={data} />
@@ -67,6 +75,13 @@ function LineStopPredictionInfo(props: {
             <LargeTitle>{data.directionText}</LargeTitle>
             <div className="countdown-row">
               <RefreshButton />
+              <BookmarkButton
+                stopId={props.stopNum}
+                name={data.directionText}
+                ttcId={props.stopNum}
+                lines={[props.line.toString()]}
+                type="ttc-subway"
+              />
             </div>
             <Text> {t("reminder.noEta")}</Text>
             <RawDisplay data={data} />
@@ -83,4 +98,4 @@ function LineStopPredictionInfo(props: {
     );
   }
 }
-export default LineStopPredictionInfo;
+export default SubwayStopPredictionInfo;

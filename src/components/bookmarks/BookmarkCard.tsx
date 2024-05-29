@@ -16,16 +16,21 @@ export function BookmarkCard(props: { id: number }) {
     dispatch(removeStopBookmark(props.id));
   }, [stopBookmarks.ids]);
 
+  const item = stopBookmarks.entities[id];
   return (
     <EtaCard
-      enabled={stopBookmarks.entities[id].enabled}
+      enabled={item.enabled}
       id={id.toString()}
       etas={[]}
-      lines={stopBookmarks.entities[id].lines}
-      name={stopBookmarks.entities[id].name}
+      lines={item.lines}
+      name={item.name}
       editable
       onDelete={checkBookmarkStatus}
-      stopUrl={`/stops/${stopBookmarks.entities[id].stopId}`}
+      stopUrl={
+        item.type === "ttc-subway"
+          ? `/ttc/lines/${item.lines[0]}/${item.stopId}`
+          : `/stops/${item.stopId}`
+      }
     />
   );
 }

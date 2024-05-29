@@ -46,7 +46,8 @@ export default function FavouriteEta() {
 
     if (lines && lines.length > 0)
       for (const line of lines) {
-        fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+        if (parseInt(line) > 6)
+          fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
       }
   }
 
@@ -100,7 +101,11 @@ export default function FavouriteEta() {
             name={item.name}
             editable={false}
             onDelete={undefined}
-            stopUrl={`/stops/${id}`}
+            stopUrl={
+              item.type === "ttc-subway"
+                ? `/ttc/lines/${item.lines[0]}/${item.stopId}`
+                : `/stops/${id}`
+            }
           />
         );
       }
