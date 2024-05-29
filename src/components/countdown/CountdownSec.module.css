@@ -17,6 +17,6 @@
 
 /* only needed for safari */
 .badge-in-link {
-  display: unset !important;
+  width: auto !important;
   padding: 3px 6px !important
 }
