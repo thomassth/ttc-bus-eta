@@ -18,6 +18,7 @@ export interface LineStopEta {
   routeName: string;
   etas: EtaBusWithID[];
   stopTag: number;
+  type?: string;
 }
 
 export interface LineStop {
@@ -37,7 +38,7 @@ export interface StopBookmark {
 }
 export interface stopBookmarksRedux {
   ids: number[];
-  entities: StopBookmark[];
+  entities: Record<number, StopBookmark>;
 }
 
 export interface settingsItem {
@@ -48,7 +49,7 @@ export interface settingsItem {
 
 export interface settingsRedux {
   ids: string[];
-  entities: settingsItem[];
+  entities: Record<number, settingsItem[]>;
 }
 
 export interface stopBookmarkWithEta extends StopBookmark {

@@ -1,6 +1,6 @@
-import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects";
-import { useAppSelector } from "../../store";
-import { EtaCard } from "../etaCard/EtaCard";
+import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects.js";
+import { useAppSelector } from "../../store/index.js";
+import { EtaCard } from "../etaCard/EtaCard.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
@@ -15,14 +15,25 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     }
   }
 
+  const item = props.item;
+
   return (
     <EtaCard
+      id={props.item.routeName + props.item.stopTag}
       etas={props.item.etas}
-      lines={[props.item.etas[0].branch]}
+      lines={[
+        props.item.type === "ttc-subway"
+          ? props.item.line
+          : props.item.etas[0]?.branch,
+      ]}
       name={props.item.routeName}
       editable={false}
       onDelete={undefined}
-      stopUrl={stopUrl}
+      stopUrl={
+        item.type === "ttc-subway"
+          ? `/ttc/lines/${item.line}/${item.stopTag}`
+          : stopUrl
+      }
     />
   );
 }

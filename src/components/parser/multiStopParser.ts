@@ -1,9 +1,9 @@
+import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import {
   LineStopEta,
   stopBookmarkWithEta,
   stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
@@ -63,9 +63,12 @@ export function multiStopUnifier(
       stopId: stopBookmarks.entities[id].stopId,
       name: stopBookmarks.entities[id].name,
       enabled: stopBookmarks.entities[id].enabled,
-      lines: stopBookmarks.entities[id].enabled ? stopBookmarks.entities[id].enabled : stopBookmarks.entities[id].lines,
+      lines: stopBookmarks.entities[id].enabled
+        ? stopBookmarks.entities[id].enabled
+        : stopBookmarks.entities[id].lines,
       ttcId: stopBookmarks.entities[id].ttcId,
       etas: [],
+      type: stopBookmarks.entities[id].type,
     };
   });
 

@@ -23,8 +23,15 @@ import { BookmarkCardEta } from "./BookmarkCardEta.js";
 import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state) => state.stopBookmarks
+  const stopBookmarks = useAppSelector(
+    (state: { stopBookmarks: stopBookmarksRedux }) => state.stopBookmarks
+  );
+
+  const subwayBookmarks = useAppSelector(
+    (state: { stopBookmarks: stopBookmarksRedux }) =>
+      Object.values(state.stopBookmarks.entities).filter((item) => {
+        return item.type === "ttc-subway";
+      })
   );
   const { t } = useTranslation();
   const [data, setData] = useState<EtaPredictionJson>();
@@ -75,7 +82,20 @@ export default function FavouriteEta() {
         if (unifiedEtaValue) {
           setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
         } else {
-          setSingleEtaDb(multiStopParser(parsedData));
+          setSingleEtaDb(
+            multiStopParser(parsedData).concat(
+              subwayBookmarks.map((subwayStop) => {
+                return {
+                  line: subwayStop.lines[0],
+                  stopName: subwayStop.name,
+                  routeName: subwayStop.name,
+                  etas: [],
+                  stopTag: subwayStop.stopId,
+                  type: subwayStop.type,
+                };
+              })
+            )
+          );
         }
       });
     }
@@ -89,7 +109,7 @@ export default function FavouriteEta() {
   const EtaCards = [];
   if (unifiedEtaValue) {
     for (const item of unifiedEtaDb) {
-      if (item.etas.length > 0) {
+      if (item.etas.length > 0 || item.type === "ttc-subway") {
         const id = item.stopId;
         EtaCards.push(
           <EtaCard
@@ -112,7 +132,7 @@ export default function FavouriteEta() {
     }
   } else {
     for (const item of singleEtaDb) {
-      if (item.etas.length > 0) {
+      if (item.etas.length > 0 || item.type === "ttc-subway") {
         const id = `${item.line}-${item.stopTag}`;
         EtaCards.push(<BookmarkCardEta item={item} key={id} />);
       }
