@@ -14,7 +14,7 @@ import { settingsSelectors } from "../../store/settings/slice.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { FetchJSONWithCancelToken } from "../fetch/fetchUtils.js";
+import { getTTCMultiRouteData } from "../fetch/fetchUtils.js";
 import {
   multiStopParser,
   multiStopUnifier,
@@ -89,27 +89,17 @@ export default function FavouriteEta() {
 
   useEffect(() => {
     const controller = new AbortController();
-
-    const fetchEtaData = async () => {
-      const { data, Error } = await FetchJSONWithCancelToken(
-        `https://retro.umoiq.com/service/publicJSONFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
-        {
-          signal: controller.signal,
-          method: "GET",
+    if (fetchUrl.length > 0) {
+      getTTCMultiRouteData(controller, fetchUrl).then(
+        ({ parsedData, error }) => {
+          if (error || !parsedData) {
+            return;
+          }
+          setData(parsedData);
+          setLastUpdatedAt(Date.now());
+          setEtaDb(parsedData);
         }
       );
-
-      return { parsedData: data, error: Error };
-    };
-    if (fetchUrl.length > 0) {
-      fetchEtaData().then(({ parsedData, error }) => {
-        if (error || !parsedData) {
-          return;
-        }
-        setData(parsedData);
-        setLastUpdatedAt(Date.now());
-        setEtaDb(parsedData);
-      });
     } else {
       setEtaDb();
     }

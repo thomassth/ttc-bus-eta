@@ -85,3 +85,15 @@ export const getTTCRouteData = async (
   );
   return response.data;
 };
+
+export const getTTCMultiRouteData = async (controller: AbortController, fetchUrl:string) => {
+  const { data, Error } = await FetchJSONWithCancelToken(
+    `https://retro.umoiq.com/service/publicJSONFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
+    {
+      signal: controller.signal,
+      method: "GET",
+    }
+  );
+
+  return { parsedData: data, error: Error };
+};
