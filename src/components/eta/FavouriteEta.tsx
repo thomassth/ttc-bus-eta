@@ -59,6 +59,34 @@ export default function FavouriteEta() {
       }
   }
 
+  const setEtaDb = (data?: EtaPredictionJson) => {
+    if (unifiedEtaValue) {
+      if (data) {
+        setUnifiedEtaDb(multiStopUnifier(data, stopBookmarks));
+      } else
+        setUnifiedEtaDb(
+          subwayBookmarks.map((subwayStop) => {
+            return { ...subwayStop, etas: [] };
+          })
+        );
+    } else {
+      setSingleEtaDb(
+        (data ? multiStopParser(data) : []).concat(
+          subwayBookmarks.map((subwayStop) => {
+            return {
+              line: subwayStop.lines[0],
+              stopName: subwayStop.name,
+              routeName: subwayStop.name,
+              etas: [],
+              stopTag: subwayStop.stopId,
+              type: subwayStop.type,
+            };
+          })
+        )
+      );
+    }
+  };
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -80,46 +108,10 @@ export default function FavouriteEta() {
         }
         setData(parsedData);
         setLastUpdatedAt(Date.now());
-        if (unifiedEtaValue) {
-          setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
-        } else {
-          setSingleEtaDb(
-            multiStopParser(parsedData).concat(
-              subwayBookmarks.map((subwayStop) => {
-                return {
-                  line: subwayStop.lines[0],
-                  stopName: subwayStop.name,
-                  routeName: subwayStop.name,
-                  etas: [],
-                  stopTag: subwayStop.stopId,
-                  type: subwayStop.type,
-                };
-              })
-            )
-          );
-        }
+        setEtaDb(parsedData);
       });
     } else {
-      if (unifiedEtaValue) {
-        setUnifiedEtaDb(
-          subwayBookmarks.map((subwayStop) => {
-            return { ...subwayStop, etas: [] };
-          })
-        );
-      } else {
-        setSingleEtaDb(
-          subwayBookmarks.map((subwayStop) => {
-            return {
-              line: subwayStop.lines[0],
-              stopName: subwayStop.name,
-              routeName: subwayStop.name,
-              etas: [],
-              stopTag: subwayStop.stopId,
-              type: subwayStop.type,
-            };
-          })
-        );
-      }
+      setEtaDb();
     }
 
     // when useEffect is called, the following clean-up fn will run first
