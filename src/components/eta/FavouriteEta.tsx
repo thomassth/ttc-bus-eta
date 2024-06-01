@@ -31,7 +31,7 @@ export default function FavouriteEta() {
   const subwayBookmarks = useAppSelector(
     (state: { stopBookmarks: stopBookmarksRedux }) =>
       Object.values(state.stopBookmarks.entities).filter((item) => {
-        return item.type === "ttc-subway";
+        return item.type === "ttc-subway" && (item.enabled?.length ?? 0) > 0;
       })
   );
   const { t } = useTranslation();
@@ -85,18 +85,16 @@ export default function FavouriteEta() {
         } else {
           setSingleEtaDb(
             multiStopParser(parsedData).concat(
-              subwayBookmarks
-                .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
-                .map((subwayStop) => {
-                  return {
-                    line: subwayStop.lines[0],
-                    stopName: subwayStop.name,
-                    routeName: subwayStop.name,
-                    etas: [],
-                    stopTag: subwayStop.stopId,
-                    type: subwayStop.type,
-                  };
-                })
+              subwayBookmarks.map((subwayStop) => {
+                return {
+                  line: subwayStop.lines[0],
+                  stopName: subwayStop.name,
+                  routeName: subwayStop.name,
+                  etas: [],
+                  stopTag: subwayStop.stopId,
+                  type: subwayStop.type,
+                };
+              })
             )
           );
         }
@@ -104,26 +102,22 @@ export default function FavouriteEta() {
     } else {
       if (unifiedEtaValue) {
         setUnifiedEtaDb(
-          subwayBookmarks
-            .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
-            .map((subwayStop) => {
-              return { ...subwayStop, etas: [] };
-            })
+          subwayBookmarks.map((subwayStop) => {
+            return { ...subwayStop, etas: [] };
+          })
         );
       } else {
         setSingleEtaDb(
-          subwayBookmarks
-            .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
-            .map((subwayStop) => {
-              return {
-                line: subwayStop.lines[0],
-                stopName: subwayStop.name,
-                routeName: subwayStop.name,
-                etas: [],
-                stopTag: subwayStop.stopId,
-                type: subwayStop.type,
-              };
-            })
+          subwayBookmarks.map((subwayStop) => {
+            return {
+              line: subwayStop.lines[0],
+              stopName: subwayStop.name,
+              routeName: subwayStop.name,
+              etas: [],
+              stopTag: subwayStop.stopId,
+              type: subwayStop.type,
+            };
+          })
         );
       }
     }
