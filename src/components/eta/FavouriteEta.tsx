@@ -85,20 +85,47 @@ export default function FavouriteEta() {
         } else {
           setSingleEtaDb(
             multiStopParser(parsedData).concat(
-              subwayBookmarks.map((subwayStop) => {
-                return {
-                  line: subwayStop.lines[0],
-                  stopName: subwayStop.name,
-                  routeName: subwayStop.name,
-                  etas: [],
-                  stopTag: subwayStop.stopId,
-                  type: subwayStop.type,
-                };
-              })
+              subwayBookmarks
+                .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
+                .map((subwayStop) => {
+                  return {
+                    line: subwayStop.lines[0],
+                    stopName: subwayStop.name,
+                    routeName: subwayStop.name,
+                    etas: [],
+                    stopTag: subwayStop.stopId,
+                    type: subwayStop.type,
+                  };
+                })
             )
           );
         }
       });
+    } else {
+      if (unifiedEtaValue) {
+        setUnifiedEtaDb(
+          subwayBookmarks
+            .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
+            .map((subwayStop) => {
+              return { ...subwayStop, etas: [] };
+            })
+        );
+      } else {
+        setSingleEtaDb(
+          subwayBookmarks
+            .filter((subwayStop) => (subwayStop.enabled?.length ?? 0) > 0)
+            .map((subwayStop) => {
+              return {
+                line: subwayStop.lines[0],
+                stopName: subwayStop.name,
+                routeName: subwayStop.name,
+                etas: [],
+                stopTag: subwayStop.stopId,
+                type: subwayStop.type,
+              };
+            })
+        );
+      }
     }
 
     // when useEffect is called, the following clean-up fn will run first
@@ -110,7 +137,10 @@ export default function FavouriteEta() {
   const EtaCards = [];
   if (unifiedEtaValue) {
     for (const item of unifiedEtaDb) {
-      if (item.etas.length > 0 || item.type === "ttc-subway") {
+      if (
+        item.etas.length > 0 ||
+        (item.type === "ttc-subway" && item.enabled?.length)
+      ) {
         const id = item.stopId;
 
         const name =

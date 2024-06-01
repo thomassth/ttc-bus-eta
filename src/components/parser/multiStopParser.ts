@@ -59,13 +59,13 @@ export function multiStopUnifier(
 
   // phase 2: combine a/c to stop number
   const unifiedList: stopBookmarkWithEta[] = stopBookmarks.ids.map((id) => {
+    const enabled = stopBookmarks.entities[id].enabled;
+
     return {
       stopId: stopBookmarks.entities[id].stopId,
       name: stopBookmarks.entities[id].name,
-      enabled: stopBookmarks.entities[id].enabled,
-      lines: stopBookmarks.entities[id].enabled
-        ? stopBookmarks.entities[id].enabled
-        : stopBookmarks.entities[id].lines,
+      enabled,
+      lines: enabled?.length ? enabled : stopBookmarks.entities[id].lines,
       ttcId: stopBookmarks.entities[id].ttcId,
       etas: [],
       type: stopBookmarks.entities[id].type,

@@ -26,6 +26,21 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return response;
     };
 
+    const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
+      subwayApiRes
+        .filter((element) => element.routeBranch.headsign)
+        .forEach((route) => {
+          route.routeBranchStops.forEach((stop) => {
+            dispatch(
+              addStop({
+                id: parseInt(stop.code),
+                stop,
+              })
+            );
+          });
+        });
+    };
+
     if (lineNum !== 3) {
       fetchSubwayData().then((res: SubwayStations) => {
         try {
@@ -47,21 +62,6 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setLastUpdatedAt(Date.now());
     setData(undefined);
   }, [lastUpdatedAt]);
-
-  const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
-    subwayApiRes
-      .filter((element) => element.routeBranch.headsign)
-      .forEach((route) => {
-        route.routeBranchStops.forEach((stop) => {
-          dispatch(
-            addStop({
-              id: parseInt(stop.code),
-              stop,
-            })
-          );
-        });
-      });
-  };
 
   if (data !== undefined) {
     if (!data.Error) {
