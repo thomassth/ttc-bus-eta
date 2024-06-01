@@ -11,6 +11,7 @@ import {
 } from "../../models/etaObjects.js";
 import { store, useAppSelector } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 import { FetchJSONWithCancelToken } from "../fetch/fetchUtils.js";
@@ -111,6 +112,13 @@ export default function FavouriteEta() {
     for (const item of unifiedEtaDb) {
       if (item.etas.length > 0 || item.type === "ttc-subway") {
         const id = item.stopId;
+
+        const name =
+          item.type === "ttc-subway" && id
+            ? subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
+                ?.name ?? item.name
+            : item.name;
+
         EtaCards.push(
           <EtaCard
             enabled={item.enabled}
@@ -118,7 +126,7 @@ export default function FavouriteEta() {
             id={id.toString()}
             etas={item.etas}
             lines={item.enabled ? item.enabled : item.lines}
-            name={item.name}
+            name={name}
             editable={false}
             onDelete={undefined}
             stopUrl={

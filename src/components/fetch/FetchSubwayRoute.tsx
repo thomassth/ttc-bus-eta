@@ -2,7 +2,9 @@ import { Link as LinkFluent, Text, Title1 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SubwayStations } from "../../models/ttc.js";
+import { SubwayStations, SubwayStopInfo } from "../../models/ttc.js";
+import { useAppDispatch } from "../../store/index.js";
+import { addStop } from "../../store/suwbayDb/slice.js";
 import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./FetchSubwayRoute.module.css";
@@ -14,6 +16,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -23,8 +27,9 @@ function RouteInfo(props: { line: number }): JSX.Element {
     };
 
     if (lineNum !== 3) {
-      fetchSubwayData().then((res) => {
+      fetchSubwayData().then((res: SubwayStations) => {
         try {
+          setSubwayDb(res.routeBranchesWithStops);
           setData(res);
         } catch (error) {
           setData({ routeBranchesWithStops: [], Error: true });
@@ -42,6 +47,21 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setLastUpdatedAt(Date.now());
     setData(undefined);
   }, [lastUpdatedAt]);
+
+  const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
+    subwayApiRes
+      .filter((element) => element.routeBranch.headsign)
+      .forEach((route) => {
+        route.routeBranchStops.forEach((stop) => {
+          dispatch(
+            addStop({
+              id: parseInt(stop.code),
+              stop,
+            })
+          );
+        });
+      });
+  };
 
   if (data !== undefined) {
     if (!data.Error) {

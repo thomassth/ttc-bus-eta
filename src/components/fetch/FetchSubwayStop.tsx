@@ -1,9 +1,11 @@
-import { Button, LargeTitle, Text } from "@fluentui/react-components";
+import { Button, LargeTitle, Text, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStop } from "../../models/ttc.js";
+import { store } from "../../store/index.js";
+import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -38,6 +40,11 @@ function SubwayStopPredictionInfo(props: {
     );
   }
 
+  const stationName = subwayDbSelectors.selectById(
+    store.getState().subwayDb,
+    props.stopNum
+  );
+
   if (data !== undefined) {
     if (data.Error !== undefined) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
@@ -54,7 +61,9 @@ function SubwayStopPredictionInfo(props: {
         });
         return (
           <div className="directionsList list">
-            <LargeTitle>{data.directionText}</LargeTitle>
+            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+            <br />
+            <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
               <BookmarkButton
@@ -72,7 +81,9 @@ function SubwayStopPredictionInfo(props: {
       } else {
         return (
           <div className="directionsList list">
-            <LargeTitle>{data.directionText}</LargeTitle>
+            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+            <br />
+            <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
               <BookmarkButton
