@@ -33,9 +33,10 @@ export function EtaCard(props: {
 }) {
   return (
     <li
-      className={
-        "eta-card" + (props.editable ? " " + style["card-with-button"] : "")
-      }
+      className={[
+        "eta-card",
+        props.editable ? style["card-with-button"] : "",
+      ].join(" ")}
     >
       <Link to={props.stopUrl} className={style["grid-item"]}>
         <Card className={style["clickable-card"]}>

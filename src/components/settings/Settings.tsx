@@ -95,7 +95,7 @@ export function Settings() {
   const handleSearchClick = useCallback(() => {
     if (stopInput !== "")
       if (stopInput === "yrt") {
-        navigate(`../yrt`);
+        navigate("../yrt");
       } else navigate(`../yrt/stops/${stopInput}`);
   }, [stopInput]);
 
