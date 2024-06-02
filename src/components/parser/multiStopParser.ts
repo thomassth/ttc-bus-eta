@@ -2,7 +2,7 @@ import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import {
   LineStopEta,
   stopBookmarkWithEta,
-  stopBookmarksRedux,
+  StopBookmark,
 } from "../../models/etaObjects.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
@@ -53,22 +53,22 @@ export const multiStopParser = (json: EtaPredictionJson) => {
 
 export function multiStopUnifier(
   json: EtaPredictionJson,
-  stopBookmarks: stopBookmarksRedux
+  stopBookmarks: StopBookmark[]
 ) {
   const result = multiStopParser(json);
 
   // phase 2: combine a/c to stop number
-  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.ids.map((id) => {
-    const enabled = stopBookmarks.entities[id].enabled;
+  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.map((stopBookmark) => {
+    const enabled = stopBookmark.enabled;
 
     return {
-      stopId: stopBookmarks.entities[id].stopId,
-      name: stopBookmarks.entities[id].name,
+      stopId: stopBookmark.stopId,
+      name: stopBookmark.name,
       enabled,
-      lines: enabled?.length ? enabled : stopBookmarks.entities[id].lines,
-      ttcId: stopBookmarks.entities[id].ttcId,
+      lines: enabled?.length ? enabled : stopBookmark.lines,
+      ttcId: stopBookmark.ttcId,
       etas: [],
-      type: stopBookmarks.entities[id].type,
+      type: stopBookmark.type,
     };
   });
 

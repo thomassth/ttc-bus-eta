@@ -1,11 +1,12 @@
-import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects.js";
-import { store, useAppSelector } from "../../store/index.js";
+import { LineStopEta } from "../../models/etaObjects.js";
+import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
+import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state) => state.stopBookmarks
+  const stopBookmarks = stopBookmarksSelectors.selectAll(
+    store.getState().stopBookmarks
   );
 
   let stopUrl = `/lines/${props.item.line}/${props.item.stopTag}`;
@@ -14,9 +15,9 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     stopUrl = `/stops/${props.item.stopTag}`;
   }
 
-  for (const id of stopBookmarks.ids) {
-    if (stopBookmarks.entities[id].ttcId === props.item.stopTag) {
-      stopUrl = `/stops/${stopBookmarks.entities[id].stopId}`;
+  for (const item of stopBookmarks) {
+    if (item.ttcId === props.item.stopTag) {
+      stopUrl = `/stops/${item.stopId}`;
     }
   }
 

@@ -14,6 +14,8 @@ const initialState =
     ? { ids: [], entities: {} }
     : persistedState;
 
+export const stopBookmarksSelectors = stopBookmarksAdapter.getSelectors();
+
 export const stopBookmarksSlice = createSlice({
   name: "stopBookmarks",
   initialState,
@@ -23,7 +25,7 @@ export const stopBookmarksSlice = createSlice({
     removeStopBookmark: stopBookmarksAdapter.removeOne,
     clearStopBookmarks: stopBookmarksAdapter.removeAll,
   },
-});
+  });
 
 export const { addStopBookmark, editStopBookmark, clearStopBookmarks, removeStopBookmark } =
   stopBookmarksSlice.actions;
