@@ -10,6 +10,35 @@ import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./FetchSubwayRoute.module.css";
 import { getTTCSubwayData } from "./fetchUtils.js";
 
+const filterSubwayDirection = (input: string) => {
+  return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
+};
+
+const filterSubwayTitle = (input: string) => {
+  return `${input.split(/\(|\)/)[1].toLowerCase()} Line`;
+};
+
+const line3Tribute = () => {
+  const lines = new Map([
+    [0, "It is no more."],
+    [1, "It has ceased to be."],
+    [2, "Bereft of life, it rests in peace."],
+    [3, "It is an ex-line."],
+    [4, "It is pining for the fjords."],
+    [5, "It has kicked the bucket."],
+    [
+      6,
+      "It has shuffled off its mortal coil, run down the curtain and joined the choir invisible.",
+    ],
+    [7, "Its metallic processes are now history."],
+    [8, "It's definitely deceased."],
+    [9, "It is expired and gone to meet its maker."],
+    [10, "It's passed on."],
+  ]);
+
+  return lines.get(Math.floor(Math.random() * 11));
+};
+
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<SubwayStations>();
   const [lineNum] = useState(props.line);
@@ -140,32 +169,3 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }
 }
 export default RouteInfo;
-
-const filterSubwayDirection = (input: string) => {
-  return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
-};
-
-const filterSubwayTitle = (input: string) => {
-  return input.split(/\(|\)/)[1].toLowerCase() + " Line";
-};
-
-const line3Tribute = () => {
-  const lines = new Map([
-    [0, "It is no more."],
-    [1, "It has ceased to be."],
-    [2, "Bereft of life, it rests in peace."],
-    [3, "It is an ex-line."],
-    [4, "It is pining for the fjords."],
-    [5, "It has kicked the bucket."],
-    [
-      6,
-      "It has shuffled off its mortal coil, run down the curtain and joined the choir invisible.",
-    ],
-    [7, "Its metallic processes are now history."],
-    [8, "It's definitely deceased."],
-    [9, "It is expired and gone to meet its maker."],
-    [10, "It's passed on."],
-  ]);
-
-  return lines.get(Math.floor(Math.random() * 11));
-};
