@@ -6,17 +6,19 @@ export interface RouteBranchStops {
   code: string;
 }
 
-export interface SubwayStations {
-  routeBranchesWithStops: {
+export interface SubwayStopInfo {
+  id: number;
+  routeBranchStops: RouteBranchStops[];
+  routeBranch: {
     id: number;
-    routeBranchStops: RouteBranchStops[];
-    routeBranch: {
-      id: number;
-      headsign: string;
-      routeId: number;
-      gtfsId: string;
-    };
-  }[];
+    headsign: string;
+    routeId: number;
+    gtfsId: string;
+  };
+}
+
+export interface SubwayStations {
+  routeBranchesWithStops: SubwayStopInfo[];
   Error?: boolean;
 }
 

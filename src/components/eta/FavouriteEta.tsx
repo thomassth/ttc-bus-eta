@@ -11,9 +11,10 @@ import {
 } from "../../models/etaObjects.js";
 import { store, useAppSelector } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { FetchJSONWithCancelToken } from "../fetch/fetchUtils.js";
+import { getTTCMultiRouteData } from "../fetch/fetchUtils.js";
 import {
   multiStopParser,
   multiStopUnifier,
@@ -23,8 +24,15 @@ import { BookmarkCardEta } from "./BookmarkCardEta.js";
 import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state) => state.stopBookmarks
+  const stopBookmarks = useAppSelector(
+    (state: { stopBookmarks: stopBookmarksRedux }) => state.stopBookmarks
+  );
+
+  const subwayBookmarks = useAppSelector(
+    (state: { stopBookmarks: stopBookmarksRedux }) =>
+      Object.values(state.stopBookmarks.entities).filter((item) => {
+        return item.type === "ttc-subway" && (item.enabled?.length ?? 0) > 0;
+      })
   );
   const { t } = useTranslation();
   const [data, setData] = useState<EtaPredictionJson>();
@@ -46,37 +54,54 @@ export default function FavouriteEta() {
 
     if (lines && lines.length > 0)
       for (const line of lines) {
-        fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+        if (parseInt(line) > 6)
+          fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
       }
   }
 
+  const setEtaDb = (data?: EtaPredictionJson) => {
+    if (unifiedEtaValue) {
+      if (data) {
+        setUnifiedEtaDb(multiStopUnifier(data, stopBookmarks));
+      } else
+        setUnifiedEtaDb(
+          subwayBookmarks.map((subwayStop) => {
+            return { ...subwayStop, etas: [] };
+          })
+        );
+    } else {
+      setSingleEtaDb(
+        (data ? multiStopParser(data) : []).concat(
+          subwayBookmarks.map((subwayStop) => {
+            return {
+              line: subwayStop.lines[0],
+              stopName: subwayStop.name,
+              routeName: subwayStop.name,
+              etas: [],
+              stopTag: subwayStop.stopId,
+              type: subwayStop.type,
+            };
+          })
+        )
+      );
+    }
+  };
+
   useEffect(() => {
     const controller = new AbortController();
-
-    const fetchEtaData = async () => {
-      const { data, Error } = await FetchJSONWithCancelToken(
-        `https://retro.umoiq.com/service/publicJSONFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
-        {
-          signal: controller.signal,
-          method: "GET",
+    if (fetchUrl.length > 0) {
+      getTTCMultiRouteData(controller, fetchUrl).then(
+        ({ parsedData, error }) => {
+          if (error || !parsedData) {
+            return;
+          }
+          setData(parsedData);
+          setLastUpdatedAt(Date.now());
+          setEtaDb(parsedData);
         }
       );
-
-      return { parsedData: data, error: Error };
-    };
-    if (fetchUrl.length > 0) {
-      fetchEtaData().then(({ parsedData, error }) => {
-        if (error || !parsedData) {
-          return;
-        }
-        setData(parsedData);
-        setLastUpdatedAt(Date.now());
-        if (unifiedEtaValue) {
-          setUnifiedEtaDb(multiStopUnifier(parsedData, stopBookmarks));
-        } else {
-          setSingleEtaDb(multiStopParser(parsedData));
-        }
-      });
+    } else {
+      setEtaDb();
     }
 
     // when useEffect is called, the following clean-up fn will run first
@@ -88,8 +113,18 @@ export default function FavouriteEta() {
   const EtaCards = [];
   if (unifiedEtaValue) {
     for (const item of unifiedEtaDb) {
-      if (item.etas.length > 0) {
+      if (
+        item.etas.length > 0 ||
+        (item.type === "ttc-subway" && item.enabled?.length)
+      ) {
         const id = item.stopId;
+
+        const name =
+          item.type === "ttc-subway" && id
+            ? subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
+                ?.name ?? item.name
+            : item.name;
+
         EtaCards.push(
           <EtaCard
             enabled={item.enabled}
@@ -97,17 +132,21 @@ export default function FavouriteEta() {
             id={id.toString()}
             etas={item.etas}
             lines={item.enabled ? item.enabled : item.lines}
-            name={item.name}
+            name={name}
             editable={false}
             onDelete={undefined}
-            stopUrl={`/stops/${id}`}
+            stopUrl={
+              item.type === "ttc-subway"
+                ? `/ttc/lines/${item.lines[0]}/${item.stopId}`
+                : `/stops/${id}`
+            }
           />
         );
       }
     }
   } else {
     for (const item of singleEtaDb) {
-      if (item.etas.length > 0) {
+      if (item.etas.length > 0 || item.type === "ttc-subway") {
         const id = `${item.line}-${item.stopTag}`;
         EtaCards.push(<BookmarkCardEta item={item} key={id} />);
       }
