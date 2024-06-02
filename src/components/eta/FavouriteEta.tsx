@@ -1,6 +1,6 @@
 import { Button, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { EtaPredictionJson } from "../../models/etaJson.js";
@@ -141,12 +141,7 @@ export default function FavouriteEta() {
 
   return (
     <article className={style["favorite-eta"]}>
-      {stopBookmarks.length === 0 ? (
-        <section className={style["item-info-placeholder"]}>
-          <Trans>{t("home.headline")}</Trans>
-          <Text>{t("home.bookmarkReminder")}</Text>
-        </section>
-      ) : EtaCards.length > 0 ? (
+      {EtaCards.length > 0 ? (
         <>
           {navigator.onLine ? null : (
             <Text>Device seems to be offline. Results may be inaccurate.</Text>

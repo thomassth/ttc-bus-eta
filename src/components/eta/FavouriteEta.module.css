@@ -16,11 +16,6 @@ ul {
   margin: 20px 0;
 }
 
-.item-info-placeholder {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
 @media (width <= 800px) {
   .favorite-eta ul {
     grid-template-columns: auto;
