@@ -6,12 +6,12 @@ import {
 import { t } from "i18next";
 import { useCallback } from "react";
 
-import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects.js";
 import {
   addStopBookmark,
   removeStopBookmark,
-} from "../../store/bookmarks/slice";
+} from "../../store/bookmarks/slice.js";
+import { useAppDispatch, useAppSelector } from "../../store/index.js";
 
 export function BookmarkButton(props: StopBookmark) {
   const dispatch = useAppDispatch();

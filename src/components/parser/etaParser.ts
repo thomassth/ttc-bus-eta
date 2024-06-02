@@ -1,5 +1,5 @@
-import { LineStopEta } from "../../models/etaObjects.js";
 import { EtaDirection, EtaPredictionJson } from "../../models/etaJson.js";
+import { LineStopEta } from "../../models/etaObjects.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 

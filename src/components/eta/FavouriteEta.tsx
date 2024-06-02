@@ -25,7 +25,7 @@ export default function FavouriteEta() {
   );
 
   const subwayBookmarks = stopBookmarks.filter((item) => {
-    return item.type === "ttc-subway" && (item.enabled?.length ?? 0) > 0;
+    return item.type === "ttc-subway" && (item.enabled?.length ?? 1) > 0;
   });
   const { t } = useTranslation();
   const [data, setData] = useState<EtaPredictionJson>();
@@ -105,7 +105,7 @@ export default function FavouriteEta() {
     for (const item of unifiedEtaDb) {
       if (
         item.etas.length > 0 ||
-        (item.type === "ttc-subway" && item.enabled?.length)
+        (item.type === "ttc-subway" && (item.enabled?.length ?? 1) > 0)
       ) {
         const id = item.stopId;
 

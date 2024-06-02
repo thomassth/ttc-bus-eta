@@ -13,10 +13,7 @@ export async function FetchJSONWithCancelToken(
   }
 }
 
-export const getVehicleLocation = async (
-  vehicle: number,
-  options: RequestInit
-) => {
+export const getVehicleLocation = async (vehicle: number) => {
   const response = await fetch(
     `https://webservices.umoiq.com/service/publicJSONFeed?command=vehicleLocation&a=ttc&v=${vehicle}`
   );
@@ -86,7 +83,10 @@ export const getTTCRouteData = async (
   return response.data;
 };
 
-export const getTTCMultiRouteData = async (controller: AbortController, fetchUrl:string) => {
+export const getTTCMultiRouteData = async (
+  controller: AbortController,
+  fetchUrl: string
+) => {
   const { data, Error } = await FetchJSONWithCancelToken(
     `https://retro.umoiq.com/service/publicJSONFeed?command=predictionsForMultiStops&a=ttc${fetchUrl}`,
     {

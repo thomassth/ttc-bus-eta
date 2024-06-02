@@ -25,7 +25,7 @@ export default function RelativeVehiclePosition() {
   }, []);
 
   const updateData = (vehicle: number = vehicleId) => {
-    getVehicleLocation(vehicle, {}).then((res) => {
+    getVehicleLocation(vehicle).then((res) => {
       setData(res);
     });
   };

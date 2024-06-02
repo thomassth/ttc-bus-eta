@@ -11,6 +11,7 @@ import {
 } from "@fluentui/react-components";
 import { Dismiss12Filled, Edit12Filled } from "@fluentui/react-icons";
 import { t } from "i18next";
+import { useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects.js";
@@ -109,47 +110,50 @@ function FavouriteEditor(props: {
 }) {
   const dispatch = useAppDispatch();
 
-  const onChangeFunction = (line: string) => {
-    if (!props.enabled) {
-      const cutOffEnabled = [...props.lines];
-      const cutOffIndex = cutOffEnabled.indexOf(line);
-      cutOffEnabled.splice(cutOffIndex, 1);
-      dispatch(
-        editStopBookmark({
-          id: parseInt(props.id),
-          changes: {
-            enabled: cutOffEnabled,
-          },
-        })
-      );
-    } else {
-      const lineArray = [...props.enabled];
-      if (lineArray.includes(line)) {
-        // Remove
-        const lineIndex = lineArray.indexOf(line);
-        lineArray.splice(lineIndex, 1);
+  const onChangeFunction = useCallback(
+    (line: string) => {
+      if (!props.enabled) {
+        const cutOffEnabled = [...props.lines];
+        const cutOffIndex = cutOffEnabled.indexOf(line);
+        cutOffEnabled.splice(cutOffIndex, 1);
         dispatch(
           editStopBookmark({
             id: parseInt(props.id),
             changes: {
-              enabled: lineArray,
+              enabled: cutOffEnabled,
             },
           })
         );
       } else {
-        // Add
-        lineArray.push(line);
-        dispatch(
-          editStopBookmark({
-            id: parseInt(props.id),
-            changes: {
-              enabled: lineArray,
-            },
-          })
-        );
+        const lineArray = [...props.enabled];
+        if (lineArray.includes(line)) {
+          // Remove
+          const lineIndex = lineArray.indexOf(line);
+          lineArray.splice(lineIndex, 1);
+          dispatch(
+            editStopBookmark({
+              id: parseInt(props.id),
+              changes: {
+                enabled: lineArray,
+              },
+            })
+          );
+        } else {
+          // Add
+          lineArray.push(line);
+          dispatch(
+            editStopBookmark({
+              id: parseInt(props.id),
+              changes: {
+                enabled: lineArray,
+              },
+            })
+          );
+        }
       }
-    }
-  };
+    },
+    [props.lines, props.enabled]
+  );
 
   return (
     <DialogContent>
@@ -182,7 +186,9 @@ function LineCheckbox(props: {
   enabled?: string[];
   onChangeFunction: (line: string) => void;
 }) {
-  const handleClick = () => props.onChangeFunction(props.line);
+  const handleClick = useCallback(() => {
+    props.onChangeFunction(props.line);
+  }, [props.enabled]);
   return (
     <Checkbox
       key={props.id + props.line}

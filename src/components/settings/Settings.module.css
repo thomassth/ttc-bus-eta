@@ -17,6 +17,10 @@
   gap: 16px;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 @media (width <= 390px) {
   .search-block button {
     width: 100%;
