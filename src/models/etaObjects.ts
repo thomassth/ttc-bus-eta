@@ -14,7 +14,7 @@ export interface EtaBusWithID extends EtaBus {
 }
 
 export interface LineStopEta {
-  line: string;
+  line: string | string[];
   stopName: string;
   routeName: string;
   etas: EtaBusWithID[];

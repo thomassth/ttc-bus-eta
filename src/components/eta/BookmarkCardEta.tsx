@@ -1,18 +1,23 @@
-import { LineStopEta, stopBookmarksRedux } from "../../models/etaObjects.js";
-import { store, useAppSelector } from "../../store/index.js";
+import { LineStopEta } from "../../models/etaObjects.js";
+import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
+import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state) => state.stopBookmarks
+  const stopBookmarks = stopBookmarksSelectors.selectAll(
+    store.getState().stopBookmarks
   );
 
   let stopUrl = `/lines/${props.item.line}/${props.item.stopTag}`;
 
-  for (const id of stopBookmarks.ids) {
-    if (stopBookmarks.entities[id].ttcId === props.item.stopTag) {
-      stopUrl = `/stops/${stopBookmarks.entities[id].stopId}`;
+  if (Array.isArray(props.item.line)) {
+    stopUrl = `/stops/${props.item.stopTag}`;
+  }
+
+  for (const item of stopBookmarks) {
+    if (item.ttcId === props.item.stopTag) {
+      stopUrl = `/stops/${item.stopId}`;
     }
   }
 
@@ -24,17 +29,24 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
           store.getState().subwayDb,
           props.item.stopTag
         )?.stop?.name ?? props.item.routeName
-      : props.item.routeName;
+      : Array.isArray(props.item.line)
+        ? props.item.routeName
+        : `${props.item.routeName}
+${props.item.stopName}`;
 
   return (
     <EtaCard
       id={props.item.routeName + props.item.stopTag}
       etas={props.item.etas}
-      lines={[
-        props.item.type === "ttc-subway"
+      lines={
+        Array.isArray(props.item.line)
           ? props.item.line
-          : props.item.etas[0]?.branch,
-      ]}
+          : [
+              props.item.type === "ttc-subway"
+                ? props.item.line
+                : props.item.etas[0]?.branch,
+            ]
+      }
       name={name}
       editable={false}
       onDelete={undefined}
