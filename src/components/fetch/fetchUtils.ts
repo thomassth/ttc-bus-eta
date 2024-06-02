@@ -13,8 +13,7 @@ export async function FetchJSONWithCancelToken(
   }
 }
 
-export const getVehicleLocation = async (
-  vehicle: number) => {
+export const getVehicleLocation = async (vehicle: number) => {
   const response = await fetch(
     `https://webservices.umoiq.com/service/publicJSONFeed?command=vehicleLocation&a=ttc&v=${vehicle}`
   );
