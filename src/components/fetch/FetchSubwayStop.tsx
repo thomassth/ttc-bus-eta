@@ -54,7 +54,7 @@ function SubwayStopPredictionInfo(props: {
 
         const listGroup = nextTrains.map((minute, index) => {
           return (
-            <div key={index}>
+            <div key={`${index}-${minute}`}>
               <CountdownSec second={Number.parseInt(minute) * 60} />
             </div>
           );
