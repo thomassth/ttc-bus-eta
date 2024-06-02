@@ -2,10 +2,8 @@ import { Button, Input, Title1 } from "@fluentui/react-components";
 import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { fluentStyles } from "../styles/fluent";
 import style from "./Search.module.css";
-// import { useParams } from "react-router-dom";
-import useNavigate from "./navigate";
+import useNavigate from "./navigate.js";
 
 export default function NewVehicle() {
   const [lineInput, setLineInput] = useState("");
@@ -33,13 +31,12 @@ export default function NewVehicle() {
     } else if (lineInput !== "") navigate(`lines/${lineInput}`);
   }, [lineInput, stopInput]);
 
-  const fluentStyle = fluentStyles();
   return (
     <form className="search-form">
       <div className={style["next-vehicle-container"]}>
         <Title1 className={style.title}>Next Vehicle</Title1>
         <Input
-          className={fluentStyle.centerInput}
+          className={style["center-input"]}
           size="large"
           appearance="underline"
           type="number"
@@ -48,14 +45,14 @@ export default function NewVehicle() {
           placeholder={t("stops.ariaLabel") ?? ""}
         />
       </div>
-      <p className={style.separation}>
-        <hr /> or <hr />
-      </p>
+      <div className={style.separation}>
+        <hr /> <span>or</span> <hr />
+      </div>
       <div className={style["search-block"]}>
         <Input
           disabled={stopInput.length > 0}
           value={lineInput}
-          className={fluentStyle.flexGrowContent}
+          className={style["flex-grow"]}
           onChange={handleLineChange}
           aria-label={t("lines.ariaLabel") ?? ""}
           placeholder={t("lines.placeholder")}

@@ -11,12 +11,15 @@ import { FormEvent, SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { settingsRedux } from "../../models/etaObjects";
-import useNavigate from "../../routes/navigate";
-import { store, useAppDispatch, useAppSelector } from "../../store";
-import { changeSettings, settingsSelectors } from "../../store/settings/slice";
-import { fluentStyles } from "../../styles/fluent";
-import RawDisplay from "../rawDisplay/RawDisplay";
+import { settingsRedux } from "../../models/etaObjects.js";
+import useNavigate from "../../routes/navigate.js";
+import { store, useAppDispatch, useAppSelector } from "../../store/index.js";
+import {
+  changeSettings,
+  settingsSelectors,
+} from "../../store/settings/slice.js";
+import { fluentStyles } from "../../styles/fluent.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./Settings.module.css";
 
 export function Settings() {
@@ -127,7 +130,7 @@ export function Settings() {
       <form className={style["search-block"]}>
         <Input
           value={stopInput}
-          className={fluentStyle.flexGrowContent}
+          className={style["flex-grow"]}
           onChange={handleStopChange}
         />
         <Button type="submit" onClick={handleSearchClick}>
