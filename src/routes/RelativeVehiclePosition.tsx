@@ -20,15 +20,16 @@ export default function RelativeVehiclePosition() {
   useEffect(() => {
     document.title = `Stop ID ${stopNum} | TTC arrivals`;
   });
-  useEffect(() => {
-    updateData();
-  }, []);
 
   const updateData = (vehicle: number = vehicleId) => {
     getVehicleLocation(vehicle).then((res) => {
       setData(res);
     });
   };
+
+  useEffect(() => {
+    updateData();
+  }, []);
 
   const onRefreshClick = useCallback(() => {
     updateData();
