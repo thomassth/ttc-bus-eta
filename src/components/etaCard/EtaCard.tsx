@@ -8,7 +8,6 @@ import {
   DialogSurface,
   DialogTitle,
   DialogTrigger,
-  Text,
 } from "@fluentui/react-components";
 import { Dismiss12Filled, Edit12Filled } from "@fluentui/react-icons";
 import { t } from "i18next";
@@ -42,12 +41,18 @@ export function EtaCard(props: {
           <CardHeader
             header={
               <>
-                <div className={style["badge-group"]}>
+                <div
+                  className={
+                    props.lines.length > 6
+                      ? [style["badge-group"], style.overflow].join(" ")
+                      : style["badge-group"]
+                  }
+                >
                   {props.lines.map((line: string) => {
                     return <TtcBadge key={line} lineNum={line} />;
                   })}
                 </div>
-                <Text>{props.name}</Text>
+                <span className={style["multi-line"]}>{props.name}</span>
               </>
             }
             action={

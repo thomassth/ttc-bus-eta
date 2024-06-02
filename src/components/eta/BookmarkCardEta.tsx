@@ -10,6 +10,10 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   let stopUrl = `/lines/${props.item.line}/${props.item.stopTag}`;
 
+  if (Array.isArray(props.item.line)) {
+    stopUrl = `/stops/${props.item.stopTag}`;
+  }
+
   for (const id of stopBookmarks.ids) {
     if (stopBookmarks.entities[id].ttcId === props.item.stopTag) {
       stopUrl = `/stops/${stopBookmarks.entities[id].stopId}`;
@@ -24,17 +28,24 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
           store.getState().subwayDb,
           props.item.stopTag
         )?.stop?.name ?? props.item.routeName
-      : props.item.routeName;
+      : Array.isArray(props.item.line)
+        ? props.item.routeName
+        : `${props.item.routeName}
+${props.item.stopName}`;
 
   return (
     <EtaCard
       id={props.item.routeName + props.item.stopTag}
       etas={props.item.etas}
-      lines={[
-        props.item.type === "ttc-subway"
+      lines={
+        Array.isArray(props.item.line)
           ? props.item.line
-          : props.item.etas[0]?.branch,
-      ]}
+          : [
+              props.item.type === "ttc-subway"
+                ? props.item.line
+                : props.item.etas[0]?.branch,
+            ]
+      }
       name={name}
       editable={false}
       onDelete={undefined}

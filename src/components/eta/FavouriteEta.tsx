@@ -13,7 +13,6 @@ import { store, useAppSelector } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
-import { EtaCard } from "../etaCard/EtaCard.js";
 import { getTTCMultiRouteData } from "../fetch/fetchUtils.js";
 import {
   multiStopParser,
@@ -61,14 +60,13 @@ export default function FavouriteEta() {
 
   const setEtaDb = (data?: EtaPredictionJson) => {
     if (unifiedEtaValue) {
-      if (data) {
-        setUnifiedEtaDb(multiStopUnifier(data, stopBookmarks));
-      } else
-        setUnifiedEtaDb(
-          subwayBookmarks.map((subwayStop) => {
-            return { ...subwayStop, etas: [] };
-          })
-        );
+      setUnifiedEtaDb(
+        data
+          ? multiStopUnifier(data, stopBookmarks)
+          : subwayBookmarks.map((subwayStop) => {
+              return { ...subwayStop, etas: [] };
+            })
+      );
     } else {
       setSingleEtaDb(
         (data ? multiStopParser(data) : []).concat(
@@ -126,20 +124,16 @@ export default function FavouriteEta() {
             : item.name;
 
         EtaCards.push(
-          <EtaCard
-            enabled={item.enabled}
-            key={id}
-            id={id.toString()}
-            etas={item.etas}
-            lines={item.enabled ? item.enabled : item.lines}
-            name={name}
-            editable={false}
-            onDelete={undefined}
-            stopUrl={
-              item.type === "ttc-subway"
-                ? `/ttc/lines/${item.lines[0]}/${item.stopId}`
-                : `/stops/${id}`
-            }
+          <BookmarkCardEta
+            key={"ttc-" + id}
+            item={{
+              stopName: "test",
+              routeName: name,
+              stopTag: id,
+              etas: item.etas,
+              line: item.enabled ? item.enabled : item.lines,
+              type: item.type,
+            }}
           />
         );
       }
