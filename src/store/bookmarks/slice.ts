@@ -25,7 +25,11 @@ export const stopBookmarksSlice = createSlice({
     removeStopBookmark: stopBookmarksAdapter.removeOne,
     clearStopBookmarks: stopBookmarksAdapter.removeAll,
   },
-  });
+});
 
-export const { addStopBookmark, editStopBookmark, clearStopBookmarks, removeStopBookmark } =
-  stopBookmarksSlice.actions;
+export const {
+  addStopBookmark,
+  editStopBookmark,
+  clearStopBookmarks,
+  removeStopBookmark,
+} = stopBookmarksSlice.actions;
