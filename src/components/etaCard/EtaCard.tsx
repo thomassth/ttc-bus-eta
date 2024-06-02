@@ -109,7 +109,7 @@ function FavouriteEditor(props: {
 }) {
   const dispatch = useAppDispatch();
 
-  const onChangeFunction = (line: string) => {
+  function onChangeFunction(line: string) {
     if (!props.enabled) {
       const cutOffEnabled = [...props.lines];
       const cutOffIndex = cutOffEnabled.indexOf(line);
@@ -149,7 +149,7 @@ function FavouriteEditor(props: {
         );
       }
     }
-  };
+  }
 
   return (
     <DialogContent>
@@ -182,7 +182,9 @@ function LineCheckbox(props: {
   enabled?: string[];
   onChangeFunction: (line: string) => void;
 }) {
-  const handleClick = () => props.onChangeFunction(props.line);
+  function handleClick() {
+    props.onChangeFunction(props.line);
+  }
   return (
     <Checkbox
       key={props.id + props.line}
