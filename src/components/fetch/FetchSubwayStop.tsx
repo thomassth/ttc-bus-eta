@@ -61,8 +61,12 @@ function SubwayStopPredictionInfo(props: {
         });
         return (
           <div className="directionsList list">
-            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
-            <br />
+            {stationName && (
+              <>
+                <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+                <br />
+              </>
+            )}
             <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
@@ -81,8 +85,12 @@ function SubwayStopPredictionInfo(props: {
       } else {
         return (
           <div className="directionsList list">
-            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
-            <br />
+            {stationName && (
+              <>
+                <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+                <br />
+              </>
+            )}
             <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
