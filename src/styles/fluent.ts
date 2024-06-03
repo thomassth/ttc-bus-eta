@@ -4,13 +4,6 @@ export const fluentStyles = makeStyles({
   fluentProvider: {
     height: "100%",
   },
-  centerInput: {
-    "& input": {
-      textAlign: "center",
-      width: "100%",
-      height: "5rem",
-    },
-  },
   badge: {
     ...shorthands.margin("0px", "8px", "0px", "0px"),
     minWidth: "48px",

@@ -1,6 +1,6 @@
 import { Badge } from "@fluentui/react-components";
 
-import { fluentStyles } from "../styles/fluent";
+import { fluentStyles } from "../styles/fluent.js";
 
 const badgeColor = (text: string) => {
   switch (true) {
@@ -40,7 +40,7 @@ const badgeOutline = (text: string) => {
       return "outline";
     default:
       for (const item of occasional) {
-        if (text.startsWith(item.toString())) {
+        if (text.toString().startsWith(item.toString())) {
           return "outline";
         }
       }

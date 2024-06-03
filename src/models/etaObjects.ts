@@ -1,4 +1,5 @@
 import { EtaBus } from "./etaJson.js";
+import { SubwayStopInfo } from "./ttc.js";
 
 export interface LineStopElement {
   id: JSX.Element;
@@ -13,11 +14,12 @@ export interface EtaBusWithID extends EtaBus {
 }
 
 export interface LineStopEta {
-  line: string;
+  line: string | string[];
   stopName: string;
   routeName: string;
   etas: EtaBusWithID[];
   stopTag: number;
+  type?: string;
 }
 
 export interface LineStop {
@@ -27,16 +29,23 @@ export interface LineStop {
   stopId: number;
 }
 
+export interface SubwayDbRedux {
+  ids: number[];
+  entities: Record<number, SubwayStopInfo>;
+}
+
 export interface StopBookmark {
   stopId: number;
   name: string;
   ttcId: number;
   lines: string[];
-  enabled?: string[]
+  enabled?: string[];
+  type?: string;
 }
+
 export interface stopBookmarksRedux {
   ids: number[];
-  entities: StopBookmark[];
+  entities: Record<number, StopBookmark>;
 }
 
 export interface settingsItem {
@@ -47,7 +56,7 @@ export interface settingsItem {
 
 export interface settingsRedux {
   ids: string[];
-  entities: settingsItem[];
+  entities: Record<number, settingsItem[]>;
 }
 
 export interface stopBookmarkWithEta extends StopBookmark {

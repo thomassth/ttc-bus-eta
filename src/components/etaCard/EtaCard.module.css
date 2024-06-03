@@ -5,6 +5,11 @@
   grid-template-rows: repeat(3, 1fr);
   gap: 4px;
   grid-auto-flow: column;
+
+  &.overflow {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: unset;
+  }
 }
 
 .grid-item {
@@ -48,6 +53,10 @@
   position: absolute;
   top: -16px;
   right: 16px;
+}
+
+.multi-line {
+  white-space: pre-line;
 }
 
 @media (width >= 800px) {

@@ -1,9 +1,9 @@
+import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import {
   LineStopEta,
+  StopBookmark,
   stopBookmarkWithEta,
-  stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
@@ -53,21 +53,26 @@ export const multiStopParser = (json: EtaPredictionJson) => {
 
 export function multiStopUnifier(
   json: EtaPredictionJson,
-  stopBookmarks: stopBookmarksRedux
+  stopBookmarks: StopBookmark[]
 ) {
   const result = multiStopParser(json);
 
   // phase 2: combine a/c to stop number
-  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.ids.map((id) => {
-    return {
-      stopId: stopBookmarks.entities[id].stopId,
-      name: stopBookmarks.entities[id].name,
-      enabled: stopBookmarks.entities[id].enabled,
-      lines: stopBookmarks.entities[id].enabled ? stopBookmarks.entities[id].enabled : stopBookmarks.entities[id].lines,
-      ttcId: stopBookmarks.entities[id].ttcId,
-      etas: [],
-    };
-  });
+  const unifiedList: stopBookmarkWithEta[] = stopBookmarks.map(
+    (stopBookmark) => {
+      const enabled = stopBookmark.enabled;
+
+      return {
+        stopId: stopBookmark.stopId,
+        name: stopBookmark.name,
+        enabled,
+        lines: enabled?.length ? enabled : stopBookmark.lines,
+        ttcId: stopBookmark.ttcId,
+        etas: [],
+        type: stopBookmark.type,
+      };
+    }
+  );
 
   for (const item of result) {
     const matchingStop = unifiedList.findIndex(

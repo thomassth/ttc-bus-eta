@@ -2,17 +2,50 @@ import { Link as LinkFluent, Text, Title1 } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SubwayStations } from "../../models/ttc.js";
+import { SubwayStations, SubwayStopInfo } from "../../models/ttc.js";
+import { useAppDispatch } from "../../store/index.js";
+import { addStop } from "../../store/suwbayDb/slice.js";
 import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./FetchSubwayRoute.module.css";
 import { getTTCSubwayData } from "./fetchUtils.js";
+
+const filterSubwayDirection = (input: string) => {
+  return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
+};
+
+const filterSubwayTitle = (input: string) => {
+  return `${input.split(/\(|\)/)[1].toLowerCase()} Line`;
+};
+
+const line3Tribute = () => {
+  const lines = new Map([
+    [0, "It is no more."],
+    [1, "It has ceased to be."],
+    [2, "Bereft of life, it rests in peace."],
+    [3, "It is an ex-line."],
+    [4, "It is pining for the fjords."],
+    [5, "It has kicked the bucket."],
+    [
+      6,
+      "It has shuffled off its mortal coil, run down the curtain and joined the choir invisible.",
+    ],
+    [7, "Its metallic processes are now history."],
+    [8, "It's definitely deceased."],
+    [9, "It is expired and gone to meet its maker."],
+    [10, "It's passed on."],
+  ]);
+
+  return lines.get(Math.floor(Math.random() * 11));
+};
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<SubwayStations>();
   const [lineNum] = useState(props.line);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -22,9 +55,25 @@ function RouteInfo(props: { line: number }): JSX.Element {
       return response;
     };
 
+    const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
+      subwayApiRes
+        .filter((element) => element.routeBranch.headsign)
+        .forEach((route) => {
+          route.routeBranchStops.forEach((stop) => {
+            dispatch(
+              addStop({
+                id: parseInt(stop.code),
+                stop,
+              })
+            );
+          });
+        });
+    };
+
     if (lineNum !== 3) {
-      fetchSubwayData().then((res) => {
+      fetchSubwayData().then((res: SubwayStations) => {
         try {
+          setSubwayDb(res.routeBranchesWithStops);
           setData(res);
         } catch (error) {
           setData({ routeBranchesWithStops: [], Error: true });
@@ -120,32 +169,3 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }
 }
 export default RouteInfo;
-
-const filterSubwayDirection = (input: string) => {
-  return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
-};
-
-const filterSubwayTitle = (input: string) => {
-  return input.split(/\(|\)/)[1].toLowerCase() + " Line";
-};
-
-const line3Tribute = () => {
-  const lines = new Map([
-    [0, "It is no more."],
-    [1, "It has ceased to be."],
-    [2, "Bereft of life, it rests in peace."],
-    [3, "It is an ex-line."],
-    [4, "It is pining for the fjords."],
-    [5, "It has kicked the bucket."],
-    [
-      6,
-      "It has shuffled off its mortal coil, run down the curtain and joined the choir invisible.",
-    ],
-    [7, "Its metallic processes are now history."],
-    [8, "It's definitely deceased."],
-    [9, "It is expired and gone to meet its maker."],
-    [10, "It's passed on."],
-  ]);
-
-  return lines.get(Math.floor(Math.random() * 11));
-};

@@ -1,14 +1,17 @@
-import { Button, LargeTitle, Text } from "@fluentui/react-components";
+import { Button, LargeTitle, Text, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStop } from "../../models/ttc.js";
+import { store } from "../../store/index.js";
+import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
+import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { getTTCSubwayPredictions } from "./fetchUtils.js";
 
-function LineStopPredictionInfo(props: {
+function SubwayStopPredictionInfo(props: {
   line: number;
   stopNum: number;
 }): JSX.Element {
@@ -37,6 +40,11 @@ function LineStopPredictionInfo(props: {
     );
   }
 
+  const stationName = subwayDbSelectors.selectById(
+    store.getState().subwayDb,
+    props.stopNum
+  );
+
   if (data !== undefined) {
     if (data.Error !== undefined) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
@@ -46,16 +54,25 @@ function LineStopPredictionInfo(props: {
 
         const listGroup = nextTrains.map((minute, index) => {
           return (
-            <div key={index}>
+            <div key={`${index}-${minute}`}>
               <CountdownSec second={Number.parseInt(minute) * 60} />
             </div>
           );
         });
         return (
           <div className="directionsList list">
-            <LargeTitle>{data.directionText}</LargeTitle>
+            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+            <br />
+            <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
+              <BookmarkButton
+                stopId={props.stopNum}
+                name={data.directionText}
+                ttcId={props.stopNum}
+                lines={[props.line.toString()]}
+                type="ttc-subway"
+              />
             </div>
             {listGroup}
             <RawDisplay data={data} />
@@ -64,9 +81,18 @@ function LineStopPredictionInfo(props: {
       } else {
         return (
           <div className="directionsList list">
-            <LargeTitle>{data.directionText}</LargeTitle>
+            <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+            <br />
+            <Title1>{data.directionText}</Title1>
             <div className="countdown-row">
               <RefreshButton />
+              <BookmarkButton
+                stopId={props.stopNum}
+                name={data.directionText}
+                ttcId={props.stopNum}
+                lines={[props.line.toString()]}
+                type="ttc-subway"
+              />
             </div>
             <Text> {t("reminder.noEta")}</Text>
             <RawDisplay data={data} />
@@ -83,4 +109,4 @@ function LineStopPredictionInfo(props: {
     );
   }
 }
-export default LineStopPredictionInfo;
+export default SubwayStopPredictionInfo;

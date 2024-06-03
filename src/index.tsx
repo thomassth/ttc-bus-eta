@@ -5,12 +5,13 @@ import { RouterProvider } from "react-router-dom";
 
 import "./i18n/i18n";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import { router } from "./routes/MainRouter";
-import { store } from "./store";
-import { saveStopBookmarkState } from "./store/bookmarks/state";
-import { saveSettingsState } from "./store/settings/state";
-import { FluentTheme } from "./styles/FluentTheme";
+import reportWebVitals from "./reportWebVitals.js";
+import { router } from "./routes/MainRouter.js";
+import { saveStopBookmarkState } from "./store/bookmarks/state.js";
+import { store } from "./store/index.js";
+import { saveSettingsState } from "./store/settings/state.js";
+import { saveSubwayDbState } from "./store/suwbayDb/state.js";
+import { FluentTheme } from "./styles/FluentTheme.js";
 
 const container = document.getElementById("root");
 if (container) {
@@ -29,6 +30,7 @@ if (container) {
 store.subscribe(() => {
   saveStopBookmarkState(store.getState().stopBookmarks);
   saveSettingsState(store.getState().settings);
+  saveSubwayDbState(store.getState().subwayDb);
 });
 
 // If you want to start measuring performance in your app, pass a function

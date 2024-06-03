@@ -21,7 +21,7 @@ export default function VehicleLocation(props: {
   const [view, setView] = useState<RView>({ center, zoom: 16 });
 
   useEffect(() => {
-    if (data && data.vehicle) {
+    if (data?.vehicle) {
       const latlong = fromLonLat([data.vehicle?.lon, data.vehicle?.lat]);
       setCenter(latlong);
       setView({ center: latlong, zoom: 16 });

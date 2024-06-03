@@ -46,28 +46,28 @@ export interface RouteLineJson {
 }
 
 export type RouteJson = {
-    route: {
-      color: string;
-      direction: RouteLineJson[];
-      latMax: string;
-      lonMax: string;
-      lonMin: string;
-      oppositeColor: string;
+  route: {
+    color: string;
+    direction: RouteLineJson[];
+    latMax: string;
+    lonMax: string;
+    lonMin: string;
+    oppositeColor: string;
+    tag: string;
+    title: string;
+    path: {
+      point: {
+        lat: number;
+        lon: number;
+      }[];
+    }[];
+    stop: {
+      stopId: string | undefined;
       tag: string;
       title: string;
-      path: {
-        point: {
-          lat: number;
-          lon: number;
-        }[];
-      }[];
-      stop: {
-        stopId: string | undefined;
-        tag: string;
-        title: string;
-        lat: string;
-        lon: string;
-      }[];
+      lat: string;
+      lon: string;
+    }[];
   };
 } & BasicJson;
 
