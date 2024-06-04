@@ -28,7 +28,6 @@ const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
         parseSingleOrMultiEta(direction.prediction, result);
       }
     } else {
-      console.log(stop.direction.prediction);
       parseSingleOrMultiEta(stop.direction.prediction, result);
     }
   }
@@ -36,17 +35,14 @@ const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
 
 export const multiStopParser = (json: EtaPredictionJson) => {
   const result: LineStopEta[] = [];
-  console.log(json);
-
-  if (Array.isArray(json.predictions)) {
-    console.log("multi stops");
-    for (const stop of json.predictions) {
-      parseEtaPredictions(stop, result);
+  if (json.predictions) {
+    if (Array.isArray(json.predictions)) {
+      for (const stop of json.predictions) {
+        parseEtaPredictions(stop, result);
+      }
+    } else {
+      parseEtaPredictions(json.predictions, result);
     }
-  } else {
-    const stop = json.predictions;
-    parseEtaPredictions(stop, result);
-    console.log("single stop");
   }
   return result;
 };

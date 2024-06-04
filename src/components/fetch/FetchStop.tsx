@@ -99,7 +99,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               stopId={stopId}
               name={etaDb[0].stopName}
               ttcId={etaDb[0].stopTag}
-              lines={etaDb.map((item) => item.line)}
+              lines={etaDb.map((item) => item.line).flat()}
             />
           </div>
           {navigator.onLine ? null : (
@@ -124,12 +124,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <Title1>{t("reminder.failToLocate")}</Title1>
           <div className="countdown-button-group">
             <RefreshButton />
-            <BookmarkButton
-              stopId={stopId}
-              name={etaDb[0].stopName}
-              ttcId={etaDb[0].stopTag}
-              lines={etaDb.map((item) => item.line)}
-            />
             <SMSButton stopId={stopId} />
           </div>
           <Text>{data.Error["#text"]}</Text>
