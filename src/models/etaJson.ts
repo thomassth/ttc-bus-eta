@@ -34,7 +34,7 @@ export interface EtaPredictions {
 }
 
 export type EtaPredictionJson = {
-  predictions: EtaPredictions[] | EtaPredictions;
+  predictions?: EtaPredictions[] | EtaPredictions;
 } & BasicJson;
 
 export interface RouteLineJson {

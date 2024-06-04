@@ -1,20 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "../App";
-import { BookmarkPage } from "../components/bookmarks/Bookmark";
-import { Settings } from "../components/settings/Settings";
-import YRTHeader from "../lab/YRTheader";
-import YRTLine from "../lab/YRTline";
-import YRTLines from "../lab/YRTlines";
-import YRT from "../lab/YRTstop";
-import About from "./About";
-import Error from "./Error";
-import Home from "./Home";
-import Line from "./Line";
-import LineSearch from "./LineSearch";
-import LineStopPrediction from "./LineStopPrediction";
-import RelativeVehiclePosition from "./RelativeVehiclePosition";
-import StopPrediction from "./StopPrediction";
+import App from "../App.js";
+import { BookmarkPage } from "../components/bookmarks/Bookmark.js";
+import { Settings } from "../components/settings/Settings.js";
+import YRTHeader from "../lab/YRTheader.js";
+import YRTLine from "../lab/YRTline.js";
+import YRTLines from "../lab/YRTlines.js";
+import YRT from "../lab/YRTstop.js";
+import About from "./About.js";
+import Error from "./Error.js";
+import Home from "./Home.js";
+import Line from "./Line.js";
+import LineSearch from "./LineSearch.js";
+import LineStopPrediction from "./LineStopPrediction.js";
+import RelativeVehiclePosition from "./RelativeVehiclePosition.js";
+import StopPrediction from "./StopPrediction.js";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +36,7 @@ export const router = createBrowserRouter([
             Component: YRT,
           },
         ],
+        errorElement: <Error />,
       },
       {
         path: "ttc",
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
             ],
           },
         ],
+        errorElement: <Error />,
       },
       {
         path: "lines",
@@ -72,6 +74,7 @@ export const router = createBrowserRouter([
             ],
           },
         ],
+        errorElement: <Error />,
       },
       {
         path: "stops/:stopId",
@@ -82,6 +85,7 @@ export const router = createBrowserRouter([
             Component: RelativeVehiclePosition,
           },
         ],
+        errorElement: <Error />,
       },
 
       { path: "*", Component: Error },
