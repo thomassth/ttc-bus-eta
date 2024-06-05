@@ -7,10 +7,11 @@ import {
 import { VehicleBus16Filled } from "@fluentui/react-icons";
 import { Link } from "react-router-dom";
 
-import { RouteBranchStops } from "../../models/ttc";
-import { fluentStyles } from "../../styles/fluent";
-import { TtcBadge } from "../badges";
-import { LocationButton } from "./StopAccordions";
+import { RouteBranchStops } from "../../models/ttc.js";
+import { fluentStyles } from "../../styles/fluent.js";
+import { TtcBadge } from "../badges.js";
+import { LocationButton } from "./StopAccordions.js";
+import style from "./StopAccordions.module.css";
 
 export function SubwayAccordions(props: {
   result: RouteBranchStops[];
@@ -23,7 +24,7 @@ export function SubwayAccordions(props: {
   const stops = props.result.map((lineStop) => {
     return (
       <li key={lineStop.id.toString()}>
-        <AccordionPanel className={fluentStyle.accordionPanel}>
+        <AccordionPanel className={style["accordion-panel"]}>
           <div className="line-details">
             <ETAButton code={lineStop.code} line={props.lineNum} />
           </div>

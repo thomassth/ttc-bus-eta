@@ -1,17 +1,9 @@
-import {
-  Badge,
-  Button,
-  Link as LinkFluent,
-  Text,
-} from "@fluentui/react-components";
-import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
+import { Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -23,8 +15,6 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
-
-  const fluentStyle = fluentStyles();
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
@@ -41,29 +31,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
         }
 
         result.push({
-          id: (
-            <Badge className={fluentStyle.badge} appearance="outline">
-              {matchingStop?.id}
-            </Badge>
-          ),
+          ...matchingStop,
           key: matchingStop?.id ?? 0,
-          name: `${matchingStop?.name}`,
-          latlong: (
-            <a
-              title={t("buttons.mapPin") ?? "View location in Google Maps"}
-              href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
-            >
-              <Button icon={<Map24Filled />} />
-            </a>
-          ),
-          stopId: (
-            <Link
-              to={`/stops/${matchingStop?.stopId}`}
-              title={t("buttons.busIcon") ?? "View stop ETA"}
-            >
-              <Button icon={<VehicleBus16Filled />} />
-            </Link>
-          ),
         });
       }
       return result;

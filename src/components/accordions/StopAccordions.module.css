@@ -1,0 +1,16 @@
+.accordion-panel {
+  display: flex;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  gap: 8px;
+
+  a {
+    height: 100%;
+    display: inline-block;
+  }
+}
+
+.direction-badge {
+  margin-right: 8px;
+  min-width: 48px !important;
+}
