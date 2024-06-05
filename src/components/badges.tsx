@@ -1,6 +1,6 @@
 import { Badge } from "@fluentui/react-components";
 
-import { fluentStyles } from "../styles/fluent.js";
+import style from "./badges.module.css";
 
 const badgeColor = (text: string) => {
   switch (true) {
@@ -49,12 +49,10 @@ const badgeOutline = (text: string) => {
 };
 
 export function TtcBadge(props: { lineNum: string }) {
-  const fluentStyle = fluentStyles();
-
   return (
     <Badge
       style={{ backgroundColor: customBgColor(props.lineNum) }}
-      className={fluentStyle.badge}
+      className={style["line-badge"]}
       color={badgeColor(props.lineNum)}
       appearance={badgeOutline(props.lineNum)}
       shape="rounded"

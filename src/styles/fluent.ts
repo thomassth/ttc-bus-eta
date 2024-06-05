@@ -4,10 +4,6 @@ export const fluentStyles = makeStyles({
   fluentProvider: {
     height: "100%",
   },
-  badge: {
-    ...shorthands.margin("0px", "8px", "0px", "0px"),
-    minWidth: "48px",
-  },
   accordionHeader: {
     ...shorthands.margin("0px", "0px"),
 
@@ -46,13 +42,6 @@ export const fluentStyles = makeStyles({
   },
   flexGrowContent: {
     flexGrow: 1,
-  },
-  accordionPanel: {
-    display: "grid",
-    gridTemplateColumns: "36px 36px auto",
-    gridAutoRows: "auto",
-    paddingTop: "8px",
-    paddingBottom: "8px",
   },
   smallRoundNavButton: {
     width: "48px",

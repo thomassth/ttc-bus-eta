@@ -2,10 +2,10 @@ import { EtaBus } from "./etaJson.js";
 import { SubwayStopInfo } from "./ttc.js";
 
 export interface LineStopElement {
-  id: JSX.Element;
+  id: number;
   name: string;
-  latlong: JSX.Element;
-  stopId: JSX.Element;
+  latlong: number[];
+  stopId: number;
   key: number;
 }
 

@@ -14,21 +14,14 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
     return null;
   } else
     return (
-      <li className="countdown-group">
-        <div className={style["stop-prediction-details"]}>
-          <Link to={`/lines/${props.detail.line}`} className="router-link">
-            <LinkFluent>
-              <Title2>
-                {props.detail.etas.length === 0
-                  ? props.detail.line
-                  : props.detail.line}
-              </Title2>
-            </LinkFluent>
-          </Link>
-
-          <Text>{props.detail.routeName}</Text>
-          {countdownRowList}
-        </div>
+      <li className={style["stop-prediction-details"]}>
+        <Link to={`/lines/${props.detail.line}`} className="router-link">
+          <LinkFluent>
+            <Title2>{props.detail.line}</Title2>
+          </LinkFluent>
+        </Link>
+        <Text>{props.detail.routeName}</Text>
+        {countdownRowList}
       </li>
     );
 }
