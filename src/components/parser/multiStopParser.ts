@@ -7,20 +7,20 @@ import {
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
-const parseActualLineNum = (title: string) => {
-  const found = title.match(/(\w+)-([\w\s]+)/);
-  if (found === null) {
-    return "";
-  } else return found[1].toLocaleUpperCase();
-};
-
 const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
   result.push({
-    line: parseActualLineNum(stop.routeTitle),
+    line: parseRoute(stop.routeTitle).prefix || "",
     stopName: stop.stopTitle,
-    routeName: parseRoute(stop.routeTitle),
+    routeName: parseRoute(stop.routeTitle).name,
     etas: [],
     stopTag: parseInt(stop.stopTag),
+    direction: stop.dirTitleBecauseNoPredictions
+      ? parseRoute(stop.dirTitleBecauseNoPredictions).prefix
+      : parseRoute(
+          Array.isArray(stop.direction)
+            ? stop.direction[0].title
+            : stop.direction.title
+        ).prefix,
   });
   if (stop.dirTitleBecauseNoPredictions === undefined) {
     if (Array.isArray(stop.direction)) {
@@ -74,6 +74,14 @@ export function multiStopUnifier(
     const matchingStop = unifiedList.findIndex(
       (searching) => item.stopTag === searching.ttcId
     );
+    if (unifiedList[matchingStop].direction) {
+      unifiedList[matchingStop].direction = item.direction;
+    } else if (
+      unifiedList[matchingStop].direction?.toLowerCase() !==
+      item.direction?.toLowerCase()
+    ) {
+      unifiedList[matchingStop].direction = "multiple";
+    }
     unifiedList[matchingStop].etas = unifiedList[matchingStop].etas
       .concat(item.etas)
       .sort((a, b) => a.epochTime - b.epochTime);

@@ -46,14 +46,14 @@ export function Settings() {
   const dispatch = useAppDispatch();
 
   const handleLangChange = useCallback(
-    (_: FormEvent<HTMLDivElement>, data: { value: string | undefined }) => {
+    (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
       i18n.changeLanguage(data.value);
     },
     []
   );
 
   const handleUnifiedEtaChange = useCallback(
-    (_: FormEvent<HTMLDivElement>, data: { value: string | undefined }) => {
+    (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
       setUnifiedEta(data.value === "true");
       dispatch(
         changeSettings({

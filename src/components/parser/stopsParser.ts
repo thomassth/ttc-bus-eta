@@ -5,7 +5,7 @@ export function stopsParser(json: RouteJson): LineStop[] {
   const result: LineStop[] = [];
   if (json.Error === undefined) {
     for (const element of json.route.stop) {
-      if (element.stopId !== undefined) {
+      if (element.stopId) {
         result.push({
           id: parseInt(element.tag),
           name: element.title,

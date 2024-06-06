@@ -88,19 +88,23 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       }
       return (
         <div className="countdown-list-container">
-          {etaDb[0] !== undefined ? (
+          {etaDb[0] && (
             <Title1 className="top-row">
               Stop {stopId} - {etaDb[0].stopName}
             </Title1>
-          ) : null}
+          )}
           <div className="countdown-button-group">
             <RefreshButton />
-            <BookmarkButton
-              stopId={stopId}
-              name={etaDb[0].stopName}
-              ttcId={etaDb[0].stopTag}
-              lines={etaDb.map((item) => item.line).flat()}
-            />
+
+            {etaDb[0] && (
+              <BookmarkButton
+                stopId={stopId}
+                name={etaDb[0].stopName}
+                ttcId={etaDb[0].stopTag}
+                lines={etaDb.map((item) => item.line).flat()}
+                direction={etaDb[0].direction}
+              />
+            )}
           </div>
           {navigator.onLine ? null : (
             <Text>Device seems to be offline. Results may be inaccurate.</Text>
@@ -118,7 +122,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         </div>
       );
     } else {
-      // if (data.Error !== undefined)
+      // if (data.Error)
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>

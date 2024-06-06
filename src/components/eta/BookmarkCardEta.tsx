@@ -30,13 +30,13 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
           props.item.stopTag
         )?.stop?.name ?? props.item.routeName
       : Array.isArray(props.item.line)
-        ? props.item.routeName
+        ? props.item.stopName
         : `${props.item.routeName}
 ${props.item.stopName}`;
 
   return (
     <EtaCard
-      id={props.item.routeName + props.item.stopTag}
+      id={props.item.stopName + props.item.stopTag}
       etas={props.item.etas}
       lines={
         Array.isArray(props.item.line)
@@ -47,6 +47,7 @@ ${props.item.stopName}`;
                 : props.item.etas[0]?.branch,
             ]
       }
+      direction={item.direction}
       name={name}
       editable={false}
       onDelete={undefined}

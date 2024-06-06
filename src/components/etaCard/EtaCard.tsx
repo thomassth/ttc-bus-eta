@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";
 import { useAppDispatch } from "../../store/index.js";
-import { TtcBadge } from "../badges.js";
+import { DirectionBadge, TtcBadge } from "../badges.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
 
@@ -30,6 +30,7 @@ export function EtaCard(props: {
   stopUrl: string;
   id: string;
   enabled?: string[];
+  direction?: string;
 }) {
   return (
     <li
@@ -54,7 +55,12 @@ export function EtaCard(props: {
                     return <TtcBadge key={line} lineNum={line} />;
                   })}
                 </div>
-                <span className={style["multi-line"]}>{props.name}</span>
+                <span className={style["multi-line"]}>
+                  {props.direction && (
+                    <DirectionBadge direction={props.direction} />
+                  )}
+                  {props.name}
+                </span>
               </>
             }
             action={
