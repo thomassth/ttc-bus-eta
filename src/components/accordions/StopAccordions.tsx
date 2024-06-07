@@ -122,7 +122,6 @@ export function ETAButton(props: {
       <Button
         icon={props.name ? undefined : <VehicleBus16Filled />}
         appearance={props.name ? "subtle" : "outline"}
-        tabIndex={-1}
       >
         {props.name?.replace("At", "\nAt")}
       </Button>
@@ -140,7 +139,7 @@ export function LocationButton(props: {
       title={t("buttons.mapPin") ?? "View location in Google Maps"}
       href={`http://maps.google.com/maps?z=12&t=m&q=loc:${props.latlon.lat}+${props.latlon.lon}`}
     >
-      <Button icon={<Map24Filled />} tabIndex={-1} />
+      <Button icon={<Map24Filled />} />
     </a>
   );
 }

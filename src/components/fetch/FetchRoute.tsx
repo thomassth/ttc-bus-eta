@@ -71,7 +71,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }, [lastUpdatedAt]);
 
   if (data) {
-    if (data.Error) {
+    if (!data.Error) {
       const accordionList: JSX.Element[] = data.route.direction.map((line) => {
         const list = createStopList(line);
         return (
@@ -99,7 +99,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
     } else {
       const noRouteRegex = /Could not get route /;
-      const errorString = data.Error["#text"];
+      const errorString = data.Error?.["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
           <div className="stop-prediction-page">

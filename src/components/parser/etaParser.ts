@@ -167,6 +167,8 @@ export const etaParser = (json: EtaPredictionJson) => {
         routeName: "",
         etas: [],
         stopTag: parseInt(json.predictions.stopTag),
+        direction: parseRoute(json.predictions.dirTitleBecauseNoPredictions)
+          .prefix,
       });
     }
   }
