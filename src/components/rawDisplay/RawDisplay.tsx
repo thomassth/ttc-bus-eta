@@ -38,7 +38,7 @@ export default function RawDisplay(props: {
     "devMode"
   );
   const isInDevMode = useMemo(
-    () => (devModeValue !== undefined ? devModeValue.value === "true" : false),
+    () => (devModeValue ? devModeValue.value === "true" : false),
     [settings]
   );
 

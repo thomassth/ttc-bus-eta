@@ -1,4 +1,4 @@
-import { Button, Text, Title1 } from "@fluentui/react-components";
+import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,12 +7,14 @@ import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
 import { CountdownRow } from "../countdown/CountdownRow.js";
 import SMSButton from "../eta/SMSButton.js";
 import { etaParser } from "../parser/etaParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
+import style from "./FetchStop.module.css";
 import { getStopPredictions } from "./fetchUtils.js";
 
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
@@ -86,24 +88,46 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             );
           });
       }
+
+      const directions: Set<string> = new Set();
+
+      etaDb.forEach((item) => {
+        if (item.direction) directions.add(item.direction);
+      });
       return (
         <div className="countdown-list-container">
-          {etaDb[0] !== undefined ? (
-            <Title1 className="top-row">
-              Stop {stopId} - {etaDb[0].stopName}
-            </Title1>
-          ) : null}
+          {etaDb[0] && (
+            <>
+              <span className={style["top-row"]}>
+                Stop {stopId}
+                {directions.size === 1 && (
+                  <DirectionBadge
+                    direction={Array.from(directions.values())[0]}
+                  />
+                )}
+              </span>
+              <div className={style["stop-name"]}>
+                <Title1 as="h1">
+                  {etaDb[0].stopName.replace("At", "\nAt")}
+                </Title1>
+              </div>
+            </>
+          )}
           <div className="countdown-button-group">
             <RefreshButton />
-            <BookmarkButton
-              stopId={stopId}
-              name={etaDb[0].stopName}
-              ttcId={etaDb[0].stopTag}
-              lines={etaDb.map((item) => item.line).flat()}
-            />
+
+            {etaDb[0] && (
+              <BookmarkButton
+                stopId={stopId}
+                name={etaDb[0].stopName}
+                ttcId={etaDb[0].stopTag}
+                lines={etaDb.map((item) => item.line).flat()}
+                direction={etaDb[0].direction}
+              />
+            )}
           </div>
           {navigator.onLine ? null : (
-            <Text>Device seems to be offline. Results may be inaccurate.</Text>
+            <span>Device seems to be offline. Results may be inaccurate.</span>
           )}
           {listContent.length > 0 ? (
             <ul>{listContent}</ul>
@@ -118,7 +142,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         </div>
       );
     } else {
-      // if (data.Error !== undefined)
+      // if (data.Error)
       return (
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
@@ -126,7 +150,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             <RefreshButton />
             <SMSButton stopId={stopId} />
           </div>
-          <Text>{data.Error["#text"]}</Text>
+          <span>{data.Error["#text"]}</span>
           <RawDisplay data={data} />
         </div>
       );
@@ -138,7 +162,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <Title1>{t("reminder.loading")}</Title1>
         ) : (
           <>
-            <Title1 className="top-row">Stop {stopId}</Title1>
+            <Title1>Stop {stopId}</Title1>
             <br />
             <Title1>Your device seems to be offline.</Title1>
           </>

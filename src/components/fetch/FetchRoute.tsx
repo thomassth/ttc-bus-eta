@@ -11,7 +11,6 @@ import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteJson>();
-  const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
@@ -44,7 +43,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     const controller = new AbortController();
 
     const fetchStopsData = async () => {
-      const data = await getTTCRouteData(lineNum, {
+      const data = await getTTCRouteData(props.line, {
         signal: controller.signal,
       });
 
@@ -71,24 +70,22 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setStopDb([]);
   }, [lastUpdatedAt]);
 
-  if (data !== undefined) {
-    if (data.Error === undefined) {
-      const accordionList: JSX.Element[] = data.route.direction.map(
-        (element) => {
-          const list = createStopList(element);
-          return (
-            <li key={element.tag}>
-              <StopAccordions
-                title={element.title}
-                direction={element.name}
-                lineNum={element.branch}
-                result={list}
-                tag={element.tag}
-              />
-            </li>
-          );
-        }
-      );
+  if (data) {
+    if (!data.Error) {
+      const accordionList: JSX.Element[] = data.route.direction.map((line) => {
+        const list = createStopList(line);
+        return (
+          <li key={line.tag}>
+            <StopAccordions
+              title={line.title}
+              direction={line.name}
+              lineNum={line.branch}
+              result={list}
+              tag={line.tag}
+            />
+          </li>
+        );
+      });
 
       return (
         <div className="stop-prediction-page">
@@ -102,7 +99,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
     } else {
       const noRouteRegex = /Could not get route /;
-      const errorString = data.Error["#text"];
+      const errorString = data.Error?.["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
           <div className="stop-prediction-page">

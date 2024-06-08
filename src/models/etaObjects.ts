@@ -16,10 +16,11 @@ export interface EtaBusWithID extends EtaBus {
 export interface LineStopEta {
   line: string | string[];
   stopName: string;
-  routeName: string;
+  routeName?: string;
   etas: EtaBusWithID[];
   stopTag: number;
   type?: string;
+  direction?: string;
 }
 
 export interface LineStop {
@@ -41,6 +42,7 @@ export interface StopBookmark {
   lines: string[];
   enabled?: string[];
   type?: string;
+  direction?: string;
 }
 
 export interface stopBookmarksRedux {

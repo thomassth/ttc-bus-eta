@@ -1,0 +1,8 @@
+.top-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.stop-name h1 {
+  white-space: preserve-breaks;
+}

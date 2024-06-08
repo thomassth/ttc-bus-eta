@@ -83,7 +83,7 @@ export function RoutesInfo() {
         {subwayCards()}
         {routesCards}
       </ul>
-      {routeJsonData !== undefined && <RawDisplay data={routeJsonData} />}
+      {routeJsonData && <RawDisplay data={routeJsonData} />}
     </article>
   );
 }

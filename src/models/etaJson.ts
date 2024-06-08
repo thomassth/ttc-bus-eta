@@ -1,7 +1,7 @@
 // Only store types directly inside parsed XMLs here
 
 export interface BasicJson {
-  Error: { ["#text"]: string } | undefined;
+  Error?: { ["#text"]: string };
 }
 
 export interface EtaBus {
@@ -18,18 +18,24 @@ export interface EtaBus {
 }
 
 export interface EtaDirection {
-  title: string;
-  dirTitleBecauseNoPredictions: string | undefined;
+  /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
+  title?: string;
+  /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
+  dirTitleBecauseNoPredictions?: string;
   prediction: EtaBus[] | EtaBus;
 }
 
 export interface EtaPredictions {
-  dirTitleBecauseNoPredictions: string | undefined;
+  /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
+  title?: string;
+  /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
+  dirTitleBecauseNoPredictions?: string;
   direction: EtaDirection[] | EtaDirection;
   agencyTitle: string;
   stopTitle: string;
   routeTag: string;
   stopTag: string;
+  /** @example "939-Finch Express" */
   routeTitle: string;
 }
 
@@ -62,7 +68,7 @@ export type RouteJson = {
       }[];
     }[];
     stop: {
-      stopId: string | undefined;
+      stopId: string;
       tag: string;
       title: string;
       lat: string;

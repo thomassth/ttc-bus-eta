@@ -1,7 +1,8 @@
-import { Link as LinkFluent, Text, Title2 } from "@fluentui/react-components";
+import { Link as LinkFluent, Title2 } from "@fluentui/react-components";
 import { Link } from "react-router-dom";
 
 import { LineStopEta } from "../../models/etaObjects.js";
+import { DirectionBadge } from "../badges.js";
 import style from "./CountdownGroup.module.css";
 import { CountdownRow } from "./CountdownRow.js";
 
@@ -20,7 +21,12 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
             <Title2>{props.detail.line}</Title2>
           </LinkFluent>
         </Link>
-        <Text>{props.detail.routeName}</Text>
+        <p>
+          {props.detail.direction && (
+            <DirectionBadge direction={props.detail.direction} />
+          )}
+          <span>{props.detail.routeName}</span>
+        </p>
         {countdownRowList}
       </li>
     );

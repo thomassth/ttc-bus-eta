@@ -41,15 +41,15 @@ function LineStopPredictionInfo(props: {
     );
   }
 
-  if (data !== undefined) {
-    if (data.Error !== undefined) {
+  if (data) {
+    if (data.Error) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
     } else {
       if (Array.isArray(data.predictions)) {
         // TODO
         return <div />;
       } else {
-        if (data.predictions.dirTitleBecauseNoPredictions !== undefined) {
+        if (data.predictions?.dirTitleBecauseNoPredictions) {
           return (
             <div className="directionsList list">
               <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
@@ -61,7 +61,7 @@ function LineStopPredictionInfo(props: {
             </div>
           );
         }
-        if (Array.isArray(data.predictions.direction)) {
+        if (Array.isArray(data.predictions?.direction)) {
           const directionListGroup = data.predictions.direction.map((line) => {
             return (
               <div className="directionList list" key={line.title}>
@@ -96,7 +96,7 @@ function LineStopPredictionInfo(props: {
             </div>
           );
         } else {
-          if (Array.isArray(data.predictions.direction.prediction)) {
+          if (Array.isArray(data.predictions?.direction.prediction)) {
             const directionListGroup =
               data.predictions.direction.prediction.map((bus) => {
                 return (
@@ -123,7 +123,7 @@ function LineStopPredictionInfo(props: {
 
             return (
               <div className="directionsList list">
-                <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
+                <LargeTitle>{data.predictions?.stopTitle}</LargeTitle>
                 <RefreshButton />
                 <RawDisplay data={data} />
               </div>

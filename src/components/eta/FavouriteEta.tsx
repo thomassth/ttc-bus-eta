@@ -119,12 +119,12 @@ export default function FavouriteEta() {
           <BookmarkCardEta
             key={`ttc-${id}`}
             item={{
-              stopName: "test",
-              routeName: name,
+              stopName: name,
               stopTag: id,
               etas: item.etas,
               line: item.enabled ? item.enabled : item.lines,
               type: item.type,
+              direction: item.direction,
             }}
           />
         );
@@ -162,7 +162,7 @@ export default function FavouriteEta() {
         <Button>{t("buttons.bookmarkEdit")}</Button>
       </Link>
 
-      {data !== undefined && <RawDisplay data={data} />}
+      {data && <RawDisplay data={data} />}
     </article>
   );
 }
