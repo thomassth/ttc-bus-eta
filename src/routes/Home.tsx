@@ -1,5 +1,6 @@
+import { Button } from "@fluentui/react-components";
 import { t } from "i18next";
-import { Trans } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
@@ -16,8 +17,14 @@ export default function Home() {
       <Search />
       {stopBookmarks.length === 0 ? (
         <section className="item-info-placeholder">
-          <Trans>{t("home.headline")}</Trans>
-          <span>{t("home.bookmarkReminder")}</span>
+          <p>{t("home.headline")}</p>
+          <p>{t("home.bookmarkReminder")}</p>
+          <p>
+            Or, see
+            <Link style={{ marginLeft: "1rem" }} to="/lines">
+              <Button>All routes</Button>
+            </Link>
+          </p>
         </section>
       ) : (
         <FavouriteEta />

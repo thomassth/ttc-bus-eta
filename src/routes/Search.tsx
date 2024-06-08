@@ -1,4 +1,5 @@
 import { Button, Input, Title1 } from "@fluentui/react-components";
+import { ArrowRight12Filled } from "@fluentui/react-icons";
 import { SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -32,9 +33,20 @@ export default function NewVehicle() {
   }, [lineInput, stopInput]);
 
   return (
-    <form className="search-form">
-      <div className={style["next-vehicle-container"]}>
-        <Title1 className={style.title}>Next Vehicle</Title1>
+    <div className="search-form">
+      <form className={style["next-vehicle-container"]}>
+        <div className={style.title}>
+          <Title1>Next Vehicle</Title1>
+          <Button
+            type="submit"
+            appearance="outline"
+            icon={<ArrowRight12Filled />}
+            onClick={handleSearchClick}
+            className={style["subtle-search"]}
+            disabled={stopInput.length < 1}
+            title={t("buttons.search")}
+          />
+        </div>
         <Input
           className={style["center-input"]}
           size="large"
@@ -44,11 +56,11 @@ export default function NewVehicle() {
           value={stopInput}
           placeholder={t("stops.ariaLabel") ?? ""}
         />
-      </div>
+      </form>
       <div className={style.separation}>
         <hr /> <span>or</span> <hr />
       </div>
-      <div className={style["search-block"]}>
+      <form className={style["search-block"]}>
         <Input
           disabled={stopInput.length > 0}
           value={lineInput}
@@ -57,10 +69,15 @@ export default function NewVehicle() {
           aria-label={t("lines.ariaLabel") ?? ""}
           placeholder={t("lines.placeholder")}
         />
-        <Button appearance="primary" type="submit" onClick={handleSearchClick}>
+        <Button
+          appearance="primary"
+          disabled={lineInput.length < 1}
+          type="submit"
+          onClick={handleSearchClick}
+        >
           {t("buttons.search")}
         </Button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
