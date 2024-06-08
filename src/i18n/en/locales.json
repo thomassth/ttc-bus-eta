@@ -14,7 +14,7 @@
       "name": "TTC arrivals",
       "tooltip": "Return home"
     },
-    "headline": "You'll see saved lists here, in the FUTURE. <br />",
+    "headline": "You'll see saved stops here.",
     "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit.",
     "homeNoEta": "All your bookmarked stops have no ETA."
   },
@@ -28,7 +28,7 @@
     "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
   },
   "stops": {
-    "ariaLabel": "enter a stop number",
+    "ariaLabel": "Bus / streetcar stop No.",
     "stopId": "Stop ID {{stopNum}} ="
   },
   "buttons": {
