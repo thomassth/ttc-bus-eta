@@ -1,17 +1,9 @@
-import {
-  Badge,
-  Button,
-  Link as LinkFluent,
-  Text,
-} from "@fluentui/react-components";
-import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
+import { Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
-import { fluentStyles } from "../../styles/fluent.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -19,12 +11,9 @@ import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteJson>();
-  const [lineNum] = useState(props.line);
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
-
-  const fluentStyle = fluentStyles();
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
@@ -41,29 +30,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
         }
 
         result.push({
-          id: (
-            <Badge className={fluentStyle.badge} appearance="outline">
-              {matchingStop?.id}
-            </Badge>
-          ),
+          ...matchingStop,
           key: matchingStop?.id ?? 0,
-          name: `${matchingStop?.name}`,
-          latlong: (
-            <a
-              title={t("buttons.mapPin") ?? "View location in Google Maps"}
-              href={`http://maps.google.com/maps?z=12&t=m&q=loc:${matchingStop?.latlong[0]}+${matchingStop?.latlong[1]}`}
-            >
-              <Button icon={<Map24Filled />} />
-            </a>
-          ),
-          stopId: (
-            <Link
-              to={`/stops/${matchingStop?.stopId}`}
-              title={t("buttons.busIcon") ?? "View stop ETA"}
-            >
-              <Button icon={<VehicleBus16Filled />} />
-            </Link>
-          ),
         });
       }
       return result;
@@ -75,7 +43,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     const controller = new AbortController();
 
     const fetchStopsData = async () => {
-      const data = await getTTCRouteData(lineNum, {
+      const data = await getTTCRouteData(props.line, {
         signal: controller.signal,
       });
 
@@ -102,24 +70,22 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setStopDb([]);
   }, [lastUpdatedAt]);
 
-  if (data !== undefined) {
-    if (data.Error === undefined) {
-      const accordionList: JSX.Element[] = data.route.direction.map(
-        (element) => {
-          const list = createStopList(element);
-          return (
-            <li key={element.tag}>
-              <StopAccordions
-                title={element.title}
-                direction={element.name}
-                lineNum={element.branch}
-                result={list}
-                tag={element.tag}
-              />
-            </li>
-          );
-        }
-      );
+  if (data) {
+    if (!data.Error) {
+      const accordionList: JSX.Element[] = data.route.direction.map((line) => {
+        const list = createStopList(line);
+        return (
+          <li key={line.tag}>
+            <StopAccordions
+              title={line.title}
+              direction={line.name}
+              lineNum={line.branch}
+              result={list}
+              tag={line.tag}
+            />
+          </li>
+        );
+      });
 
       return (
         <div className="stop-prediction-page">
@@ -133,7 +99,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
       );
     } else {
       const noRouteRegex = /Could not get route /;
-      const errorString = data.Error["#text"];
+      const errorString = data.Error?.["#text"];
       if (noRouteRegex.test(errorString)) {
         return (
           <div className="stop-prediction-page">

@@ -92,7 +92,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setData(undefined);
   }, [lastUpdatedAt]);
 
-  if (data !== undefined) {
+  if (data) {
     if (!data.Error) {
       const accordionList: JSX.Element[] = data.routeBranchesWithStops
         .filter((element) => element.routeBranch.headsign)

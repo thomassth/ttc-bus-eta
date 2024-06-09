@@ -26,6 +26,7 @@ export function BookmarkCard(props: { id: number }) {
       : item.name;
   return (
     <EtaCard
+      direction={item.direction}
       enabled={item.enabled}
       id={id.toString()}
       etas={[]}

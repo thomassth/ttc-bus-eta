@@ -1,4 +1,6 @@
 .subway-title,
 li button {
   text-transform: capitalize;
+  white-space: preserve-breaks;
+  text-align: left;
 }

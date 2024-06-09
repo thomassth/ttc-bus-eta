@@ -45,8 +45,8 @@ function SubwayStopPredictionInfo(props: {
     props.stopNum
   );
 
-  if (data !== undefined) {
-    if (data.Error !== undefined) {
+  if (data) {
+    if (data.Error) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
     } else {
       if (data.nextTrains.length > 0) {
