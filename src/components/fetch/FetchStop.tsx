@@ -115,7 +115,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           )}
           <div className="countdown-button-group">
             <RefreshButton />
-
             {etaDb[0] && (
               <BookmarkButton
                 stopId={stopId}
