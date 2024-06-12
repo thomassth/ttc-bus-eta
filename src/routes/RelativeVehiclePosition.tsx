@@ -18,7 +18,7 @@ export default function RelativeVehiclePosition() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    document.title = `Stop ID ${stopNum} | TTC arrivals`;
+    document.title = `Stop ID ${stopNum} | TO bus`;
   });
 
   const updateData = (vehicle: number = vehicleId) => {
