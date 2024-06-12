@@ -24,6 +24,7 @@ export const stopBookmarksSlice = createSlice({
     editStopBookmark: stopBookmarksAdapter.updateOne,
     removeStopBookmark: stopBookmarksAdapter.removeOne,
     clearStopBookmarks: stopBookmarksAdapter.removeAll,
+    editBookmarkDb: stopBookmarksAdapter.setAll,
   },
 });
 
@@ -32,4 +33,5 @@ export const {
   editStopBookmark,
   clearStopBookmarks,
   removeStopBookmark,
+  editBookmarkDb,
 } = stopBookmarksSlice.actions;

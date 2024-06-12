@@ -1,0 +1,19 @@
+.transfer,
+.import-form {
+  gap: 1rem;
+}
+
+.import-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.export-textarea {
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}

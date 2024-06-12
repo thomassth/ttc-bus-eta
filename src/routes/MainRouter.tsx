@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import App from "../App.js";
 import { BookmarkPage } from "../components/bookmarks/Bookmark.js";
+import Transfer from "../components/bookmarks/Transfer.js";
 import { Settings } from "../components/settings/Settings.js";
 import YRTHeader from "../lab/YRTheader.js";
 import YRTLine from "../lab/YRTline.js";
@@ -24,7 +25,13 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "about", Component: About },
       { path: "bookmarks", Component: BookmarkPage },
-      { path: "settings", Component: Settings },
+      {
+        path: "settings",
+        children: [
+          { index: true, Component: Settings },
+          { path: "bookmarks", Component: Transfer },
+        ],
+      },
       {
         path: "yrt",
         Component: YRTHeader,
