@@ -90,7 +90,7 @@ function ETAButton(props: {
     <Link to={`/ttc/lines/${props.line}/${props.code}`} title={"View stop ETA"}>
       <Button
         icon={props.name ? undefined : <Clock16Regular />}
-        shape={props.type === "subway" ? "circular" : "rounded"}
+        shape={props.type === "subway" && !props.name ? "circular" : "rounded"}
         appearance={props.name ? "subtle" : undefined}
       >
         {props.name}
