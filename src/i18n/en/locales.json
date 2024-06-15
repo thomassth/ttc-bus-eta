@@ -11,7 +11,7 @@
   },
   "home": {
     "title": {
-      "name": "TTC arrivals",
+      "name": "TO bus",
       "tooltip": "Return home"
     },
     "headline": "You'll see saved stops here.",
@@ -21,7 +21,7 @@
   "lines": {
     "ariaLabel": "enter a line number",
     "placeholder": "enter a line number",
-    "browserTitle": "Line {{lineNum}} | TTC arrivals",
+    "browserTitle": "Line {{lineNum}} | TO bus",
     "title": "Enter a line number:",
     "number": "Line {{lineNum}}",
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",

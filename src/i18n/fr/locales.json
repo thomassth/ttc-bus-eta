@@ -11,7 +11,7 @@
   },
   "home": {
     "title": {
-      "name": "TTC arrivées",
+      "name": "TO bus",
       "tooltip": "Rentrer à la maison"
     },
     "headline": "Vous verrez des listes enregistrées ici, dans le FUTUR. <br />",
@@ -21,7 +21,7 @@
   "lines": {
     "ariaLabel": "entrer un n° de ligne",
     "placeholder": "nombre de lignes",
-    "browserTitle": "Lignes {{lineNum}} | TTC arrivals",
+    "browserTitle": "Lignes {{lineNum}} | TO bus",
     "title": "Entrer un numéro de ligne:",
     "number": "Lignes {{lineNum}}",
     "lineAndStopInfo": "Lignes {{lineNum}} Arrêt de {{stopNum}} =",
