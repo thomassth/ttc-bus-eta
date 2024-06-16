@@ -1,6 +1,6 @@
 {
-  "short_name": "TTC arrival",
-  "name": "TTC arrival times",
+  "short_name": "TO bus",
+  "name": "Toronto bus arrivals",
   "description": "Showing arrival times of TTC subways, buses, streetcars.",
   "icons": [
     {

@@ -17,9 +17,9 @@ const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
     direction: stop.dirTitleBecauseNoPredictions
       ? parseRoute(stop.dirTitleBecauseNoPredictions).prefix
       : parseRoute(
-          Array.isArray(stop.direction)
+          (Array.isArray(stop.direction)
             ? stop.direction[0].title
-            : stop.direction.title
+            : stop.direction.title) ?? ""
         ).prefix,
   });
   if (stop.dirTitleBecauseNoPredictions === undefined) {
@@ -74,7 +74,7 @@ export function multiStopUnifier(
     const matchingStop = unifiedList.findIndex(
       (searching) => item.stopTag === searching.ttcId
     );
-    if (unifiedList[matchingStop].direction) {
+    if (item.direction) {
       unifiedList[matchingStop].direction = item.direction;
     } else if (
       unifiedList[matchingStop].direction?.toLowerCase() !==
