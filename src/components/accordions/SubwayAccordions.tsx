@@ -4,14 +4,22 @@ import {
   AccordionPanel,
   Button,
 } from "@fluentui/react-components";
-import { VehicleBus16Filled } from "@fluentui/react-icons";
+import { Clock16Regular } from "@fluentui/react-icons";
 import { Link } from "react-router-dom";
 
 import { RouteBranchStops } from "../../models/ttc.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import { TtcBadge } from "../badges.js";
 import { LocationButton } from "./StopAccordions.js";
-import style from "./StopAccordions.module.css";
+import style from "./SubwayAccordions.module.css";
+
+const lineColors = new Map([
+  [1, "yellow"],
+  [2, "green"],
+  [3, "blue"],
+  [4, "purple"],
+  [5, "orange"],
+]);
 
 export function SubwayAccordions(props: {
   result: RouteBranchStops[];
@@ -24,9 +32,21 @@ export function SubwayAccordions(props: {
   const stops = props.result.map((lineStop) => {
     return (
       <li key={lineStop.id.toString()}>
-        <AccordionPanel className={style["accordion-panel"]}>
-          <div className="line-details">
-            <ETAButton code={lineStop.code} line={props.lineNum} />
+        <AccordionPanel
+          className={[
+            style["subway-accordion-item"],
+            style["accordion-panel"],
+          ].join(" ")}
+        >
+          <div
+            className={style["station-btn"]}
+            style={{ background: lineColors.get(props.lineNum) }}
+          >
+            <ETAButton
+              code={lineStop.code}
+              line={props.lineNum}
+              type={"subway"}
+            />
           </div>
           <div className="line-details">
             <LocationButton
@@ -36,7 +56,14 @@ export function SubwayAccordions(props: {
               }}
             />
           </div>
-          <div className="line-details">{lineStop.name}</div>
+          <div className="line-details">
+            <ETAButton
+              code={lineStop.code}
+              line={props.lineNum}
+              type={"subway"}
+              name={lineStop.name.replace(" - ", "\n")}
+            />
+          </div>
         </AccordionPanel>
       </li>
     );
@@ -48,15 +75,26 @@ export function SubwayAccordions(props: {
         <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
         {props.title}
       </AccordionHeader>
-      <ul>{stops}</ul>
+      <ul className={style["subway-list"]}>{stops}</ul>
     </AccordionItem>
   );
 }
 
-function ETAButton(props: { line: number; code: string }) {
+function ETAButton(props: {
+  line: number;
+  code: string;
+  type: string;
+  name?: string;
+}) {
   return (
     <Link to={`/ttc/lines/${props.line}/${props.code}`} title={"View stop ETA"}>
-      <Button icon={<VehicleBus16Filled />} />
+      <Button
+        icon={props.name ? undefined : <Clock16Regular />}
+        shape={props.type === "subway" && !props.name ? "circular" : "rounded"}
+        appearance={props.name ? "subtle" : undefined}
+      >
+        {props.name}
+      </Button>
     </Link>
   );
 }
