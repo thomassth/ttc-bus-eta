@@ -4,8 +4,9 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
-import { StopAccordions } from "../accordions/StopAccordions.js";
+import { StopAccordions, StopDiv } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
+import { mergeAndGroup } from "../parser/stopsUnifier.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./FetchRoute.module.css";
 import { getTTCRouteData } from "./fetchUtils.js";
@@ -16,15 +17,15 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const [enabledDir, setEnabledDir] = useState<string>("");
   const { t } = useTranslation();
-
+  const getMatchingStop = (stopNumber: number) => {
+    return stopDb.find((searching) => stopNumber === searching.id);
+  };
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
       const result: LineStopElement[] = [];
 
       for (const element of stuff.stop) {
-        const matchingStop = stopDb.find(
-          (searching) => parseInt(element.tag) === searching.id
-        );
+        const matchingStop = getMatchingStop(parseInt(element.tag));
 
         // skip not found data
         if (!matchingStop) {
@@ -79,15 +80,63 @@ function RouteInfo(props: { line: number }): JSX.Element {
     [enabledDir]
   );
 
+  const unifiedRouteView = true;
+
   if (data) {
     if (!data.Error) {
       const directions: Set<string> = new Set();
       data.route.direction.forEach((line) => {
         directions.add(line.name);
       });
-      const accordionList: (direction: string) => JSX.Element[] = (
-        direction
-      ) => {
+      const accordionList: (
+        direction: string
+      ) => (JSX.Element | JSX.Element[])[] = (direction) => {
+        if (unifiedRouteView) {
+          const lines = data.route.direction.filter(
+            (line) => direction === line.name
+          );
+          const unifiedList = lines.map((line) =>
+            line.stop.map((stop) => parseInt(stop.tag))
+          );
+
+          const mergedList = mergeAndGroup(...unifiedList);
+
+          return mergedList.map((item) => {
+            if (Array.isArray(item)) {
+              const matchingStops = item.map((stops) =>
+                stops.map((stop) => getMatchingStop(stop))
+              );
+
+              return matchingStops.map((lines) => {
+                const parsedLines: LineStopElement[] = lines
+                  .filter((line) => Boolean(line))
+                  .map((line: LineStop) => {
+                    return { ...line, key: line.id };
+                  });
+
+                return (
+                  <StopAccordions
+                    key={parsedLines.toString()}
+                    result={parsedLines}
+                    title={`Only some buses go to these ${parsedLines.length} stops.`}
+                    lineNum={props.line}
+                    tag={parsedLines.toString()}
+                  />
+                );
+              });
+            }
+            const matchingStop = getMatchingStop(item);
+            if (matchingStop)
+              return (
+                <div key="test" className={style.stop}>
+                  <StopDiv
+                    lineStop={{ ...matchingStop, key: matchingStop.id }}
+                  />
+                </div>
+              );
+            return <div key="test">{item}</div>;
+          });
+        }
         return data.route.direction
           .filter((line) => direction === line.name)
           .map((line) => {
@@ -111,7 +160,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
       return (
         <div className="stop-prediction-page">
-          <div className="directon-buttons">
+          <div className={style["directon-buttons"]}>
             {directionsArr.map((direction) => {
               return (
                 <Button

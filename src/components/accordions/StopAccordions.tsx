@@ -19,7 +19,7 @@ import style from "./StopAccordions.module.css";
 export function StopAccordions(props: {
   result: LineStopElement[];
   title: string;
-  direction: string;
+  direction?: string;
   lineNum: number;
   tag: string;
 }) {
@@ -29,24 +29,7 @@ export function StopAccordions(props: {
     return (
       <li key={`${props.lineNum}-${props.direction}-${lineStop.key}`}>
         <AccordionPanel className={style["accordion-panel"]}>
-          <div className="line-details">
-            <ETAButton stopId={lineStop.stopId} operator="TTC" />
-          </div>
-          <div className="line-details">
-            <LocationButton
-              latlon={{
-                lat: lineStop.latlong[0],
-                lon: lineStop.latlong[1],
-              }}
-            />
-          </div>
-          <div className="line-details expand">
-            <ETAButton
-              stopId={lineStop.stopId}
-              name={lineStop.name}
-              operator="TTC"
-            />
-          </div>
+          <StopDiv lineStop={lineStop} />
         </AccordionPanel>
       </li>
     );
@@ -55,7 +38,9 @@ export function StopAccordions(props: {
   return (
     <AccordionItem value={props.tag}>
       <AccordionHeader className={fluentStyle.accordionHeader}>
-        <Badge className={style["direction-badge"]}>{props.direction}</Badge>
+        {props.direction && (
+          <Badge className={style["direction-badge"]}>{props.direction}</Badge>
+        )}
         <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
         {parseRoute(props.title).name}
       </AccordionHeader>
@@ -97,6 +82,31 @@ export function YRTStopAccordions(props: {
       <AccordionHeader>{props.title}</AccordionHeader>
       {stops}
     </AccordionItem>
+  );
+}
+
+export function StopDiv({ lineStop }: { lineStop: LineStopElement }) {
+  return (
+    <>
+      <div className="line-details">
+        <ETAButton stopId={lineStop.stopId} operator="TTC" />
+      </div>
+      <div className="line-details">
+        <LocationButton
+          latlon={{
+            lat: lineStop.latlong[0],
+            lon: lineStop.latlong[1],
+          }}
+        />
+      </div>
+      <div className="line-details expand">
+        <ETAButton
+          stopId={lineStop.stopId}
+          name={lineStop.name}
+          operator="TTC"
+        />
+      </div>
+    </>
   );
 }
 

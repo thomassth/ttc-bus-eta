@@ -1,11 +1,13 @@
 import { EtaBus } from "./etaJson.js";
 import { SubwayStopInfo } from "./ttc.js";
 
-export interface LineStopElement {
+export interface LineStop {
   id: number;
   name: string;
   latlong: number[];
   stopId: number;
+}
+export interface LineStopElement extends LineStop {
   key: number;
 }
 
@@ -21,13 +23,6 @@ export interface LineStopEta {
   stopTag: number;
   type?: string;
   direction?: string;
-}
-
-export interface LineStop {
-  id: number;
-  name: string;
-  latlong: number[];
-  stopId: number;
 }
 
 export interface SubwayDbRedux {
