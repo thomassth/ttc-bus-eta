@@ -1,8 +1,13 @@
-export function mergeAndGroup(...arrays: number[][]): (number | number[][])[] {
+type NumberGroups = number[][];
+
+export function mergeAndGroup(
+  ...arrays: NumberGroups
+): (number | NumberGroups)[] {
   // Step 1: Find the common elements across all arrays
   // Step 1-single: Remove the single items (usually subway bus platforms)
   const filteredArrays = arrays.filter((array) => array.length > 1);
-  if (filteredArrays.length === 0) return [arrays];
+  // if all arrays are single item / there's only 1 array with more than 1 item, assume there's no common
+  if (filteredArrays.length < 2) return [arrays];
   const common = filteredArrays.reduce((acc, arr) =>
     acc.filter((x) => arr.includes(x))
   );
@@ -10,8 +15,8 @@ export function mergeAndGroup(...arrays: number[][]): (number | number[][])[] {
   if (common.length === 0) {
     return [arrays];
   }
-  const start: number[][] = [];
-  const end: number[][] = [];
+  const start: NumberGroups = [];
+  const end: NumberGroups = [];
 
   // Step 2-single: Add the single item arrays to start (they are at the start of the list)
   const singleArrays = arrays.filter((array) => array.length === 1);
@@ -41,8 +46,7 @@ export function mergeAndGroup(...arrays: number[][]): (number | number[][])[] {
   combined.push(...common);
   if (end.length === 1 && Array.isArray(end[0])) {
     combined.push(end);
-  }
-  if (end.length > 0) {
+  } else if (end.length > 0) {
     combined.push(...mergeAndGroup(...end));
   }
 
