@@ -114,13 +114,15 @@ function RouteInfo(props: { line: number }): JSX.Element {
                     return { ...line, key: line.id };
                   });
 
+                const idList = parsedLines.map((stop: LineStop) => stop.id);
+
                 return (
                   <StopAccordions
-                    key={parsedLines.toString()}
+                    key={idList.toString()}
                     result={parsedLines}
-                    title={`Only some buses go to these ${parsedLines.length} stops.`}
+                    title={`Only some buses go to these ${parsedLines.length} stop${parsedLines.length > 1 ? "s" : ""}.`}
                     lineNum={props.line}
-                    tag={parsedLines.toString()}
+                    tag={idList.toString()}
                   />
                 );
               });

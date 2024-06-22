@@ -1,6 +1,9 @@
 export function mergeAndGroup(...arrays: number[][]): (number | number[][])[] {
   // Step 1: Find the common elements across all arrays
-  const common = arrays.reduce((acc, arr) =>
+  // Step 1-single: Remove the single items (usually subway bus platforms)
+  const filteredArrays = arrays.filter((array) => array.length > 1);
+  if (filteredArrays.length === 0) return [arrays];
+  const common = filteredArrays.reduce((acc, arr) =>
     acc.filter((x) => arr.includes(x))
   );
 
@@ -9,6 +12,10 @@ export function mergeAndGroup(...arrays: number[][]): (number | number[][])[] {
   }
   const start: number[][] = [];
   const end: number[][] = [];
+
+  // Step 2-single: Add the single item arrays to start (they are at the start of the list)
+  const singleArrays = arrays.filter((array) => array.length === 1);
+  start.push(...singleArrays);
 
   // Step 2: Separate the front and end of the arrays
   function separator(fullArray: number[], commonArray: number[]) {
