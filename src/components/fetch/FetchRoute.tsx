@@ -1,4 +1,9 @@
-import { Button, Link as LinkFluent, Text } from "@fluentui/react-components";
+import {
+  Button,
+  Link as LinkFluent,
+  Switch,
+  Text,
+} from "@fluentui/react-components";
 import React, { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -16,6 +21,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const [enabledDir, setEnabledDir] = useState<string>("");
+  const [unifiedRouteView, setUnifiedRouteView] = useState<boolean>(false);
+
   const { t } = useTranslation();
   const getMatchingStop = (stopNumber: number) => {
     return stopDb.find((searching) => stopNumber === searching.id);
@@ -73,15 +80,15 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setStopDb([]);
   }, [lastUpdatedAt]);
 
-  const handleDirClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      setEnabledDir(event.target?.value);
+  const viewOnChange = useCallback(
+    (
+      _event: React.ChangeEvent<HTMLInputElement>,
+      data: { checked: boolean }
+    ) => {
+      setUnifiedRouteView(data.checked);
     },
-    [enabledDir]
+    [unifiedRouteView]
   );
-
-  const unifiedRouteView = true;
-
   if (data) {
     if (!data.Error) {
       const directions: Set<string> = new Set();
@@ -103,8 +110,10 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
           return mergedList.map((item) => {
             if (Array.isArray(item)) {
-              const matchingStops = item.map((stops) =>
-                stops.map((stop) => getMatchingStop(stop))
+              const matchingStops: LineStop[][] = item.map((stops) =>
+                stops
+                  .map((stop) => getMatchingStop(stop))
+                  .filter((stop): stop is LineStop => stop !== undefined)
               );
 
               return matchingStops.map((lines) => {
@@ -130,13 +139,13 @@ function RouteInfo(props: { line: number }): JSX.Element {
             const matchingStop = getMatchingStop(item);
             if (matchingStop)
               return (
-                <div key="test" className={style.stop}>
+                <div key={matchingStop.id} className={style.stop}>
                   <StopDiv
                     lineStop={{ ...matchingStop, key: matchingStop.id }}
                   />
                 </div>
               );
-            return <div key="test">{item}</div>;
+            return <div key={item}>{item}</div>;
           });
         }
         return data.route.direction
@@ -162,21 +171,21 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
       return (
         <div className="stop-prediction-page">
-          <div className={style["directon-buttons"]}>
+          <div className={style["direction-buttons"]}>
             {directionsArr.map((direction) => {
               return (
-                <Button
-                  appearance={
-                    enabledDir === direction ? "primary" : "secondary"
-                  }
-                  onClick={handleDirClick}
+                <DirectionButton
                   key={direction}
-                  value={direction}
-                >
-                  {direction}
-                </Button>
+                  direction={direction}
+                  enabledDir={enabledDir}
+                  setEnabledDir={setEnabledDir}
+                />
               );
             })}
+            <Switch
+              onChange={viewOnChange}
+              label="Unified stops (experimental)"
+            />
           </div>
 
           {directionsArr.map((direction) => {
@@ -235,3 +244,25 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }
 }
 export default RouteInfo;
+
+function DirectionButton({
+  direction,
+  enabledDir,
+  setEnabledDir,
+}: {
+  direction: string;
+  enabledDir: string;
+  setEnabledDir: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  const setEnabledDirCallback = useCallback(() => setEnabledDir(direction), []);
+  return (
+    <Button
+      appearance={enabledDir === direction ? "primary" : "secondary"}
+      onClick={setEnabledDirCallback}
+      key={direction}
+      value={direction}
+    >
+      {direction}
+    </Button>
+  );
+}

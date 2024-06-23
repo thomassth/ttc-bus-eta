@@ -2,7 +2,7 @@
   display: none;
 }
 
-.directon-buttons {
+.direction-buttons {
   button:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
