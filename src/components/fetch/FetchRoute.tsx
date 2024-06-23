@@ -1,28 +1,38 @@
-import { Link as LinkFluent, Text } from "@fluentui/react-components";
-import { useCallback, useEffect, useState } from "react";
+import {
+  Button,
+  Link as LinkFluent,
+  Switch,
+  Text,
+} from "@fluentui/react-components";
+import React, { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
-import { StopAccordions } from "../accordions/StopAccordions.js";
+import { StopAccordions, StopDiv } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
+import { mergeAndGroup } from "../parser/stopsUnifier.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
+import style from "./FetchRoute.module.css";
 import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteJson>();
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
-  const { t } = useTranslation();
+  const [enabledDir, setEnabledDir] = useState<string>("");
+  const [unifiedRouteView, setUnifiedRouteView] = useState<boolean>(false);
 
+  const { t } = useTranslation();
+  const getMatchingStop = (stopNumber: number) => {
+    return stopDb.find((searching) => stopNumber === searching.id);
+  };
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
       const result: LineStopElement[] = [];
 
       for (const element of stuff.stop) {
-        const matchingStop = stopDb.find(
-          (searching) => parseInt(element.tag) === searching.id
-        );
+        const matchingStop = getMatchingStop(parseInt(element.tag));
 
         // skip not found data
         if (!matchingStop) {
@@ -70,31 +80,125 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setStopDb([]);
   }, [lastUpdatedAt]);
 
+  const viewOnChange = useCallback(
+    (
+      _event: React.ChangeEvent<HTMLInputElement>,
+      data: { checked: boolean }
+    ) => {
+      setUnifiedRouteView(data.checked);
+    },
+    [unifiedRouteView]
+  );
   if (data) {
     if (!data.Error) {
-      const accordionList: JSX.Element[] = data.route.direction.map((line) => {
-        const list = createStopList(line);
-        return (
-          <li key={line.tag}>
-            <StopAccordions
-              title={line.title}
-              direction={line.name}
-              lineNum={line.branch}
-              result={list}
-              tag={line.tag}
-            />
-          </li>
-        );
+      const directions: Set<string> = new Set();
+      data.route.direction.forEach((line) => {
+        directions.add(line.name);
       });
+      const accordionList: (
+        direction: string
+      ) => (JSX.Element | JSX.Element[])[] = (direction) => {
+        if (unifiedRouteView) {
+          const lines = data.route.direction.filter(
+            (line) => direction === line.name
+          );
+          const unifiedList = lines.map((line) =>
+            line.stop.map((stop) => parseInt(stop.tag))
+          );
+
+          const mergedList = mergeAndGroup(...unifiedList);
+
+          return mergedList.map((item) => {
+            if (Array.isArray(item)) {
+              const matchingStops: LineStop[][] = item.map((stops) =>
+                stops
+                  .map((stop) => getMatchingStop(stop))
+                  .filter((stop): stop is LineStop => stop !== undefined)
+              );
+
+              return matchingStops.map((lines) => {
+                const parsedLines: LineStopElement[] = lines
+                  .filter((line) => Boolean(line))
+                  .map((line: LineStop) => {
+                    return { ...line, key: line.id };
+                  });
+
+                const idList = parsedLines.map((stop: LineStop) => stop.id);
+
+                return (
+                  <StopAccordions
+                    key={idList.toString()}
+                    result={parsedLines}
+                    title={`Only some buses go to these ${parsedLines.length} stop${parsedLines.length > 1 ? "s" : ""}.`}
+                    lineNum={props.line}
+                    tag={idList.toString()}
+                  />
+                );
+              });
+            }
+            const matchingStop = getMatchingStop(item);
+            if (matchingStop)
+              return (
+                <div key={matchingStop.id} className={style.stop}>
+                  <StopDiv
+                    lineStop={{ ...matchingStop, key: matchingStop.id }}
+                  />
+                </div>
+              );
+            return <div key={item}>{item}</div>;
+          });
+        }
+        return data.route.direction
+          .filter((line) => direction === line.name)
+          .map((line) => {
+            const list = createStopList(line);
+
+            return (
+              <li key={line.tag}>
+                <StopAccordions
+                  title={line.title}
+                  direction={line.name}
+                  lineNum={line.branch}
+                  result={list}
+                  tag={line.tag}
+                />
+              </li>
+            );
+          });
+      };
+      const directionsArr = Array.from(directions.values());
+      if (enabledDir === "") setEnabledDir(directionsArr[0]);
 
       return (
         <div className="stop-prediction-page">
-          <ul>
-            {accordionList}
-            <li>
-              <RawDisplay data={data} />
-            </li>
-          </ul>
+          <div className={style["direction-buttons"]}>
+            {directionsArr.map((direction) => {
+              return (
+                <DirectionButton
+                  key={direction}
+                  direction={direction}
+                  enabledDir={enabledDir}
+                  setEnabledDir={setEnabledDir}
+                />
+              );
+            })}
+            <Switch
+              onChange={viewOnChange}
+              label="Unified stops (experimental)"
+            />
+          </div>
+
+          {directionsArr.map((direction) => {
+            return (
+              <ul
+                className={enabledDir !== direction ? style.hide : undefined}
+                key={direction}
+              >
+                {accordionList(direction)}
+              </ul>
+            );
+          })}
+          <RawDisplay data={data} />
         </div>
       );
     } else {
@@ -140,3 +244,25 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }
 }
 export default RouteInfo;
+
+function DirectionButton({
+  direction,
+  enabledDir,
+  setEnabledDir,
+}: {
+  direction: string;
+  enabledDir: string;
+  setEnabledDir: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  const setEnabledDirCallback = useCallback(() => setEnabledDir(direction), []);
+  return (
+    <Button
+      appearance={enabledDir === direction ? "primary" : "secondary"}
+      onClick={setEnabledDirCallback}
+      key={direction}
+      value={direction}
+    >
+      {direction}
+    </Button>
+  );
+}
