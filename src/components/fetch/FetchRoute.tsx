@@ -1,15 +1,12 @@
-import {
-  Button,
-  Link as LinkFluent,
-  Switch,
-  Text,
-} from "@fluentui/react-components";
+import { Link as LinkFluent, Switch, Text } from "@fluentui/react-components";
+// skipcq: JS-W1028
 import React, { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { RouteJson } from "../../models/etaJson.js";
 import { LineStop, LineStopElement } from "../../models/etaObjects.js";
 import { StopAccordions, StopDiv } from "../accordions/StopAccordions.js";
+import { DirectionButton } from "../buttons/DirectionButton.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import { mergeAndGroup } from "../parser/stopsUnifier.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -102,46 +99,60 @@ function RouteInfo(props: { line: number }): JSX.Element {
           const lines = data.route.direction.filter(
             (line) => direction === line.name
           );
+          const stationAndLineMap: Map<number, string[]> = new Map();
+
           const unifiedList = lines.map((line) =>
-            line.stop.map((stop) => parseInt(stop.tag))
+            line.stop.map((stop) => {
+              const stopNum = parseInt(stop.tag);
+              const stoppingLines = stationAndLineMap.get(stopNum) || [];
+              stoppingLines.push(line.branch);
+              stationAndLineMap.set(stopNum, stoppingLines);
+              return stopNum;
+            })
           );
 
-          const mergedList = mergeAndGroup(...unifiedList);
+          const mergedList: number[] = mergeAndGroup(...unifiedList).flat(
+            Infinity
+          );
 
           return mergedList.map((item) => {
-            if (Array.isArray(item)) {
-              const matchingStops: LineStop[][] = item.map((stops) =>
-                stops
-                  .map((stop) => getMatchingStop(stop))
-                  .filter((stop): stop is LineStop => stop !== undefined)
-              );
+            // if (Array.isArray(item)) {
+            //   const matchingStops: LineStop[][] = item.map((stops) =>
+            //     stops
+            //       .map((stop) => getMatchingStop(stop))
+            //       .filter((stop): stop is LineStop => stop !== undefined)
+            //   );
 
-              return matchingStops.map((lines) => {
-                const parsedLines: LineStopElement[] = lines
-                  .filter((line) => Boolean(line))
-                  .map((line: LineStop) => {
-                    return { ...line, key: line.id };
-                  });
+            //   return matchingStops.map((lines) => {
+            //     const parsedLines: LineStopElement[] = lines
+            //       .filter((line) => Boolean(line))
+            //       .map((line: LineStop) => {
+            //         return { ...line, key: line.id };
+            //       });
 
-                const idList = parsedLines.map((stop: LineStop) => stop.id);
+            //     const idList = parsedLines.map((stop: LineStop) => stop.id);
 
-                return (
-                  <StopAccordions
-                    key={idList.toString()}
-                    result={parsedLines}
-                    title={`Only some buses go to these ${parsedLines.length} stop${parsedLines.length > 1 ? "s" : ""}.`}
-                    lineNum={props.line}
-                    tag={idList.toString()}
-                  />
-                );
-              });
-            }
+            //     return (
+            //       <StopAccordions
+            //         key={idList.toString()}
+            //         result={parsedLines}
+            //         title={`Only some buses go to these ${parsedLines.length} stop${parsedLines.length > 1 ? "s" : ""}.`}
+            //         lineNum={props.line.toString()}
+            //         tag={idList.toString()}
+            //       />
+            //     );
+            //   });
+            // }
             const matchingStop = getMatchingStop(item);
             if (matchingStop)
               return (
                 <div key={matchingStop.id} className={style.stop}>
                   <StopDiv
                     lineStop={{ ...matchingStop, key: matchingStop.id }}
+                    branches={lines.map((line) => line.branch) || []}
+                    stoppingBranches={
+                      stationAndLineMap.get(matchingStop.id) || []
+                    }
                   />
                 </div>
               );
@@ -244,25 +255,3 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }
 }
 export default RouteInfo;
-
-function DirectionButton({
-  direction,
-  enabledDir,
-  setEnabledDir,
-}: {
-  direction: string;
-  enabledDir: string;
-  setEnabledDir: React.Dispatch<React.SetStateAction<string>>;
-}) {
-  const setEnabledDirCallback = useCallback(() => setEnabledDir(direction), []);
-  return (
-    <Button
-      appearance={enabledDir === direction ? "primary" : "secondary"}
-      onClick={setEnabledDirCallback}
-      key={direction}
-      value={direction}
-    >
-      {direction}
-    </Button>
-  );
-}

@@ -2,3 +2,7 @@
   margin-right: 8px;
   min-width: 48px !important;
 }
+
+.disabled {
+  color: transparent !important;
+}

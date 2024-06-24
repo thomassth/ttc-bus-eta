@@ -46,7 +46,7 @@ export type EtaPredictionJson = {
 export interface RouteLineJson {
   title: string;
   name: string;
-  branch: number;
+  branch: string;
   stop: { tag: string }[];
   tag: string;
 }

@@ -52,12 +52,15 @@ export function DirectionBadge(props: { direction: string }) {
   return <Badge className={style["line-badge"]}>{props.direction}</Badge>;
 }
 
-export function TtcBadge(props: { lineNum: string }) {
+export function TtcBadge(props: { lineNum: string; disabled?: boolean }) {
   return (
     <Badge
       style={{ backgroundColor: customBgColor(props.lineNum) }}
-      className={style["line-badge"]}
-      color={badgeColor(props.lineNum)}
+      className={[
+        style["line-badge"],
+        props.disabled ? style.disabled : undefined,
+      ].join(" ")}
+      color={props.disabled ? "subtle" : badgeColor(props.lineNum)}
       appearance={badgeOutline(props.lineNum)}
       shape="rounded"
     >

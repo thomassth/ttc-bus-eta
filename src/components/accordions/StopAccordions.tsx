@@ -20,7 +20,7 @@ export function StopAccordions(props: {
   result: LineStopElement[];
   title: string;
   direction?: string;
-  lineNum: number;
+  lineNum: string;
   tag: string;
 }) {
   const fluentStyle = fluentStyles();
@@ -41,7 +41,10 @@ export function StopAccordions(props: {
         {props.direction && (
           <Badge className={style["direction-badge"]}>{props.direction}</Badge>
         )}
-        <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
+        <TtcBadge
+          key={`${props.lineNum}-${props.lineNum}`}
+          lineNum={props.lineNum.toString()}
+        />
         {parseRoute(props.title).name}
       </AccordionHeader>
       <ul>{stops}</ul>
@@ -85,12 +88,32 @@ export function YRTStopAccordions(props: {
   );
 }
 
-export function StopDiv({ lineStop }: { lineStop: LineStopElement }) {
+export function StopDiv({
+  lineStop,
+  branches,
+  stoppingBranches,
+}: {
+  lineStop: LineStopElement;
+  branches?: string[];
+  stoppingBranches?: string[];
+}) {
   return (
     <>
       <div className="line-details">
-        <ETAButton stopId={lineStop.stopId} operator="TTC" />
+        {branches?.map((branch) => {
+          return (
+            <TtcBadge
+              key={`${stoppingBranches?.toString()}-${branch}-${lineStop.id}`}
+              lineNum={branch}
+              disabled={!stoppingBranches?.includes(branch)}
+            />
+          );
+        })}
+        {!stoppingBranches && (
+          <ETAButton stopId={lineStop.stopId} operator="TTC" />
+        )}
       </div>
+
       <div className="line-details">
         <LocationButton
           latlon={{
