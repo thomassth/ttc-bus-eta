@@ -1,5 +1,15 @@
-import { Button, Link as LinkFluent, Text } from "@fluentui/react-components";
-import React, { useCallback, useEffect, useState } from "react";
+import {
+  Link as LinkFluent,
+  Tab,
+  TabList,
+  Text,
+} from "@fluentui/react-components";
+import type {
+  SelectTabData,
+  SelectTabEvent,
+  TabValue,
+} from "@fluentui/react-components";
+import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { RouteJson } from "../../models/etaJson.js";
@@ -14,7 +24,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteJson>();
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
-  const [enabledDir, setEnabledDir] = useState<string>("");
+  const [enabledDir, setEnabledDir] = useState<TabValue>("");
   const { t } = useTranslation();
 
   const createStopList = useCallback(
@@ -73,9 +83,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }, [lastUpdatedAt]);
 
   const handleDirClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      setEnabledDir(event.target?.value);
-    },
+    (event: SelectTabEvent, data: SelectTabData) => setEnabledDir(data.value),
     [enabledDir]
   );
 
@@ -111,22 +119,19 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
       return (
         <div className="stop-prediction-page">
-          <div className="directon-buttons">
+          <TabList
+            defaultSelectedValue={enabledDir}
+            className="directon-buttons"
+            onTabSelect={handleDirClick}
+          >
             {directionsArr.map((direction) => {
               return (
-                <Button
-                  appearance={
-                    enabledDir === direction ? "primary" : "secondary"
-                  }
-                  onClick={handleDirClick}
-                  key={direction}
-                  value={direction}
-                >
+                <Tab key={direction} value={direction}>
                   {direction}
-                </Button>
+                </Tab>
               );
             })}
-          </div>
+          </TabList>
 
           {directionsArr.map((direction) => {
             return (
