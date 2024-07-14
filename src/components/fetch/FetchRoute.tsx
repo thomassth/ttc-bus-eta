@@ -1,4 +1,5 @@
 import {
+  Accordion,
   Link as LinkFluent,
   Tab,
   TabList,
@@ -98,19 +99,19 @@ function RouteInfo(props: { line: number }): JSX.Element {
       ) => {
         return data.route.direction
           .filter((line) => direction === line.name)
-          .map((line) => {
+          .map((line, index) => {
             const list = createStopList(line);
 
             return (
-              <li key={line.tag}>
-                <StopAccordions
-                  title={line.title}
-                  direction={line.name}
-                  lineNum={line.branch}
-                  result={list}
-                  tag={line.tag}
-                />
-              </li>
+              <StopAccordions
+                key={line.tag}
+                index={index.toString()}
+                title={line.title}
+                direction={line.name}
+                lineNum={line.branch}
+                result={list}
+                tag={line.tag}
+              />
             );
           });
       };
@@ -134,13 +135,16 @@ function RouteInfo(props: { line: number }): JSX.Element {
           </TabList>
 
           {directionsArr.map((direction) => {
+            const accordionItems = accordionList(direction);
             return (
-              <ul
+              <Accordion
+                collapsible
+                defaultOpenItems={accordionItems.length === 1 ? "0" : ""}
                 className={enabledDir !== direction ? style.hide : undefined}
                 key={direction}
               >
-                {accordionList(direction)}
-              </ul>
+                {accordionItems}
+              </Accordion>
             );
           })}
           <RawDisplay data={data} />
