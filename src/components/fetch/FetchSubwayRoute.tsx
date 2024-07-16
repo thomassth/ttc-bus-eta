@@ -1,4 +1,9 @@
-import { Link as LinkFluent, Text, Title1 } from "@fluentui/react-components";
+import {
+  Accordion,
+  Link as LinkFluent,
+  Text,
+  Title1,
+} from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -117,7 +122,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
             )}
           </Title1>
           <ul>
-            {accordionList}
+            <Accordion collapsible>{accordionList}</Accordion>
             <li>
               <RawDisplay data={data} />
             </li>
