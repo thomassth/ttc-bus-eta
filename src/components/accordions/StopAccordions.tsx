@@ -22,6 +22,7 @@ export function StopAccordions(props: {
   direction: string;
   lineNum: number;
   tag: string;
+  index: string;
 }) {
   const fluentStyle = fluentStyles();
 
@@ -53,7 +54,7 @@ export function StopAccordions(props: {
   });
 
   return (
-    <AccordionItem value={props.tag}>
+    <AccordionItem value={props.index}>
       <AccordionHeader className={fluentStyle.accordionHeader}>
         <Badge className={style["direction-badge"]}>{props.direction}</Badge>
         <TtcBadge key={props.lineNum} lineNum={props.lineNum.toString()} />
