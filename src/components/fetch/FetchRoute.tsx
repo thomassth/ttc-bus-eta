@@ -1,4 +1,15 @@
-import { Link as LinkFluent, Text } from "@fluentui/react-components";
+import {
+  Accordion,
+  Link as LinkFluent,
+  Tab,
+  TabList,
+  Text,
+} from "@fluentui/react-components";
+import type {
+  SelectTabData,
+  SelectTabEvent,
+  TabValue,
+} from "@fluentui/react-components";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -7,12 +18,14 @@ import { LineStop, LineStopElement } from "../../models/etaObjects.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
+import style from "./FetchRoute.module.css";
 import { getTTCRouteData } from "./fetchUtils.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
   const [data, setData] = useState<RouteJson>();
   const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
+  const [enabledDir, setEnabledDir] = useState<TabValue>("");
   const { t } = useTranslation();
 
   const createStopList = useCallback(
@@ -70,31 +83,71 @@ function RouteInfo(props: { line: number }): JSX.Element {
     setStopDb([]);
   }, [lastUpdatedAt]);
 
+  const handleDirClick = useCallback(
+    (event: SelectTabEvent, data: SelectTabData) => setEnabledDir(data.value),
+    [enabledDir]
+  );
+
   if (data) {
     if (!data.Error) {
-      const accordionList: JSX.Element[] = data.route.direction.map((line) => {
-        const list = createStopList(line);
-        return (
-          <li key={line.tag}>
-            <StopAccordions
-              title={line.title}
-              direction={line.name}
-              lineNum={line.branch}
-              result={list}
-              tag={line.tag}
-            />
-          </li>
-        );
+      const directions: Set<string> = new Set();
+      data.route.direction.forEach((line) => {
+        directions.add(line.name);
       });
+      const accordionList: (direction: string) => JSX.Element[] = (
+        direction
+      ) => {
+        return data.route.direction
+          .filter((line) => direction === line.name)
+          .map((line, index) => {
+            const list = createStopList(line);
+
+            return (
+              <StopAccordions
+                key={line.tag}
+                index={index.toString()}
+                title={line.title}
+                direction={line.name}
+                lineNum={line.branch}
+                result={list}
+                tag={line.tag}
+              />
+            );
+          });
+      };
+      const directionsArr = Array.from(directions.values());
+      if (enabledDir === "") setEnabledDir(directionsArr[0]);
 
       return (
         <div className="stop-prediction-page">
-          <ul>
-            {accordionList}
-            <li>
-              <RawDisplay data={data} />
-            </li>
-          </ul>
+          <TabList
+            defaultSelectedValue={enabledDir}
+            className="directon-buttons"
+            onTabSelect={handleDirClick}
+          >
+            {directionsArr.map((direction) => {
+              return (
+                <Tab key={direction} value={direction}>
+                  {direction}
+                </Tab>
+              );
+            })}
+          </TabList>
+
+          {directionsArr.map((direction) => {
+            const accordionItems = accordionList(direction);
+            return (
+              <Accordion
+                collapsible
+                defaultOpenItems={accordionItems.length === 1 ? "0" : ""}
+                className={enabledDir !== direction ? style.hide : undefined}
+                key={direction}
+              >
+                {accordionItems}
+              </Accordion>
+            );
+          })}
+          <RawDisplay data={data} />
         </div>
       );
     } else {

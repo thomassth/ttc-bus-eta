@@ -13,10 +13,38 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/webservices\.umoiq\.com\/.*/i,
+            urlPattern: /umoiq\.com\/.*/i,
             handler: "NetworkFirst",
             options: {
               cacheName: "ttc-eta-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24, // <== 1 day
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /ttc.ca\/ttcapi\/routedetail.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "ttc-subway-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24, // <== 1 day
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /tripplanner.yrt.ca.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "yrt-route-cache",
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24, // <== 1 day

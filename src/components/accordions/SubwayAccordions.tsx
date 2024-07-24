@@ -36,7 +36,13 @@ export function SubwayAccordions(props: {
               }}
             />
           </div>
-          <div className="line-details">{lineStop.name}</div>
+          <div className="line-details">
+            <ETAButton
+              code={lineStop.code}
+              line={props.lineNum}
+              name={lineStop.name}
+            />
+          </div>
         </AccordionPanel>
       </li>
     );
@@ -53,10 +59,18 @@ export function SubwayAccordions(props: {
   );
 }
 
-function ETAButton(props: { line: number; code: string }) {
+function ETAButton(props: { line: number; code: string; name?: string }) {
   return (
-    <Link to={`/ttc/lines/${props.line}/${props.code}`} title={"View stop ETA"}>
-      <Button icon={<VehicleBus16Filled />} />
+    <Link
+      to={`/ttc/lines/${props.line}/${props.code}`}
+      title={props.name ? props.name : "View stop ETA"}
+    >
+      <Button
+        icon={props.name ? undefined : <VehicleBus16Filled />}
+        appearance={props.name ? "subtle" : "outline"}
+      >
+        {props.name?.replace(" - ", "\n")}
+      </Button>
     </Link>
   );
 }

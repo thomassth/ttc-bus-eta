@@ -1,7 +1,5 @@
 .accordion-panel {
   display: flex;
-  padding-top: 8px;
-  padding-bottom: 8px;
   gap: 8px;
 
   a {
