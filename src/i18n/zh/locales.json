@@ -16,7 +16,11 @@
     },
     "headline": "加落書籤嘅站會出現響呢度。 <br />",
     "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
-    "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。"
+    "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。",
+    "nextVehicle": "Next vehicle",
+    "or": "or",
+    "orSee": "Or, see",
+    "allRoutes": "All routes"
   },
   "lines": {
     "ariaLabel": "輸入路線",
@@ -30,6 +34,11 @@
   "stops": {
     "ariaLabel": "輸入車站號碼",
     "stopId": "車站編號 {{stopNum}}  ="
+  },
+  "settings": {
+    "etaLists": "ETA lists",
+    "separateLines": "separate for each line",
+    "singleList": "single list"
   },
   "buttons": {
     "search": "搜尋",
