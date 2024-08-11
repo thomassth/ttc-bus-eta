@@ -20,9 +20,9 @@ export default function Home() {
           <p>{t("home.headline")}</p>
           <p>{t("home.bookmarkReminder")}</p>
           <p>
-            Or, see
+            {t("home.orSee")}
             <Link style={{ marginLeft: "1rem" }} to="/lines">
-              <Button>All routes</Button>
+              <Button>{t("home.allRoutes")}</Button>
             </Link>
           </p>
         </section>
