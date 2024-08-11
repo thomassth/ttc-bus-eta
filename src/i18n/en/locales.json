@@ -29,7 +29,7 @@
     "title": "Enter a line number:",
     "number": "Line {{lineNum}}",
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",
-    "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
+    "noLineInDb": "Error: This line is not in the route database. Subway lines are unsupported for now."
   },
   "settings": {
     "etaLists": "ETA lists",

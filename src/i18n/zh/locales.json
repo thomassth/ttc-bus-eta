@@ -14,7 +14,7 @@
       "name": "TTC 到站時間",
       "tooltip": "回主頁"
     },
-    "headline": "加落書籤嘅站會出現響呢度。 <br />",
+    "headline": "加落書籤嘅站會出現響呢度。",
     "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
     "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。",
     "nextVehicle": "Next vehicle",
@@ -29,7 +29,7 @@
     "title": "輸入路線:",
     "number": "{{lineNum}} 號線",
     "lineAndStopInfo": "{{lineNum}} 線 #{{stopNum}} 站 =",
-    "noLineInDb": "資料庫裏面冇呢條線嘅資料。<br />(暫時睇唔到地鐵路線)"
+    "noLineInDb": "資料庫裏面冇呢條線嘅資料。(暫時睇唔到地鐵路線)"
   },
   "stops": {
     "ariaLabel": "輸入車站號碼",
