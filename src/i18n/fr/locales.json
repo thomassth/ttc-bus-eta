@@ -48,8 +48,8 @@
     "busIcon": "Voir les heures d'arrivées prévues",
     "languageChange": "Sélectionner la langue",
     "delete": "Effacer",
-    "bookmarkAdd": "Ajouter signet",
-    "bookmarkDelete": "Supprimer signet",
+    "bookmarkAdd": "Ajouter un signet",
+    "bookmarkDelete": "Supprimer un signet",
     "bookmarkEdit": "Modifier mes signets"
   },
   "reminder": {
