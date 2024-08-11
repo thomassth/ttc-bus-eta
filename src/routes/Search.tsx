@@ -36,7 +36,7 @@ export default function NewVehicle() {
     <div className="search-form">
       <form className={style["next-vehicle-container"]}>
         <div className={style.title}>
-          <Title1>Next Vehicle</Title1>
+          <Title1>{t("home.nextVehicle")}</Title1>
           <Button
             type="submit"
             appearance="outline"
@@ -58,7 +58,7 @@ export default function NewVehicle() {
         />
       </form>
       <div className={style.separation}>
-        <hr /> <span>or</span> <hr />
+        <hr /> <span>{t("home.or")}</span> <hr />
       </div>
       <form className={style["search-block"]}>
         <Input
