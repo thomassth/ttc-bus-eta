@@ -118,14 +118,14 @@ export function Settings() {
           {t("nav.label.about")}
         </Button>
       </Link>
-      <Title2>ETA lists</Title2>
+      <Title2>{t("settings.etaLists")}</Title2>
       <RadioGroup
         defaultValue={unifiedEta.toString()}
         aria-labelledby={"Unifed ETA mode"}
         onChange={handleUnifiedEtaChange}
       >
-        <Radio value="false" label={"separate for each line"} />
-        <Radio value="true" label={"single list"} />
+        <Radio value="false" label={t("settings.separateLines")} />
+        <Radio value="true" label={t("settings.singleList")} />
       </RadioGroup>
       <form className={style["search-block"]}>
         <Input

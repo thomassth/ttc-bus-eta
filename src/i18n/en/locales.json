@@ -16,7 +16,11 @@
     },
     "headline": "You'll see saved stops here.",
     "bookmarkReminder": "Try clicking the bookmark icons on a stop you frequently visit.",
-    "homeNoEta": "All your bookmarked stops have no ETA."
+    "homeNoEta": "All your bookmarked stops have no ETA.",
+    "nextVehicle": "Next vehicle",
+    "or": "or",
+    "orSee": "Or, see",
+    "allRoutes": "All routes"
   },
   "lines": {
     "ariaLabel": "enter a line number",
@@ -25,7 +29,12 @@
     "title": "Enter a line number:",
     "number": "Line {{lineNum}}",
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",
-    "noLineInDb": "Error: This line is not in the route database.<br />Subway lines are unsupported for now."
+    "noLineInDb": "Error: This line is not in the route database. Subway lines are unsupported for now."
+  },
+  "settings": {
+    "etaLists": "ETA lists",
+    "separateLines": "separate for each line",
+    "singleList": "single list"
   },
   "stops": {
     "ariaLabel": "Bus / streetcar stop No.",
@@ -64,7 +73,7 @@
   },
   "lang": {
     "en": "English",
-    "fr": "Français (traduction automatique)",
+    "fr": "français",
     "zh": "中文"
   }
 }
