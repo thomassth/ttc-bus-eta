@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 
-import { get } from "../../data/ttcRouteDb.js";
+import { addStop, getStopsWithinRange } from "../../store/ttcRouteDb.js";
 
 export default function NearbyList() {
-  const [value, setValue] = useState<String>("");
+  const [stopsList, setStopsList] = useState<[]>([]);
 
   useEffect(() => {
-    get("9234").then((result) => {
-      console.log(result);
-      setValue(result.title);
+    addStop({
+      id: "9234",
+      lon: parseFloat("-79.43401"),
+      lat: parseFloat("43.7367799"),
+      title: "Bathurst St At Wilson Ave South Side",
     });
+
+    getStopsWithinRange(43.7367799, -79.43401, 0.01).then((result) => {
+      setStopsList(result);
+    })
   }, []);
 
   return (
     <div>
       The closest bus stops are:
-      {value}
+      {stopsList.map((stop) => (
+        <div key={stop.id}>
+          {stop.title}
+        </div>
+      ))}
     </div>
   );
 }
