@@ -3,6 +3,7 @@ import { t } from "i18next";
 import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
+import NearbyList from "../components/nearby/nearby-list.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store } from "../store/index.js";
 import Search from "./Search.js";
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <main className="home-page">
       <Search />
+      <NearbyList />
       {stopBookmarks.length === 0 ? (
         <section className="item-info-placeholder">
           <p>{t("home.headline")}</p>
