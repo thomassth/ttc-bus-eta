@@ -17,7 +17,7 @@ export default function NearbyList(props: {
       getStopsWithinRange(
         props.coordinate.lat,
         props.coordinate.lon,
-        0.00325
+        0.00465
       ).then((result) => {
         setStopsList(result);
       });
