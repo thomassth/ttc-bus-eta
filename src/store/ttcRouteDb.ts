@@ -53,7 +53,13 @@ export async function getStop(key) {
 export async function addStop(val) {
   return (await dbPromise).put("stops", val);
 }
-export async function del(key) {
+export async function addStops(vals) {
+  const store = (await dbPromise).transaction('stops', 'readwrite').objectStore('stops');
+  vals.forEach((item)=>{
+    store.put(item);
+  })
+}
+  export async function del(key) {
   return (await dbPromise).delete("stops", key);
 }
 export async function clear() {
@@ -61,4 +67,7 @@ export async function clear() {
 }
 export async function keys() {
   return (await dbPromise).getAllKeys("stops");
+}
+export async function getSize(){
+  return (await dbPromise).count("stops");
 }
