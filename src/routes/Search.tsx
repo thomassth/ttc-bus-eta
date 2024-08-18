@@ -37,15 +37,6 @@ export default function NewVehicle() {
       <form className={style["next-vehicle-container"]}>
         <div className={style.title}>
           <Title1>{t("home.nextVehicle")}</Title1>
-          <Button
-            type="submit"
-            appearance="outline"
-            icon={<ArrowRight12Filled />}
-            onClick={handleSearchClick}
-            className={style["subtle-search"]}
-            disabled={stopInput.length < 1}
-            title={t("buttons.search")}
-          />
         </div>
         <Input
           className={style["center-input"]}
@@ -56,6 +47,17 @@ export default function NewVehicle() {
           value={stopInput}
           placeholder={t("stops.ariaLabel") ?? ""}
         />
+        <div className={style["submit-button"]}>
+          <Button
+            type="submit"
+            appearance="primary"
+            icon={<ArrowRight12Filled />}
+            onClick={handleSearchClick}
+            className={style["subtle-search"]}
+            disabled={stopInput.length < 1}
+            title={t("buttons.search")}
+          />
+        </div>
       </form>
       <div className={style.separation}>
         <hr /> <span>{t("home.or")}</span> <hr />
