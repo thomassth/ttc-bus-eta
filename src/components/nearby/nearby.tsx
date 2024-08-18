@@ -52,6 +52,7 @@ export default function Nearby() {
   };
 
   const handleGeolocation = async () => {
+    const number = await getSize()
     if(number <= 0){
       await handleRefresh()
     }
