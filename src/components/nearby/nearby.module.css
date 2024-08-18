@@ -6,5 +6,11 @@
   .nearby-controls {
     display: flex;
     gap: 1rem;
+
+    .spinner {
+      width: 2rem;
+      height: 2rem;
+      aspect-ratio: 1 / 1;
+    }
   }
 }

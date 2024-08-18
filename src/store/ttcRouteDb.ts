@@ -49,10 +49,11 @@ export async function getStopsWithinRange(
       // in meters
       // TODO: make the formula better / use libs
       const realDistance = Math.sqrt(
-        Math.pow((stop.lat - lat)*111.32*1000, 2) + Math.pow((stop.lon - lon)*40075 *1000 * Math.cos( lat ) / 360, 2)
+        Math.pow((stop.lat - lat) * 111.32 * 1000, 2) +
+          Math.pow(((stop.lon - lon) * 40075 * 1000 * Math.cos(lat)) / 360, 2)
       );
       if (distance <= range) {
-      results.push({...stop, distance, realDistance});
+        results.push({ ...stop, distance, realDistance });
       }
     }
     cursor = await cursor.continue();

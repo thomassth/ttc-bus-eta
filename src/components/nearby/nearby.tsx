@@ -52,11 +52,11 @@ export default function Nearby() {
   };
 
   const handleGeolocation = async () => {
-    const number = await getSize()
-    if(number <= 0){
-      await handleRefresh()
+    const number = await getSize();
+    if (number <= 0) {
+      await handleRefresh();
     }
-    
+
     if ("geolocation" in navigator) {
       setIsLoadingLocation(true);
       navigator.geolocation.getCurrentPosition((position) => {
@@ -94,7 +94,9 @@ export default function Nearby() {
 
   return (
     <div className={style.nearby}>
-      There are {number} stops in the local database.
+      {number >= 0
+        ? `There are ${number} stops in the local database.`
+        : "Checking database ... "}
       <div className={style["nearby-controls"]}>
         <Button onClick={handleRefresh}>
           {isLoading ? "reloading..." : "Refresh database"}
@@ -106,7 +108,9 @@ export default function Nearby() {
               ? "Refresh my location"
               : "Set my location"}
         </Button>
-        {(isLoading || isLoadingLocation) && <Spinner />}
+        <div className={style.spinner}>
+          {(isLoading || isLoadingLocation) && <Spinner />}
+        </div>
       </div>
       <div>
         <Switch
