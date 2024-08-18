@@ -43,17 +43,22 @@ export async function getStopsWithinRange(
     const stop = cursor.value;
     if (stop.lon >= lowerLon && stop.lon <= upperLon) {
       // Basic distance check (can be improved with Haversine formula)
-      // const distance = Math.sqrt(
-      //   Math.pow(stop.lat - lat, 2) + Math.pow(stop.lon - lon, 2)
-      // );
-      // if (distance <= range) {
-      results.push(stop);
-      // }
+      const distance = Math.sqrt(
+        Math.pow(stop.lat - lat, 2) + Math.pow(stop.lon - lon, 2)
+      );
+      // in meters
+      // TODO: make the formula better / use libs
+      const realDistance = Math.sqrt(
+        Math.pow((stop.lat - lat)*111.32*1000, 2) + Math.pow((stop.lon - lon)*40075 *1000 * Math.cos( lat ) / 360, 2)
+      );
+      if (distance <= range) {
+      results.push({...stop, distance, realDistance});
+      }
     }
     cursor = await cursor.continue();
   }
 
-  return results;
+  return results.sort((a, b) => a.realDistance - b.realDistance);
 }
 
 export async function getStop(key) {

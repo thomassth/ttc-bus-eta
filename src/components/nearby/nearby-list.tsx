@@ -17,7 +17,7 @@ export default function NearbyList(props: {
       getStopsWithinRange(
         props.coordinate.lat,
         props.coordinate.lon,
-        0.00465
+        0.00475
       ).then((result) => {
         setStopsList(result);
       });
@@ -33,7 +33,7 @@ export default function NearbyList(props: {
               <EtaCard
                 key={stop.id}
                 lines={stop.lines}
-                name={stop.title}
+                name={`${stop.title}\n${stop.realDistance.toPrecision(4)}m away`}
                 id={stop.id}
                 stopUrl={`/stops/${stop.id}`}
                 etas={[]}

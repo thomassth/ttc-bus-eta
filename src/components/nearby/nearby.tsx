@@ -52,6 +52,10 @@ export default function Nearby() {
   };
 
   const handleGeolocation = async () => {
+    if(number <= 0){
+      await handleRefresh()
+    }
+    
     if ("geolocation" in navigator) {
       setIsLoadingLocation(true);
       navigator.geolocation.getCurrentPosition((position) => {
