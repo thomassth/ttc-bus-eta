@@ -16,8 +16,14 @@ const dbPromise = openDB("TTCStops", 1, {
 });
 
 // Done with Google Gemini
-export async function getStopsWithinRange(lat: number, lon: number, range: number) {
-  const store = (await dbPromise).transaction('stops', 'readonly').objectStore('stops');
+export async function getStopsWithinRange(
+  lat: number,
+  lon: number,
+  range: number
+) {
+  const store = (await dbPromise)
+    .transaction("stops", "readonly")
+    .objectStore("stops");
 
   const results = [];
 
@@ -26,26 +32,29 @@ export async function getStopsWithinRange(lat: number, lon: number, range: numbe
   const lowerLon = lon - range;
   const upperLon = lon + range;
 
-  const latIndex = store.index('lat');
-  const latCursor = await latIndex.openCursor(IDBKeyRange.bound(lowerLat, upperLat));
+  const latIndex = store.index("lat");
+  const latCursor = await latIndex.openCursor(
+    IDBKeyRange.bound(lowerLat, upperLat)
+  );
 
-    const cursor = latCursor;
-    if (cursor) {
-      const stop = cursor.value;
-      if (stop.lon >= lowerLon && stop.lon <= upperLon) {
-        // Basic distance check (can be improved with Haversine formula)
-        const distance = Math.sqrt(
-          Math.pow(stop.lat - lat, 2) + Math.pow(stop.lon - lon, 2)
-        );
-        if (distance <= range) {
-          results.push(stop);
-        }
-      }
-      cursor.continue();
+  let cursor = latCursor;
+
+  while (cursor) {
+    const stop = cursor.value;
+    if (stop.lon >= lowerLon && stop.lon <= upperLon) {
+      // Basic distance check (can be improved with Haversine formula)
+      // const distance = Math.sqrt(
+      //   Math.pow(stop.lat - lat, 2) + Math.pow(stop.lon - lon, 2)
+      // );
+      // if (distance <= range) {
+      results.push(stop);
+      // }
     }
-    return results;
-}
+    cursor = await cursor.continue();
+  }
 
+  return results;
+}
 
 export async function getStop(key) {
   return (await dbPromise).get("stops", key);
@@ -54,12 +63,19 @@ export async function addStop(val) {
   return (await dbPromise).put("stops", val);
 }
 export async function addStops(vals) {
-  const store = (await dbPromise).transaction('stops', 'readwrite').objectStore('stops');
-  vals.forEach((item)=>{
-    store.put(item);
-  })
+  await clear();
+  const store = (await dbPromise)
+    .transaction("stops", "readwrite")
+    .objectStore("stops");
+  vals.forEach((item) => {
+    store.put({
+      ...item,
+      lon: parseFloat(item.lon),
+      lat: parseFloat(item.lat),
+    });
+  });
 }
-  export async function del(key) {
+export async function del(key) {
   return (await dbPromise).delete("stops", key);
 }
 export async function clear() {
@@ -68,6 +84,6 @@ export async function clear() {
 export async function keys() {
   return (await dbPromise).getAllKeys("stops");
 }
-export async function getSize(){
+export async function getSize() {
   return (await dbPromise).count("stops");
 }
