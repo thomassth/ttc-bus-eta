@@ -1,0 +1,10 @@
+.nearby {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .nearby-controls {
+    display: flex;
+    gap: 1rem;
+  }
+}
