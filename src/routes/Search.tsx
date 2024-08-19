@@ -36,16 +36,7 @@ export default function NewVehicle() {
     <div className="search-form">
       <form className={style["next-vehicle-container"]}>
         <div className={style.title}>
-          <Title1>Next Vehicle</Title1>
-          <Button
-            type="submit"
-            appearance="outline"
-            icon={<ArrowRight12Filled />}
-            onClick={handleSearchClick}
-            className={style["subtle-search"]}
-            disabled={stopInput.length < 1}
-            title={t("buttons.search")}
-          />
+          <Title1>{t("home.nextVehicle")}</Title1>
         </div>
         <Input
           className={style["center-input"]}
@@ -56,9 +47,20 @@ export default function NewVehicle() {
           value={stopInput}
           placeholder={t("stops.ariaLabel") ?? ""}
         />
+        <div className={style["submit-button"]}>
+          <Button
+            type="submit"
+            appearance="primary"
+            icon={<ArrowRight12Filled />}
+            onClick={handleSearchClick}
+            className={style["subtle-search"]}
+            disabled={stopInput.length < 1}
+            title={t("buttons.search")}
+          />
+        </div>
       </form>
       <div className={style.separation}>
-        <hr /> <span>or</span> <hr />
+        <hr /> <span>{t("home.or")}</span> <hr />
       </div>
       <form className={style["search-block"]}>
         <Input
