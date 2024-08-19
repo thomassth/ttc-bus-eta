@@ -12,7 +12,7 @@ import NearbyList from "./NearbyList.js";
 
 export default function Nearby() {
   const [number, useNumber] = useState<number>(-1);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coordinate, setCoordinate] = useState<{ lat?: number; lon?: number }>(
     {}
   );
@@ -27,7 +27,7 @@ export default function Nearby() {
       : false
   );
   const dispatch = useAppDispatch();
-  const [isLoadingLocation, setIsLoadingLocation] = useState<Boolean>(false);
+  const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
 
   useEffect(() => {
     getSize().then((result) => {
@@ -35,7 +35,7 @@ export default function Nearby() {
     });
   });
 
-  const handleRefresh = async () => {
+  const handleRefresh = useCallback(async () => {
     setIsLoading(true);
 
     const response = await fetch(
@@ -49,9 +49,9 @@ export default function Nearby() {
         useNumber(result);
       });
     });
-  };
+  }, []);
 
-  const handleGeolocation = async () => {
+  const handleGeolocation = useCallback(async () => {
     const number = await getSize();
     if (number <= 0) {
       await handleRefresh();
@@ -67,7 +67,7 @@ export default function Nearby() {
         setIsLoadingLocation(false);
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (locationMode) {
