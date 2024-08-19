@@ -11,7 +11,7 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
-import Nearby from "../components/nearby/nearby.js";
+import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store } from "../store/index.js";
 import Search from "./Search.js";

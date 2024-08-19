@@ -7,8 +7,8 @@ import {
   settingsSelectors,
 } from "../../store/settings/slice.js";
 import { addStops, getSize } from "../../store/ttcRouteDb.js";
-import NearbyList from "./nearby-list.js";
-import style from "./nearby.module.css";
+import style from "./Nearby.module.css";
+import NearbyList from "./NearbyList.js";
 
 export default function Nearby() {
   const [number, useNumber] = useState<number>(-1);

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { getStopsWithinRange } from "../../store/ttcRouteDb.js";
-import { EtaCard } from "../etaCard/EtaCard.js";
-import style from "./nearby-list.module.css";
+import style from "./NearbyList.module.css";
+import NearbyStopCard from "./NearbyStopCard.js";
 
 export default function NearbyList(props: {
   coordinate: {
@@ -10,7 +10,9 @@ export default function NearbyList(props: {
     lon?: number;
   };
 }) {
-  const [stopsList, setStopsList] = useState<[]>([]);
+  const [stopsList, setStopsList] = useState<
+    { id: string; lines: string[]; title: string; realDistance: number }[]
+  >([]);
 
   useEffect(() => {
     if (props.coordinate.lat && props.coordinate.lon)
@@ -30,15 +32,7 @@ export default function NearbyList(props: {
           <p>The closest bus stops are:</p>
           <ul className={style["nearby-stops-list"]}>
             {stopsList.map((stop) => (
-              <EtaCard
-                key={stop.id}
-                lines={stop.lines}
-                name={`${stop.title}\n${stop.realDistance.toPrecision(4)}m away`}
-                id={stop.id}
-                stopUrl={`/stops/${stop.id}`}
-                etas={[]}
-                editable={false}
-              />
+              <NearbyStopCard key={stop.id} stop={stop} />
             ))}
           </ul>
         </>
