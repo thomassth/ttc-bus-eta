@@ -16,14 +16,14 @@ An extremely fast and simple website, parsing TTC's ETA data.
 
 Run the app locally
 
-```
+```Shell
 npm install
 npm run start
 ```
 
 Run the app with Docker
 
-```
+```Shell
 docker-compose up
 ```
 

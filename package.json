@@ -1,6 +1,6 @@
 {
-  "name": "buscatcher",
-  "version": "0.1.0",
+  "name": "tobus.ca",
+  "version": "1.0.1",
   "private": true,
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "type": "module",
