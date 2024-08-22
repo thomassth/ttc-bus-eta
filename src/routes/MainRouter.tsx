@@ -7,6 +7,9 @@ import YRTHeader from "../lab/YRTheader.js";
 import YRTLine from "../lab/YRTline.js";
 import YRTLines from "../lab/YRTlines.js";
 import YRT from "../lab/YRTstop.js";
+import GODir from "../lab/go/GODir.js";
+import GOLine from "../lab/go/GOLine.js";
+import GORoutes from "../lab/go/GORoutes.js";
 import About from "./About.js";
 import Error from "./Error.js";
 import Home from "./Home.js";
@@ -25,6 +28,19 @@ export const router = createBrowserRouter([
       { path: "about", Component: About },
       { path: "bookmarks", Component: BookmarkPage },
       { path: "settings", Component: Settings },
+      {
+        path: "go",
+        children: [
+          { index: true, Component: GORoutes },
+          {
+            path: "lines/:lineId",
+            children: [
+              { index: true, Component: GOLine },
+              { path: ":dir", Component: GODir },
+            ],
+          },
+        ],
+      },
       {
         path: "yrt",
         Component: YRTHeader,
