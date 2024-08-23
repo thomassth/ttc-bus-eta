@@ -2,6 +2,22 @@
   "short_name": "TO bus",
   "name": "Toronto bus arrivals",
   "description": "Showing arrival times of TTC subways, buses, streetcars.",
+  "theme_color": "#292929",
+  "screenshots": [
+    {
+      "src": "mobile.webp",
+      "sizes": "412x915",
+      "type": "image/webp",
+      "label": "TOBus.ca mobile screenshot"
+    },
+    {
+      "src": "wide.webp",
+      "sizes": "1181x820",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "TOBus.ca wide screenshot"
+    }
+  ],
   "icons": [
     {
       "src": "favicon.ico",
