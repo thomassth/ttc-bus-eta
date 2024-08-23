@@ -69,6 +69,7 @@ export default defineConfig({
             src: "mobile.webp",
             sizes: "412x915",
             type: "image/webp",
+            form_factor: "narrow",
             label: "TOBus.ca mobile screenshot",
           },
           {
