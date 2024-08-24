@@ -5,3 +5,8 @@
   gap: 12px;
   flex-grow: 1;
 }
+
+.map {
+  width: 100%;
+  height: 50vh;
+}

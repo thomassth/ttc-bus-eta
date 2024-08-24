@@ -48,7 +48,7 @@ export default function VehicleLocation(props: {
 
   return (
     <div className="vehicle-view">
-      <RMap
+      {/* <RMap
         width={"100%"}
         height={"60vh"}
         initial={{ center, zoom: 11 }}
@@ -75,7 +75,21 @@ export default function VehicleLocation(props: {
             </ROverlay>
           </RFeature>
         </RLayerVector>
-      </RMap>
+      </RMap> */}
+      <mapml-viewer
+        projection="OSMTILE"
+        zoom="17"
+        lat="43.6477834"
+        lon="-79.3843210"
+        controls
+      >
+        <layer-
+          id="preview_layer"
+          label="Canada Base Map - Transportation (CBMT)"
+          src="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/"
+          checked="checked"
+        ></layer->
+      </mapml-viewer>
       <div className={styles.desc}>
         <Title1>Route: {data.vehicle?.line}</Title1>
         <Title2>Bus ID: {data.vehicle?.id}</Title2>

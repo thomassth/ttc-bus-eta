@@ -7,6 +7,7 @@
   "dependencies": {
     "@fluentui/react-components": "^9.54.2",
     "@fluentui/react-icons": "^2.0.245",
+    "@maps4html/mapml": "^0.13.4",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/node": "^20.14.5",
     "@types/react": "^18.3.3",
@@ -77,7 +78,7 @@
     "postcss-nesting": "^12.1.5",
     "prettier": "^3.3.2",
     "react-test-renderer": "^18.3.1",
-    "stylelint": "^16.6.1",
+    "stylelint": "^16.8.2",
     "stylelint-config-css-modules": "^4.4.0",
     "stylelint-config-standard": "^36.0.0",
     "ts-node": "^10.9.2",
