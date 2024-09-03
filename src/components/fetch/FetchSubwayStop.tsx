@@ -32,89 +32,72 @@ function SubwayStopPredictionInfo(props: {
     fetchPredictions();
   }, []);
 
-  function RefreshButton() {
-    return (
-      <Button onClick={fetchPredictionClick} icon={<ArrowClockwise24Regular />}>
-        {t("buttons.refresh")}
-      </Button>
-    );
-  }
-
   const stationName = subwayDbSelectors.selectById(
     store.getState().subwayDb,
     props.stopNum
   );
 
-  if (data) {
-    if (data.Error) {
-      return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
-    } else {
-      if (data.nextTrains.length > 0) {
-        const nextTrains = data.nextTrains.split(",");
-
-        const listGroup = nextTrains.map((minute, index) => {
-          return (
-            <div key={`${index}-${minute}`}>
-              <CountdownSec second={Number.parseInt(minute) * 60} />
-            </div>
-          );
-        });
-        return (
-          <div className="directionsList list">
-            {stationName && (
-              <>
-                <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
-                <br />
-              </>
-            )}
-            <Title1>{data.directionText}</Title1>
-            <div className="countdown-row">
-              <RefreshButton />
-              <BookmarkButton
-                stopId={props.stopNum}
-                name={data.directionText}
-                ttcId={props.stopNum}
-                lines={[props.line.toString()]}
-                type="ttc-subway"
-              />
-            </div>
-            {listGroup}
-            <RawDisplay data={data} />
-          </div>
-        );
-      } else {
-        return (
-          <div className="directionsList list">
-            {stationName && (
-              <>
-                <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
-                <br />
-              </>
-            )}
-            <Title1>{data.directionText}</Title1>
-            <div className="countdown-row">
-              <RefreshButton />
-              <BookmarkButton
-                stopId={props.stopNum}
-                name={data.directionText}
-                ttcId={props.stopNum}
-                lines={[props.line.toString()]}
-                type="ttc-subway"
-              />
-            </div>
-            <Text> {t("reminder.noEta")}</Text>
-            <RawDisplay data={data} />
-          </div>
-        );
-      }
+  const trainETAs = (nextTrainsData: string) => {
+    if (nextTrainsData.length <= 0) {
+      return <Text> {t("reminder.noEta")}</Text>;
     }
-  } else {
+
+    const nextTrains = nextTrainsData.split(",");
+
+    return nextTrains.map((minute: string, index: number) => {
+      return (
+        <div key={`${index}-${minute}`}>
+          <CountdownSec second={Number.parseInt(minute) * 60} />
+        </div>
+      );
+    });
+  };
+
+  if (!data) {
     return (
       <div className="directionsList list">
         <LargeTitle>{t("reminder.loading")}</LargeTitle>
-        <RefreshButton />
+        <RefreshButton onRefresh={fetchPredictionClick} />
       </div>
     );
   }
+
+  if (data.Error) {
+    return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
+  }
+
+  return (
+    <div className="directionsList list">
+      {stationName && (
+        <>
+          <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+          <br />
+        </>
+      )}
+      <Title1>{data.directionText}</Title1>
+      <div className="countdown-row">
+        <RefreshButton onRefresh={fetchPredictionClick} />
+        <BookmarkButton
+          stopId={props.stopNum}
+          name={data.directionText}
+          ttcId={props.stopNum}
+          lines={[props.line.toString()]}
+          type="ttc-subway"
+        />
+      </div>
+      {trainETAs(data.nextTrains)}
+      <RawDisplay data={data} />
+    </div>
+  );
+}
+
+function RefreshButton(props: { onRefresh: () => void }) {
+  const { t } = useTranslation();
+
+  return (
+    <Button onClick={props.onRefresh} icon={<ArrowClockwise24Regular />}>
+      {t("buttons.refresh")}
+    </Button>
+  );
 }
 export default SubwayStopPredictionInfo;
