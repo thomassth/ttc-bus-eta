@@ -8,7 +8,13 @@ import { etaParser } from "../parser/etaParser.js";
 export default function NearbyStopCard({
   stop,
 }: {
-  stop: { id: string; lines: string[]; title: string; realDistance: number };
+  stop: {
+    id: string;
+    lines: string[];
+    title: string;
+    realDistance: number;
+    directions: string;
+  };
 }) {
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
 
@@ -38,6 +44,7 @@ export default function NearbyStopCard({
   return (
     <EtaCard
       key={stop.id}
+      direction={stop.directions}
       lines={stop.lines}
       name={`${stop.title}\n${stop.realDistance.toPrecision(4)}m away`}
       id={stop.id}

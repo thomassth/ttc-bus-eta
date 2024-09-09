@@ -11,7 +11,13 @@ export default function NearbyList(props: {
   };
 }) {
   const [stopsList, setStopsList] = useState<
-    { id: string; lines: string[]; title: string; realDistance: number }[]
+    {
+      id: string;
+      lines: string[];
+      title: string;
+      realDistance: number;
+      directions: string;
+    }[]
   >([]);
 
   useEffect(() => {
