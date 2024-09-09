@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { getStopsWithinRange } from "../../store/ttcRouteDb.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./NearbyList.module.css";
 import NearbyStopCard from "./NearbyStopCard.js";
 
@@ -45,6 +46,7 @@ export default function NearbyList(props: {
       ) : (
         <p>Nearby feature requires your location.</p>
       )}
+      <RawDisplay data={stopsList} />
     </div>
   );
 }
