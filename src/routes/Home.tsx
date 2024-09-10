@@ -13,24 +13,41 @@ import { Link } from "react-router-dom";
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
-import { store } from "../store/index.js";
+import { store, useAppDispatch } from "../store/index.js";
+import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
 import Search from "./Search.js";
 
 export default function Home() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
     store.getState().stopBookmarks
   );
+  const dispatch = useAppDispatch();
+  const defaultHomeTabValue = settingsSelectors.selectById(
+    store.getState().settings,
+    "defaultHomeTab"
+  );
+  const [enabledTab, setEnabledTab] = useState<TabValue>(
+    defaultHomeTabValue.value ?? "favourites"
+  );
 
-  const [enabledTab, setEnabledTab] = useState<TabValue>("favourites");
   const handleTabClick = useCallback(
-    (event: SelectTabEvent, data: SelectTabData) => setEnabledTab(data.value),
+    (event: SelectTabEvent, data: SelectTabData) => {
+      setEnabledTab(data.value);
+      dispatch(
+        changeSettings({
+          id: "defaultHomeTab",
+          name: "defaultHomeTab",
+          value: `${data.value}`,
+        })
+      );
+    },
     [enabledTab]
   );
   return (
     <main className="home-page">
       <Search />
       <TabList
-        defaultSelectedValue={"favourites"}
+        defaultSelectedValue={enabledTab}
         className="directon-buttons"
         onTabSelect={handleTabClick}
       >
