@@ -7,15 +7,17 @@ import {
   TabValue,
 } from "@fluentui/react-components";
 import { t } from "i18next";
-import { useCallback, useState } from "react";
+import { lazy, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
-import FavouriteEta from "../components/eta/FavouriteEta.js";
-import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../store/index.js";
 import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
+import style from "./Home.module.css";
 import Search from "./Search.js";
+
+const FavouriteEta = lazy(() => import("../components/eta/FavouriteEta.js"));
+const Nearby = lazy(() => import("../components/nearby/Nearby.js"));
 
 export default function Home() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
@@ -54,9 +56,11 @@ export default function Home() {
         <Tab value={"nearby"}>Nearby</Tab>
         <Tab value={"favourites"}>Favourites</Tab>
       </TabList>
-      {enabledTab === "nearby" && <Nearby />}
-      {enabledTab === "favourites" &&
-        (stopBookmarks.length === 0 ? (
+      <div className={enabledTab === "nearby" ? "" : style.hidden}>
+        <Nearby />
+      </div>
+      <div className={enabledTab === "favourites" ? "" : style.hidden}>
+        {stopBookmarks.length === 0 ? (
           <section className="item-info-placeholder">
             <p>{t("home.headline")}</p>
             <p>{t("home.bookmarkReminder")}</p>
@@ -69,7 +73,8 @@ export default function Home() {
           </section>
         ) : (
           <FavouriteEta />
-        ))}
+        )}
+      </div>
     </main>
   );
 }
