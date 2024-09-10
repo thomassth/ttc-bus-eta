@@ -27,9 +27,7 @@ export default function Home() {
   const defaultHomeTabValue = settingsSelectors.selectById(
     store.getState().settings,
     "defaultHomeTab"
-  ) ?? {value : 'favoourites' 
-    
-  };
+  ) ?? { value: "favourites" };
   const [enabledTab, setEnabledTab] = useState<TabValue>(
     defaultHomeTabValue.value ?? "favourites"
   );
