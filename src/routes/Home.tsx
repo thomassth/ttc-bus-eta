@@ -7,17 +7,16 @@ import {
   TabValue,
 } from "@fluentui/react-components";
 import { t } from "i18next";
-import { lazy, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
+import FavouriteEta from "../components/eta/FavouriteEta.js";
+import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../store/index.js";
 import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
 import style from "./Home.module.css";
 import Search from "./Search.js";
-
-const FavouriteEta = lazy(() => import("../components/eta/FavouriteEta.js"));
-const Nearby = lazy(() => import("../components/nearby/Nearby.js"));
 
 export default function Home() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
