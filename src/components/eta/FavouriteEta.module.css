@@ -2,19 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
 
-ul {
-  padding-left: 0;
-  list-style-type: none;
-  margin: 0.5em 0;
-}
-
-.favorite-eta ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 1fr);
-  gap: 24px;
-  margin: 20px 0;
+  ul {
+    display: grid;
+    padding-left: 0;
+    margin: 0.5em 0;
+    list-style-type: none;
+    grid-template-columns: repeat(auto-fit, 1fr);
+    gap: 24px;
+    margin: 20px 0;
+  }
 }
 
 @media (width <= 800px) {
