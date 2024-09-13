@@ -34,8 +34,8 @@ export function BookmarkButton(props: StopBookmark) {
     <Button
       title={
         isBookmarked()
-          ? t("buttons.bookmarkDelete") ?? "Remove bookmark"
-          : t("buttons.bookmarkAdd") ?? "Add to bookmark"
+          ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
+          : (t("buttons.bookmarkAdd") ?? "Add to bookmark")
       }
       icon={isBookmarked() ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}

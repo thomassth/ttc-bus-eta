@@ -1,4 +1,5 @@
-import { Button, Spinner, Switch } from "@fluentui/react-components";
+import { Button, Spinner, Switch, Tooltip } from "@fluentui/react-components";
+import { Info16Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 
 import { store, useAppDispatch } from "../../store/index.js";
@@ -118,6 +119,24 @@ export default function Nearby() {
           onChange={locationModeChange}
           label="Provide my locations on load"
         />
+        <Tooltip
+          content={{
+            children: (
+              <p>
+                Even though we do not send your location to the internet, you
+                still have a choice to only use your location when you want.
+                <br />
+                For convenience, you can provide your location automatically
+                when you load TOBus.ca.
+              </p>
+            ),
+          }}
+          relationship={"label"}
+          mountNode={document.querySelector("#root .fui-FluentProvider")}
+          withArrow
+        >
+          <Info16Regular />
+        </Tooltip>
       </div>
       <NearbyList coordinate={coordinate} />
     </div>

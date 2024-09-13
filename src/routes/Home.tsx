@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   SelectTabData,
   SelectTabEvent,
@@ -52,7 +53,9 @@ export default function Home() {
         className="directon-buttons"
         onTabSelect={handleTabClick}
       >
-        <Tab value={"nearby"}>Nearby</Tab>
+        <Tab value={"nearby"} className={style["button-with-badge"]}>
+          Nearby<Badge>Beta</Badge>
+        </Tab>
         <Tab value={"favourites"}>Favourites</Tab>
       </TabList>
       <div className={enabledTab === "nearby" ? "" : style.hidden}>
