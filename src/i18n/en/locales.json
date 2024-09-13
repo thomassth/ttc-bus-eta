@@ -6,7 +6,8 @@
       "about": "About",
       "lang": "Language",
       "settings": "Settings",
-      "bookmarks": "Bookmarks"
+      "bookmarks": "Bookmarks",
+      "nearby": "Nearby"
     }
   },
   "home": {
@@ -30,6 +31,19 @@
     "number": "Line {{lineNum}}",
     "lineAndStopInfo": "Line {{lineNum}} Stop {{stopNum}} =",
     "noLineInDb": "Error: This line is not in the route database. Subway lines are unsupported for now."
+  },
+  "nearby": {
+    "totalStopsSummary": "There are {{stopsTotal}} stops in the local database.",
+    "checkingDb": "Downloading database ...",
+    "checkDb": "Download database",
+    "checkingLocation": "Checking your location...",
+    "checkLocation": "Set my location",
+    "recheckLocation": "Refresh my location",
+    "alwaysProvideLocation": "Provide my locations on load",
+    "locationPolicy": "<p>Even though we do not send your location to the internet, you still have a choice to only use your location when you want. <br /> For convenience, you can provide your location automatically when you load TOBus.ca.</p>",
+    "closestStopsLead": "The closest bus stops are:",
+    "locationNeeded": "Nearby feature requires your location.",
+    "mAway": "m away"
   },
   "settings": {
     "etaLists": "ETA lists",

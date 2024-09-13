@@ -1,6 +1,7 @@
 import { Button, Spinner, Switch, Tooltip } from "@fluentui/react-components";
 import { Info16Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 import { store, useAppDispatch } from "../../store/index.js";
 import {
@@ -12,6 +13,8 @@ import style from "./Nearby.module.css";
 import NearbyList from "./NearbyList.js";
 
 export default function Nearby() {
+  const { t } = useTranslation();
+
   const [number, useNumber] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coordinate, setCoordinate] = useState<{ lat?: number; lon?: number }>(
@@ -96,18 +99,18 @@ export default function Nearby() {
   return (
     <div className={style.nearby}>
       {number >= 0
-        ? `There are ${number} stops in the local database.`
-        : "Checking database ... "}
+        ? t("nearby.totalStopsSummary", { stopsTotal: number })
+        : t("nearby.checkingDb")}
       <div className={style["nearby-controls"]}>
         <Button onClick={handleRefresh}>
-          {isLoading ? "reloading..." : "Refresh database"}
+          {isLoading ? t("nearby.checkingDb") : t("nearby.checkDb")}
         </Button>
         <Button onClick={handleGeolocation}>
           {isLoadingLocation
-            ? "Checking your location..."
+            ? t("nearby.checkingLocation")
             : coordinate.lat && coordinate.lon
-              ? "Refresh my location"
-              : "Set my location"}
+              ? t("nearby.recheckLocation")
+              : t("nearby.checkLocation")}
         </Button>
         <div className={style.spinner}>
           {(isLoading || isLoadingLocation) && <Spinner />}
@@ -117,19 +120,11 @@ export default function Nearby() {
         <Switch
           checked={locationMode}
           onChange={locationModeChange}
-          label="Provide my locations on load"
+          label={t("nearby.alwaysProvideLocation")}
         />
         <Tooltip
           content={{
-            children: (
-              <p>
-                Even though we do not send your location to the internet, you
-                still have a choice to only use your location when you want.
-                <br />
-                For convenience, you can provide your location automatically
-                when you load TOBus.ca.
-              </p>
-            ),
+            children: <Trans>nearby.locationPolicy</Trans>,
           }}
           relationship={"label"}
           mountNode={document.querySelector("#root .fui-FluentProvider")}

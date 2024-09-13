@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { getStopsWithinRange } from "../../store/ttcRouteDb.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -11,6 +12,8 @@ export default function NearbyList(props: {
     lon?: number;
   };
 }) {
+  const { t } = useTranslation();
+
   const [stopsList, setStopsList] = useState<
     {
       id: string;
@@ -36,7 +39,7 @@ export default function NearbyList(props: {
     <div>
       {props.coordinate.lat && props.coordinate.lon ? (
         <>
-          <p>The closest bus stops are:</p>
+          <p>{t("nearby.closestStopsLead")}</p>
           <ul className={style["nearby-stops-list"]}>
             {stopsList.map((stop) => (
               <NearbyStopCard key={stop.id} stop={stop} />
@@ -44,7 +47,7 @@ export default function NearbyList(props: {
           </ul>
         </>
       ) : (
-        <p>Nearby feature requires your location.</p>
+        <p>{t("nearby.locationNeeded")}</p>
       )}
       <RawDisplay data={stopsList} />
     </div>

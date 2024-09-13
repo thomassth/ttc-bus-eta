@@ -3,8 +3,8 @@ import {
   BookmarkAdd24Regular,
   BookmarkOff24Filled,
 } from "@fluentui/react-icons";
-import { t } from "i18next";
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects.js";
 import {
@@ -14,6 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/index.js";
 
 export function BookmarkButton(props: StopBookmark) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks

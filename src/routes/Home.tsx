@@ -7,8 +7,8 @@ import {
   TabList,
   TabValue,
 } from "@fluentui/react-components";
-import { t } from "i18next";
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
@@ -20,6 +20,8 @@ import style from "./Home.module.css";
 import Search from "./Search.js";
 
 export default function Home() {
+  const { t } = useTranslation();
+
   const stopBookmarks = stopBookmarksSelectors.selectAll(
     store.getState().stopBookmarks
   );
@@ -54,9 +56,10 @@ export default function Home() {
         onTabSelect={handleTabClick}
       >
         <Tab value={"nearby"} className={style["button-with-badge"]}>
-          Nearby<Badge>Beta</Badge>
+          {t("nav.label.nearby")}
+          <Badge>Beta</Badge>
         </Tab>
-        <Tab value={"favourites"}>Favourites</Tab>
+        <Tab value={"favourites"}>{t("nav.label.bookmarks")}</Tab>
       </TabList>
       <div className={enabledTab === "nearby" ? "" : style.hidden}>
         <Nearby />

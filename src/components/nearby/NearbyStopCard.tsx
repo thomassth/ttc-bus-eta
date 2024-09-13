@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
@@ -16,6 +17,8 @@ export default function NearbyStopCard({
     directions: string;
   };
 }) {
+  const { t } = useTranslation();
+
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function NearbyStopCard({
       key={stop.id}
       direction={stop.directions}
       lines={stop.lines}
-      name={`${stop.title}\n${stop.realDistance.toPrecision(4)}m away`}
+      name={`${stop.title}\n${stop.realDistance.toPrecision(4)}${t("nearby.mAway")}`}
       id={stop.id}
       stopUrl={`/stops/${stop.id}`}
       etas={unifiedEta}
