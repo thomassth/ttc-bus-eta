@@ -8,6 +8,7 @@ import { RView } from "rlayers/RMap";
 
 import arrow from "../../../public/arrow.svg";
 import { parsedVehicleLocation } from "../../models/ttc.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./VehicleLoaction.module.css";
 
 export default function VehicleLocation(props: {
@@ -82,6 +83,7 @@ export default function VehicleLocation(props: {
         <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
         <Text>Heading: {data.vehicle?.heading}</Text>
       </div>
+      <RawDisplay data={data} />
     </div>
   );
 }

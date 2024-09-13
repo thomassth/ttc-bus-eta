@@ -25,10 +25,10 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   const name =
     item.type === "ttc-subway" && props.item.stopTag
-      ? subwayDbSelectors.selectById(
+      ? (subwayDbSelectors.selectById(
           store.getState().subwayDb,
           props.item.stopTag
-        )?.stop?.name ?? props.item.routeName
+        )?.stop?.name ?? props.item.routeName)
       : Array.isArray(props.item.line)
         ? props.item.stopName
         : `${props.item.routeName}

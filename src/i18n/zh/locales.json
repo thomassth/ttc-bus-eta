@@ -6,7 +6,8 @@
       "about": "關於",
       "lang": "語言",
       "settings": "設定",
-      "bookmarks": "書籤"
+      "bookmarks": "書籤",
+      "nearby": "附近"
     }
   },
   "home": {
@@ -18,9 +19,9 @@
     "bookmarkReminder": "(試下響你成日等車嘅站撳個書籤 icon)",
     "homeNoEta": "你所有書籤裏面嘅站都冇下班車嘅資料。",
     "nextVehicle": "Next vehicle",
-    "or": "or",
-    "orSee": "Or, see",
-    "allRoutes": "All routes"
+    "or": "或者",
+    "orSee": "或者睇下",
+    "allRoutes": "所有路線"
   },
   "lines": {
     "ariaLabel": "輸入路線",
@@ -35,10 +36,23 @@
     "ariaLabel": "輸入車站號碼",
     "stopId": "車站編號 {{stopNum}}  ="
   },
+  "nearby": {
+    "totalStopsSummary": "離線資料庫裏面有 {{stopsTotal}} 個巴士站。",
+    "checkingDb": "Down 緊 ...",
+    "checkDb": "Down 過個資料庫",
+    "checkingLocation": "Check 緊你個位...",
+    "checkLocation": "Set 你宜家個位",
+    "recheckLocation": "重設你宜家個位",
+    "alwaysProvideLocation": "自動提供我個位置",
+    "locationPolicy": "<p>雖然你個位置唔會 send 上任何 server，我都想你幾時都有權揀俾定唔俾。<br /> 如果你想嘅話，亦都可以每次一開都自動 check 你個位置。</p>",
+    "closestStopsLead": "你最接近嘅巴士站係：",
+    "locationNeeded": "呢個功能需要你嘅位置。",
+    "mAway": "米"
+  },
   "settings": {
-    "etaLists": "ETA lists",
-    "separateLines": "separate for each line",
-    "singleList": "single list"
+    "etaLists": "到站時間",
+    "separateLines": "每條線分開睇",
+    "singleList": "合併所有線咁睇"
   },
   "buttons": {
     "search": "搜尋",
@@ -46,7 +60,7 @@
     "clear": "清除全部",
     "mapPin": "響 Google 地圖睇佢個位置",
     "busIcon": "睇巴士幾時到站",
-    "languageChange": "選擇語言",
+    "languageChange": "語言",
     "delete": "刪除",
     "bookmarkAdd": "加呢頁落書籤",
     "bookmarkDelete": "響書籤刪除呢頁",
