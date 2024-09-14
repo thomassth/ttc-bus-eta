@@ -1,0 +1,12 @@
+.nearby-stops-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  gap: 24px;
+  margin: 20px 0;
+  padding-left: 0;
+  margin: 0.5em 0;
+
+  li {
+    list-style-type: none;
+  }
+}

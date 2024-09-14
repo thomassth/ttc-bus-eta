@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from "@fluentui/react-components";
 import { Dismiss12Filled, Edit12Filled } from "@fluentui/react-icons";
-import { t } from "i18next";
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects.js";
@@ -115,6 +115,8 @@ function FavouriteEditor(props: {
   enabled?: string[];
   onDelete?: () => void;
 }) {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const onChangeFunction = useCallback(

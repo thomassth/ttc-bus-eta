@@ -118,7 +118,9 @@ export function ETAButton(props: {
   return (
     <Link
       to={link}
-      title={props.name ? props.name : t("buttons.busIcon") ?? "View stop ETA"}
+      title={
+        props.name ? props.name : (t("buttons.busIcon") ?? "View stop ETA")
+      }
     >
       <Button
         icon={props.name ? undefined : <VehicleBus16Filled />}

@@ -1,9 +1,6 @@
-import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { makeStyles, shorthands } from "@fluentui/react-components";
 
 export const fluentStyles = makeStyles({
-  fluentProvider: {
-    height: "100%",
-  },
   accordionHeader: {
     ...shorthands.margin("0px", "0px"),
 
@@ -11,9 +8,6 @@ export const fluentStyles = makeStyles({
       height: "auto",
       paddingLeft: "0px",
     },
-  },
-  bottomNav: {
-    backgroundColor: tokens.colorNeutralBackground1,
   },
   bottomNavButton: {
     flexDirection: "column",
@@ -39,9 +33,6 @@ export const fluentStyles = makeStyles({
       ...shorthands.borderColor("transparent !important"),
       boxShadow: "0px 0px 0px 0px transparent !important",
     },
-  },
-  flexGrowContent: {
-    flexGrow: 1,
   },
   smallRoundNavButton: {
     width: "48px",

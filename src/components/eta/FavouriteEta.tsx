@@ -111,8 +111,8 @@ export default function FavouriteEta() {
 
         const name =
           item.type === "ttc-subway" && id
-            ? subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
-                ?.name ?? item.name
+            ? (subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
+                ?.name ?? item.name)
             : item.name;
 
         EtaCards.push(

@@ -5,13 +5,10 @@ import {
 } from "@fluentui/react-components";
 import { useState } from "react";
 
-import { fluentStyles } from "./fluent";
-
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export function FluentTheme({ children }: { children: JSX.Element }) {
   const [isDark, setIsDark] = useState(prefersDark);
-  const fluentStyle = fluentStyles();
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -23,10 +20,7 @@ export function FluentTheme({ children }: { children: JSX.Element }) {
     });
 
   return (
-    <FluentProvider
-      className={fluentStyle.fluentProvider}
-      theme={isDark ? webDarkTheme : webLightTheme}
-    >
+    <FluentProvider theme={isDark ? webDarkTheme : webLightTheme}>
       {children}
     </FluentProvider>
   );
