@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { StopWithDistance } from "../../models/db.js";
 import { getStopsWithinRange } from "../../store/ttcRouteDb.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./NearbyList.module.css";
@@ -14,15 +15,7 @@ export default function NearbyList(props: {
 }) {
   const { t } = useTranslation();
 
-  const [stopsList, setStopsList] = useState<
-    {
-      id: string;
-      lines: string[];
-      title: string;
-      realDistance: number;
-      directions: string;
-    }[]
-  >([]);
+  const [stopsList, setStopsList] = useState<StopWithDistance[]>([]);
 
   useEffect(() => {
     if (props.coordinate.lat && props.coordinate.lon)

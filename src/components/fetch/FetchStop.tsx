@@ -60,7 +60,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   useEffect(() => {
     let templist: EtaBusWithID[] = [];
     for (const list of etaDb) {
-      templist = templist.concat(list.etas);
+      templist = templist.concat(list.etas ?? []);
     }
     setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
   }, [etaDb]);
@@ -78,7 +78,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         });
       } else {
         listContent = etaDb
-          .filter((element) => element.etas.length > 0)
+          .filter((element) => (element.etas ?? []).length > 0)
           .map((element) => {
             return (
               <CountdownGroup

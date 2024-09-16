@@ -1,20 +1,12 @@
 import { Button, Text } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { EtaPredictionJson } from "../../models/etaJson.js";
-import { LineStopEta, stopBookmarkWithEta } from "../../models/etaObjects.js";
 import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
-import { getTTCMultiRouteData } from "../fetch/fetchUtils.js";
-import {
-  multiStopParser,
-  multiStopUnifier,
-} from "../parser/multiStopParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { BookmarkCardEta } from "./BookmarkCardEta.js";
 import style from "./FavouriteEta.module.css";
@@ -23,15 +15,8 @@ export default function FavouriteEta() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
     store.getState().stopBookmarks
   );
-
-  const subwayBookmarks = stopBookmarks.filter((item) => {
-    return item.type === "ttc-subway" && (item.enabled?.length ?? 1) > 0;
-  });
   const { t } = useTranslation();
-  const [data, setData] = useState<EtaPredictionJson>();
-  const [singleEtaDb, setSingleEtaDb] = useState<LineStopEta[]>([]);
-  const [unifiedEtaDb, setUnifiedEtaDb] = useState<stopBookmarkWithEta[]>([]);
-  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
+  // const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
   const unifiedEtaValue =
     settingsSelectors.selectById(store.getState().settings, "unifiedEta")
       ?.value !== "false";
@@ -50,61 +35,11 @@ export default function FavouriteEta() {
       }
   }
 
-  const setEtaDb = (data?: EtaPredictionJson) => {
-    if (unifiedEtaValue) {
-      setUnifiedEtaDb(
-        data
-          ? multiStopUnifier(data, stopBookmarks)
-          : subwayBookmarks.map((subwayStop) => {
-              return { ...subwayStop, etas: [] };
-            })
-      );
-    } else {
-      setSingleEtaDb(
-        (data ? multiStopParser(data) : []).concat(
-          subwayBookmarks.map((subwayStop) => {
-            return {
-              line: subwayStop.lines[0],
-              stopName: subwayStop.name,
-              routeName: subwayStop.name,
-              etas: [],
-              stopTag: subwayStop.stopId,
-              type: subwayStop.type,
-            };
-          })
-        )
-      );
-    }
-  };
-
-  useEffect(() => {
-    const controller = new AbortController();
-    if (fetchUrl.length > 0) {
-      getTTCMultiRouteData(controller, fetchUrl).then(
-        ({ parsedData, error }) => {
-          if (error || !parsedData) {
-            return;
-          }
-          setData(parsedData);
-          setLastUpdatedAt(Date.now());
-          setEtaDb(parsedData);
-        }
-      );
-    } else {
-      setEtaDb();
-    }
-
-    // when useEffect is called, the following clean-up fn will run first
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
   const EtaCards = [];
   if (unifiedEtaValue) {
-    for (const item of unifiedEtaDb) {
+    for (const item of stopBookmarks) {
       if (
-        item.etas.length > 0 ||
+        stopBookmarks.length > 0 ||
         (item.type === "ttc-subway" && (item.enabled?.length ?? 1) > 0)
       ) {
         const id = item.stopId;
@@ -121,7 +56,6 @@ export default function FavouriteEta() {
             item={{
               stopName: name,
               stopTag: id,
-              etas: item.etas,
               line: item.enabled ? item.enabled : item.lines,
               type: item.type,
               direction: item.direction,
@@ -131,10 +65,15 @@ export default function FavouriteEta() {
       }
     }
   } else {
-    for (const item of singleEtaDb) {
-      if (item.etas.length > 0 || item.type === "ttc-subway") {
-        const id = `${item.line}-${item.stopTag}`;
-        EtaCards.push(<BookmarkCardEta item={item} key={id} />);
+    for (const item of stopBookmarks) {
+      for (const line of item.lines) {
+        const id = `${line}-${item.stopId}`;
+        EtaCards.push(
+          <BookmarkCardEta
+            item={{ ...item, line, stopName: item.name, stopTag: item.stopId }}
+            key={id}
+          />
+        );
       }
     }
   }
@@ -148,7 +87,7 @@ export default function FavouriteEta() {
           )}
           <ul>{EtaCards}</ul>
         </>
-      ) : lastUpdatedAt > 0 || !navigator.onLine ? (
+      ) : !navigator.onLine ? (
         <section>
           <p>
             {navigator.onLine
@@ -161,8 +100,7 @@ export default function FavouriteEta() {
       <Link to={"/bookmarks"}>
         <Button>{t("buttons.bookmarkEdit")}</Button>
       </Link>
-
-      {data && <RawDisplay data={data} />}
+      {stopBookmarks && <RawDisplay data={stopBookmarks} />}
     </article>
   );
 }
