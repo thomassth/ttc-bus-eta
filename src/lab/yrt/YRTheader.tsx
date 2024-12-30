@@ -5,7 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 
 import styles from "./yrt.module.css";
 
-export default function YRTHeader() {
+export function YRTHeader() {
   const { t } = useTranslation();
 
   return (

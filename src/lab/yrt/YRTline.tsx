@@ -2,11 +2,11 @@ import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { YRTStopAccordions } from "../components/accordions/StopAccordions";
-import { YRTBadge } from "../components/badges";
-import { LineList, LineRequest } from "../models/yrt";
+import { YRTStopAccordions } from "../../components/accordions/StopAccordions.js";
+import { YRTBadge } from "../../components/badges.js";
+import { LineList, LineRequest } from "../../models/yrt.js";
 
-export default function YRTLine() {
+export function YRTLine() {
   const params = useParams();
 
   const [response, setResponse] = useState<LineRequest>({});
