@@ -46,13 +46,17 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
       controller.abort();
     };
   }, []);
-  let stopUrl = `/stops/${props.item.stopTag}`;
+  let stopUrl =
+    props.item.type === "ttc-subway"
+      ? `/ttc/lines/${props.item.line[0]}/${props.item.stopTag}`
+      : `/stops/${props.item.stopTag}`;
 
-  for (const item of stopBookmarks) {
-    if (item.ttcId === props.item.stopTag) {
-      stopUrl = `/stops/${item.stopId}`;
+  if (props.item.type !== "ttc-subway")
+    for (const item of stopBookmarks) {
+      if (item.ttcId === props.item.stopTag) {
+        stopUrl = `/stops/${item.stopId}`;
+      }
     }
-  }
 
   const item = props.item;
 
