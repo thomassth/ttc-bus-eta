@@ -73,27 +73,23 @@ function HomeBookmarks() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
     store.getState().stopBookmarks
   );
-  return (
-    <>
-      {stopBookmarks.length === 0 ? (
-        <section className="item-info-placeholder">
-          <p>{t("home.headline")}</p>
-          <p>{t("home.bookmarkReminder")}</p>
-          <p>
-            {t("home.orSee")}
-            <Link
-              style={{
-                marginLeft: "1rem",
-              }}
-              to="/lines"
-            >
-              <Button>{t("home.allRoutes")}</Button>
-            </Link>
-          </p>
-        </section>
-      ) : (
-        <FavouriteEta />
-      )}
-    </>
-  );
+  if (stopBookmarks.length === 0) {
+    return (
+      <section className="item-info-placeholder">
+        <p>{t("home.headline")}</p>
+        <p>{t("home.bookmarkReminder")}</p>
+        <p>
+          {t("home.orSee")}
+          <Link
+            style={{
+              marginLeft: "1rem",
+            }}
+            to="/lines"
+          >
+            <Button>{t("home.allRoutes")}</Button>
+          </Link>
+        </p>
+      </section>
+    );
+  } else return <FavouriteEta />;
 }
