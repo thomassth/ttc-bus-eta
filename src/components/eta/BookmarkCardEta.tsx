@@ -65,7 +65,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
       : props.item.stopName;
 
   if (item.type !== "ttc-subway" && dataFetched && unifiedEta.length === 0) {
-    return <></>;
+    return null;
   }
   return (
     <EtaCard

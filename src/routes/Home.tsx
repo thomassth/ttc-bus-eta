@@ -22,9 +22,6 @@ import Search from "./Search.js";
 export default function Home() {
   const { t } = useTranslation();
 
-  const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
-  );
   const dispatch = useAppDispatch();
   const defaultHomeTabValue = settingsSelectors.selectById(
     store.getState().settings,
@@ -65,21 +62,38 @@ export default function Home() {
         <Nearby />
       </div>
       <div className={enabledTab === "favourites" ? "" : style.hidden}>
-        {stopBookmarks.length === 0 ? (
-          <section className="item-info-placeholder">
-            <p>{t("home.headline")}</p>
-            <p>{t("home.bookmarkReminder")}</p>
-            <p>
-              {t("home.orSee")}
-              <Link style={{ marginLeft: "1rem" }} to="/lines">
-                <Button>{t("home.allRoutes")}</Button>
-              </Link>
-            </p>
-          </section>
-        ) : (
-          <FavouriteEta />
-        )}
+        <HomeBookmarks />
       </div>
     </main>
+  );
+}
+
+function HomeBookmarks() {
+  const { t } = useTranslation();
+  const stopBookmarks = stopBookmarksSelectors.selectAll(
+    store.getState().stopBookmarks
+  );
+  return (
+    <>
+      {stopBookmarks.length === 0 ? (
+        <section className="item-info-placeholder">
+          <p>{t("home.headline")}</p>
+          <p>{t("home.bookmarkReminder")}</p>
+          <p>
+            {t("home.orSee")}
+            <Link
+              style={{
+                marginLeft: "1rem",
+              }}
+              to="/lines"
+            >
+              <Button>{t("home.allRoutes")}</Button>
+            </Link>
+          </p>
+        </section>
+      ) : (
+        <FavouriteEta />
+      )}
+    </>
   );
 }
