@@ -17,7 +17,7 @@ export interface LineStopEta {
   line: string | string[];
   stopName: string;
   routeName?: string;
-  etas: EtaBusWithID[];
+  etas?: EtaBusWithID[];
   stopTag: number;
   type?: string;
   direction?: string;

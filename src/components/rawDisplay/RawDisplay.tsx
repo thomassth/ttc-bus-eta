@@ -7,26 +7,38 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
+import { StopWithDistance } from "../../models/db.js";
 import {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import { settingsRedux, stopBookmarksRedux } from "../../models/etaObjects.js";
-import { SubwayStations, SubwayStop } from "../../models/ttc.js";
+import {
+  StopBookmark,
+  settingsRedux,
+  stopBookmarksRedux,
+} from "../../models/etaObjects.js";
+import {
+  SubwayStations,
+  SubwayStop,
+  parsedVehicleLocation,
+} from "../../models/ttc.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import { fluentStyles } from "../../styles/fluent.js";
 
 export default function RawDisplay(props: {
   data:
+    | stopBookmarksRedux
+    | parsedVehicleLocation
+    | StopBookmark[]
     | EtaPredictionJson
     | RouteJson
     | RoutesJson
-    | settingsRedux
-    | stopBookmarksRedux
     | SubwayStations
-    | SubwayStop;
+    | SubwayStop
+    | settingsRedux
+    | StopWithDistance[];
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
