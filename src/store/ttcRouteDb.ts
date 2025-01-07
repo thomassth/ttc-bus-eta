@@ -1,5 +1,7 @@
 import { openDB } from "idb";
 
+import { StopWithDistance } from "../models/db.js";
+
 const dbPromise = openDB("TTCStops", 1, {
   upgrade(db) {
     // Create a store of objects
@@ -20,7 +22,7 @@ export async function getStopsWithinRange(
   lat: number,
   lon: number,
   range: number
-) {
+): Promise<StopWithDistance[]> {
   const store = (await dbPromise)
     .transaction("stops", "readonly")
     .objectStore("stops");

@@ -1,22 +1,13 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { StopWithDistance } from "../../models/db.js";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 import { getStopPredictions } from "../fetch/fetchUtils.js";
 import { etaParser } from "../parser/etaParser.js";
 
-export default function NearbyStopCard({
-  stop,
-}: {
-  stop: {
-    id: string;
-    lines: string[];
-    title: string;
-    realDistance: number;
-    directions: string;
-  };
-}) {
+export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
   const { t } = useTranslation();
 
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
@@ -31,7 +22,7 @@ export default function NearbyStopCard({
 
           let templist: EtaBusWithID[] = [];
           for (const list of etaDb) {
-            templist = templist.concat(list.etas);
+            if (list.etas) templist = templist.concat(list.etas);
           }
           setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
         }
