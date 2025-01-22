@@ -8,6 +8,8 @@
     "@fluentui/react-components": "^9.56.8",
     "@fluentui/react-icons": "^2.0.270",
     "@reduxjs/toolkit": "^2.5.0",
+    "@tanstack/react-query": "^5.64.2",
+    "date-fns": "^4.1.0",
     "i18next": "^23.16.8",
     "i18next-browser-languagedetector": "^8.0.2",
     "idb": "^8.0.1",
