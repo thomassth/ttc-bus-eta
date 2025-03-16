@@ -1,3 +1,5 @@
+// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
+
 export const ttcAlerts = {
   queryKey: ["bsky"],
   queryFn: async () => {
@@ -13,3 +15,38 @@ export const ttcAlerts = {
   staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
 };
+
+export const ttcLines = {
+  queryKey: ["ttc-lines"],
+  queryFn: async () => {
+    const response = await fetch(
+      "https://webservices.umoiq.com/service/publicJSONFeed?command=routeList&a=ttc"
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  },
+  staleTime: 24 * 60 * 60 * 1000,
+  refetchInterval: 60 * 1000,
+};
+
+// inaccessible; CORS Missing Allow Origin
+// export const ttcGtfsAlerts = {
+//   queryKey: ["ttc-gtfs"],
+//   queryFn: async () => {
+//     const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     const buffer = await response.arrayBuffer();
+//     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+//       new Uint8Array(buffer)
+//     );
+//     return feed;
+//   },
+//   staleTime: 60 * 1000,
+//   refetchInterval: 60 * 1000,
+// };
