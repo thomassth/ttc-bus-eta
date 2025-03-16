@@ -17,7 +17,6 @@ export const SkeetElement = ({
   const cid = skeet.post.cid;
   const feedText = skeet.post.record.text;
 
-  const parsedText = ParsedTtcAlertText(badge, feedText, cid);
   return (
     <li>
       <p className="time">
@@ -25,7 +24,9 @@ export const SkeetElement = ({
           addSuffix: true,
         })}
       </p>
-      <span className="content">{parsedText}</span>
+      <span className="content">
+        <ParsedTtcAlertText badge={badge} feedText={feedText} id={cid} />
+      </span>
     </li>
   );
 };

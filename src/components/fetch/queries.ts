@@ -51,6 +51,7 @@ export const ttcLines = queryOptions({
   refetchInterval: 60 * 1000,
 });
 
+// inaccessible; CORS Missing Allow Origin
 export const gtfsAlerts = queryOptions({
   queryKey: ["gtfs-alerts"],
   queryFn: async () => {
@@ -69,22 +70,3 @@ export const gtfsAlerts = queryOptions({
   staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
 });
-
-// inaccessible; CORS Missing Allow Origin
-// export const ttcGtfsAlerts = {
-//   queryKey: ["ttc-gtfs"],
-//   queryFn: async () => {
-//     const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-
-//     const buffer = await response.arrayBuffer();
-//     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
-//       new Uint8Array(buffer)
-//     );
-//     return feed;
-//   },
-//   staleTime: 60 * 1000,
-//   refetchInterval: 60 * 1000,
-// };
