@@ -11,7 +11,7 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import TtcAlertList from "../components/alerts/alerts.js";
+import TtcAlertList from "../components/alerts/AlertsPage.js";
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
