@@ -1,5 +1,6 @@
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import { queryOptions } from "@tanstack/react-query";
+import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
 export const ttcAlerts = queryOptions({
   queryKey: ["bsky"],
@@ -47,6 +48,25 @@ export const ttcLines = queryOptions({
     return response.json();
   },
   staleTime: 24 * 60 * 60 * 1000,
+  refetchInterval: 60 * 1000,
+});
+
+export const gtfsAlerts = queryOptions({
+  queryKey: ["gtfs-alerts"],
+  queryFn: async () => {
+    const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const buffer = await response.arrayBuffer();
+    const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+      new Uint8Array(buffer)
+    );
+
+    return feed.toJSON();
+  },
+  staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
 });
 
