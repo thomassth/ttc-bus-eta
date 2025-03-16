@@ -11,6 +11,7 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import TtcAlertList from "../components/alerts/alerts.js";
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
@@ -52,17 +53,20 @@ export default function Home() {
         className="directon-buttons"
         onTabSelect={handleTabClick}
       >
-        <Tab value={"nearby"} className={style["button-with-badge"]}>
-          {t("nav.label.nearby")}
-          <Badge>Beta</Badge>
-        </Tab>
+        <Tab value={"nearby"}>{t("nav.label.nearby")}</Tab>
         <Tab value={"favourites"}>{t("nav.label.bookmarks")}</Tab>
+        <Tab value={"alerts"} className={style["button-with-badge"]}>
+          Service Alerts<Badge>Beta</Badge>
+        </Tab>
       </TabList>
       <div className={enabledTab === "nearby" ? "" : style.hidden}>
         <Nearby />
       </div>
       <div className={enabledTab === "favourites" ? "" : style.hidden}>
         <HomeBookmarks />
+      </div>
+      <div className={enabledTab === "alerts" ? "" : style.hidden}>
+        <TtcAlertList />
       </div>
     </main>
   );
