@@ -1,6 +1,7 @@
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
+import { queryOptions } from "@tanstack/react-query";
 
-export const ttcAlerts = {
+export const ttcAlerts = queryOptions({
   queryKey: ["bsky"],
   queryFn: async () => {
     const response = await fetch(
@@ -14,9 +15,26 @@ export const ttcAlerts = {
   },
   staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
+});
+
+export const ttcStops = (stopId: number) => {
+  return {
+    queryKey: [`ttc-stop-${stopId}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://webservices.umoiq.com/service/publicJSONFeed?command=predictions&a=ttc&stopId=${stopId}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+    placeholderData: (prev: any) => prev,
+  };
 };
 
-export const ttcLines = {
+export const ttcLines = queryOptions({
   queryKey: ["ttc-lines"],
   queryFn: async () => {
     const response = await fetch(
@@ -30,7 +48,7 @@ export const ttcLines = {
   },
   staleTime: 24 * 60 * 60 * 1000,
   refetchInterval: 60 * 1000,
-};
+});
 
 // inaccessible; CORS Missing Allow Origin
 // export const ttcGtfsAlerts = {
