@@ -35,6 +35,23 @@ export const ttcStops = (stopId: number) => {
   };
 };
 
+export const fetchSubwayClosure = (date: string) => {
+  return {
+    queryKey: [`ttc-subway-closure-${date}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://thomassth.github.io/to-bus-stations/data/ttc/subway-closures/${date}.json`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+    placeholderData: (prev: any) => prev,
+  };
+};
+
 export const ttcLines = queryOptions({
   queryKey: ["ttc-lines"],
   queryFn: async () => {
