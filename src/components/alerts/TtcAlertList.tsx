@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { ttcAlerts } from "../fetch/queries.js";
-import { SkeetList } from "./SkeetList.js";
+import { SkeetList } from "./bsky-alerts/SkeetList.js";
 
 export function TtcAlertList({ lineNum }: { lineNum: number[] }) {
   const bskyAlerts = useQuery(ttcAlerts);

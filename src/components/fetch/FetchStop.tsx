@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
@@ -39,7 +38,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const { t } = useTranslation();
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
   const [lineList, setLineList] = useState<number[]>([]);
-  const ttcStopPrediction = useQuery<EtaPredictionJson, Error>({
+  const ttcStopPrediction = useQuery({
     ...ttcStops(stopId),
     queryKey: [`ttc-stop-${stopId}`, lastUpdatedAt.toString()],
   });

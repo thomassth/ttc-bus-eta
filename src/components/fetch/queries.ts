@@ -2,7 +2,15 @@
 import { queryOptions } from "@tanstack/react-query";
 import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
-export const ttcAlerts = queryOptions({
+import {
+  EtaPredictionJson,
+  RoutesJson,
+  SubwayClosureJson,
+} from "../../models/etaJson.js";
+
+export const ttcAlerts = queryOptions<{
+  feed: { post: { record: { text: string } } }[];
+}>({
   queryKey: ["bsky"],
   queryFn: async () => {
     const response = await fetch(
@@ -18,8 +26,8 @@ export const ttcAlerts = queryOptions({
   refetchInterval: 60 * 1000,
 });
 
-export const ttcStops = (stopId: number) => {
-  return {
+export const ttcStops = (stopId: number) =>
+  queryOptions<EtaPredictionJson>({
     queryKey: [`ttc-stop-${stopId}`],
     queryFn: async () => {
       const response = await fetch(
@@ -32,11 +40,10 @@ export const ttcStops = (stopId: number) => {
       return response.json();
     },
     placeholderData: (prev: any) => prev,
-  };
-};
+  });
 
-export const fetchSubwayClosure = (date: string) => {
-  return {
+export const fetchSubwayClosure = (date: string) =>
+  queryOptions<SubwayClosureJson[]>({
     queryKey: [`ttc-subway-closure-${date}`],
     queryFn: async () => {
       const response = await fetch(
@@ -49,10 +56,10 @@ export const fetchSubwayClosure = (date: string) => {
       return response.json();
     },
     placeholderData: (prev: any) => prev,
-  };
-};
+    retry: 0,
+  });
 
-export const ttcLines = queryOptions({
+export const ttcLines = queryOptions<RoutesJson["body"]>({
   queryKey: ["ttc-lines"],
   queryFn: async () => {
     const response = await fetch(

@@ -1,10 +1,9 @@
 import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { subwayLines } from "../../data/ttc.js";
-import { RoutesJson } from "../../models/etaJson.js";
 import { TtcBadge } from "../badges.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { ttcLines } from "./queries.js";
@@ -22,8 +21,7 @@ export function RoutesInfo() {
   const [routesDb, setRoutesDb] = useState<{ tag: number; title: string }[]>(
     []
   );
-  const lineData: UseQueryResult<RoutesJson["body"], Error> =
-    useQuery(ttcLines);
+  const lineData = useQuery(ttcLines);
 
   useEffect(() => {
     if (lineData.data?.route && (lineData.data?.route.length ?? 0) > 0) {
