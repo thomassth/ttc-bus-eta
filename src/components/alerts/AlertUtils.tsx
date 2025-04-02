@@ -17,7 +17,7 @@ export const ParsedTtcAlertText = ({
 
   const lineFilter = badge.line
     ? lineNum < 6
-      ? `Line ${lineNum}`
+      ? `${lineNum}`
       : `${lineNum}`
     : badge.highlightAll
       ? parseLine(feedText)
@@ -28,7 +28,11 @@ export const ParsedTtcAlertText = ({
         .split(lineFilter)
         .flatMap((item) => [
           item,
-          <TtcBadge lineNum={lineFilter} key={`${id}-${lineFilter}`} />,
+          <TtcBadge
+            lineNum={lineFilter}
+            key={`${id}-${lineFilter}`}
+            type="standalone"
+          />,
         ])
         .slice(0, -1)
     : feedText;

@@ -9,7 +9,7 @@ import {
 } from "../../models/etaJson.js";
 
 export const ttcAlerts = queryOptions<{
-  feed: { post: { record: { text: string } } }[];
+  feed: { post: { record: { text: string; createdAt: string } } }[];
 }>({
   queryKey: ["bsky"],
   queryFn: async () => {
