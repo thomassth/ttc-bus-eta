@@ -32,6 +32,8 @@ export function EtaCard(props: {
   enabled?: string[];
   direction?: string;
 }) {
+  const uniqueLines = [...new Set(props.lines)];
+  const directionArray = props.direction?.split(", ") ?? [];
   return (
     <li
       className={[
@@ -46,20 +48,26 @@ export function EtaCard(props: {
               <>
                 <div
                   className={
-                    props.lines.length > 6
+                    uniqueLines.length > 6
                       ? [style["badge-group"], style.overflow].join(" ")
                       : style["badge-group"]
                   }
                 >
-                  {props.lines.map((line: string) => {
-                    return <TtcBadge key={line} lineNum={line} />;
+                  {uniqueLines.map((line: string) => {
+                    return (
+                      <TtcBadge key={`${props.id}-${line}`} lineNum={line} />
+                    );
                   })}
                 </div>
                 <span className={style["multi-line"]}>
-                  {props.direction && (
-                    <DirectionBadge direction={props.direction} />
-                  )}
-                  {props.name}
+                  {directionArray.length > 0 &&
+                    directionArray.map((direction) => (
+                      <DirectionBadge
+                        direction={direction}
+                        key={`${props.id}-${direction}`}
+                      />
+                    ))}
+                  <span>{props.name}</span>
                 </span>
               </>
             }
@@ -98,7 +106,7 @@ export function EtaCard(props: {
             <DialogTitle>Choose which bus(es) to show</DialogTitle>
             <FavouriteEditor
               id={props.id}
-              lines={props.lines}
+              lines={uniqueLines}
               enabled={props.enabled}
               onDelete={props.onDelete}
             />
@@ -115,6 +123,8 @@ function FavouriteEditor(props: {
   enabled?: string[];
   onDelete?: () => void;
 }) {
+  const uniqueLines = [...new Set(props.lines)];
+
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -122,7 +132,7 @@ function FavouriteEditor(props: {
   const onChangeFunction = useCallback(
     (line: string) => {
       if (!props.enabled) {
-        const cutOffEnabled = [...props.lines];
+        const cutOffEnabled = [...uniqueLines];
         const cutOffIndex = cutOffEnabled.indexOf(line);
         cutOffEnabled.splice(cutOffIndex, 1);
         dispatch(
@@ -161,13 +171,13 @@ function FavouriteEditor(props: {
         }
       }
     },
-    [props.lines, props.enabled]
+    [uniqueLines, props.enabled]
   );
 
   return (
     <DialogContent>
       <div className={style["checkbox-list"]}>
-        {props.lines.map((line) => (
+        {uniqueLines.map((line) => (
           <LineCheckbox
             key={props.id + line}
             id={props.id}
