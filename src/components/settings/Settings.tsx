@@ -13,11 +13,8 @@ import { Link } from "react-router-dom";
 
 import { settingsRedux } from "../../models/etaObjects.js";
 import useNavigate from "../../routes/navigate.js";
-import { store, useAppDispatch, useAppSelector } from "../../store/index.js";
-import {
-  changeSettings,
-  settingsSelectors,
-} from "../../store/settings/slice.js";
+import { useAppSelector } from "../../store/index.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./Settings.module.css";
@@ -25,25 +22,15 @@ import style from "./Settings.module.css";
 export function Settings() {
   const settings: settingsRedux = useAppSelector((state) => state.settings);
 
-  const devModeValue = settingsSelectors.selectById(
-    store.getState().settings,
-    "devMode"
-  );
-  const [devMode, setDevMode] = useState(
-    typeof devModeValue !== "undefined" ? devModeValue.value === "true" : false
-  );
-  const unifiedEtaValue = settingsSelectors.selectById(
-    store.getState().settings,
-    "unifiedEta"
-  );
-  const [unifiedEta, setUnifiedEta] = useState(
-    typeof unifiedEtaValue !== "undefined"
-      ? unifiedEtaValue.value !== "false"
-      : true
-  );
+  const devMode = useSettingsStore((state) => state.devMode);
+
+  const setDevMode = useSettingsStore((state) => state.setDevMode);
+
+  const unifiedEta = useSettingsStore((state) => state.unifiedEta);
+  const setUnifiedEta = useSettingsStore((state) => state.setUnifiedEta);
+
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();
-  const dispatch = useAppDispatch();
 
   const handleLangChange = useCallback(
     (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
@@ -55,30 +42,13 @@ export function Settings() {
   const handleUnifiedEtaChange = useCallback(
     (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
       setUnifiedEta(data.value === "true");
-      dispatch(
-        changeSettings({
-          id: "unifiedEta",
-          name: "unifiedEta",
-          value: (data.value === "true").toString(),
-        })
-      );
     },
     [setUnifiedEta]
   );
 
   const devModeChange = useCallback(
-    (ev: {
-      currentTarget: { checked: boolean | ((prevState: boolean) => boolean) };
-    }) => {
-      const valueString = ev.currentTarget.checked.toString();
+    (ev: { currentTarget: { checked: boolean } }) => {
       setDevMode(ev.currentTarget.checked);
-      dispatch(
-        changeSettings({
-          id: "devMode",
-          name: "devMode",
-          value: valueString,
-        })
-      );
     },
     [setDevMode]
   );

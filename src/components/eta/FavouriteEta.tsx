@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
-import { settingsSelectors } from "../../store/settings/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -17,9 +17,7 @@ export default function FavouriteEta() {
   );
   const { t } = useTranslation();
   // const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
-  const unifiedEtaValue =
-    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
-      ?.value !== "false";
+  const unifiedEtaValue = useSettingsStore((state) => state.unifiedEta);
 
   let fetchUrl = "";
 

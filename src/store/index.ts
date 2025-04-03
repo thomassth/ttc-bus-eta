@@ -2,13 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { stopBookmarksSlice } from "./bookmarks/slice.js";
-import { settingsSlice } from "./settings/slice.js";
 import { subwayDbSlice } from "./suwbayDb/slice.js";
 
 export const store = configureStore({
   reducer: {
     stopBookmarks: stopBookmarksSlice.reducer,
-    settings: settingsSlice.reducer,
     subwayDb: subwayDbSlice.reducer,
   },
 });
