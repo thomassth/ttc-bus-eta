@@ -3,10 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App.js";
 import { BookmarkPage } from "../components/bookmarks/Bookmark.js";
 import { Settings } from "../components/settings/Settings.js";
-import YRTHeader from "../lab/YRTheader.js";
-import YRTLine from "../lab/YRTline.js";
-import YRTLines from "../lab/YRTlines.js";
-import YRT from "../lab/YRTstop.js";
+import { YRTHeader } from "../lab/yrt/YRTheader.js";
+import { YRTLine } from "../lab/yrt/YRTline.js";
+import { YRTLines } from "../lab/yrt/YRTlines.js";
+import { YRTStop } from "../lab/yrt/YRTstop.js";
 import About from "./About.js";
 import Error from "./Error.js";
 import Home from "./Home.js";
@@ -31,10 +31,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, Component: YRTLines },
           { path: "lines/:lineId", Component: YRTLine },
-          {
-            path: "stops/:stopId",
-            Component: YRT,
-          },
+          { path: "stops/:stopId", Component: YRTStop },
         ],
         errorElement: <Error />,
       },
@@ -43,10 +40,16 @@ export const router = createBrowserRouter([
         children: [
           { index: true, Component: LineSearch },
           {
-            path: "lines/:lineId",
+            path: "lines",
             children: [
-              { index: true, Component: Line },
-              { path: ":stopNum", Component: LineStopPrediction },
+              { index: true, Component: LineSearch },
+              {
+                path: ":lineId",
+                children: [
+                  { index: true, Component: Line },
+                  { path: ":stopNum", Component: LineStopPrediction },
+                ],
+              },
             ],
           },
           {

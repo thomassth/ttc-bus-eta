@@ -35,9 +35,9 @@ export function CountdownSec(props: {
   }, [sec]);
   return (
     <div className={style["countdown-sec"]}>
-      {(sec < 180 || props.index === 0) && (
+      {sec < 180 || props.index === 0 ? (
         <ArrivingBadge vehicle={props.vehicle} />
-      )}
+      ) : null}
 
       {sec >= 60 * 60 && (
         <>
