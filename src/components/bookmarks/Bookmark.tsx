@@ -30,7 +30,7 @@ export default function Bookmark() {
   }
 
   const clearAllBookmarks = useCallback(() => {
-    useSettingsStore.setState((prev) => {
+    useSettingsStore.setState(() => {
       return {
         stopBookmarks: new Map(),
       };

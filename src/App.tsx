@@ -30,7 +30,7 @@ function App() {
 
     if (oldSettings) {
       const parsedSettings = JSON.parse(oldSettings);
-      console.log("Parsed settings:", parsedSettings);
+
       const newSettings = Object.keys(parsedSettings.entities).reduce(
         (acc, key) => {
           acc[key] = parsedSettings.entities[key].value;
@@ -50,19 +50,16 @@ function App() {
           newSettings[key] = false;
         }
       });
-      console.log("New settings:", newSettings);
       // store settings in zustand
       setSettings(newSettings);
       localStorage.removeItem("appSettings");
     }
-    // console.log(useSettingsStore.getState().stopBookmarks);
 
     // stopBookmarks
     const oldStopBookmarks = localStorage.getItem("stopBookmarks");
 
     if (oldStopBookmarks) {
       const parsedStopBookmarks: { ids: [] } = JSON.parse(oldStopBookmarks);
-      console.log("Parsed stop bookmarks:", parsedStopBookmarks);
       const newStopBookmarks =
         parsedStopBookmarks?.ids.map(
           (id) => parsedStopBookmarks.entities[id]
@@ -76,13 +73,10 @@ function App() {
           newStopBookmarks[i]
         );
       }
-      console.log("New stop bookmarks:", stopBookmarksMap);
       // store stop bookmarks in zustand
-      useSettingsStore.setState((prev) => ({
+      useSettingsStore.setState(() => ({
         stopBookmarks: new Map(stopBookmarksMap),
       }));
-
-      console.log(useSettingsStore.getState().stopBookmarks);
 
       // localStorage.removeItem("stopBookmarks");
       // store stop bookmarks in zustand
