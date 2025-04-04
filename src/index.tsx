@@ -7,7 +7,6 @@ import "./i18n/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals.js";
 import { router } from "./routes/MainRouter.js";
-import { saveStopBookmarkState } from "./store/bookmarks/state.js";
 import { store } from "./store/index.js";
 import { saveSubwayDbState } from "./store/suwbayDb/state.js";
 import { FluentTheme } from "./styles/FluentTheme.js";
@@ -27,7 +26,6 @@ if (container) {
 }
 
 store.subscribe(() => {
-  saveStopBookmarkState(store.getState().stopBookmarks);
   saveSubwayDbState(store.getState().subwayDb);
 });
 

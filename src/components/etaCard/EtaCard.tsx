@@ -15,8 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { EtaBusWithID } from "../../models/etaObjects.js";
-import { editStopBookmark } from "../../store/bookmarks/slice.js";
-import { useAppDispatch } from "../../store/index.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { DirectionBadge, TtcBadge } from "../badges.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
@@ -117,47 +116,57 @@ function FavouriteEditor(props: {
 }) {
   const { t } = useTranslation();
 
-  const dispatch = useAppDispatch();
-
   const onChangeFunction = useCallback(
     (line: string) => {
       if (!props.enabled) {
         const cutOffEnabled = [...props.lines];
         const cutOffIndex = cutOffEnabled.indexOf(line);
         cutOffEnabled.splice(cutOffIndex, 1);
-        dispatch(
-          editStopBookmark({
-            id: parseInt(props.id),
-            changes: {
+        useSettingsStore.setState((prev) => {
+          const updatedBookmarks = new Map(prev.stopBookmarks || []);
+          const id = parseInt(props.id);
+          const item = updatedBookmarks.get(id);
+          if (props.id && item) {
+            updatedBookmarks.set(id, {
+              ...item,
               enabled: cutOffEnabled,
-            },
-          })
-        );
+            });
+          }
+          return { stopBookmarks: updatedBookmarks };
+        });
       } else {
         const lineArray = [...props.enabled];
         if (lineArray.includes(line)) {
           // Remove
           const lineIndex = lineArray.indexOf(line);
           lineArray.splice(lineIndex, 1);
-          dispatch(
-            editStopBookmark({
-              id: parseInt(props.id),
-              changes: {
+          useSettingsStore.setState((prev) => {
+            const updatedBookmarks = new Map(prev.stopBookmarks || []);
+            const id = parseInt(props.id);
+            const item = updatedBookmarks.get(id);
+            if (props.id && item) {
+              updatedBookmarks.set(id, {
+                ...item,
                 enabled: lineArray,
-              },
-            })
-          );
+              });
+            }
+            return { stopBookmarks: updatedBookmarks };
+          });
         } else {
           // Add
           lineArray.push(line);
-          dispatch(
-            editStopBookmark({
-              id: parseInt(props.id),
-              changes: {
+          useSettingsStore.setState((prev) => {
+            const updatedBookmarks = new Map(prev.stopBookmarks || []);
+            const id = parseInt(props.id);
+            const item = updatedBookmarks.get(id);
+            if (props.id && item) {
+              updatedBookmarks.set(id, {
+                ...item,
                 enabled: lineArray,
-              },
-            })
-          );
+              });
+            }
+            return { stopBookmarks: updatedBookmarks };
+          });
         }
       }
     },

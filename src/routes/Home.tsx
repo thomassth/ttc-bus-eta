@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
-import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
-import { store } from "../store/index.js";
 import { useSettingsStore } from "../store/settingsStore.js";
 import style from "./Home.module.css";
 import Search from "./Search.js";
@@ -26,7 +24,7 @@ export default function Home() {
 
   const handleTabClick = useCallback(
     (event: SelectTabEvent, data: SelectTabData) => {
-      setEnabledTab(data.value ?? "favourites");
+      setEnabledTab(data.value as string);
     },
     [enabledTab]
   );
@@ -56,10 +54,8 @@ export default function Home() {
 
 function HomeBookmarks() {
   const { t } = useTranslation();
-  const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
-  );
-  if (stopBookmarks.length === 0) {
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
+  if (stopBookmarks.size === 0) {
     return (
       <section className="item-info-placeholder">
         <p>{t("home.headline")}</p>

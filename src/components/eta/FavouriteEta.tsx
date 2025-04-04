@@ -2,7 +2,6 @@ import { Button, Text } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
 import { useSettingsStore } from "../../store/settingsStore.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
@@ -12,16 +11,14 @@ import { BookmarkCardEta } from "./BookmarkCardEta.js";
 import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
-  const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
-  );
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
   const { t } = useTranslation();
   // const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
   const unifiedEtaValue = useSettingsStore((state) => state.unifiedEta);
 
   let fetchUrl = "";
 
-  for (const item of stopBookmarks) {
+  for (const item of stopBookmarks.values()) {
     const ttcStop = item.ttcId;
 
     const lines = item.enabled ? item.enabled : item.lines;
@@ -35,9 +32,9 @@ export default function FavouriteEta() {
 
   const EtaCards = [];
   if (unifiedEtaValue) {
-    for (const item of stopBookmarks) {
+    for (const item of stopBookmarks.values()) {
       if (
-        stopBookmarks.length > 0 ||
+        stopBookmarks.size > 0 ||
         (item.type === "ttc-subway" && (item.enabled?.length ?? 1) > 0)
       ) {
         const id = item.stopId;
@@ -63,7 +60,7 @@ export default function FavouriteEta() {
       }
     }
   } else {
-    for (const item of stopBookmarks) {
+    for (const item of stopBookmarks.values()) {
       for (const line of item.lines) {
         const id = `${line}-${item.stopId}`;
         EtaCards.push(
@@ -98,7 +95,9 @@ export default function FavouriteEta() {
       <Link to={"/bookmarks"}>
         <Button>{t("buttons.bookmarkEdit")}</Button>
       </Link>
-      {stopBookmarks && <RawDisplay data={stopBookmarks} />}
+      {stopBookmarks && (
+        <RawDisplay data={Array.from(stopBookmarks.values())} />
+      )}
     </article>
   );
 }

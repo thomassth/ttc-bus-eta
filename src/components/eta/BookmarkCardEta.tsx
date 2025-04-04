@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
-import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 import { getStopPredictions } from "../fetch/fetchUtils.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
-  );
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
 
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
   const [dataFetched, setDataFetched] = useState(false);
@@ -52,7 +50,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
       : `/stops/${props.item.stopTag}`;
 
   if (props.item.type !== "ttc-subway")
-    for (const item of stopBookmarks) {
+    for (const item of stopBookmarks.values()) {
       if (item.ttcId === props.item.stopTag) {
         stopUrl = `/stops/${item.stopId}`;
       }
