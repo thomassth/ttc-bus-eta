@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
-import { store } from "../../store/index.js";
 import { useSettingsStore } from "../../store/settingsStore.js";
-import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 import { getStopPredictions } from "../fetch/fetchUtils.js";
 import { etaParser } from "../parser/etaParser.js";
@@ -58,12 +56,11 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   const item = props.item;
 
+  const subwayDb = useSettingsStore((state) => state.subwayStops);
+
   const name =
     item.type === "ttc-subway" && props.item.stopTag
-      ? (subwayDbSelectors.selectById(
-          store.getState().subwayDb,
-          props.item.stopTag
-        )?.stop?.name ?? props.item.routeName)
+      ? (subwayDb.get(props.item.stopTag)?.name ?? props.item.routeName)
       : props.item.stopName;
 
   if (item.type !== "ttc-subway" && dataFetched && unifiedEta.length === 0) {
@@ -77,7 +74,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
         Array.isArray(props.item.line) ? props.item.line : [props.item.line]
       }
       direction={item.direction}
-      name={name}
+      name={name ?? ""}
       editable={false}
       onDelete={undefined}
       stopUrl={stopUrl}

@@ -11,16 +11,14 @@ import { FormEvent, SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { settingsRedux } from "../../models/etaObjects.js";
 import useNavigate from "../../routes/navigate.js";
-import { useAppSelector } from "../../store/index.js";
 import { useSettingsStore } from "../../store/settingsStore.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./Settings.module.css";
 
 export function Settings() {
-  const settings: settingsRedux = useAppSelector((state) => state.settings);
+  const settings = useSettingsStore();
 
   const devMode = useSettingsStore((state) => state.devMode);
 

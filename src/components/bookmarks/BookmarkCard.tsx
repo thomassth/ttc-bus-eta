@@ -1,8 +1,6 @@
 import { useCallback, useMemo } from "react";
 
-import { store } from "../../store/index.js";
 import { useSettingsStore } from "../../store/settingsStore.js";
-import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 
 export function BookmarkCard(props: { id: number }) {
@@ -24,11 +22,12 @@ export function BookmarkCard(props: { id: number }) {
 
   const item = stopBookmarks.get(id);
 
+  const subwayDb = useSettingsStore((state) => state.subwayStops);
+
   if (item) {
     const name =
       item?.type === "ttc-subway" && id
-        ? (subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
-            ?.name ?? item.name)
+        ? (subwayDb.get(id)?.name ?? item.name)
         : item?.name;
     return (
       <EtaCard

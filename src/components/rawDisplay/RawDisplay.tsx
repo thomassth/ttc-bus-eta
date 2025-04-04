@@ -12,11 +12,7 @@ import {
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import {
-  StopBookmark,
-  settingsRedux,
-  stopBookmarksRedux,
-} from "../../models/etaObjects.js";
+import { StopBookmark } from "../../models/etaObjects.js";
 import {
   SubwayStations,
   SubwayStop,
@@ -27,7 +23,6 @@ import { fluentStyles } from "../../styles/fluent.js";
 
 export default function RawDisplay(props: {
   data:
-    | stopBookmarksRedux
     | parsedVehicleLocation
     | StopBookmark[]
     | EtaPredictionJson
@@ -35,7 +30,6 @@ export default function RawDisplay(props: {
     | RoutesJson
     | SubwayStations
     | SubwayStop
-    | settingsRedux
     | StopWithDistance[];
 }) {
   const fluentStyle = fluentStyles();

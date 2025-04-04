@@ -2,9 +2,7 @@ import { Button, Text } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { store } from "../../store/index.js";
 import { useSettingsStore } from "../../store/settingsStore.js";
-import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import Bookmark from "../bookmarks/Bookmark.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { BookmarkCardEta } from "./BookmarkCardEta.js";
@@ -39,10 +37,10 @@ export default function FavouriteEta() {
       ) {
         const id = item.stopId;
 
+        const subwayDb = useSettingsStore((state) => state.subwayStops);
         const name =
           item.type === "ttc-subway" && id
-            ? (subwayDbSelectors.selectById(store.getState().subwayDb, id)?.stop
-                ?.name ?? item.name)
+            ? (subwayDb.get(id)?.name ?? item.name)
             : item.name;
 
         EtaCards.push(

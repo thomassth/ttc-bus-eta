@@ -10,6 +10,7 @@ type SettingsState = {
   defaultHomeTab: string;
   defaultProvideLocation?: boolean;
   stopBookmarks: Map<number, StopBookmark>;
+  subwayStops: Map<number, { name: string }>;
 };
 
 type SettingsActions = {
@@ -46,6 +47,7 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
         set({ defaultProvideLocation: value }),
       setSettings: (value: SettingsState) => set(value),
       stopBookmarks: new Map(),
+      subwayStops: new Map(),
     }),
     { name: "settings-storage", storage }
   )
