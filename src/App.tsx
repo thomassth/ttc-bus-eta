@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 
 import "./App.css";
-import { NavBar } from "./components/nav/NavBar";
+import { NavBar } from "./components/nav/NavBar.js";
+import { StopBookmark } from "./models/etaObjects.js";
+import { useSettingsStore } from "./store/settingsStore.js";
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -18,6 +20,67 @@ function App() {
   useEffect(() => {
     window.addEventListener("resize", handleResize, false);
     window.addEventListener("orientationchange", handleResize, false);
+  }, []);
+  const setSettings = useSettingsStore((state) => state.setSettings);
+
+  // migrate stored settings from redux to zustand
+  useEffect(() => {
+    // appSettings
+    const oldSettings = localStorage.getItem("appSettings");
+
+    if (oldSettings) {
+      const parsedSettings = JSON.parse(oldSettings);
+
+      const newSettings = Object.keys(parsedSettings.entities).reduce(
+        (acc, key) => {
+          acc[key] = parsedSettings.entities[key].value;
+          return acc;
+        },
+        {
+          unifiedEta: true,
+          devMode: false,
+          defaultHomeTab: "favourites",
+          defaultProvideLocation: false,
+        }
+      );
+      Object.keys(newSettings).forEach((key) => {
+        if (newSettings[key] === "true") {
+          newSettings[key] = true;
+        } else if (newSettings[key] === "false") {
+          newSettings[key] = false;
+        }
+      });
+      // store settings in zustand
+      setSettings(newSettings);
+      localStorage.removeItem("appSettings");
+    }
+
+    // stopBookmarks
+    const oldStopBookmarks = localStorage.getItem("stopBookmarks");
+
+    if (oldStopBookmarks) {
+      const parsedStopBookmarks: { ids: [] } = JSON.parse(oldStopBookmarks);
+      const newStopBookmarks =
+        parsedStopBookmarks?.ids.map(
+          (id) => parsedStopBookmarks.entities[id]
+        ) ?? [];
+
+      // create a new Map from the stop bookmarks
+      const stopBookmarksMap = new Map<number, StopBookmark>();
+      for (let i = 0; i < newStopBookmarks.length; i++) {
+        stopBookmarksMap.set(
+          parseInt(parsedStopBookmarks.ids[i]),
+          newStopBookmarks[i]
+        );
+      }
+      // store stop bookmarks in zustand
+      useSettingsStore.setState(() => ({
+        stopBookmarks: new Map(stopBookmarksMap),
+      }));
+
+      // localStorage.removeItem("stopBookmarks");
+      // store stop bookmarks in zustand
+    }
   }, []);
 
   return (

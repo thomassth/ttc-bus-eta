@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@fluentui/react-components";
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { StopWithDistance } from "../../models/db.js";
@@ -13,23 +12,17 @@ import {
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import {
-  StopBookmark,
-  settingsRedux,
-  stopBookmarksRedux,
-} from "../../models/etaObjects.js";
+import { StopBookmark } from "../../models/etaObjects.js";
 import {
   SubwayStations,
   SubwayStop,
   parsedVehicleLocation,
 } from "../../models/ttc.js";
-import { store } from "../../store/index.js";
-import { settingsSelectors } from "../../store/settings/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { fluentStyles } from "../../styles/fluent.js";
 
 export default function RawDisplay(props: {
   data:
-    | stopBookmarksRedux
     | parsedVehicleLocation
     | StopBookmark[]
     | EtaPredictionJson
@@ -37,22 +30,12 @@ export default function RawDisplay(props: {
     | RoutesJson
     | SubwayStations
     | SubwayStop
-    | settingsRedux
     | StopWithDistance[];
 }) {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  const settings = settingsSelectors.selectAll(store.getState().settings);
-
-  const devModeValue = settingsSelectors.selectById(
-    store.getState().settings,
-    "devMode"
-  );
-  const isInDevMode = useMemo(
-    () => (devModeValue ? devModeValue.value === "true" : false),
-    [settings]
-  );
+  const devModeValue = useSettingsStore((state) => state.devMode);
 
   const rawDisplay = (
     <Accordion collapsible className="raw-display">
@@ -67,5 +50,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return isInDevMode ? rawDisplay : <> {}</>;
+  return devModeValue ? rawDisplay : <> {}</>;
 }

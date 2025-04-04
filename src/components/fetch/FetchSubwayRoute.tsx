@@ -8,8 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStations, SubwayStopInfo } from "../../models/ttc.js";
-import { useAppDispatch } from "../../store/index.js";
-import { addStop } from "../../store/suwbayDb/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./FetchSubwayRoute.module.css";
@@ -50,8 +49,6 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
     const controller = new AbortController();
 
@@ -64,13 +61,14 @@ function RouteInfo(props: { line: number }): JSX.Element {
       subwayApiRes
         .filter((element) => element.routeBranch.headsign)
         .forEach((route) => {
-          route.routeBranchStops.forEach((stop) => {
-            dispatch(
-              addStop({
-                id: parseInt(stop.code),
-                stop,
-              })
-            );
+          const stops = route.routeBranchStops;
+
+          useSettingsStore.setState((prev) => {
+            const updatedStops = new Map(prev.subwayStops || []);
+            stops.forEach((stop) => {
+              updatedStops.set(parseInt(stop.code), stop);
+            });
+            return { subwayStops: updatedStops };
           });
         });
     };

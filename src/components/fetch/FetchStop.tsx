@@ -5,8 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
-import { store } from "../../store/index.js";
-import { settingsSelectors } from "../../store/settings/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
@@ -29,9 +28,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     setLastUpdatedAt(Date.now());
   }, [lastUpdatedAt]);
 
-  const unifiedEtaValue =
-    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
-      ?.value === "true";
+  const unifiedEtaValue = useSettingsStore((state) => state.unifiedEta);
 
   function RefreshButton() {
     return (

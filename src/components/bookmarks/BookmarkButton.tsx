@@ -3,33 +3,39 @@ import {
   BookmarkAdd24Regular,
   BookmarkOff24Filled,
 } from "@fluentui/react-icons";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects.js";
-import {
-  addStopBookmark,
-  removeStopBookmark,
-} from "../../store/bookmarks/slice.js";
-import { useAppDispatch, useAppSelector } from "../../store/index.js";
+import { StopBookmark } from "../../models/etaObjects.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 
 export function BookmarkButton(props: StopBookmark) {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state) => state.stopBookmarks
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
+  const stopBookmarksIds = useMemo(
+    () => Array.from(stopBookmarks.keys()),
+    [stopBookmarks]
   );
   const isBookmarked = useCallback(() => {
-    return stopBookmarks.ids.includes(props.stopId);
+    return stopBookmarksIds.includes(props.stopId);
   }, [stopBookmarks]);
 
   const checkBookmarkStatus = useCallback(() => {
     if (isBookmarked()) {
-      dispatch(removeStopBookmark(props.stopId));
+      useSettingsStore.setState((prev) => {
+        const updatedBookmarks = new Map(prev.stopBookmarks || []);
+        updatedBookmarks.delete(props.stopId);
+        return { stopBookmarks: updatedBookmarks };
+      });
     } else {
-      dispatch(addStopBookmark(props));
+      useSettingsStore.setState((prev) => ({
+        stopBookmarks: new Map(prev.stopBookmarks || []).set(
+          props.stopId,
+          props
+        ),
+      }));
     }
-  }, [stopBookmarks.ids]);
+  }, [stopBookmarksIds]);
 
   return (
     <Button

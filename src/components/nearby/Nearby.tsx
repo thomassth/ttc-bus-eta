@@ -3,11 +3,7 @@ import { Info16Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { store, useAppDispatch } from "../../store/index.js";
-import {
-  changeSettings,
-  settingsSelectors,
-} from "../../store/settings/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { addStops, getSize } from "../../store/ttcRouteDb.js";
 import style from "./Nearby.module.css";
 import NearbyList from "./NearbyList.js";
@@ -21,16 +17,17 @@ export default function Nearby() {
     {}
   );
 
-  const defaultProvideLocationValue = settingsSelectors.selectById(
-    store.getState().settings,
-    "defaultProvideLocation"
+  const defaultProvideLocationValue = useSettingsStore(
+    (state) => state.defaultProvideLocation
+  );
+  const setDefaultProvideLocationValue = useSettingsStore(
+    (state) => state.setDefaultProvideLocation
   );
   const [locationMode, setLocationMode] = useState(
     typeof defaultProvideLocationValue !== "undefined"
-      ? defaultProvideLocationValue.value === "true"
+      ? defaultProvideLocationValue
       : false
   );
-  const dispatch = useAppDispatch();
   const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
 
   useEffect(() => {
@@ -80,18 +77,9 @@ export default function Nearby() {
   }, []);
 
   const locationModeChange = useCallback(
-    (ev: {
-      currentTarget: { checked: boolean | ((prevState: boolean) => boolean) };
-    }) => {
-      const valueString = ev.currentTarget.checked.toString();
+    (ev: { currentTarget: { checked: boolean } }) => {
       setLocationMode(ev.currentTarget.checked);
-      dispatch(
-        changeSettings({
-          id: "defaultProvideLocation",
-          name: "defaultProvideLocation",
-          value: valueString,
-        })
-      );
+      setDefaultProvideLocationValue(ev.currentTarget.checked);
     },
     [setLocationMode]
   );

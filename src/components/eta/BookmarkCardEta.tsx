@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
-import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
-import { store } from "../../store/index.js";
-import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
 import { getStopPredictions } from "../fetch/fetchUtils.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
-  const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
-  );
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
 
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
   const [dataFetched, setDataFetched] = useState(false);
@@ -52,7 +48,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
       : `/stops/${props.item.stopTag}`;
 
   if (props.item.type !== "ttc-subway")
-    for (const item of stopBookmarks) {
+    for (const item of stopBookmarks.values()) {
       if (item.ttcId === props.item.stopTag) {
         stopUrl = `/stops/${item.stopId}`;
       }
@@ -60,12 +56,11 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   const item = props.item;
 
+  const subwayDb = useSettingsStore((state) => state.subwayStops);
+
   const name =
     item.type === "ttc-subway" && props.item.stopTag
-      ? (subwayDbSelectors.selectById(
-          store.getState().subwayDb,
-          props.item.stopTag
-        )?.stop?.name ?? props.item.routeName)
+      ? (subwayDb.get(props.item.stopTag)?.name ?? props.item.routeName)
       : props.item.stopName;
 
   if (item.type !== "ttc-subway" && dataFetched && unifiedEta.length === 0) {
@@ -79,7 +74,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
         Array.isArray(props.item.line) ? props.item.line : [props.item.line]
       }
       direction={item.direction}
-      name={name}
+      name={name ?? ""}
       editable={false}
       onDelete={undefined}
       stopUrl={stopUrl}

@@ -1,53 +1,58 @@
 import { Button, Text } from "@fluentui/react-components";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { stopBookmarksRedux } from "../../models/etaObjects.js";
-import { clearStopBookmarks } from "../../store/bookmarks/slice.js";
-import { useAppDispatch, useAppSelector } from "../../store/index.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { BookmarkCard } from "./BookmarkCard.js";
 
 export default function Bookmark() {
-  const stopBookmarks: stopBookmarksRedux = useAppSelector(
-    (state: { stopBookmarks: stopBookmarksRedux }) => state.stopBookmarks
+  const stopBookmarks = useSettingsStore((state) => state.stopBookmarks);
+  const stopBookmarksIds = useMemo(
+    () => Array.from(stopBookmarks.keys()),
+    [stopBookmarks]
   );
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const bookmarks = stopBookmarks.ids.map((item: number) => {
+  const bookmarks = stopBookmarksIds.map((item: number) => {
     return <BookmarkCard key={item} id={item} />;
   });
 
   let fetchUrl = "";
 
-  for (const id of stopBookmarks.ids) {
-    const ttcStop = stopBookmarks.entities[id].ttcId;
+  for (const id of stopBookmarksIds) {
+    const ttcStop = stopBookmarks.get(id)?.ttcId;
 
-    for (const line of stopBookmarks.entities[id].lines) {
-      fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
-    }
+    const lines = stopBookmarks.get(id)?.lines;
+    if (lines)
+      for (const line of lines) {
+        fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+      }
   }
 
   const clearAllBookmarks = useCallback(() => {
-    dispatch(clearStopBookmarks());
+    useSettingsStore.setState(() => {
+      return {
+        stopBookmarks: new Map(),
+      };
+    });
   }, []);
 
   return (
     <article className="bookmark-container">
-      {stopBookmarks.ids.length === 0 ? (
+      {stopBookmarksIds.length === 0 ? (
         <section className="item-info-placeholder">
           <Trans>{t("home.headline")}</Trans>
           <Text>{t("home.bookmarkReminder")}</Text>
         </section>
       ) : null}
       <ul>{bookmarks}</ul>
-      {stopBookmarks.ids.length > 0 ? (
+      {stopBookmarksIds.length > 0 ? (
         <Button className="bookmark-clear-button" onClick={clearAllBookmarks}>
           {t("buttons.clear")}
         </Button>
       ) : null}
 
-      <RawDisplay data={stopBookmarks} />
+      <RawDisplay data={Array.from(stopBookmarks.values())} />
     </article>
   );
 }

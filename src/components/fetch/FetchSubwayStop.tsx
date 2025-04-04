@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SubwayStop } from "../../models/ttc.js";
-import { store } from "../../store/index.js";
-import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
+import { useSettingsStore } from "../../store/settingsStore.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -32,10 +31,8 @@ function SubwayStopPredictionInfo(props: {
     fetchPredictions();
   }, []);
 
-  const stationName = subwayDbSelectors.selectById(
-    store.getState().subwayDb,
-    props.stopNum
-  );
+  const subwayDb = useSettingsStore((state) => state.subwayStops);
+  const station = subwayDb.get(props.stopNum);
 
   const trainETAs = (nextTrainsData: string) => {
     if (nextTrainsData.length <= 0) {
@@ -68,9 +65,9 @@ function SubwayStopPredictionInfo(props: {
 
   return (
     <div className="directionsList list">
-      {stationName && (
+      {station && (
         <>
-          <Title1>{stationName.stop.name.split(" - ")[0]}</Title1>
+          <Title1>{station.name.split(" - ")[0]}</Title1>
           <br />
         </>
       )}
