@@ -1,37 +1,36 @@
 // Not maintained for now: no appearant use when comparing to FetchStop
 import { Button, LargeTitle, Text } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionJson } from "../../models/etaJson.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
-import { getLineStopPredictions } from "./fetchUtils.js";
+import { ttcLineStopPrediction } from "./queries.js";
 
 function LineStopPredictionInfo(props: {
   line: number;
   stopNum: number;
 }): JSX.Element {
-  const [data, setData] = useState<EtaPredictionJson>();
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
-  const fetchPredictions = async (
-    line = props.line,
-    stopNum = props.stopNum
-  ) => {
-    // let ans: Document;
-    const data = await getLineStopPredictions(line, stopNum, {});
-    setData(data);
-  };
+  const ttcLineStopPredictionsResponse = useQuery({
+    ...ttcLineStopPrediction(props.line, props.stopNum),
+    queryKey: [
+      `ttc-line-stop-${props.line}-${props.stopNum}`,
+      lastUpdatedAt.toString(),
+    ],
+  });
 
-  useEffect(() => {
-    fetchPredictions();
-  }, []);
+  const data = useMemo(() => {
+    return ttcLineStopPredictionsResponse.data;
+  }, [ttcLineStopPredictionsResponse.data]);
 
   const fetchPredictionClick = useCallback(() => {
-    fetchPredictions();
-  }, []);
+    setLastUpdatedAt(Date.now());
+  }, [lastUpdatedAt]);
 
   function RefreshButton() {
     return (

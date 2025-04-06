@@ -6,7 +6,7 @@ import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { ttcStops } from "../fetch/queries.js";
+import { ttcStopPrediction } from "../fetch/queries.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
@@ -15,7 +15,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
   );
 
   const getStopPredictionsResponse = useQuery({
-    ...ttcStops(props.item.stopTag),
+    ...ttcStopPrediction(props.item.stopTag),
     queryKey: [`nearby-stop-${props.item.stopTag}`],
   });
 

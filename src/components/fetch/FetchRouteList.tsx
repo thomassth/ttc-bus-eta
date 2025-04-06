@@ -62,7 +62,7 @@ export function RoutesInfo() {
         {subwayCards()}
         {routesCards}
       </ul>
-      {lineData.data && <RawDisplay data={lineData} />}
+      {lineData.data && <RawDisplay data={lineData.data} />}
     </article>
   );
 }

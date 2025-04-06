@@ -5,14 +5,14 @@ import { useTranslation } from "react-i18next";
 import { StopWithDistance } from "../../models/db.js";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { ttcStops } from "../fetch/queries.js";
+import { ttcStopPrediction } from "../fetch/queries.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
   const { t } = useTranslation();
 
   const getStopPredictionsResponse = useQuery({
-    ...ttcStops(parseInt(stop.id)),
+    ...ttcStopPrediction(parseInt(stop.id)),
     queryKey: [`nearby-stop-${stop.id}`],
   });
 
