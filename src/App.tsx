@@ -8,9 +8,9 @@ import { Link, Outlet } from "react-router-dom";
 import "./App.css";
 import { NavBar } from "./components/nav/NavBar.js";
 
-function App() {
-  const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
+function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const { t } = useTranslation();
 

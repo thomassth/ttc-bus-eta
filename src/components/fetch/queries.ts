@@ -83,7 +83,7 @@ export const ttcRoute = (line: number) =>
 
 export const ttcVehicleLocation = (vehicle: number) =>
   queryOptions<parsedVehicleLocation>({
-    queryKey: ["ttc-vehicle-location"],
+    queryKey: [`ttc-vehicle-location-${vehicle}`],
     queryFn: async () => {
       const response = await fetch(
         `https://webservices.umoiq.com/service/publicJSONFeed?command=vehicleLocation&a=ttc&v=${vehicle}`
