@@ -1,7 +1,12 @@
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import { queryOptions } from "@tanstack/react-query";
 
-import { EtaPredictionJson, RoutesJson } from "../../models/etaJson.js";
+import {
+  EtaPredictionJson,
+  RouteJson,
+  RoutesJson,
+} from "../../models/etaJson.js";
+import { parsedVehicleLocation } from "../../models/ttc.js";
 
 export const ttcStops = (stopId: number) =>
   queryOptions<EtaPredictionJson>({
@@ -16,7 +21,8 @@ export const ttcStops = (stopId: number) =>
 
       return response.json();
     },
-    placeholderData: (prev: any) => prev,
+    refetchInterval: 60 * 1000,
+    placeholderData: (prev) => prev,
   });
 
 export const ttcLines = queryOptions<RoutesJson["body"]>({
@@ -34,3 +40,37 @@ export const ttcLines = queryOptions<RoutesJson["body"]>({
   staleTime: 24 * 60 * 60 * 1000,
   refetchInterval: 60 * 1000,
 });
+
+export const ttcRoute = (line: number) =>
+  queryOptions<RouteJson>({
+    queryKey: [`ttc-route-${line}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://webservices.umoiq.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=${line}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+    staleTime: 24 * 60 * 60 * 1000,
+    refetchInterval: 60 * 1000,
+  });
+
+export const ttcVehicleLocation = (vehicle: number) =>
+  queryOptions<parsedVehicleLocation>({
+    queryKey: ["ttc-vehicle-location"],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://webservices.umoiq.com/service/publicJSONFeed?command=vehicleLocation&a=ttc&v=${vehicle}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+    refetchInterval: 60 * 1000,
+    placeholderData: (prev) => prev,
+  });

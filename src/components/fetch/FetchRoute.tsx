@@ -10,23 +10,34 @@ import type {
   SelectTabEvent,
   TabValue,
 } from "@fluentui/react-components";
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { RouteJson } from "../../models/etaJson.js";
-import { LineStop, LineStopElement } from "../../models/etaObjects.js";
+import { LineStopElement } from "../../models/etaObjects.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./FetchRoute.module.css";
-import { getTTCRouteData } from "./fetchUtils.js";
+import { ttcRoute } from "./queries.js";
 
 function RouteInfo(props: { line: number }): JSX.Element {
-  const [data, setData] = useState<RouteJson>();
-  const [stopDb, setStopDb] = useState<LineStop[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const [enabledDir, setEnabledDir] = useState<TabValue>("");
   const { t } = useTranslation();
+
+  const ttcRouteResponse = useQuery({
+    ...ttcRoute(props.line),
+    queryKey: [`ttc-route-${props.line}`, lastUpdatedAt.toString()],
+  });
+
+  const stopDb = useMemo(() => {
+    if (ttcRouteResponse.data) {
+      return stopsParser(ttcRouteResponse.data);
+    } else {
+      return [];
+    }
+  }, [ttcRouteResponse.data]);
 
   const createStopList = useCallback(
     (stuff: { stop: { tag: string }[] }) => {
@@ -52,35 +63,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
     [stopDb]
   );
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchStopsData = async () => {
-      const data = await getTTCRouteData(props.line, {
-        signal: controller.signal,
-      });
-
-      return { parsedData: data };
-    };
-
-    fetchStopsData().then(({ parsedData }) => {
-      if (!parsedData) {
-        return;
-      }
-      setData(parsedData);
-      setStopDb(stopsParser(parsedData));
-    });
-
-    // when useEffect is called, the following clean-up fn will run first
-    return () => {
-      controller.abort();
-    };
-  }, [lastUpdatedAt]);
-
   const handleFetchBusClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-    setData(undefined);
-    setStopDb([]);
   }, [lastUpdatedAt]);
 
   const handleDirClick = useCallback(
@@ -88,7 +72,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
     [enabledDir]
   );
 
-  if (data) {
+  if (ttcRouteResponse.data) {
+    const data = ttcRouteResponse.data;
     if (!data.Error) {
       const directions: Set<string> = new Set();
       data.route.direction.forEach((line) => {
