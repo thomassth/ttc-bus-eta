@@ -1,9 +1,9 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaPredictionJson } from "../../models/etaJson.js";
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
@@ -15,15 +15,31 @@ import SMSButton from "../eta/SMSButton.js";
 import { etaParser } from "../parser/etaParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./FetchStop.module.css";
-import { getStopPredictions } from "./fetchUtils.js";
+import { ttcStops } from "./queries.js";
 
+function RefreshButton({
+  handleRefreshClick,
+}: {
+  handleRefreshClick: () => void;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <Button onClick={handleRefreshClick} icon={<ArrowClockwise24Regular />}>
+      {t("buttons.refresh")}
+    </Button>
+  );
+}
 function StopPredictionInfo(props: { stopId: number }): JSX.Element {
-  const [data, setData] = useState<EtaPredictionJson>();
-  const [stopId] = useState(props.stopId);
+  const stopId = props.stopId;
   const [etaDb, setEtaDb] = useState<LineStopEta[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
   const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
+  const ttcStopPrediction = useQuery({
+    ...ttcStops(stopId),
+    queryKey: [`ttc-stop-${stopId}`, lastUpdatedAt.toString()],
+  });
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
@@ -33,40 +49,25 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     settingsSelectors.selectById(store.getState().settings, "unifiedEta")
       ?.value === "true";
 
-  function RefreshButton() {
-    return (
-      <Button onClick={handleRefreshClick} icon={<ArrowClockwise24Regular />}>
-        {t("buttons.refresh")}
-      </Button>
-    );
-  }
-
   useEffect(() => {
-    const controller = new AbortController();
-
-    getStopPredictions(stopId, { signal: controller.signal }).then((data) => {
-      if (data) {
-        setData(data);
-        setEtaDb(etaParser(data));
-      }
-    });
-
-    // when useEffect is called, the following clean-up fn will run first
-    return () => {
-      controller.abort();
-    };
-  }, [lastUpdatedAt]);
-
-  useEffect(() => {
-    let templist: EtaBusWithID[] = [];
-    for (const list of etaDb) {
-      templist = templist.concat(list.etas ?? []);
+    if (ttcStopPrediction.data) {
+      setEtaDb(etaParser(ttcStopPrediction.data));
     }
-    setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
-  }, [etaDb]);
+  }, [ttcStopPrediction]);
 
-  if (data) {
-    if (data.Error === undefined) {
+  useEffect(() => {
+    if (unifiedEtaValue) {
+      let templist: EtaBusWithID[] = [];
+      for (const list of etaDb) {
+        templist = templist.concat(list.etas ?? []);
+      }
+
+      setUnifiedEta(templist.sort((a, b) => a.epochTime - b.epochTime));
+    }
+  }, [etaDb, unifiedEtaValue]);
+
+  if (ttcStopPrediction.data) {
+    if (ttcStopPrediction.data.Error === undefined) {
       let listContent: JSX.Element[] = [];
       if (unifiedEtaValue) {
         listContent = unifiedEta.map((element, index) => {
@@ -114,7 +115,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             </>
           )}
           <div className="countdown-button-group">
-            <RefreshButton />
+            <RefreshButton handleRefreshClick={handleRefreshClick} />
             {etaDb[0] && (
               <BookmarkButton
                 stopId={stopId}
@@ -137,7 +138,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               <SMSButton stopId={stopId} />
             </>
           )}
-          <RawDisplay data={data} />
+          <RawDisplay data={ttcStopPrediction.data} />
         </div>
       );
     } else {
@@ -146,18 +147,18 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
         <div>
           <Title1>{t("reminder.failToLocate")}</Title1>
           <div className="countdown-button-group">
-            <RefreshButton />
+            <RefreshButton handleRefreshClick={handleRefreshClick} />
             <SMSButton stopId={stopId} />
           </div>
-          <span>{data.Error["#text"]}</span>
-          <RawDisplay data={data} />
+          <span>{ttcStopPrediction.data.Error["#text"]}</span>
+          <RawDisplay data={ttcStopPrediction.data} />
         </div>
       );
     }
   } else {
     return (
       <div>
-        {navigator.onLine ? (
+        {ttcStopPrediction.status === "pending" ? (
           <Title1>{t("reminder.loading")}</Title1>
         ) : (
           <>
@@ -167,7 +168,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           </>
         )}
         <div className="countdown-button-group">
-          <RefreshButton />
+          <RefreshButton handleRefreshClick={handleRefreshClick} />
           <SMSButton stopId={stopId} />
         </div>
       </div>
