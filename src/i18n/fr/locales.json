@@ -37,8 +37,8 @@
     "singleList": "afficher une liste simple"
   },
   "stops": {
-    "ariaLabel": "entrer le numéro d'arrêt",
-    "stopId": "numéro d'arrêt : {{stopNum}} ="
+    "ariaLabel": "Code d'arrêt",
+    "stopId": "Code d'arrêt : {{stopNum}} ="
   },
   "buttons": {
     "search": "Rechercher",

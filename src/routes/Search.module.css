@@ -15,7 +15,7 @@
   border-radius: var(--borderRadiusXLarge);
   overflow: hidden;
   border: black solid 8px;
-  max-width: 30rem;
+  max-width: min(100%, 30rem);
   margin: auto;
   width: max-content;
 
@@ -26,7 +26,8 @@
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 2rem 0;
+    padding: 1rem 0;
+    min-width: fit-content;
 
     button {
       position: absolute;
@@ -45,7 +46,7 @@
     /* -webkit-appearance: textfield; */
     appearance: textfield;
     font-size: x-large;
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 
   .center-input input {
@@ -64,9 +65,11 @@
 
   &.compact {
     flex-direction: unset;
+    gap: 1ch;
+    background-color: black;
 
     .title {
-      padding: 0 1rem;
+      padding: 0;
 
       span {
         font-size: unset;
@@ -75,6 +78,7 @@
 
     input {
       padding: unset;
+      background-color: var(--colorNeutralBackground1);
     }
 
     .submit-button button {
