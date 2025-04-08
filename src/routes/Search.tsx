@@ -1,8 +1,10 @@
 import { Button, Input, Title1 } from "@fluentui/react-components";
 import { ArrowRight12Filled } from "@fluentui/react-icons";
-import { SetStateAction, useCallback, useState } from "react";
+import { SetStateAction, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { stopBookmarksRedux } from "../models/etaObjects.js";
+import { useAppSelector } from "../store/index.js";
 import style from "./Search.module.css";
 import useNavigate from "./navigate.js";
 
@@ -11,6 +13,14 @@ export default function SearchElement() {
   const [stopInput, setStopInput] = useState("");
   const { t } = useTranslation();
   const { navigate } = useNavigate();
+
+  const stopBookmarks: stopBookmarksRedux = useAppSelector(
+    (state: { stopBookmarks: stopBookmarksRedux }) => state.stopBookmarks
+  );
+
+  const bookmarksSaved = useMemo(() => {
+    return stopBookmarks.ids.length > 0;
+  }, [stopBookmarks.ids.length]);
 
   const handleLineChange = useCallback(
     (e: { currentTarget: { value: SetStateAction<string> } }) => {
@@ -32,9 +42,17 @@ export default function SearchElement() {
     } else if (lineInput !== "") navigate(`lines/${lineInput}`);
   }, [lineInput, stopInput]);
 
+  const classList = useMemo(() => {
+    const list = [style["next-vehicle-container"]];
+
+    if (bookmarksSaved) list.push(style.compact);
+
+    return list;
+  }, [bookmarksSaved]);
+
   return (
     <div className="search-form">
-      <form className={`${style["next-vehicle-container"]} ${style.compact}`}>
+      <form className={classList.join(" ")}>
         <div className={style.title}>
           <Title1>{t("home.nextVehicle")}</Title1>
         </div>
