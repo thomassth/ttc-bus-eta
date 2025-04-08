@@ -44,7 +44,7 @@ export const fetchSubwayClosure = (date: string) =>
 
       return response.json();
     },
-    placeholderData: (prev: any) => prev,
+    placeholderData: (prev) => prev,
   });
 
 export const ttcLineStopPrediction = (line: number, stopNum: number) =>

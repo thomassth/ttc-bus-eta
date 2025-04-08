@@ -10,7 +10,7 @@ export default function CurrentAlerts() {
     <>
       {Array.isArray(gtfsAlertsResp.data?.entity) && <h3>Current alerts</h3>}
       {Array.isArray(gtfsAlertsResp.data?.entity) &&
-        gtfsAlertsResp.data.entity.map((item, index) => (
+        gtfsAlertsResp.data.entity.map((item) => (
           <p
             key={item.alert.headerText.translation[0].text}
             id={item.alert.headerText.translation[0].text}
