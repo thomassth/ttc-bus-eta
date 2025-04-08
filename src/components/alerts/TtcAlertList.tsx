@@ -3,7 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { ttcAlerts } from "../fetch/queries.js";
 import { SkeetList } from "./bsky-alerts/SkeetList.js";
 
-export function TtcAlertList({ lineNum }: { lineNum: number[] }) {
+export function TtcAlertList({
+  lineNum,
+  type,
+}: {
+  lineNum: number[];
+  type?: string;
+}) {
   const bskyAlerts = useQuery(ttcAlerts);
 
   const filteredBskyAlerts =
@@ -21,6 +27,7 @@ export function TtcAlertList({ lineNum }: { lineNum: number[] }) {
         <SkeetList
           skeetList={filteredBskyAlerts}
           line={lineNum.length > 1 ? "all" : `${lineNum[0]}`}
+          type={type}
         />
       )}
     </>

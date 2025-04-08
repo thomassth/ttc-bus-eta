@@ -9,6 +9,7 @@ export const SubwayClosureItem = ({
     <li>
       <h3>{closure.line}</h3>
       <p>{closure.text}</p>
+      <a href={closure.url}>Closure details (TTC.ca)</a>
     </li>
   );
 };

@@ -5,6 +5,7 @@ import {
   TabList,
 } from "@fluentui/react-components";
 import { useQuery } from "@tanstack/react-query";
+import { formatDistanceToNowStrict } from "date-fns";
 import { useCallback, useMemo, useState } from "react";
 
 import { TtcBadge } from "../../badges.js";
@@ -52,9 +53,14 @@ export const AllBskyAlerts = () => {
       return skeet.line === parseInt(enabledTab);
     });
   }, [enabledTab, bskyAlertWithLines]);
+  const lastSkeetTime = useMemo(() => {
+    if (!bskyAlerts.data?.feed.length) return null;
+    const lastSkeet = bskyAlerts.data.feed[bskyAlerts.data.feed.length - 1];
+    return formatDistanceToNowStrict(lastSkeet.post.record.createdAt);
+  }, [bskyAlerts.data?.feed]);
   return (
     <div>
-      <h2>Recent alerts ({bskyAlerts.data?.feed.length})</h2>
+      <h2>Recent alerts (last {lastSkeetTime})</h2>
       <TabList
         defaultSelectedValue="all"
         onTabSelect={handleTabClick}
@@ -66,7 +72,7 @@ export const AllBskyAlerts = () => {
         {bskyAlertLines?.map((line) => {
           return (
             <Tab key={line} value={line} id={line.toString()}>
-              <TtcBadge lineNum={line.toString()} />
+              <TtcBadge lineNum={line.toString()} type="standalone" />
             </Tab>
           );
         })}

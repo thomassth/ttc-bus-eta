@@ -83,7 +83,7 @@ function SubwayStopPredictionInfo(props: {
         </>
       )}
       <Title1>{data.directionText}</Title1>
-      <TtcAlertList lineNum={[props.line]} />
+      <TtcAlertList lineNum={[props.line]} type="compact" />
       <div className="countdown-row">
         <RefreshButton onRefresh={fetchPredictionClick} />
         <BookmarkButton

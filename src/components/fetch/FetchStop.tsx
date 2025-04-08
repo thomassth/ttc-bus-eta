@@ -100,7 +100,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       });
       return (
         <div className="countdown-list-container">
-          <TtcAlertList lineNum={lineList} />
           {etaDb[0] && (
             <>
               <span className={style["top-row"]}>
@@ -118,6 +117,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               </div>
             </>
           )}
+          <TtcAlertList lineNum={lineList} type="compact" />
           <div className="countdown-button-group">
             <RefreshButton handleRefreshClick={handleRefreshClick} />
             {etaDb[0] && (

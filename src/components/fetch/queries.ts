@@ -138,7 +138,7 @@ export const ttcVehicleLocation = (vehicle: number) =>
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
 export const ttcAlerts = queryOptions<{
-  feed: { post: { record: { text: string } } }[];
+  feed: { post: { record: { text: string; createdAt: string } } }[];
 }>({
   queryKey: ["bsky"],
   queryFn: async () => {
