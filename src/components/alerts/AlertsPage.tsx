@@ -4,10 +4,10 @@ import { ttcAlerts } from "../fetch/queries.js";
 import { SkeetList } from "./SkeetList.js";
 
 export default function TtcAlertList() {
-  const query = useQuery(ttcAlerts);
+  const socialMediaQuery = useQuery(ttcAlerts);
 
   return (
-    <div>
+    <div className="alert-page">
       <h1>Recent Service Alerts</h1>
       <p>
         Source:{" "}
@@ -15,7 +15,9 @@ export default function TtcAlertList() {
           https://bsky.app/profile/ttcalerts.bsky.social
         </a>
       </p>
-      {query.data && <SkeetList skeetList={query.data?.feed} line={"all"} />}
+      {socialMediaQuery.data && (
+        <SkeetList skeetList={socialMediaQuery.data?.feed} line={"all"} />
+      )}
     </div>
   );
 }

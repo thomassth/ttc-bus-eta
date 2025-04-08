@@ -97,6 +97,8 @@ export const ttcVehicleLocation = (vehicle: number) =>
     refetchInterval: 60 * 1000,
     placeholderData: (prev) => prev,
   });
+// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
+
 export const ttcAlerts = {
   queryKey: ["bsky"],
   queryFn: async () => {
@@ -112,6 +114,25 @@ export const ttcAlerts = {
   staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
 };
+
+// inaccessible; CORS Missing Allow Origin
+// export const ttcGtfsAlerts = {
+//   queryKey: ["ttc-gtfs"],
+//   queryFn: async () => {
+//     const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     const buffer = await response.arrayBuffer();
+//     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+//       new Uint8Array(buffer)
+//     );
+//     return feed;
+//   },
+//   staleTime: 60 * 1000,
+//   refetchInterval: 60 * 1000,
+// };
 
 export const ttcSubwayPredictions = (stopNum: number) =>
   queryOptions<SubwayStop[]>({

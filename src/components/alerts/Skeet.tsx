@@ -6,9 +6,15 @@ export const SkeetElement = ({
   skeet,
   badge,
 }: {
-  skeet: { post: { record: { text: string; createdAt: string } } };
+  skeet: {
+    post: {
+      cid: string;
+      record: { text: string; createdAt: string };
+    };
+  };
   badge: { highlightAll?: boolean; line?: string };
 }) => {
+  const cid = skeet.post.cid;
   const lineNum = parseInt(`${badge.line}`);
   const feedText = skeet.post.record.text;
 
@@ -26,17 +32,16 @@ export const SkeetElement = ({
           .split(lineFilter)
           .flatMap((item) => [
             item,
-            <TtcBadge lineNum={lineFilter} key={lineFilter} />,
+            <TtcBadge lineNum={lineFilter} key={`${cid}-${lineFilter}`} />,
           ])
           .slice(0, -1)
       : feedText;
   return (
     <li>
       <p className="time">
-        {formatDistanceStrict(new Date(), skeet.post.record.createdAt, {
-          includeSeconds: true,
-        })}{" "}
-        ago:
+        {formatDistanceStrict(skeet.post.record.createdAt, new Date(), {
+          addSuffix: true,
+        })}
       </p>
       <span className="content">{parsedText}</span>
     </li>
