@@ -1,6 +1,6 @@
 import { formatDistanceStrict } from "date-fns";
 
-import { TtcBadge } from "../badges.js";
+import { ParsedTtcAlertText } from "./AlertUtils.js";
 
 export const SkeetElement = ({
   skeet,
@@ -15,27 +15,9 @@ export const SkeetElement = ({
   badge: { highlightAll?: boolean; line?: string };
 }) => {
   const cid = skeet.post.cid;
-  const lineNum = parseInt(`${badge.line}`);
   const feedText = skeet.post.record.text;
 
-  const lineFilter = badge.line
-    ? lineNum < 6
-      ? `Line ${lineNum}`
-      : `${lineNum}`
-    : badge.highlightAll
-      ? (feedText.match(/\d+/)?.[0] ?? "")
-      : "";
-
-  const parsedText =
-    badge.line || badge.highlightAll
-      ? feedText
-          .split(lineFilter)
-          .flatMap((item) => [
-            item,
-            <TtcBadge lineNum={lineFilter} key={`${cid}-${lineFilter}`} />,
-          ])
-          .slice(0, -1)
-      : feedText;
+  const parsedText = ParsedTtcAlertText(badge, feedText, cid);
   return (
     <li>
       <p className="time">
