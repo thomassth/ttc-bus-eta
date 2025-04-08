@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { TtcAlertList } from "../alerts/TtcAlertList.js";
 import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
@@ -63,6 +64,10 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return templist.sort((a, b) => a.epochTime - b.epochTime);
   }, [etaDb]);
 
+  const lineList = useMemo(() => {
+    return [...new Set(etaDb.map((item) => parseInt(item.line.toString())))];
+  }, [etaDb]);
+
   if (ttcStopPredictionResponse.data) {
     const data = ttcStopPredictionResponse.data;
     if (data.Error === undefined) {
@@ -95,6 +100,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
       });
       return (
         <div className="countdown-list-container">
+          <TtcAlertList lineNum={lineList} />
           {etaDb[0] && (
             <>
               <span className={style["top-row"]}>

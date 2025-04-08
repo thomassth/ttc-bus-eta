@@ -99,7 +99,7 @@ export const ttcVehicleLocation = (vehicle: number) =>
   });
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
-export const ttcAlerts = {
+export const ttcAlerts = queryOptions({
   queryKey: ["bsky"],
   queryFn: async () => {
     const response = await fetch(
@@ -113,7 +113,7 @@ export const ttcAlerts = {
   },
   staleTime: 60 * 1000,
   refetchInterval: 60 * 1000,
-};
+});
 
 // inaccessible; CORS Missing Allow Origin
 // export const ttcGtfsAlerts = {
