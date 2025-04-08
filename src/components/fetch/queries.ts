@@ -64,6 +64,7 @@ export const ttcLines = queryOptions<RoutesJson["body"]>({
   placeholderData: (prev) => prev,
 });
 
+// inaccessible; CORS Missing Allow Origin
 export const gtfsAlerts = queryOptions({
   queryKey: ["gtfs-alerts"],
   queryFn: async () => {

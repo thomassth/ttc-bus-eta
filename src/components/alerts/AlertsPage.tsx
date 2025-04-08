@@ -11,18 +11,18 @@ export default function TtcAlertList() {
   return (
     <div className="alert-page">
       <h1>Recent Service Alerts</h1>
-      <h2>Current alerts</h2>
+      {Array.isArray(gtfsAlertsResp.data?.entity) && <h2>Current alerts</h2>}
       {Array.isArray(gtfsAlertsResp.data?.entity) &&
         gtfsAlertsResp.data.entity.map((item, index) => (
           <p
             key={item.alert.headerText.translation[0].text}
             id={item.alert.headerText.translation[0].text}
           >
-            {ParsedTtcAlertText(
-              { highlightAll: true },
-              item.alert.descriptionText.translation[0].text,
-              item.alert.headerText.translation[0].text
-            )}
+            <ParsedTtcAlertText
+              badge={{ highlightAll: true }}
+              feedText={item.alert.descriptionText.translation[0].text}
+              id={item.alert.headerText.translation[0].text}
+            />
           </p>
         ))}
       <h2>Recent alerts ({socialMediaQuery.data?.feed.length})</h2>

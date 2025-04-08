@@ -1,10 +1,14 @@
 import { TtcBadge } from "../badges.js";
 
-export const ParsedTtcAlertText = (
-  badge: { highlightAll?: boolean; line?: string },
-  feedText: string,
-  id: string
-) => {
+export const ParsedTtcAlertText = ({
+  badge,
+  feedText = "",
+  id,
+}: {
+  badge: { highlightAll?: boolean; line?: string };
+  feedText: string;
+  id: string;
+}) => {
   const lineNum = parseInt(`${badge.line}`);
 
   const lineFilter = badge.line
@@ -15,7 +19,7 @@ export const ParsedTtcAlertText = (
       ? (feedText.match(/\d+/)?.[0] ?? "")
       : "";
 
-  return badge.line || badge.highlightAll
+  return badge.line || (badge.highlightAll && lineFilter.length > 0)
     ? feedText
         .split(lineFilter)
         .flatMap((item) => [
