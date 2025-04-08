@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { subwayLines } from "../../data/ttc.js";
-// import { addRoutes } from "../../store/ttcRoutesDb.js";
 import { TtcBadge } from "../badges.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import { ttcLines } from "./queries.js";
