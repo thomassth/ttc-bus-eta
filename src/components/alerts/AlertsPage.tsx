@@ -5,17 +5,14 @@ import {
   TabList,
   TabValue,
 } from "@fluentui/react-components";
-import { useQuery } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 
-import { ttcAlerts } from "../fetch/queries.js";
 import style from "./AlertsPage.module.css";
 import CurrentAlerts from "./CurrentAlerts.js";
-import { SkeetList } from "./SkeetList.js";
-import { SubwayClosures } from "./SubwayClosures.js";
+import { AllBskyAlerts } from "./bsky-alerts/AllBskyAlerts.js";
+import { SubwayClosures } from "./subway-closures/SubwayClosures.js";
 
 export default function TtcAlertList() {
-  const socialMediaQuery = useQuery(ttcAlerts);
   const [enabledTab, setEnabledTab] = useState<TabValue>("now");
   const handleTabClick = useCallback(
     (event: SelectTabEvent, data: SelectTabData) => {
@@ -30,7 +27,6 @@ export default function TtcAlertList() {
 
   return (
     <div className="alert-page">
-      <SubwayClosures startDate={currentDate} />
       <TabList defaultSelectedValue="now" onTabSelect={handleTabClick}>
         <Tab value="now">Now</Tab>
         {/* <Tab value="later">Later</Tab> */}
@@ -39,17 +35,9 @@ export default function TtcAlertList() {
         {/* <Tab value="all">All alerts</Tab> */}
       </TabList>
       <div className={enabledTab === "now" ? "" : style.hidden}>
+        <SubwayClosures startDate={currentDate} />
         <CurrentAlerts />
-        <h2>Recent alerts ({socialMediaQuery.data?.feed.length})</h2>
-        <p>
-          Source:{" "}
-          <a href="https://bsky.app/profile/ttcalerts.bsky.social">
-            https://bsky.app/profile/ttcalerts.bsky.social
-          </a>
-        </p>
-        {socialMediaQuery.data && (
-          <SkeetList skeetList={socialMediaQuery.data?.feed} line={"all"} />
-        )}
+        <AllBskyAlerts />
       </div>
       <div className={enabledTab === "weekend" ? "" : style.hidden}>
         <SubwayClosures startDate={weekend.toISOString().split("T")[0]} />

@@ -1,5 +1,9 @@
 import { TtcBadge } from "../badges.js";
 
+export const parseLine = (feedText: string) => {
+  return feedText.match(/\d+/)?.[0] ?? "";
+};
+
 export const ParsedTtcAlertText = ({
   badge,
   feedText = "",
@@ -16,7 +20,7 @@ export const ParsedTtcAlertText = ({
       ? `Line ${lineNum}`
       : `${lineNum}`
     : badge.highlightAll
-      ? (feedText.match(/\d+/)?.[0] ?? "")
+      ? parseLine(feedText)
       : "";
 
   return badge.line || (badge.highlightAll && lineFilter.length > 0)

@@ -1,6 +1,6 @@
 import { formatDistanceStrict } from "date-fns";
 
-import { ParsedTtcAlertText } from "./AlertUtils.js";
+import { ParsedTtcAlertText } from "../AlertUtils.js";
 
 export const SkeetElement = ({
   skeet,

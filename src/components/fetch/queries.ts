@@ -6,6 +6,7 @@ import {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
+  SubwayClosureJson,
 } from "../../models/etaJson.js";
 import {
   SubwayStations,
@@ -30,8 +31,8 @@ export const ttcStopPrediction = (stopId: number) =>
     placeholderData: (prev) => prev,
   });
 
-export const fetchSubwayClosure = (date: string) => {
-  return {
+export const fetchSubwayClosure = (date: string) =>
+  queryOptions<SubwayClosureJson[]>({
     queryKey: [`ttc-subway-closure-${date}`],
     queryFn: async () => {
       const response = await fetch(
@@ -44,8 +45,7 @@ export const fetchSubwayClosure = (date: string) => {
       return response.json();
     },
     placeholderData: (prev: any) => prev,
-  };
-};
+  });
 
 export const ttcLineStopPrediction = (line: number, stopNum: number) =>
   queryOptions<EtaPredictionJson>({
@@ -137,7 +137,9 @@ export const ttcVehicleLocation = (vehicle: number) =>
   });
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
-export const ttcAlerts = queryOptions({
+export const ttcAlerts = queryOptions<{
+  feed: { post: { record: { text: string } } }[];
+}>({
   queryKey: ["bsky"],
   queryFn: async () => {
     const response = await fetch(
