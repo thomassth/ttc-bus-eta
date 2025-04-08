@@ -1,11 +1,12 @@
 import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { RoutesJson } from "../../models/etaJson.js";
+import { subwayLines } from "../../data/ttc.js";
 import { TtcBadge } from "../badges.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
-import { FetchJSONWithCancelToken } from "./fetchUtils.js";
+import { ttcLines } from "./queries.js";
 
 const parseRouteTitle = (input: string) => {
   const routeTitleRegex = /\d+-/;
@@ -17,39 +18,17 @@ const parseRouteTitle = (input: string) => {
 };
 
 export function RoutesInfo() {
-  const [routeJsonData, setRouteJsonData] = useState<RoutesJson>();
+  const lineData = useQuery(ttcLines);
   const [routesDb, setRoutesDb] = useState<{ tag: number; title: string }[]>(
     []
   );
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchEtaData = async () => {
-      const { data, Error } = await FetchJSONWithCancelToken(
-        "https://webservices.umoiq.com/service/publicJSONFeed?command=routeList&a=ttc",
-        { signal: controller.signal }
-      );
-
-      return { data, Error };
-    };
-
-    fetchEtaData().then(({ data, Error }) => {
-      if (Error || !data) {
-        return;
-      }
-
-      setRouteJsonData(data);
-      if (data.route.length > 0) {
-        setRoutesDb(data.route);
-      }
-    });
-
-    // when useEffect is called, the following clean-up fn will run first
-    return () => {
-      controller.abort();
-    };
-  }, []);
+    if (lineData.data?.route && (lineData.data?.route.length ?? 0) > 0) {
+      setRoutesDb(lineData.data.route);
+      // addRoutes(lineData.data.route);
+    }
+  }, [lineData]);
 
   const routesCards = routesDb.map((routeItem) => {
     return (
@@ -83,18 +62,12 @@ export function RoutesInfo() {
         {subwayCards()}
         {routesCards}
       </ul>
-      {routeJsonData && <RawDisplay data={routeJsonData} />}
+      {lineData.data && <RawDisplay data={lineData.data} />}
     </article>
   );
 }
 
 function subwayCards() {
-  const subwayLines = [
-    { line: 1, name: "Yonge-University" },
-    { line: 2, name: "Bloor-Danforth" },
-    { line: 4, name: "Sheppard" },
-  ];
-
   const result = subwayLines.map((subwayLine) => {
     return (
       <li key={subwayLine.line}>

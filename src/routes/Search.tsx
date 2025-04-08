@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import style from "./Search.module.css";
 import useNavigate from "./navigate.js";
 
-export default function NewVehicle() {
+export default function SearchElement() {
   const [lineInput, setLineInput] = useState("");
   const [stopInput, setStopInput] = useState("");
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ export default function NewVehicle() {
 
   return (
     <div className="search-form">
-      <form className={style["next-vehicle-container"]}>
+      <form className={`${style["next-vehicle-container"]} ${style.compact}`}>
         <div className={style.title}>
           <Title1>{t("home.nextVehicle")}</Title1>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { StopWithDistance } from "../../models/db.js";
-import { getStopsWithinRange } from "../../store/ttcRouteDb.js";
+import { getStopsWithinRange } from "../../store/ttcStopsDb.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import style from "./NearbyList.module.css";
 import NearbyStopCard from "./NearbyStopCard.js";

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 import { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { getStopPredictions } from "../fetch/fetchUtils.js";
+import { ttcStopPrediction } from "../fetch/queries.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
@@ -13,39 +14,30 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     store.getState().stopBookmarks
   );
 
-  const [unifiedEta, setUnifiedEta] = useState<EtaBusWithID[]>([]);
-  const [dataFetched, setDataFetched] = useState(false);
+  const getStopPredictionsResponse = useQuery({
+    ...ttcStopPrediction(props.item.stopTag),
+    queryKey: [`nearby-stop-${props.item.stopTag}`],
+  });
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const dataFetched = useMemo(
+    () => getStopPredictionsResponse.isSuccess,
+    [getStopPredictionsResponse.isSuccess]
+  );
 
-    getStopPredictions(props.item.stopTag, {
-      signal: controller.signal,
-    }).then((data) => {
-      if (data) {
-        setDataFetched(true);
-        const etaDb = etaParser(data);
+  const unifiedEta = useMemo(() => {
+    if (getStopPredictionsResponse.data) {
+      const etaDb = etaParser(getStopPredictionsResponse.data);
 
-        let templist: EtaBusWithID[] = [];
-        for (const list of etaDb) {
-          if (list.etas) templist = templist.concat(list.etas);
-        }
-        setUnifiedEta(
-          templist
-            .filter(
-              (eta) =>
-                Array.isArray(props.item.line) || eta.branch === props.item.line
-            )
-            .sort((a, b) => a.epochTime - b.epochTime)
-        );
+      let templist: EtaBusWithID[] = [];
+      for (const list of etaDb) {
+        if (list.etas) templist = templist.concat(list.etas);
       }
-    });
+      return templist.sort((a, b) => a.epochTime - b.epochTime);
+    } else {
+      return [];
+    }
+  }, [getStopPredictionsResponse.data]);
 
-    // when useEffect is called, the following clean-up fn will run first
-    return () => {
-      controller.abort();
-    };
-  }, []);
   let stopUrl =
     props.item.type === "ttc-subway"
       ? `/ttc/lines/${props.item.line[0]}/${props.item.stopTag}`
