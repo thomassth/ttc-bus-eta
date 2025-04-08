@@ -136,7 +136,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               <SMSButton stopId={stopId} />
             </>
           )}
-          <RawDisplay data={data} />
+          <RawDisplay data={ttcStopPredictionResponse.data} />
         </div>
       );
     } else {
@@ -148,8 +148,8 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             <RefreshButton handleRefreshClick={handleRefreshClick} />
             <SMSButton stopId={stopId} />
           </div>
-          <span>{data.Error["#text"]}</span>
-          <RawDisplay data={data} />
+          <span>{ttcStopPredictionResponse.data.Error?.["#text"]}</span>
+          <RawDisplay data={ttcStopPredictionResponse.data} />
         </div>
       );
     }
