@@ -30,6 +30,23 @@ export const ttcStopPrediction = (stopId: number) =>
     placeholderData: (prev) => prev,
   });
 
+export const fetchSubwayClosure = (date: string) => {
+  return {
+    queryKey: [`ttc-subway-closure-${date}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://thomassth.github.io/to-bus-stations/data/ttc/subway-closures/${date}.json`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+    placeholderData: (prev: any) => prev,
+  };
+};
+
 export const ttcLineStopPrediction = (line: number, stopNum: number) =>
   queryOptions<EtaPredictionJson>({
     queryKey: [`ttc-line-stop-${line}-${stopNum}`],
