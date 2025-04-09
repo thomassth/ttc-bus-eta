@@ -1,4 +1,5 @@
-// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
+import { Agent } from "@atproto/api";
+import { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
 import { queryOptions } from "@tanstack/react-query";
 import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
@@ -229,4 +230,21 @@ export const ttcMultiStopsPredictions = (fetchUrl: string) =>
     },
     refetchInterval: 60 * 1000,
     placeholderData: (prev) => prev,
+  });
+
+const agent = new Agent("https://api.bsky.app");
+
+export const atprotoTtcAlerts = () =>
+  queryOptions<FeedViewPost[]>({
+    queryKey: ["atproto-ttc-alerts"],
+    queryFn: async () => {
+      const response = await agent.getAuthorFeed({
+        actor: "did:plc:jp63azhhbjm7hzse6bx6oq43",
+      });
+      if (!response.success) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response?.data?.feed;
+    },
   });
