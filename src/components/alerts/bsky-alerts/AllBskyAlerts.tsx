@@ -9,33 +9,33 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { useCallback, useMemo, useState } from "react";
 
 import { TtcBadge } from "../../badges.js";
-import { ttcAlerts } from "../../fetch/queries.js";
+import { atprotoTtcAlerts } from "../../fetch/queries.js";
 import { parseLine } from "../AlertUtils.js";
 import style from "./AllBskyAlerts.module.css";
 import { SkeetList } from "./SkeetList.js";
 
 export const AllBskyAlerts = () => {
-  const bskyAlerts = useQuery(ttcAlerts);
+  const bskyAlerts = useQuery(atprotoTtcAlerts);
 
   const bskyAlertWithLines = useMemo(() => {
     return (
-      bskyAlerts.data?.feed.map((alert) => {
-        const line = parseInt(parseLine(alert.post.record.text));
+      bskyAlerts.data?.map((alert) => {
+        const line = parseInt(parseLine(alert.post.record.text as string));
         return {
           ...alert,
           line,
         };
       }) ?? []
     );
-  }, [bskyAlerts.data?.feed]);
+  }, [bskyAlerts.data]);
 
   const bskyAlertLines = useMemo(() => {
-    const lines = bskyAlerts.data?.feed.map((alert) => {
-      return parseInt(parseLine(alert.post.record.text));
+    const lines = bskyAlerts.data?.map((alert) => {
+      return parseInt(parseLine(alert.post.record.text as string));
     });
 
     return Array.from(new Set(lines)).sort((a, b) => (a > b ? 1 : -1));
-  }, [bskyAlerts.data?.feed]);
+  }, [bskyAlerts.data]);
   const [enabledTab, setEnabledTab] = useState("all");
 
   const handleTabClick = useCallback(
@@ -54,10 +54,10 @@ export const AllBskyAlerts = () => {
     });
   }, [enabledTab, bskyAlertWithLines]);
   const lastSkeetTime = useMemo(() => {
-    if (!bskyAlerts.data?.feed.length) return null;
-    const lastSkeet = bskyAlerts.data.feed[bskyAlerts.data.feed.length - 1];
-    return formatDistanceToNowStrict(lastSkeet.post.record.createdAt);
-  }, [bskyAlerts.data?.feed]);
+    if (!bskyAlerts.data?.length) return null;
+    const lastSkeet = bskyAlerts.data[bskyAlerts.data.length - 1];
+    return formatDistanceToNowStrict(lastSkeet.post.record.createdAt as string);
+  }, [bskyAlerts.data]);
   return (
     <div>
       <h2>Recent alerts (last {lastSkeetTime})</h2>

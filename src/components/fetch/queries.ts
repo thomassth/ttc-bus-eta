@@ -116,25 +116,25 @@ export const ttcVehicleLocation = (vehicle: number) =>
     refetchInterval: 60 * 1000,
     placeholderData: (prev) => prev,
   });
-// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
-export const ttcAlerts = queryOptions<{
-  feed: { post: { record: { text: string; createdAt: string } } }[];
-}>({
-  queryKey: ["bsky"],
-  queryFn: async () => {
-    const response = await fetch(
-      "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=ttcalerts.bsky.social"
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+// using @atprotp/api methods instead
+// export const ttcAlerts = queryOptions<{
+//   feed: { post: { record: { text: string; createdAt: string } } }[];
+// }>({
+//   queryKey: ["bsky"],
+//   queryFn: async () => {
+//     const response = await fetch(
+//       "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=ttcalerts.bsky.social"
+//     );
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
 
-    return response.json();
-  },
-  staleTime: 60 * 1000,
-  refetchInterval: 60 * 1000,
-});
+//     return response.json();
+//   },
+//   staleTime: 60 * 1000,
+//   refetchInterval: 60 * 1000,
+// });
 
 // inaccessible; CORS Missing Allow Origin
 // export const ttcGtfsAlerts = queryOptions({
@@ -214,17 +214,17 @@ export const ttcMultiStopsPredictions = (fetchUrl: string) =>
 
 const agent = new Agent("https://api.bsky.app");
 
-export const atprotoTtcAlerts = () =>
-  queryOptions<FeedViewPost[]>({
-    queryKey: ["atproto-ttc-alerts"],
-    queryFn: async () => {
-      const response = await agent.getAuthorFeed({
-        actor: "did:plc:jp63azhhbjm7hzse6bx6oq43",
-      });
-      if (!response.success) {
-        throw new Error("Network response was not ok");
-      }
+export const atprotoTtcAlerts = queryOptions<FeedViewPost[]>({
+  queryKey: ["atproto-ttc-alerts"],
+  queryFn: async () => {
+    const response = await agent.getAuthorFeed({
+      actor: "did:plc:jp63azhhbjm7hzse6bx6oq43",
+      limit: 100,
+    });
+    if (!response.success) {
+      throw new Error("Network response was not ok");
+    }
 
-      return response?.data?.feed;
-    },
-  });
+    return response?.data?.feed;
+  },
+});
