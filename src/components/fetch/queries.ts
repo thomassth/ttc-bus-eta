@@ -1,8 +1,8 @@
 import { Agent } from "@atproto/api";
 import { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
 import { queryOptions } from "@tanstack/react-query";
-import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 
+// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import {
   EtaPredictionJson,
   RouteJson,
@@ -82,26 +82,6 @@ export const ttcLines = queryOptions<RoutesJson["body"]>({
   placeholderData: (prev) => prev,
 });
 
-// inaccessible; CORS Missing Allow Origin
-export const gtfsAlerts = queryOptions({
-  queryKey: ["gtfs-alerts"],
-  queryFn: async () => {
-    const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const buffer = await response.arrayBuffer();
-    const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
-      new Uint8Array(buffer)
-    );
-
-    return feed.toJSON();
-  },
-  staleTime: 60 * 1000,
-  refetchInterval: 60 * 1000,
-});
-
 export const ttcRoute = (line: number) =>
   queryOptions<RouteJson>({
     queryKey: [`ttc-route-${line}`],
@@ -157,8 +137,8 @@ export const ttcAlerts = queryOptions<{
 });
 
 // inaccessible; CORS Missing Allow Origin
-// export const ttcGtfsAlerts = {
-//   queryKey: ["ttc-gtfs"],
+// export const ttcGtfsAlerts = queryOptions({
+//   queryKey: ["ttc-gtfs-alerts"],
 //   queryFn: async () => {
 //     const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
 //     if (!response.ok) {
@@ -169,11 +149,11 @@ export const ttcAlerts = queryOptions<{
 //     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
 //       new Uint8Array(buffer)
 //     );
-//     return feed;
+//     return feed.toJSON();
 //   },
 //   staleTime: 60 * 1000,
 //   refetchInterval: 60 * 1000,
-// };
+// });
 
 export const ttcSubwayPredictions = (stopNum: number) =>
   queryOptions<SubwayStop[]>({

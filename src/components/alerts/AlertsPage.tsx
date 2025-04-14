@@ -8,7 +8,7 @@ import {
 import { useCallback, useState } from "react";
 
 import style from "./AlertsPage.module.css";
-import CurrentAlerts from "./CurrentAlerts.js";
+// import CurrentAlerts from "./CurrentAlerts.js";
 import { AllBskyAlerts } from "./bsky-alerts/AllBskyAlerts.js";
 import { SubwayClosures } from "./subway-closures/SubwayClosures.js";
 
@@ -36,7 +36,7 @@ export default function TtcAlertList() {
       </TabList>
       <div className={enabledTab === "now" ? "" : style.hidden}>
         <SubwayClosures startDate={currentDate} />
-        <CurrentAlerts />
+        {/* <CurrentAlerts /> */}
         <AllBskyAlerts />
       </div>
       <div className={enabledTab === "weekend" ? "" : style.hidden}>
