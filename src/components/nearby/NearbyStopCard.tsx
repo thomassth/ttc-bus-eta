@@ -44,11 +44,12 @@ export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
       return [];
     }
     return stop.lines;
-  }, [stop]);
+  }, [stop, getStopPredictionsResponse.data]);
 
   const url = useMemo(() => {
     if (stop.type === "ttc-subway") {
-      return `/ttc/lines/${lines[0]}/${stop.id}`;
+      if (lines[0] && stop.id) return `/ttc/lines/${lines[0]}/${stop.id}`;
+      return "";
     } else {
       return `/stops/${stop.id}`;
     }
