@@ -1,12 +1,13 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { getStopsByTag } from "../../store/ttcStopsDb.js";
 import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
@@ -42,6 +43,12 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
   }, [lastUpdatedAt]);
+
+  useEffect(() => {
+    getStopsByTag(stopId.toString()).then((result) => {
+      console.log("result", result);
+    });
+  }, [stopId]);
 
   const unifiedEtaValue =
     settingsSelectors.selectById(store.getState().settings, "unifiedEta")

@@ -1,6 +1,7 @@
 import { Button, Spinner, Switch, Tooltip } from "@fluentui/react-components";
 import { Info16Regular } from "@fluentui/react-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { store, useAppDispatch } from "../../store/index.js";
@@ -9,6 +10,7 @@ import {
   settingsSelectors,
 } from "../../store/settings/slice.js";
 import { addStops, getSize } from "../../store/ttcStopsDb.js";
+import { geolocation } from "../fetch/queries.js";
 import style from "./Nearby.module.css";
 import NearbyList from "./NearbyList.js";
 
@@ -16,10 +18,10 @@ export default function Nearby() {
   const { t } = useTranslation();
 
   const [number, useNumber] = useState<number>(-1);
+  const [geolocationLastUpdatedAt, setGeolocationLastUpdatedAt] =
+    useState<number>(Date.now());
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [coordinate, setCoordinate] = useState<{ lat?: number; lon?: number }>(
-    {}
-  );
 
   const defaultProvideLocationValue = settingsSelectors.selectById(
     store.getState().settings,
@@ -31,7 +33,6 @@ export default function Nearby() {
       : false
   );
   const dispatch = useAppDispatch();
-  const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
 
   useEffect(() => {
     getSize().then((result) => {
@@ -55,23 +56,31 @@ export default function Nearby() {
     });
   }, []);
 
+  const geolocationResponse = useQuery({
+    ...geolocation,
+    queryKey: [`geolocation`, geolocationLastUpdatedAt.toString()],
+    refetchOnMount: locationMode,
+  });
+  const coordinate = useMemo(() => {
+    return {
+      lat: geolocationResponse.data?.coords.latitude,
+      lon: geolocationResponse.data?.coords.longitude,
+    };
+  }, [geolocationResponse.data]);
+
   const handleGeolocation = useCallback(async () => {
+    setGeolocationLastUpdatedAt(Date.now());
+
+    geolocationResponse.refetch();
     const number = await getSize();
     if (number <= 0) {
       await handleRefresh();
     }
-
-    if ("geolocation" in navigator) {
-      setIsLoadingLocation(true);
-      navigator.geolocation.getCurrentPosition((position) => {
-        setCoordinate({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        });
-        setIsLoadingLocation(false);
-      });
-    }
   }, []);
+
+  const isLoadingLocation = useMemo(() => {
+    return geolocationResponse.isFetching || geolocationResponse.isRefetching;
+  }, [geolocationResponse]);
 
   useEffect(() => {
     if (locationMode) {

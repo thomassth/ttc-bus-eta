@@ -154,3 +154,13 @@ export const ttcMultiStopsPredictions = (fetchUrl: string) =>
     refetchInterval: 60 * 1000,
     placeholderData: (prev) => prev,
   });
+
+export const geolocation = queryOptions<GeolocationPosition>({
+  queryKey: ["geolocation"],
+  queryFn: () => {
+    return new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  },
+  placeholderData: (prev) => prev,
+});

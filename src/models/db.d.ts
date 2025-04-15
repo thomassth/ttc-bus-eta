@@ -1,7 +1,14 @@
-export type StopWithDistance = {
-  id: string;
-  lines: string[];
+export type DbStop = {
+  stopId: string;
+  lon: number;
+  lat: number;
+  tag: string;
   title: string;
-  realDistance: number;
   directions: string;
+  lines: string[];
+  id: string;
+};
+
+export type StopWithDistance = DbStop & {
+  realDistance: number;
 };

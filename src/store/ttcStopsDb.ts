@@ -1,19 +1,34 @@
 import { openDB } from "idb";
 
-import { StopWithDistance } from "../models/db.js";
+import { DbStop, StopWithDistance } from "../models/db.js";
 
-const dbPromise = openDB("TTCStops", 1, {
-  upgrade(db) {
-    // Create a store of objects
-    const store = db.createObjectStore("stops", {
-      // The 'id' property of the object will be the key.
-      keyPath: "id",
-      // If it isn't explicitly set, create a value by auto incrementing.
-      autoIncrement: true,
-    });
-    // Create an index on the 'lat' & 'lon' property of the objects.
-    store.createIndex("lat", "lat");
-    store.createIndex("lon", "lon");
+const dbPromise = openDB("TTCStops", 2, {
+  upgrade(db, oldVersion, newVersion, transaction) {
+    if (oldVersion < 1) {
+      const store = db.createObjectStore("stops", {
+        keyPath: "id",
+        autoIncrement: true,
+      });
+      store.createIndex("lat", "lat");
+      store.createIndex("lon", "lon");
+    }
+    if (oldVersion < 2) {
+      console.log("upgrading to version 2");
+      const store = transaction.objectStore("stops");
+      if (!store.indexNames.contains("tag")) {
+        store.createIndex("tag", "tag", { multiEntry: true });
+      }
+      if (!store.indexNames.contains("title")) {
+        store.createIndex("title", "title", { multiEntry: true });
+      }
+      if (!store.indexNames.contains("lines")) {
+        store.createIndex("lines", "lines", { multiEntry: true });
+      }
+      if (!store.indexNames.contains("stopId")) {
+        store.createIndex("stopId", "stopId", { unique: true });
+      }
+      console.log("upgraded to version 2");
+    }
   },
 });
 
@@ -22,12 +37,12 @@ export async function getStopsWithinRange(
   lat: number,
   lon: number,
   range: number
-): Promise<StopWithDistance[]> {
+) {
   const store = (await dbPromise)
     .transaction("stops", "readonly")
     .objectStore("stops");
 
-  const results = [];
+  const results: StopWithDistance[] = [];
 
   const lowerLat = lat - range;
   const upperLat = lat + range;
@@ -64,7 +79,7 @@ export async function getStopsWithinRange(
   return results.sort((a, b) => a.realDistance - b.realDistance);
 }
 
-export async function getStop(key) {
+export async function getStop(key: string): Promise<DbStop> {
   return (await dbPromise).get("stops", key);
 }
 export async function addStop(val) {
@@ -94,4 +109,22 @@ export async function keys() {
 }
 export async function getSize() {
   return (await dbPromise).count("stops");
+}
+export async function getStopsByTag(tag: string): Promise<DbStop[]> {
+  const store = (await dbPromise)
+    .transaction("stops", "readonly")
+    .objectStore("stops");
+  const tagIndex = store.index("tag");
+
+  const results: DbStop[] = [];
+  const tagCursor = await tagIndex.openCursor(IDBKeyRange.only(tag));
+
+  let cursor = tagCursor;
+
+  while (cursor) {
+    results.push(cursor.value);
+    cursor = await cursor.continue();
+  }
+
+  return results;
 }
