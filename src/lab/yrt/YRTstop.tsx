@@ -2,12 +2,12 @@ import { Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { YRTBadge } from "../components/badges";
-import { CountdownSec } from "../components/countdown/CountdownSec";
-import { CountdownItems, StopRequest } from "../models/yrt";
+import { YRTBadge } from "../../components/badges.js";
+import { CountdownSec } from "../../components/countdown/CountdownSec.js";
+import { CountdownItems, StopRequest } from "../../models/yrt.js";
 import styles from "./yrt.module.css";
 
-export default function YRT() {
+export function YRTStop() {
   const params = useParams();
   const stopNum = parseInt(`${params.stopId}`);
 
