@@ -107,7 +107,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
         <div className="stop-prediction-page">
           <TabList
             defaultSelectedValue={enabledDir}
-            className="directon-buttons"
+            className="direction-buttons"
             onTabSelect={handleDirClick}
           >
             {directionsArr.map((direction) => {
