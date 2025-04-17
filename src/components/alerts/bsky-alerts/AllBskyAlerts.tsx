@@ -1,6 +1,10 @@
 import {
+  Dropdown,
+  Option,
+  OptionOnSelectData,
   SelectTabData,
   SelectTabEvent,
+  SelectionEvents,
   Tab,
   TabList,
 } from "@fluentui/react-components";
@@ -29,13 +33,6 @@ export const AllBskyAlerts = () => {
     );
   }, [bskyAlerts.data]);
 
-  const bskyAlertLines = useMemo(() => {
-    const lines = bskyAlerts.data?.map((alert) => {
-      return parseInt(parseLine(alert.post.record.text as string));
-    });
-
-    return Array.from(new Set(lines)).sort((a, b) => (a > b ? 1 : -1));
-  }, [bskyAlerts.data]);
   const [enabledTab, setEnabledTab] = useState("all");
 
   const handleTabClick = useCallback(
@@ -45,22 +42,83 @@ export const AllBskyAlerts = () => {
     [enabledTab]
   );
 
-  const filteredBskyAlerts = useMemo(() => {
-    if (enabledTab === "all") {
-      return bskyAlertWithLines;
-    }
-    return bskyAlertWithLines.filter((skeet) => {
-      return skeet.line === parseInt(enabledTab);
-    });
-  }, [enabledTab, bskyAlertWithLines]);
   const lastSkeetTime = useMemo(() => {
     if (!bskyAlerts.data?.length) return null;
     const lastSkeet = bskyAlerts.data[bskyAlerts.data.length - 1];
-    return formatDistanceToNowStrict(lastSkeet.post.record.createdAt as string);
+    return formatDistanceToNowStrict(
+      lastSkeet.post.record.createdAt as string,
+      { unit: "hour" }
+    );
   }, [bskyAlerts.data]);
+  const options = new Map([
+    ["lastHour", "Last hour"],
+    ["last3Hours", "Last 3 hours"],
+    ["last24Hours", "Last 24 hours"],
+    ["all", `Last ${lastSkeetTime}`],
+  ]);
+
+  const [timeframe, setTimeframe] = useState<string | undefined>("last3Hours");
+
+  const bskyAlertsWithinTimeframe = useMemo(() => {
+    if (!bskyAlertWithLines?.length) return [];
+    const now = new Date();
+
+    return bskyAlertWithLines.filter((skeet) => {
+      const createdAt = new Date(skeet.post.record.createdAt as string);
+      const diff = now.getTime() - createdAt.getTime();
+      const diffInHours = diff / (1000 * 60 * 60);
+      if (timeframe === "lastHour") {
+        return diffInHours < 1;
+      } else if (timeframe === "last3Hours") {
+        return diffInHours < 3;
+      } else if (timeframe === "last24Hours") {
+        return diffInHours < 24;
+      }
+      return true;
+    });
+  }, [bskyAlertWithLines, timeframe]);
+
+  const bskyAlertLines = useMemo(() => {
+    const lines = bskyAlertsWithinTimeframe?.map((alert) => {
+      return parseInt(parseLine(alert.post.record.text as string));
+    });
+
+    return Array.from(new Set(lines)).sort((a, b) => (a > b ? 1 : -1));
+  }, [bskyAlertsWithinTimeframe]);
+
+  const filteredBskyAlerts = useMemo(() => {
+    if (enabledTab === "all") {
+      return bskyAlertsWithinTimeframe;
+    }
+    return bskyAlertsWithinTimeframe.filter((skeet) => {
+      return skeet.line === parseInt(enabledTab);
+    });
+  }, [enabledTab, bskyAlertsWithinTimeframe]);
+
+  const handleOptionSelect = useCallback(
+    (event: SelectionEvents, data: OptionOnSelectData) => {
+      const option = data.optionValue;
+      if (option) setTimeframe(option);
+    },
+    [timeframe]
+  );
+
   return (
-    <div>
-      <h2>Recent alerts (last {lastSkeetTime})</h2>
+    <div className="all-alerts">
+      <h2 className={style.title}>
+        Recent alerts
+        <Dropdown
+          defaultValue={options.get(`${timeframe}`)}
+          className={style.dropdown}
+          onOptionSelect={handleOptionSelect}
+        >
+          {Array.from(options.keys()).map((option) => (
+            <Option key={option} text={options.get(option)} value={option}>
+              {`${options.get(option)}`}
+            </Option>
+          ))}
+        </Dropdown>
+      </h2>
       <TabList
         defaultSelectedValue="all"
         onTabSelect={handleTabClick}
