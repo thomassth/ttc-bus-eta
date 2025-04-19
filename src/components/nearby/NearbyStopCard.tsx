@@ -5,18 +5,25 @@ import { useTranslation } from "react-i18next";
 import { StopWithDistance } from "../../models/db.js";
 import { EtaBusWithID } from "../../models/etaObjects.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { ttcStopPrediction } from "../fetch/queries.js";
+import { ttcStopPrediction, ttcSubwayPredictions } from "../fetch/queries.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
   const { t } = useTranslation();
 
-  const getStopPredictionsResponse = useQuery({
-    ...ttcStopPrediction(parseInt(stop.id)),
-    queryKey: [`nearby-stop-${stop.id}`],
-  });
+  const getStopPredictionsResponse =
+    stop.type === "ttc-subway"
+      ? useQuery({
+          ...ttcSubwayPredictions(parseInt(stop.id)),
+          queryKey: [`ttc-subway-stop-${stop.id}`],
+        })
+      : useQuery({
+          ...ttcStopPrediction(parseInt(stop.id)),
+          queryKey: [`nearby-stop-${stop.id}`],
+        });
 
   const unifiedEta = useMemo(() => {
+    if (stop.type === "ttc-subway") return [];
     if (getStopPredictionsResponse.data) {
       const etaDb = etaParser(getStopPredictionsResponse.data);
 
@@ -30,14 +37,39 @@ export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
     }
   }, [getStopPredictionsResponse.data]);
 
+  const lines = useMemo(() => {
+    if (stop.type === "ttc-subway") {
+      if (getStopPredictionsResponse.data)
+        return [getStopPredictionsResponse.data?.[0].line];
+      return [];
+    }
+    return stop.lines;
+  }, [stop, getStopPredictionsResponse.data]);
+
+  const url = useMemo(() => {
+    if (stop.type === "ttc-subway") {
+      if (lines[0] && stop.id) return `/ttc/lines/${lines[0]}/${stop.id}`;
+      return "";
+    } else {
+      return `/stops/${stop.id}`;
+    }
+  }, [stop, lines]);
+
+  const direction = useMemo(() => {
+    if (stop.type === "ttc-subway") {
+      return undefined;
+    }
+    return stop.directions;
+  }, [stop, getStopPredictionsResponse.data]);
+
   return (
     <EtaCard
       key={stop.id}
-      direction={stop.directions}
-      lines={stop.lines}
+      direction={direction}
+      lines={lines}
       name={`${stop.title}\n${stop.realDistance.toPrecision(4)}${t("nearby.mAway")}`}
       id={stop.id}
-      stopUrl={`/stops/${stop.id}`}
+      stopUrl={url}
       etas={unifiedEta}
       editable={false}
     />
