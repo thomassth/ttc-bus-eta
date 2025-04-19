@@ -57,7 +57,7 @@ export default function NearbyList(props: {
   }, [props.coordinate]);
 
   return (
-    <div>
+    <>
       {props.coordinate.lat && props.coordinate.lon ? (
         <>
           <p>{t("nearby.closestStopsLead")}</p>
@@ -71,6 +71,6 @@ export default function NearbyList(props: {
         <p>{t("nearby.locationNeeded")}</p>
       )}
       <RawDisplay data={busAndSubwayStops} />
-    </div>
+    </>
   );
 }

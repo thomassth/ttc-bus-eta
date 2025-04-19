@@ -34,12 +34,10 @@ export function EtaCard(props: {
 }) {
   const uniqueLines = [...new Set(props.lines)];
   const directionArray = props.direction?.split(", ") ?? [];
+  const classList = (props.editable ? [style["card-with-button"]] : []).concat(["eta-card"])
   return (
     <li
-      className={[
-        "eta-card",
-        props.editable ? style["card-with-button"] : "",
-      ].join(" ")}
+      className={classList.join(" ")}
     >
       <Link to={props.stopUrl} className={style["grid-item"]}>
         <Card className={style["clickable-card"]}>
@@ -55,18 +53,20 @@ export function EtaCard(props: {
                 >
                   {uniqueLines.map((line: string) => {
                     return (
-                      <TtcBadge key={`${props.id}-${line}`} lineNum={line} />
+                      <TtcBadge key={`${props.id}-${line}`} lineNum={line} type="standalone" />
                     );
                   })}
                 </div>
                 <span className={style["multi-line"]}>
+                  <span className={style["direction-badges"]}>
                   {directionArray.length > 0 &&
                     directionArray.map((direction) => (
                       <DirectionBadge
                         direction={direction}
+                        type="standalone"
                         key={`${props.id}-${direction}`}
                       />
-                    ))}
+                    ))}</span>
                   <span>{props.name}</span>
                 </span>
               </>
