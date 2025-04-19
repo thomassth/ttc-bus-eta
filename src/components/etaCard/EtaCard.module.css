@@ -2,6 +2,7 @@
   padding-right: 8px;
   display: grid;
   gap: 4px;
+  grid-template-rows: repeat(3, 1fr);
   height: fit-content;
 
   &.overflow {
@@ -31,14 +32,14 @@
   border-radius: 50% !important;
 }
 
-.eta-card-countdown{
+.eta-card-countdown {
   min-width: max-content;
 
-&> * {
-  flex-wrap: wrap;
-  float: right;
-  width: min-content;
-}
+  & > * {
+    flex-wrap: wrap;
+    float: right;
+    width: min-content;
+  }
 }
 
 .bookmarked-stop {
