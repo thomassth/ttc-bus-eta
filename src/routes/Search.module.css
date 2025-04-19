@@ -17,7 +17,6 @@
   border: black solid 8px;
   max-width: min(100%, 30rem);
   margin: auto;
-  width: max-content;
 
   .title {
     background-color: black;
