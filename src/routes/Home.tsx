@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
+import StopSearch from "../components/search/StopSearch.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../store/index.js";
 import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
@@ -76,6 +77,7 @@ function HomeBookmarks() {
   if (stopBookmarks.length === 0) {
     return (
       <section className="item-info-placeholder">
+        <StopSearch />
         <p>{t("home.headline")}</p>
         <p>{t("home.bookmarkReminder")}</p>
         <p>
