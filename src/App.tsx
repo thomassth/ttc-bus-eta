@@ -1,6 +1,5 @@
 import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// eslint-disable-next-line no-unused-vars
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
@@ -18,6 +17,7 @@ function App() {
     setWidth(window.innerWidth);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: run on load
   useEffect(() => {
     window.addEventListener("resize", handleResize, false);
     window.addEventListener("orientationchange", handleResize, false);

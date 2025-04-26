@@ -8,10 +8,7 @@
 
 # include manifest and config files
 
-!./.eslintrc.json
 !./.hintrc
-!./.prettierignore
-!./.prettierrc.json
 !./package-lock.json
 !./package.json
 !./.postcss.config.js
