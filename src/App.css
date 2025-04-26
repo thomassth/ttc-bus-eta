@@ -189,7 +189,7 @@ pre {
   margin-bottom: 16px;
 }
 
-@media (width >=800px) {
+@media (width >= 800px) {
   .line-page,
   .home-page,
   .container.yrt,
@@ -207,7 +207,7 @@ pre {
   }
 }
 
-@media (width <=800px) {
+@media (width <= 800px) {
   .bookmark-container ul,
   .route-list {
     grid-template-columns: auto;
