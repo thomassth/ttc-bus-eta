@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { RFeature, RLayerVector, RMap, ROSMWebGL, ROverlay } from "rlayers";
 import { RView } from "rlayers/RMap";
 
-import arrow from "../../../public/arrow.svg";
+import arrow from "../../assets/arrow.svg";
 import { parsedVehicleLocation } from "../../models/ttc.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./VehicleLoaction.module.css";

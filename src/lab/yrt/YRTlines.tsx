@@ -2,10 +2,10 @@ import { Card, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { YRTBadge } from "../components/badges";
-import { LineItem, LinesRequest } from "../models/yrt";
+import { YRTBadge } from "../../components/badges.js";
+import { LineItem, LinesRequest } from "../../models/yrt.js";
 
-export default function YRTLines() {
+export function YRTLines() {
   const [response, setResponse] = useState<LinesRequest>({});
   const [lineList, setLineList] = useState<LineItem[]>();
   const [directions, setDirections] = useState<Map<number, string>>(new Map());
