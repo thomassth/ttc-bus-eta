@@ -8,11 +8,12 @@ export function parseRoute(routeName: string): {
   const tagRegex = /\w+-/i;
   if (dirAndTagRegex.test(routeName)) {
     const directionAndName = routeName.match(dirAndTagRegex);
-    if (directionAndName)
+    if (directionAndName) {
       return {
         prefix: directionAndName[1].trim(),
         name: directionAndName[3].trim(),
       };
+    }
   }
   return { name: routeName.replace(tagRegex, "") };
 }

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EtaBusWithID } from "../../models/etaObjects.js";
+import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
 import { DirectionBadge } from "../badges.js";
@@ -41,7 +41,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
   const handleRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   const unifiedEtaValue =
     settingsSelectors.selectById(store.getState().settings, "unifiedEta")
@@ -50,15 +50,22 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   const etaDb = useMemo(() => {
     if (ttcStopPredictionResponse.data) {
       return etaParser(ttcStopPredictionResponse.data);
-    } else {
-      return [];
     }
+    return [];
   }, [ttcStopPredictionResponse.data]);
+
+  const directionsList = useMemo(() => {
+    return etaDb.flatMap((item) => {
+      return { direction: item.direction, line: item.line };
+    });
+  }, [etaDb]);
 
   const unifiedEta = useMemo(() => {
     let templist: EtaBusWithID[] = [];
     for (const list of etaDb) {
-      if (list.etas) templist = templist.concat(list.etas);
+      if (list.etas) {
+        templist = templist.concat(list.etas);
+      }
     }
     return templist.sort((a, b) => a.epochTime - b.epochTime);
   }, [etaDb]);
@@ -90,9 +97,11 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
 
       const directions: Set<string> = new Set();
 
-      etaDb.forEach((item) => {
-        if (item.direction) directions.add(item.direction);
-      });
+      for (const item of etaDb) {
+        if (item.direction) {
+          directions.add(item.direction);
+        }
+      }
       return (
         <div className="countdown-list-container">
           {etaDb[0] && (
@@ -119,7 +128,8 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
                 stopId={stopId}
                 name={etaDb[0].stopName}
                 ttcId={etaDb[0].stopTag}
-                lines={etaDb.map((item) => item.line).flat()}
+                lines={etaDb.flatMap((item) => item.line)}
+                directions={directionsList}
                 direction={etaDb[0].direction}
               />
             )}
@@ -139,38 +149,36 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <RawDisplay data={data} />
         </div>
       );
-    } else {
-      // if (data.Error)
-      return (
-        <div>
-          <Title1>{t("reminder.failToLocate")}</Title1>
-          <div className="countdown-button-group">
-            <RefreshButton handleRefreshClick={handleRefreshClick} />
-            <SMSButton stopId={stopId} />
-          </div>
-          <span>{data.Error["#text"]}</span>
-          <RawDisplay data={data} />
-        </div>
-      );
     }
-  } else {
+    // if (data.Error)
     return (
       <div>
-        {ttcStopPredictionResponse.status === "pending" ? (
-          <Title1>{t("reminder.loading")}</Title1>
-        ) : (
-          <>
-            <Title1>Stop {stopId}</Title1>
-            <br />
-            <Title1>Your device seems to be offline.</Title1>
-          </>
-        )}
+        <Title1>{t("reminder.failToLocate")}</Title1>
         <div className="countdown-button-group">
           <RefreshButton handleRefreshClick={handleRefreshClick} />
           <SMSButton stopId={stopId} />
         </div>
+        <span>{data.Error["#text"]}</span>
+        <RawDisplay data={data} />
       </div>
     );
   }
+  return (
+    <div>
+      {ttcStopPredictionResponse.status === "pending" ? (
+        <Title1>{t("reminder.loading")}</Title1>
+      ) : (
+        <>
+          <Title1>Stop {stopId}</Title1>
+          <br />
+          <Title1>Your device seems to be offline.</Title1>
+        </>
+      )}
+      <div className="countdown-button-group">
+        <RefreshButton handleRefreshClick={handleRefreshClick} />
+        <SMSButton stopId={stopId} />
+      </div>
+    </div>
+  );
 }
 export default StopPredictionInfo;

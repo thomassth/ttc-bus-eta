@@ -1,5 +1,5 @@
-import { EtaDirection, EtaPredictionJson } from "../../models/etaJson.js";
-import { LineStopEta } from "../../models/etaObjects.js";
+import type { EtaDirection, EtaPredictionJson } from "../../models/etaJson.js";
+import type { LineStopEta } from "../../models/etaObjects.js";
 import { parseSingleOrMultiEta } from "./etaParserUtils.js";
 import { parseRoute } from "./routeName.js";
 
@@ -7,7 +7,8 @@ const parseActualLineNum = (title: string) => {
   const found = title.match(/(\w+) - (\w+) ([\w\s]+)/);
   if (found === null) {
     return "";
-  } else return found[2].toLocaleUpperCase();
+  }
+  return found[2].toLocaleUpperCase();
 };
 
 export const etaParser = (json: EtaPredictionJson) => {
@@ -23,7 +24,7 @@ export const etaParser = (json: EtaPredictionJson) => {
       if (prediction.dirTitleBecauseNoPredictions === undefined) {
         if (Array.isArray(prediction.direction)) {
           const stopName = prediction.stopTitle;
-          const stopTag = parseInt(prediction.stopTag);
+          const stopTag = Number.parseInt(prediction.stopTag);
 
           for (const directionPredictions of prediction.direction) {
             const title =
@@ -52,7 +53,7 @@ export const etaParser = (json: EtaPredictionJson) => {
             stopName: prediction.stopTitle,
             routeName: parseRoute(prediction.routeTitle).name,
             etas: [],
-            stopTag: parseInt(prediction.stopTag),
+            stopTag: Number.parseInt(prediction.stopTag),
             direction: parseRoute(title).prefix,
           });
           parseSingleOrMultiEta(prediction.direction.prediction, result);
@@ -63,7 +64,7 @@ export const etaParser = (json: EtaPredictionJson) => {
           stopName: prediction.stopTitle,
           routeName: parseRoute(prediction.routeTitle).name,
           etas: [],
-          stopTag: parseInt(prediction.stopTag),
+          stopTag: Number.parseInt(prediction.stopTag),
           direction: parseRoute(prediction.dirTitleBecauseNoPredictions).prefix,
         });
       }
@@ -76,7 +77,7 @@ export const etaParser = (json: EtaPredictionJson) => {
           stopName: json.predictions[0].stopTitle,
           routeName: "",
           etas: [],
-          stopTag: parseInt(json.predictions[0].stopTag),
+          stopTag: Number.parseInt(json.predictions[0].stopTag),
         },
       ];
     }
@@ -89,7 +90,7 @@ export const etaParser = (json: EtaPredictionJson) => {
 
         // const line = predictionGroup.direction.title;
         const stopName = predictionGroup.stopTitle;
-        const stopTag = parseInt(predictionGroup.stopTag);
+        const stopTag = Number.parseInt(predictionGroup.stopTag);
         if (Array.isArray(predictionGroup.direction)) {
           for (const element of predictionGroup.direction) {
             // Only lines with etas are listed
@@ -128,37 +129,41 @@ export const etaParser = (json: EtaPredictionJson) => {
               stopName: json.predictions[0].stopTitle,
               routeName: "",
               etas: [],
-              stopTag: parseInt(json.predictions[0].stopTag),
+              stopTag: Number.parseInt(json.predictions[0].stopTag),
             },
           ];
         }
         return result;
-      } else {
-        const predictionGroup = json.predictions;
-        // multiple lines => multiple directions
+      }
+      const predictionGroup = json.predictions;
+      // multiple lines => multiple directions
 
-        const getLine = (input: EtaDirection | EtaDirection[]) => {
-          if (Array.isArray(input)) {
-            return parseActualLineNum(
-              input[0].title || input[0].dirTitleBecauseNoPredictions || ""
-            );
-          } else {
-            return parseActualLineNum(
-              input.title || input.dirTitleBecauseNoPredictions || ""
-            );
-          }
-        };
-        if (predictionGroup)
-          result.push({
-            line: getLine(predictionGroup.direction),
-            stopName: predictionGroup.stopTitle,
-            routeName: parseRoute(predictionGroup.routeTitle).name,
-            etas: [],
-            stopTag: parseInt(predictionGroup.stopTag),
-            direction: parseRoute(predictionGroup.routeTitle).prefix,
-          });
-        if (json.predictions?.direction.prediction)
-          parseSingleOrMultiEta(json.predictions.direction.prediction, result);
+      const getLine = (input: EtaDirection | EtaDirection[]) => {
+        if (Array.isArray(input)) {
+          return parseActualLineNum(
+            input[0].title || input[0].dirTitleBecauseNoPredictions || ""
+          );
+        }
+        return parseActualLineNum(
+          input.title || input.dirTitleBecauseNoPredictions || ""
+        );
+      };
+      if (predictionGroup) {
+        result.push({
+          line: getLine(predictionGroup.direction),
+          stopName: predictionGroup.stopTitle,
+          routeName: parseRoute(predictionGroup.routeTitle).name,
+          etas: [],
+          stopTag: Number.parseInt(predictionGroup.stopTag),
+          direction: parseRoute(
+            Array.isArray(predictionGroup.direction)
+              ? predictionGroup.routeTitle
+              : predictionGroup.direction.title ?? ""
+          ).prefix,
+        });
+      }
+      if (json.predictions?.direction.prediction) {
+        parseSingleOrMultiEta(json.predictions.direction.prediction, result);
       }
     } else {
       result.push({
@@ -166,7 +171,7 @@ export const etaParser = (json: EtaPredictionJson) => {
         stopName: json.predictions.stopTitle,
         routeName: "",
         etas: [],
-        stopTag: parseInt(json.predictions.stopTag),
+        stopTag: Number.parseInt(json.predictions.stopTag),
         direction: parseRoute(json.predictions.dirTitleBecauseNoPredictions)
           .prefix,
       });
