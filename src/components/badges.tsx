@@ -48,8 +48,12 @@ const badgeOutline = (text: string) => {
   }
 };
 
-export function DirectionBadge(props: { direction: string }) {
-  return <Badge className={style["line-badge"]}>{props.direction}</Badge>;
+export function DirectionBadge(props: { direction: string; type?: string }) {
+  const classList =
+  props.type === "standalone"
+    ? [style["line-badge"], style.standalone]
+    : [style["line-badge"]];
+  return <Badge className={classList.join(" ")}>{props.direction}</Badge>;
 }
 
 export function TtcBadge(props: { lineNum: string; type?: string }) {
