@@ -8,7 +8,7 @@ export interface EtaBus {
   seconds: number;
   minutes: number;
   isDeparture: boolean;
-  affectedByLayover: boolean;
+  affectedByLayover?: boolean;
   vehicle: number;
   dirTag: string;
   block: string;
@@ -17,12 +17,25 @@ export interface EtaBus {
   epochTime: number;
 }
 
+export interface EtaBusString {
+  seconds: string;
+  minutes: string;
+  isDeparture: string;
+  affectedByLayover?: string;
+  vehicle: string;
+  dirTag: string;
+  block: string;
+  branch: string;
+  tripTag: string;
+  epochTime: string;
+}
+
 export interface EtaDirection {
   /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
   title?: string;
   /** @example "West - 939a Finch Express towards Finch Station via Scarborough Ctr Stn" */
   dirTitleBecauseNoPredictions?: string;
-  prediction: EtaBus[] | EtaBus;
+  prediction: EtaBus[] | EtaBus | EtaBusString[] | EtaBusString;
 }
 
 export interface EtaPredictions {
@@ -40,6 +53,7 @@ export interface EtaPredictions {
 }
 
 export type EtaPredictionJson = {
+  copyright?: string;
   predictions?: EtaPredictions[] | EtaPredictions;
 } & BasicJson;
 
