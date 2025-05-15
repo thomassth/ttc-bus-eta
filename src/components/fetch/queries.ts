@@ -1,12 +1,12 @@
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import { queryOptions } from "@tanstack/react-query";
 
-import {
+import type {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import {
+import type {
   SubwayStations,
   SubwayStop,
   parsedVehicleLocation,
@@ -128,7 +128,7 @@ export const ttcSubwayLine = (lineNum: number) =>
         }
 
         return response.json();
-      } catch (error) {
+      } catch (_error) {
         return { routeBranchesWithStops: [], Error: true };
       }
     },

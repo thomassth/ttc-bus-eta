@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { EtaBusWithID } from "../../models/etaObjects.js";
+import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { TtcBadge } from "../badges.js";
 import style from "./CountdownRow.module.css";
 import { CountdownSec } from "./CountdownSec.js";

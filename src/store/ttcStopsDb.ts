@@ -1,7 +1,7 @@
 import { openDB } from "idb";
 
 import { distanceOfTwoCoordinates } from "../components/nearby/coordinate-utils.js";
-import { StopWithDistance } from "../models/db.js";
+import type { StopWithDistance } from "../models/db.js";
 
 const dbPromise = openDB("TTCStops", 1, {
   upgrade(db) {
@@ -46,9 +46,7 @@ export async function getStopsWithinRange(
     const stop = cursor.value;
     if (stop.lon >= lowerLon && stop.lon <= upperLon) {
       // Basic distance check (can be improved with Haversine formula)
-      const distance = Math.sqrt(
-        Math.pow(stop.lat - lat, 2) + Math.pow(stop.lon - lon, 2)
-      );
+      const distance = Math.sqrt((stop.lat - lat) ** 2 + (stop.lon - lon) ** 2);
       // in meters
       // TODO: make the formula better / use libs
       const realDistance = distanceOfTwoCoordinates({ lat, lon }, stop);
@@ -73,13 +71,14 @@ export async function addStops(vals) {
   const store = (await dbPromise)
     .transaction("stops", "readwrite")
     .objectStore("stops");
-  vals.forEach((item) => {
+
+  for (const item of vals) {
     store.put({
       ...item,
-      lon: parseFloat(item.lon),
-      lat: parseFloat(item.lat),
+      lon: Number.parseFloat(item.lon),
+      lat: Number.parseFloat(item.lat),
     });
-  });
+  }
 }
 export async function del(key) {
   return (await dbPromise).delete("stops", key);

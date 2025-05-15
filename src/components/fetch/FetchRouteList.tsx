@@ -12,9 +12,8 @@ const parseRouteTitle = (input: string) => {
   const routeTitleRegex = /\d+-/;
   if (routeTitleRegex.test(input)) {
     return input.replace(routeTitleRegex, "");
-  } else {
-    return input;
   }
+  return input;
 };
 
 export function RoutesInfo() {

@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SubwayStopInfo } from "../../models/ttc.js";
+import type { SubwayStopInfo } from "../../models/ttc.js";
 import { useAppDispatch } from "../../store/index.js";
 import { addStop } from "../../store/suwbayDb/slice.js";
 import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
@@ -61,18 +61,20 @@ function RouteInfo(props: { line: number }): JSX.Element {
     const controller = new AbortController();
 
     const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
-      subwayApiRes
-        .filter((element) => element.routeBranch.headsign)
-        .forEach((route) => {
-          route.routeBranchStops.forEach((stop) => {
-            dispatch(
-              addStop({
-                id: parseInt(stop.code),
-                stop,
-              })
-            );
-          });
-        });
+      const subwayRoutes = subwayApiRes.filter(
+        (element) => element.routeBranch.headsign
+      );
+
+      for (const route of subwayRoutes) {
+        for (const stop of route.routeBranchStops) {
+          dispatch(
+            addStop({
+              id: Number.parseInt(stop.code),
+              stop,
+            })
+          );
+        }
+      }
     };
 
     if (lineNum !== 3 && ttcSubwayLineResponse.data) {
@@ -122,48 +124,44 @@ function RouteInfo(props: { line: number }): JSX.Element {
           </ul>
         </div>
       );
-    } else
-      return (
-        <div className="stop-prediction-page">
-          <ul>
-            {props.line === 3 && (
-              <li>
-                Line 3 is permanently closed. <br />
-                {line3Tribute()}
-              </li>
-            )}
-            <li>
-              <RawDisplay data={data} />
-            </li>
-          </ul>
-        </div>
-      );
-  } else {
-    if (navigator.onLine) {
-      return (
-        <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
-          <Text as="h1" weight="semibold">
-            <div className="stop-prediction-page">
-              <ul>
-                {props.line === 3 && (
-                  <li>
-                    Line 3 is permanently closed. <br />
-                    {line3Tribute()}
-                  </li>
-                )}
-                {props.line !== 3 && t("reminder.loading")}
-              </ul>
-            </div>
-          </Text>
-        </LinkFluent>
-      );
-    } else {
-      return (
-        <Text>
-          Your device seems to be offline, and no cache has been found.
-        </Text>
-      );
     }
+    return (
+      <div className="stop-prediction-page">
+        <ul>
+          {props.line === 3 && (
+            <li>
+              Line 3 is permanently closed. <br />
+              {line3Tribute()}
+            </li>
+          )}
+          <li>
+            <RawDisplay data={data} />
+          </li>
+        </ul>
+      </div>
+    );
   }
+  if (navigator.onLine) {
+    return (
+      <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
+        <Text as="h1" weight="semibold">
+          <div className="stop-prediction-page">
+            <ul>
+              {props.line === 3 && (
+                <li>
+                  Line 3 is permanently closed. <br />
+                  {line3Tribute()}
+                </li>
+              )}
+              {props.line !== 3 && t("reminder.loading")}
+            </ul>
+          </div>
+        </Text>
+      </LinkFluent>
+    );
+  }
+  return (
+    <Text>Your device seems to be offline, and no cache has been found.</Text>
+  );
 }
 export default RouteInfo;

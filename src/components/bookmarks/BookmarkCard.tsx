@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { stopBookmarksRedux } from "../../models/etaObjects.js";
+import type { stopBookmarksRedux } from "../../models/etaObjects.js";
 import { removeStopBookmark } from "../../store/bookmarks/slice.js";
 import { store, useAppDispatch, useAppSelector } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";

@@ -10,7 +10,7 @@ export default function Line() {
   const params = useParams();
   const { t } = useTranslation();
 
-  const lineNum = parseInt(`${params.lineId}`);
+  const lineNum = Number.parseInt(`${params.lineId}`);
   useEffect(() => {
     document.title = t("lines.browserTitle", { lineNum });
   });

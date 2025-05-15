@@ -43,61 +43,30 @@ function LineStopPredictionInfo(props: {
   if (data) {
     if (data.Error) {
       return <LargeTitle>{t("reminder.failToLocate")}</LargeTitle>;
-    } else {
-      if (Array.isArray(data.predictions)) {
-        // TODO
-        return <div />;
-      } else {
-        if (data.predictions?.dirTitleBecauseNoPredictions) {
-          return (
-            <div className="directionsList list">
-              <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
-              <div className="countdown-row">
-                <RefreshButton />
-              </div>
-              <Text> {t("reminder.noEta")}</Text>
-              <RawDisplay data={data} />
-            </div>
-          );
-        }
-        if (Array.isArray(data.predictions?.direction)) {
-          const directionListGroup = data.predictions.direction.map((line) => {
-            return (
-              <div className="directionList list" key={line.title}>
-                <Text>{line.title}</Text>
-                {Array.isArray(line.prediction) ? (
-                  line.prediction.map((bus) => {
-                    return (
-                      <CountdownSec
-                        second={bus.seconds}
-                        epochTime={bus.epochTime}
-                        key={bus.tripTag}
-                      />
-                    );
-                  })
-                ) : (
-                  <CountdownSec
-                    second={line.prediction.seconds}
-                    epochTime={line.prediction.epochTime}
-                    key={line.prediction.tripTag}
-                  />
-                )}
-              </div>
-            );
-          });
-
-          return (
-            <div>
-              <div className="countdown-row">
-                <RefreshButton />
-              </div>
-              {directionListGroup}
-            </div>
-          );
-        } else {
-          if (Array.isArray(data.predictions?.direction.prediction)) {
-            const directionListGroup =
-              data.predictions.direction.prediction.map((bus) => {
+    }
+    if (Array.isArray(data.predictions)) {
+      // TODO
+      return <div />;
+    }
+    if (data.predictions?.dirTitleBecauseNoPredictions) {
+      return (
+        <div className="directionsList list">
+          <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
+          <div className="countdown-row">
+            <RefreshButton />
+          </div>
+          <Text> {t("reminder.noEta")}</Text>
+          <RawDisplay data={data} />
+        </div>
+      );
+    }
+    if (Array.isArray(data.predictions?.direction)) {
+      const directionListGroup = data.predictions.direction.map((line) => {
+        return (
+          <div className="directionList list" key={line.title}>
+            <Text>{line.title}</Text>
+            {Array.isArray(line.prediction) ? (
+              line.prediction.map((bus) => {
                 return (
                   <CountdownSec
                     second={bus.seconds}
@@ -105,39 +74,66 @@ function LineStopPredictionInfo(props: {
                     key={bus.tripTag}
                   />
                 );
-              });
-            // Only 1 direction
-            return (
-              <div className="directionsList list">
-                <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
-                <div className="countdown-row">
-                  <RefreshButton />
-                </div>
-                <div className="directionList list">{directionListGroup}</div>
-                <RawDisplay data={data} />
-              </div>
-            );
-          } else {
-            // Only 1 time or only 1 direction
+              })
+            ) : (
+              <CountdownSec
+                second={line.prediction.seconds}
+                epochTime={line.prediction.epochTime}
+                key={line.prediction.tripTag}
+              />
+            )}
+          </div>
+        );
+      });
 
-            return (
-              <div className="directionsList list">
-                <LargeTitle>{data.predictions?.stopTitle}</LargeTitle>
-                <RefreshButton />
-                <RawDisplay data={data} />
-              </div>
-            );
-          }
-        }
-      }
+      return (
+        <div>
+          <div className="countdown-row">
+            <RefreshButton />
+          </div>
+          {directionListGroup}
+        </div>
+      );
     }
-  } else {
+    if (Array.isArray(data.predictions?.direction.prediction)) {
+      const directionListGroup = data.predictions.direction.prediction.map(
+        (bus) => {
+          return (
+            <CountdownSec
+              second={bus.seconds}
+              epochTime={bus.epochTime}
+              key={bus.tripTag}
+            />
+          );
+        }
+      );
+      // Only 1 direction
+      return (
+        <div className="directionsList list">
+          <LargeTitle>{data.predictions.stopTitle}</LargeTitle>
+          <div className="countdown-row">
+            <RefreshButton />
+          </div>
+          <div className="directionList list">{directionListGroup}</div>
+          <RawDisplay data={data} />
+        </div>
+      );
+    }
+    // Only 1 time or only 1 direction
+
     return (
       <div className="directionsList list">
-        <LargeTitle>{t("reminder.loading")}</LargeTitle>
+        <LargeTitle>{data.predictions?.stopTitle}</LargeTitle>
         <RefreshButton />
+        <RawDisplay data={data} />
       </div>
     );
   }
+  return (
+    <div className="directionsList list">
+      <LargeTitle>{t("reminder.loading")}</LargeTitle>
+      <RefreshButton />
+    </div>
+  );
 }
 export default LineStopPredictionInfo;

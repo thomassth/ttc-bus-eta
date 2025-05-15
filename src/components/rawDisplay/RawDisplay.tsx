@@ -7,18 +7,18 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StopWithDistance } from "../../models/db.js";
-import {
+import type { StopWithDistance } from "../../models/db.js";
+import type {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import {
+import type {
   StopBookmark,
   settingsRedux,
   stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import {
+import type {
   SubwayStations,
   SubwayStop,
   parsedVehicleLocation,

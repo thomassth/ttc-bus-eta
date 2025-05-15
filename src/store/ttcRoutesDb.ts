@@ -21,9 +21,9 @@ export async function addRoutes(vals) {
   const store = (await dbPromise)
     .transaction("routes", "readwrite")
     .objectStore("routes");
-  vals.forEach((item) => {
+  for (const item of vals) {
     store.put(item);
-  });
+  }
 }
 export async function del(key) {
   return (await dbPromise).delete("routes", key);

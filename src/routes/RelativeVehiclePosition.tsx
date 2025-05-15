@@ -14,8 +14,8 @@ const VehicleLocation = lazy(
 
 export default function RelativeVehiclePosition() {
   const params = useParams();
-  const stopNum = parseInt(`${params.stopId}`);
-  const vehicleId = parseInt(`${params.vehicle}`);
+  const stopNum = Number.parseInt(`${params.stopId}`);
+  const vehicleId = Number.parseInt(`${params.vehicle}`);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
 
   useEffect(() => {

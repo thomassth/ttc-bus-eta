@@ -4,10 +4,10 @@ import "ol/ol.css";
 import { fromLonLat } from "ol/proj.js";
 import { useEffect, useState } from "react";
 import { RFeature, RLayerVector, RMap, ROSMWebGL, ROverlay } from "rlayers";
-import { RView } from "rlayers/RMap";
+import type { RView } from "rlayers/RMap";
 
 import arrow from "../../../public/arrow.svg";
-import { parsedVehicleLocation } from "../../models/ttc.js";
+import type { parsedVehicleLocation } from "../../models/ttc.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./VehicleLoaction.module.css";
 

@@ -1,5 +1,8 @@
-import { EtaPredictionJson, EtaPredictions } from "../../models/etaJson.js";
-import {
+import type {
+  EtaPredictionJson,
+  EtaPredictions,
+} from "../../models/etaJson.js";
+import type {
   LineStopEta,
   StopBookmark,
   stopBookmarkWithEta,
@@ -13,7 +16,7 @@ const parseEtaPredictions = (stop: EtaPredictions, result: LineStopEta[]) => {
     stopName: stop.stopTitle,
     routeName: parseRoute(stop.routeTitle).name,
     etas: [],
-    stopTag: parseInt(stop.stopTag),
+    stopTag: Number.parseInt(stop.stopTag),
     direction: stop.dirTitleBecauseNoPredictions
       ? parseRoute(stop.dirTitleBecauseNoPredictions).prefix
       : parseRoute(

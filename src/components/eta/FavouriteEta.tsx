@@ -28,11 +28,15 @@ export default function FavouriteEta() {
 
     const lines = item.enabled ? item.enabled : item.lines;
 
-    if (lines && lines.length > 0)
+    if (lines && lines.length > 0) {
       for (const line of lines) {
-        if (parseInt(line) > 6)
-          fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+        if (Number.parseInt(line) > 6) {
+          fetchUrl = fetchUrl.concat(
+            `&stops=${Number.parseInt(line)}|${ttcStop}`
+          );
+        }
       }
+    }
   }
 
   const EtaCards = [];

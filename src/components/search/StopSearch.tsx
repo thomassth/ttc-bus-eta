@@ -1,9 +1,9 @@
 import { Button, Input, Title1 } from "@fluentui/react-components";
 import { ArrowRight12Filled } from "@fluentui/react-icons";
-import { SetStateAction, useCallback, useMemo, useState } from "react";
+import { type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { stopBookmarksRedux } from "../../models/etaObjects.js";
+import type { stopBookmarksRedux } from "../../models/etaObjects.js";
 import useNavigate from "../../routes/navigate.js";
 import { useAppSelector } from "../../store/index.js";
 import style from "./StopSearch.module.css";
@@ -31,7 +31,9 @@ export default function StopSearch(props: { compact?: boolean }) {
   const classList = useMemo(() => {
     const list = [style["next-vehicle-container"]];
 
-    if (bookmarksSaved || props.compact) list.push(style.compact);
+    if (bookmarksSaved || props.compact) {
+      list.push(style.compact);
+    }
 
     return list;
   }, [bookmarksSaved, props.compact]);
