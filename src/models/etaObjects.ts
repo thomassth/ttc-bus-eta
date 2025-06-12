@@ -1,5 +1,5 @@
-import { EtaBus } from "./etaJson.js";
-import { SubwayStopInfo } from "./ttc.js";
+import type { EtaBus } from "./etaJson.js";
+import type { SubwayStopInfo } from "./ttc.js";
 
 export interface LineStopElement {
   id: number;
@@ -21,6 +21,7 @@ export interface LineStopEta {
   stopTag: number;
   type?: string;
   direction?: string;
+  directions?: { direction: string; line: string }[];
 }
 
 export interface LineStop {
@@ -43,6 +44,7 @@ export interface StopBookmark {
   enabled?: string[];
   type?: string;
   direction?: string;
+  directions?: { direction: string; line: string }[];
 }
 
 export interface stopBookmarksRedux {

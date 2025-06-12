@@ -1,7 +1,7 @@
-import { EtaBus } from "../../models/etaJson.js";
-import { LineStopEta } from "../../models/etaObjects.js";
+import type { EtaBus, EtaBusString } from "../../models/etaJson.js";
+import type { LineStopEta } from "../../models/etaObjects.js";
 
-const etaItemGenerator = (item: EtaBus) => {
+const etaItemGenerator = (item: EtaBus | EtaBusString) => {
   return {
     id: item.tripTag.toString(),
     seconds: item.seconds,
@@ -18,20 +18,20 @@ const etaItemGenerator = (item: EtaBus) => {
 };
 
 export const parseSingleOrMultiEta = (
-  input: EtaBus | EtaBus[],
+  input: EtaBus[] | EtaBus | EtaBusString[] | EtaBusString,
   result: LineStopEta[]
 ) => {
   if (Array.isArray(input)) {
-    result[result.length - 1].etas = result[result.length - 1].etas.concat(
+    result[result.length - 1].etas = result[result.length - 1].etas?.concat(
       input.map((item) => {
         return etaItemGenerator(item);
       })
     );
   } else {
     const item = input;
-    result[result.length - 1].etas = result[result.length - 1].etas.concat([
+    result[result.length - 1].etas = result[result.length - 1].etas?.concat([
       etaItemGenerator(item),
     ]);
   }
-  result[result.length - 1].etas.sort((a, b) => a.seconds - b.seconds);
+  result[result.length - 1].etas?.sort((a, b) => a.seconds - b.seconds);
 };
