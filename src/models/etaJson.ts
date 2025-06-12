@@ -52,6 +52,12 @@ export interface EtaPredictions {
   routeTitle: string;
 }
 
+export type SubwayClosureJson = {
+  line: string;
+  text: string;
+  url: string;
+};
+
 export type EtaPredictionJson = {
   copyright?: string;
   predictions?: EtaPredictions[] | EtaPredictions;

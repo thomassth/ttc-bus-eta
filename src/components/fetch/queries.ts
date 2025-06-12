@@ -1,10 +1,13 @@
-// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
+import { Agent } from "@atproto/api";
+import { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
 import { queryOptions } from "@tanstack/react-query";
 
+// import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
+  SubwayClosureJson,
 } from "../../models/etaJson.js";
 import {
   SubwayStations,
@@ -26,6 +29,22 @@ export const ttcStopPrediction = (stopId: number) =>
       return response.json();
     },
     refetchInterval: 60 * 1000,
+    placeholderData: (prev) => prev,
+  });
+
+export const fetchSubwayClosure = (date: string) =>
+  queryOptions<SubwayClosureJson[]>({
+    queryKey: [`ttc-subway-closure-${date}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://thomassth.github.io/to-bus-stations/data/ttc/subway-closures/${date}.json`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
     placeholderData: (prev) => prev,
   });
 
@@ -98,6 +117,44 @@ export const ttcVehicleLocation = (vehicle: number) =>
     placeholderData: (prev) => prev,
   });
 
+// using @atprotp/api methods instead
+// export const ttcAlerts = queryOptions<{
+//   feed: { post: { record: { text: string; createdAt: string } } }[];
+// }>({
+//   queryKey: ["bsky"],
+//   queryFn: async () => {
+//     const response = await fetch(
+//       "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=ttcalerts.bsky.social"
+//     );
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     return response.json();
+//   },
+//   staleTime: 60 * 1000,
+//   refetchInterval: 60 * 1000,
+// });
+
+// inaccessible; CORS Missing Allow Origin
+// export const ttcGtfsAlerts = queryOptions({
+//   queryKey: ["ttc-gtfs-alerts"],
+//   queryFn: async () => {
+//     const response = await fetch("https://bustime.ttc.ca/gtfsrt/alerts");
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     const buffer = await response.arrayBuffer();
+//     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+//       new Uint8Array(buffer)
+//     );
+//     return feed.toJSON();
+//   },
+//   staleTime: 60 * 1000,
+//   refetchInterval: 60 * 1000,
+// });
+
 export const ttcSubwayPredictions = (stopNum: number) =>
   queryOptions<SubwayStop[]>({
     queryKey: [`ttc-subway-predictions-${stopNum}`],
@@ -154,3 +211,20 @@ export const ttcMultiStopsPredictions = (fetchUrl: string) =>
     refetchInterval: 60 * 1000,
     placeholderData: (prev) => prev,
   });
+
+const agent = new Agent("https://api.bsky.app");
+
+export const atprotoTtcAlerts = queryOptions<FeedViewPost[]>({
+  queryKey: ["atproto-ttc-alerts"],
+  queryFn: async () => {
+    const response = await agent.getAuthorFeed({
+      actor: "did:plc:jp63azhhbjm7hzse6bx6oq43",
+      limit: 100,
+    });
+    if (!response.success) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response?.data?.feed;
+  },
+});

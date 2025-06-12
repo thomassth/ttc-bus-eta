@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
+import { TtcAlertList } from "../alerts/TtcAlertList.js";
 import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import CountdownGroup from "../countdown/CountdownGroup.js";
@@ -70,6 +71,10 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return templist.sort((a, b) => a.epochTime - b.epochTime);
   }, [etaDb]);
 
+  const lineList = useMemo(() => {
+    return [...new Set(etaDb.map((item) => parseInt(item.line.toString())))];
+  }, [etaDb]);
+
   if (ttcStopPredictionResponse.data) {
     const data = ttcStopPredictionResponse.data;
     if (data.Error === undefined) {
@@ -121,6 +126,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               </div>
             </>
           )}
+          <TtcAlertList lineNum={lineList} type="compact" />
           <div className="countdown-button-group">
             <RefreshButton handleRefreshClick={handleRefreshClick} />
             {etaDb[0] && (
@@ -146,7 +152,20 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
               <SMSButton stopId={stopId} />
             </>
           )}
-          <RawDisplay data={data} />
+          <RawDisplay data={ttcStopPredictionResponse.data} />
+        </div>
+      );
+    } else {
+      // if (data.Error)
+      return (
+        <div>
+          <Title1>{t("reminder.failToLocate")}</Title1>
+          <div className="countdown-button-group">
+            <RefreshButton handleRefreshClick={handleRefreshClick} />
+            <SMSButton stopId={stopId} />
+          </div>
+          <span>{ttcStopPredictionResponse.data.Error?.["#text"]}</span>
+          <RawDisplay data={ttcStopPredictionResponse.data} />
         </div>
       );
     }

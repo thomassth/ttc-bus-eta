@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
+import { TtcAlertList } from "../alerts/TtcAlertList.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -82,6 +83,7 @@ function SubwayStopPredictionInfo(props: {
         </>
       )}
       <Title1>{data.directionText}</Title1>
+      <TtcAlertList lineNum={[props.line]} type="compact" />
       <div className="countdown-row">
         <RefreshButton onRefresh={fetchPredictionClick} />
         <BookmarkButton
