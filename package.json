@@ -5,19 +5,22 @@
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "type": "module",
   "dependencies": {
-    "@fluentui/react-components": "^9.56.8",
-    "@fluentui/react-icons": "^2.0.270",
-    "@reduxjs/toolkit": "^2.5.0",
-    "i18next": "^23.16.8",
-    "i18next-browser-languagedetector": "^8.0.2",
+    "@atproto/api": "^0.14.21",
+    "@fluentui/react-components": "^9.60.1",
+    "@fluentui/react-icons": "^2.0.279",
+    "@reduxjs/toolkit": "^2.6.1",
+    "@tanstack/react-query": "^5.71.10",
+    "date-fns": "^4.1.0",
+    "i18next": "^24.2.3",
+    "i18next-browser-languagedetector": "^8.0.4",
     "idb": "^8.0.1",
-    "ol": "^10.3.1",
+    "ol": "^10.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.3.0",
+    "react-i18next": "^15.4.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.28.1",
-    "rlayers": "^3.2.0",
+    "rlayers": "^3.5.0",
     "typescript": "^5.7.2",
     "web-vitals": "^4.2.4"
   },
@@ -28,23 +31,12 @@
     "build:cd": "vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "format": "npx prettier --write .",
-    "prebuild": "npm run format && npm run lint",
+    "format": "biome format --write .",
+    "prebuild": "npm run format",
     "test": "vitest"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -52,37 +44,27 @@
     ]
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/react-test-renderer": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.18.2",
-    "@typescript-eslint/parser": "^8.18.2",
     "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/ui": "^2.1.0",
+    "@vitest/ui": "^3.0.8",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.6.0",
-    "eslint-plugin-react": "^7.37.3",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.0.0",
     "postcss": "^8.4.49",
     "postcss-nesting": "^13.0.1",
-    "prettier": "^3.4.2",
     "react-test-renderer": "^18.3.1",
-    "stylelint": "^16.12.0",
+    "stylelint": "^16.16.0",
     "stylelint-config-css-modules": "^4.4.0",
-    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard": "^37.0.0",
     "ts-node": "^10.9.2",
-    "vite": "^5.4.11",
-    "vite-plugin-pwa": "^0.20.5",
-    "vitest": "^2.1.0"
+    "vite": "^6.3.4",
+    "vite-plugin-pwa": "^0.21.1",
+    "vitest": "^3.0.8"
   }
 }

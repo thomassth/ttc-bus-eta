@@ -9,69 +9,16 @@
   }
 }
 
-.flex-grow {
-  flex-grow: 1;
-}
-
-.next-vehicle-container {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--borderRadiusXLarge);
-  overflow: hidden;
-  border: black solid 8px;
-  max-width: 30rem;
-  margin: auto;
-
-  .title {
-    background-color: black;
-    text-align: center;
-    color: white;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    padding: 2rem 0;
-
-    button {
-      position: absolute;
-      right: 0;
-    }
-  }
-
-  span {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    font-size: xx-large;
-  }
-
-  input {
-    /* -webkit-appearance: textfield; */
-    appearance: textfield;
-    font-size: x-large;
-    padding: 2rem 0;
-  }
-
-  .center-input input {
-    text-align: center;
-    width: 100%;
-  }
-
-  .submit-button {
-    background-color: black;
-
-    .subtle-search {
-      max-width: 100%;
-      width: 100%;
-    }
-  }
-}
-
 .search-block {
   justify-content: space-between;
   display: flex;
   flex-flow: wrap;
   align-items: center;
   gap: 16px;
+
+  .flex-grow {
+    flex-grow: 1;
+  }
 }
 
 @media (width <= 390px) {

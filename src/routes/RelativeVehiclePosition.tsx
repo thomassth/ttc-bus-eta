@@ -1,10 +1,11 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
+import { useQuery } from "@tanstack/react-query";
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { getVehicleLocation } from "../components/fetch/fetchUtils.js";
+import { ttcVehicleLocation } from "../components/fetch/queries.js";
 import styles from "./RelativeVehiclePosition.module.css";
 
 const VehicleLocation = lazy(
@@ -15,25 +16,20 @@ export default function RelativeVehiclePosition() {
   const params = useParams();
   const stopNum = parseInt(`${params.stopId}`);
   const vehicleId = parseInt(`${params.vehicle}`);
-  const [data, setData] = useState({});
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
 
   useEffect(() => {
     document.title = `Stop ID ${stopNum} | TO bus`;
   });
 
-  const updateData = (vehicle: number = vehicleId) => {
-    getVehicleLocation(vehicle).then((res) => {
-      setData(res);
-    });
-  };
-
-  useEffect(() => {
-    updateData();
-  }, []);
+  const ttcVehicleLocationResponse = useQuery({
+    ...ttcVehicleLocation(vehicleId),
+    queryKey: [`ttc-vehicle-location-${vehicleId}`, lastUpdatedAt.toString()],
+  });
 
   const onRefreshClick = useCallback(() => {
-    updateData();
-  }, []);
+    setLastUpdatedAt(Date.now());
+  }, [lastUpdatedAt]);
 
   return (
     <main className={styles["relative-vehicle-position"]}>
@@ -42,7 +38,13 @@ export default function RelativeVehiclePosition() {
         <RefreshButton onClick={onRefreshClick} />
       </div>
       <Suspense>
-        <VehicleLocation stopId={stopNum} vehicleId={vehicleId} data={data} />
+        {ttcVehicleLocationResponse.data && (
+          <VehicleLocation
+            stopId={stopNum}
+            vehicleId={vehicleId}
+            data={ttcVehicleLocationResponse.data}
+          />
+        )}
       </Suspense>
     </main>
   );

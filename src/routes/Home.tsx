@@ -11,8 +11,10 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import TtcAlertList from "../components/alerts/AlertsPage.js";
 import FavouriteEta from "../components/eta/FavouriteEta.js";
 import Nearby from "../components/nearby/Nearby.js";
+import StopSearch from "../components/search/StopSearch.js";
 import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../store/index.js";
 import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
@@ -49,20 +51,23 @@ export default function Home() {
       <Search />
       <TabList
         defaultSelectedValue={enabledTab}
-        className="directon-buttons"
+        className="direction-buttons"
         onTabSelect={handleTabClick}
       >
-        <Tab value={"nearby"} className={style["button-with-badge"]}>
-          {t("nav.label.nearby")}
-          <Badge>Beta</Badge>
-        </Tab>
+        <Tab value={"nearby"}>{t("nav.label.nearby")}</Tab>
         <Tab value={"favourites"}>{t("nav.label.bookmarks")}</Tab>
+        <Tab value={"alerts"} className={style["button-with-badge"]}>
+          Service Alerts<Badge>Beta</Badge>
+        </Tab>
       </TabList>
       <div className={enabledTab === "nearby" ? "" : style.hidden}>
         <Nearby />
       </div>
       <div className={enabledTab === "favourites" ? "" : style.hidden}>
         <HomeBookmarks />
+      </div>
+      <div className={enabledTab === "alerts" ? "" : style.hidden}>
+        <TtcAlertList />
       </div>
     </main>
   );
@@ -76,6 +81,7 @@ function HomeBookmarks() {
   if (stopBookmarks.length === 0) {
     return (
       <section className="item-info-placeholder">
+        <StopSearch />
         <p>{t("home.headline")}</p>
         <p>{t("home.bookmarkReminder")}</p>
         <p>

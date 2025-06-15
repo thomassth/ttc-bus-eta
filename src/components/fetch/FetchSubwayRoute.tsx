@@ -4,16 +4,17 @@ import {
   Text,
   Title1,
 } from "@fluentui/react-components";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SubwayStations, SubwayStopInfo } from "../../models/ttc.js";
+import { SubwayStopInfo } from "../../models/ttc.js";
 import { useAppDispatch } from "../../store/index.js";
 import { addStop } from "../../store/suwbayDb/slice.js";
 import { SubwayAccordions } from "../accordions/SubwayAccordions.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./FetchSubwayRoute.module.css";
-import { getTTCSubwayData } from "./fetchUtils.js";
+import { ttcSubwayLine } from "./queries.js";
 
 const filterSubwayDirection = (input: string) => {
   return input.replace(/LINE \d \([\w-]+\) /, "").toLowerCase();
@@ -45,20 +46,19 @@ const line3Tribute = () => {
 };
 
 function RouteInfo(props: { line: number }): JSX.Element {
-  const [data, setData] = useState<SubwayStations>();
-  const [lineNum] = useState(props.line);
+  const lineNum = props.line;
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
+  const ttcSubwayLineResponse = useQuery({
+    ...ttcSubwayLine(lineNum),
+    queryKey: [`ttc-subway-line-${lineNum}`, lastUpdatedAt.toString()],
+  });
+
   useEffect(() => {
     const controller = new AbortController();
-
-    const fetchSubwayData = async () => {
-      const response = await getTTCSubwayData(lineNum, {});
-      return response;
-    };
 
     const setSubwayDb = (subwayApiRes: SubwayStopInfo[]) => {
       subwayApiRes
@@ -75,29 +75,22 @@ function RouteInfo(props: { line: number }): JSX.Element {
         });
     };
 
-    if (lineNum !== 3) {
-      fetchSubwayData().then((res: SubwayStations) => {
-        try {
-          setSubwayDb(res.routeBranchesWithStops);
-          setData(res);
-        } catch (error) {
-          setData({ routeBranchesWithStops: [], Error: true });
-        }
-      });
+    if (lineNum !== 3 && ttcSubwayLineResponse.data) {
+      setSubwayDb(ttcSubwayLineResponse.data?.routeBranchesWithStops);
     }
 
     // when useEffect is called, the following clean-up fn will run first
     return () => {
       controller.abort();
     };
-  }, [lastUpdatedAt]);
+  }, [lastUpdatedAt, ttcSubwayLineResponse.data]);
 
   const handleFetchBusClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-    setData(undefined);
   }, [lastUpdatedAt]);
 
-  if (data) {
+  if (ttcSubwayLineResponse.data) {
+    const data = ttcSubwayLineResponse.data;
     if (!data.Error) {
       const accordionList: JSX.Element[] = data.routeBranchesWithStops
         .filter((element) => element.routeBranch.headsign)

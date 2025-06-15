@@ -3,10 +3,13 @@ import {
   BookmarkAdd24Regular,
   BookmarkOff24Filled,
 } from "@fluentui/react-icons";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StopBookmark, stopBookmarksRedux } from "../../models/etaObjects.js";
+import type {
+  StopBookmark,
+  stopBookmarksRedux,
+} from "../../models/etaObjects.js";
 import {
   addStopBookmark,
   removeStopBookmark,
@@ -19,26 +22,26 @@ export function BookmarkButton(props: StopBookmark) {
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state) => state.stopBookmarks
   );
-  const isBookmarked = useCallback(() => {
+  const isBookmarked = useMemo(() => {
     return stopBookmarks.ids.includes(props.stopId);
-  }, [stopBookmarks]);
+  }, [stopBookmarks, props.stopId]);
 
   const checkBookmarkStatus = useCallback(() => {
-    if (isBookmarked()) {
+    if (isBookmarked) {
       dispatch(removeStopBookmark(props.stopId));
     } else {
       dispatch(addStopBookmark(props));
     }
-  }, [stopBookmarks.ids]);
+  }, [dispatch, isBookmarked, props]);
 
   return (
     <Button
       title={
-        isBookmarked()
+        isBookmarked
           ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
           : (t("buttons.bookmarkAdd") ?? "Add to bookmark")
       }
-      icon={isBookmarked() ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
+      icon={isBookmarked ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}
     />
   );

@@ -51,7 +51,7 @@
     "singleList": "single list"
   },
   "stops": {
-    "ariaLabel": "Bus / streetcar stop No.",
+    "ariaLabel": "Stop#",
     "stopId": "Stop ID {{stopNum}} ="
   },
   "buttons": {

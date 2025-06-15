@@ -8,7 +8,8 @@ import {
   changeSettings,
   settingsSelectors,
 } from "../../store/settings/slice.js";
-import { addStops, getSize } from "../../store/ttcRouteDb.js";
+import { addStops, getSize } from "../../store/ttcStopsDb.js";
+import StopSearch from "../search/StopSearch.js";
 import style from "./Nearby.module.css";
 import NearbyList from "./NearbyList.js";
 
@@ -98,6 +99,9 @@ export default function Nearby() {
 
   return (
     <div className={style.nearby}>
+      <section className="item-info-placeholder">
+        <StopSearch />
+      </section>
       {number >= 0
         ? t("nearby.totalStopsSummary", { stopsTotal: number })
         : t("nearby.checkingDb")}
