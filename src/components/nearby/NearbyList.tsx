@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StopWithDistance } from "../../models/db.js";
+import type { StopWithDistance } from "../../models/db.js";
 import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { getStopsWithinRange } from "../../store/ttcStopsDb.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
+import { distanceOfTwoCoordinates } from "./coordinate-utils.js";
 import style from "./NearbyList.module.css";
 import NearbyStopCard from "./NearbyStopCard.js";
-import { distanceOfTwoCoordinates } from "./coordinate-utils.js";
 
 export default function NearbyList(props: {
   coordinate: {
@@ -23,7 +23,9 @@ export default function NearbyList(props: {
   const subwayStops = subwayDbSelectors.selectAll(store.getState().subwayDb);
 
   const subwayStopsDistance = useMemo(() => {
-    if (!props.coordinate.lat || !props.coordinate.lon) return [];
+    if (!props.coordinate.lat || !props.coordinate.lon) {
+      return [];
+    }
     return subwayStops.map((stop) => {
       return {
         ...stop,
@@ -38,7 +40,9 @@ export default function NearbyList(props: {
   }, [stopsList, props.coordinate]);
 
   const busAndSubwayStops = useMemo(() => {
-    if (!stopsList.length) return stopsList;
+    if (!stopsList.length) {
+      return stopsList;
+    }
     return subwayStopsDistance
       .filter((stop) => stop.realDistance < 500)
       .concat(stopsList)
@@ -46,7 +50,7 @@ export default function NearbyList(props: {
   }, [stopsList, subwayStopsDistance]);
 
   useEffect(() => {
-    if (props.coordinate.lat && props.coordinate.lon)
+    if (props.coordinate.lat && props.coordinate.lon) {
       getStopsWithinRange(
         props.coordinate.lat,
         props.coordinate.lon,
@@ -54,6 +58,7 @@ export default function NearbyList(props: {
       ).then((result) => {
         setStopsList(result);
       });
+    }
   }, [props.coordinate]);
 
   return (

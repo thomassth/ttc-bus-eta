@@ -1,11 +1,11 @@
 import {
   Badge,
   Button,
-  SelectTabData,
-  SelectTabEvent,
+  type SelectTabData,
+  type SelectTabEvent,
   Tab,
   TabList,
-  TabValue,
+  type TabValue,
 } from "@fluentui/react-components";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +34,7 @@ export default function Home() {
   );
 
   const handleTabClick = useCallback(
-    (event: SelectTabEvent, data: SelectTabData) => {
+    (_event: SelectTabEvent, data: SelectTabData) => {
       setEnabledTab(data.value);
       dispatch(
         changeSettings({
@@ -97,5 +97,6 @@ function HomeBookmarks() {
         </p>
       </section>
     );
-  } else return <FavouriteEta />;
+  }
+  return <FavouriteEta />;
 }

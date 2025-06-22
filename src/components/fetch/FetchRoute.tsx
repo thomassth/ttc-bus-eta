@@ -1,3 +1,8 @@
+import type {
+  SelectTabData,
+  SelectTabEvent,
+  TabValue,
+} from "@fluentui/react-components";
 import {
   Accordion,
   Link as LinkFluent,
@@ -5,16 +10,11 @@ import {
   TabList,
   Text,
 } from "@fluentui/react-components";
-import type {
-  SelectTabData,
-  SelectTabEvent,
-  TabValue,
-} from "@fluentui/react-components";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { LineStopElement } from "../../models/etaObjects.js";
+import type { LineStopElement } from "../../models/etaObjects.js";
 import { StopAccordions } from "../accordions/StopAccordions.js";
 import { stopsParser } from "../parser/stopsParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -34,9 +34,8 @@ function RouteInfo(props: { line: number }): JSX.Element {
   const stopDb = useMemo(() => {
     if (ttcRouteResponse.data) {
       return stopsParser(ttcRouteResponse.data);
-    } else {
-      return [];
     }
+    return [];
   }, [ttcRouteResponse.data]);
 
   const createStopList = useCallback(
@@ -45,7 +44,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
       for (const element of stuff.stop) {
         const matchingStop = stopDb.find(
-          (searching) => parseInt(element.tag) === searching.id
+          (searching) => Number.parseInt(element.tag) === searching.id
         );
 
         // skip not found data
@@ -68,7 +67,7 @@ function RouteInfo(props: { line: number }): JSX.Element {
   }, [lastUpdatedAt]);
 
   const handleDirClick = useCallback(
-    (event: SelectTabEvent, data: SelectTabData) => setEnabledDir(data.value),
+    (_event: SelectTabEvent, data: SelectTabData) => setEnabledDir(data.value),
     [enabledDir]
   );
 
@@ -101,7 +100,9 @@ function RouteInfo(props: { line: number }): JSX.Element {
           });
       };
       const directionsArr = Array.from(directions.values());
-      if (enabledDir === "") setEnabledDir(directionsArr[0]);
+      if (enabledDir === "") {
+        setEnabledDir(directionsArr[0]);
+      }
 
       return (
         <div className="stop-prediction-page">
@@ -135,46 +136,41 @@ function RouteInfo(props: { line: number }): JSX.Element {
           <RawDisplay data={data} />
         </div>
       );
-    } else {
-      const noRouteRegex = /Could not get route /;
-      const errorString = data.Error?.["#text"];
-      if (noRouteRegex.test(errorString)) {
-        return (
-          <div className="stop-prediction-page">
-            <Text as="h1" weight="semibold">
-              <Trans>{t("lines.noLineInDb")}</Trans>
-            </Text>
-            <RawDisplay data={data} />
-          </div>
-        );
-      } else
-        return (
-          <div className="stop-prediction-page">
-            <LinkFluent onClick={handleFetchBusClick}>
-              <Text as="h1" weight="semibold">
-                {`Error: ${errorString}`}
-              </Text>
-            </LinkFluent>
-            <RawDisplay data={data} />
-          </div>
-        );
     }
-  } else {
-    if (navigator.onLine) {
+    const noRouteRegex = /Could not get route /;
+    const errorString = data.Error?.["#text"];
+    if (noRouteRegex.test(errorString)) {
       return (
-        <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
+        <div className="stop-prediction-page">
           <Text as="h1" weight="semibold">
-            {t("reminder.loading")}
+            <Trans>{t("lines.noLineInDb")}</Trans>
+          </Text>
+          <RawDisplay data={data} />
+        </div>
+      );
+    }
+    return (
+      <div className="stop-prediction-page">
+        <LinkFluent onClick={handleFetchBusClick}>
+          <Text as="h1" weight="semibold">
+            {`Error: ${errorString}`}
           </Text>
         </LinkFluent>
-      );
-    } else {
-      return (
-        <Text>
-          Your device seems to be offline, and no cache has been found.
-        </Text>
-      );
-    }
+        <RawDisplay data={data} />
+      </div>
+    );
   }
+  if (navigator.onLine) {
+    return (
+      <LinkFluent appearance="subtle" onClick={handleFetchBusClick}>
+        <Text as="h1" weight="semibold">
+          {t("reminder.loading")}
+        </Text>
+      </LinkFluent>
+    );
+  }
+  return (
+    <Text>Your device seems to be offline, and no cache has been found.</Text>
+  );
 }
 export default RouteInfo;

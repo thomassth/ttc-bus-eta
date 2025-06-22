@@ -1,9 +1,8 @@
 import { Button, Input } from "@fluentui/react-components";
-import { SetStateAction, useCallback, useState } from "react";
+import { type SetStateAction, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-import style from "./Search.module.css";
 import useNavigate from "./navigate.js";
+import style from "./Search.module.css";
 
 export default function SearchElement() {
   const [lineInput, setLineInput] = useState("");
@@ -18,7 +17,9 @@ export default function SearchElement() {
   );
 
   const handleSearchClick = useCallback(() => {
-    if (lineInput !== "") navigate(`lines/${lineInput}`);
+    if (lineInput !== "") {
+      navigate(`lines/${lineInput}`);
+    }
   }, [lineInput]);
 
   return (

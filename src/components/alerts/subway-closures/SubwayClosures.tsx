@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { SubwayClosureJson } from "../../../models/etaJson.js";
+import type { SubwayClosureJson } from "../../../models/etaJson.js";
 import { fetchSubwayClosure } from "../../fetch/queries.js";
 import { SubwayClosureItem } from "./SubwayClosureItem.js";
 import style from "./SubwayClosures.module.css";

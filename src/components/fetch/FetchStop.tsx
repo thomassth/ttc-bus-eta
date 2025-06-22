@@ -72,7 +72,9 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
   }, [etaDb]);
 
   const lineList = useMemo(() => {
-    return [...new Set(etaDb.map((item) => parseInt(item.line.toString())))];
+    return [
+      ...new Set(etaDb.map((item) => Number.parseInt(item.line.toString()))),
+    ];
   }, [etaDb]);
 
   if (ttcStopPredictionResponse.data) {
@@ -155,19 +157,6 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <RawDisplay data={ttcStopPredictionResponse.data} />
         </div>
       );
-    } else {
-      // if (data.Error)
-      return (
-        <div>
-          <Title1>{t("reminder.failToLocate")}</Title1>
-          <div className="countdown-button-group">
-            <RefreshButton handleRefreshClick={handleRefreshClick} />
-            <SMSButton stopId={stopId} />
-          </div>
-          <span>{ttcStopPredictionResponse.data.Error?.["#text"]}</span>
-          <RawDisplay data={ttcStopPredictionResponse.data} />
-        </div>
-      );
     }
     // if (data.Error)
     return (
@@ -177,8 +166,8 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <RefreshButton handleRefreshClick={handleRefreshClick} />
           <SMSButton stopId={stopId} />
         </div>
-        <span>{data.Error["#text"]}</span>
-        <RawDisplay data={data} />
+        <span>{ttcStopPredictionResponse.data.Error?.["#text"]}</span>
+        <RawDisplay data={ttcStopPredictionResponse.data} />
       </div>
     );
   }

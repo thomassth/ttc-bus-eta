@@ -16,7 +16,7 @@ import NearbyList from "./NearbyList.js";
 export default function Nearby() {
   const { t } = useTranslation();
 
-  const [number, useNumber] = useState<number>(-1);
+  const [number, setNumber] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coordinate, setCoordinate] = useState<{ lat?: number; lon?: number }>(
     {}
@@ -36,7 +36,7 @@ export default function Nearby() {
 
   useEffect(() => {
     getSize().then((result) => {
-      useNumber(result);
+      setNumber(result);
     });
   });
 
@@ -51,7 +51,7 @@ export default function Nearby() {
     addStops(data).then(() => {
       setIsLoading(false);
       getSize().then((result) => {
-        useNumber(result);
+        setNumber(result);
       });
     });
   }, []);

@@ -1,4 +1,4 @@
-import { SubwayClosureJson } from "../../../models/etaJson.js";
+import type { SubwayClosureJson } from "../../../models/etaJson.js";
 
 export const SubwayClosureItem = ({
   closure,

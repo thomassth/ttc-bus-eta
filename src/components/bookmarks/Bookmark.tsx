@@ -2,7 +2,7 @@ import { Button, Text } from "@fluentui/react-components";
 import { useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { stopBookmarksRedux } from "../../models/etaObjects.js";
+import type { stopBookmarksRedux } from "../../models/etaObjects.js";
 import { clearStopBookmarks } from "../../store/bookmarks/slice.js";
 import { useAppDispatch, useAppSelector } from "../../store/index.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
@@ -24,7 +24,7 @@ export default function Bookmark() {
     const ttcStop = stopBookmarks.entities[id].ttcId;
 
     for (const line of stopBookmarks.entities[id].lines) {
-      fetchUrl = fetchUrl.concat(`&stops=${parseInt(line)}|${ttcStop}`);
+      fetchUrl = fetchUrl.concat(`&stops=${Number.parseInt(line)}|${ttcStop}`);
     }
   }
 

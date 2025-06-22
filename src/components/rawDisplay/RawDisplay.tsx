@@ -7,21 +7,21 @@ import {
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StopWithDistance } from "../../models/db.js";
-import {
+import type { StopWithDistance } from "../../models/db.js";
+import type {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
 } from "../../models/etaJson.js";
-import {
+import type {
   StopBookmark,
   settingsRedux,
   stopBookmarksRedux,
 } from "../../models/etaObjects.js";
-import {
+import type {
+  parsedVehicleLocation,
   SubwayStations,
   SubwayStop,
-  parsedVehicleLocation,
 } from "../../models/ttc.js";
 import { store } from "../../store/index.js";
 import { settingsSelectors } from "../../store/settings/slice.js";
@@ -67,5 +67,5 @@ export default function RawDisplay(props: {
     </Accordion>
   );
 
-  return isInDevMode ? rawDisplay : <> {}</>;
+  return isInDevMode ? rawDisplay : null;
 }

@@ -2,14 +2,14 @@ import { Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { YRTBadge } from "../components/badges";
-import { CountdownSec } from "../components/countdown/CountdownSec";
-import { CountdownItems, StopRequest } from "../models/yrt";
+import { YRTBadge } from "../components/badges.js";
+import { CountdownSec } from "../components/countdown/CountdownSec.js";
+import type { CountdownItems, StopRequest } from "../models/yrt.js";
 import styles from "./yrt.module.css";
 
 export default function YRT() {
   const params = useParams();
-  const stopNum = parseInt(`${params.stopId}`);
+  const stopNum = Number.parseInt(`${params.stopId}`);
 
   const [response, setResponse] = useState<StopRequest>({});
   const [countdownItems, setCountdownItems] = useState<CountdownItems[]>();
@@ -21,7 +21,7 @@ export default function YRT() {
 
     const fetchEtaData = async () => {
       let response = {};
-      await fetch(`https://tripplanner.yrt.ca/InfoWeb`, {
+      await fetch("https://tripplanner.yrt.ca/InfoWeb", {
         signal: controller.signal,
         method: "POST",
         headers: {
@@ -63,7 +63,7 @@ export default function YRT() {
       response.result?.[0] &&
       response.result?.[0].Validation[0].Type !== "error"
     ) {
-      const lineDirMap = new Map<number, any>();
+      const lineDirMap = new Map<number, { LineName; LineAbbr }>();
       response.result?.[0].StopTimeResult[0].Lines.map((item) => {
         lineDirMap.set(item.LineDirId, item);
         return item;
@@ -72,8 +72,8 @@ export default function YRT() {
       setCountdownItems(
         response.result?.[0].RealTimeResults.map((item) => ({
           sec: item.RealTimeSPC,
-          LineName: lineDirMap.get(item.LineDirId).LineName,
-          LineAbbr: lineDirMap.get(item.LineDirId).LineAbbr,
+          LineName: lineDirMap.get(item.LineDirId)?.LineName,
+          LineAbbr: lineDirMap.get(item.LineDirId)?.LineAbbr,
         }))
       );
     }
@@ -101,20 +101,19 @@ export default function YRT() {
           <YRTCountdownItems items={countdownItems ?? []} />
         </main>
       );
-    } else
-      return (
-        <main className={styles["yrt-main"]}>
-          <Title2>Stop {params.stopId} has no results.</Title2>
-          <Text>{response.result?.[0].Validation[0].Message}</Text>
-        </main>
-      );
-  } else {
+    }
     return (
       <main className={styles["yrt-main"]}>
-        <Title2>Stop {params.stopId} loading...</Title2>
+        <Title2>Stop {params.stopId} has no results.</Title2>
+        <Text>{response.result?.[0].Validation[0].Message}</Text>
       </main>
     );
   }
+  return (
+    <main className={styles["yrt-main"]}>
+      <Title2>Stop {params.stopId} loading...</Title2>
+    </main>
+  );
 }
 
 const YRTCountdownItems = (props: {
@@ -122,7 +121,7 @@ const YRTCountdownItems = (props: {
 }) => {
   const items = props.items;
   const CountdownRows = [];
-  if (Array.isArray(items) && items.length)
+  if (Array.isArray(items) && items.length) {
     for (const i in items) {
       const item = items[i];
       CountdownRows.push(
@@ -135,5 +134,6 @@ const YRTCountdownItems = (props: {
         </li>
       );
     }
+  }
   return <ul>{CountdownRows}</ul>;
 };

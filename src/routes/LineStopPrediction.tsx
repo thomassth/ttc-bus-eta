@@ -7,8 +7,8 @@ import SubwayStopPredictionInfo from "../components/fetch/FetchSubwayStop.js";
 
 export default function LineStopPrediction() {
   const params = useParams();
-  const lineNum = parseInt(`${params.lineId}`);
-  const stopNum = parseInt(`${params.stopNum}`);
+  const lineNum = Number.parseInt(`${params.lineId}`);
+  const stopNum = Number.parseInt(`${params.stopNum}`);
 
   const { t } = useTranslation();
   return (

@@ -9,8 +9,8 @@ import { Map24Filled, VehicleBus16Filled } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { LineStopElement } from "../../models/etaObjects.js";
-import { YRTStop } from "../../models/yrt.js";
+import type { LineStopElement } from "../../models/etaObjects.js";
+import type { YRTStop } from "../../models/yrt.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import { TtcBadge } from "../badges.js";
 import { parseRoute } from "../parser/routeName.js";
