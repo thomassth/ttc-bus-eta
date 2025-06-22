@@ -158,7 +158,7 @@ export const etaParser = (json: EtaPredictionJson) => {
           direction: parseRoute(
             Array.isArray(predictionGroup.direction)
               ? predictionGroup.routeTitle
-              : predictionGroup.direction.title ?? ""
+              : (predictionGroup.direction.title ?? "")
           ).prefix,
         });
       }

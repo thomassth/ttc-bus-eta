@@ -33,7 +33,6 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     [subwayClosureQuery, currentDate]
   );
 
-
   if (!subwayClosureQuery.isFetched) {
     return (
       <div>
@@ -53,7 +52,7 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
           return <SubwayClosureItem closure={closure} key={closure.url} />;
         })}
       </ul>
-      {unlistedSubwayClosures.length > 0 &&
+      {unlistedSubwayClosures.length > 0 && (
         <details>
           <summary>Delisted entries:</summary>
           <ul className={style["subway-closures"]}>
@@ -61,7 +60,8 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
               return <SubwayClosureItem closure={closure} key={closure.url} />;
             })}
           </ul>
-        </details>}
+        </details>
+      )}
     </div>
   );
 };
