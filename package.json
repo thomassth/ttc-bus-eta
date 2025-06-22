@@ -32,7 +32,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "format": "biome format --write .",
-    "prebuild": "npm run format",
+    "format:ci": "biome format",
+    "prebuild": "npm run format:ci",
     "test": "vitest"
   },
   "browserslist": {
