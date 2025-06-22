@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import style from "./Error.module.css";
 
-export default function Error() {
+export default function ErrorPage() {
   const { t } = useTranslation();
 
   return (

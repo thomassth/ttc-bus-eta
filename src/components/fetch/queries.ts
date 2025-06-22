@@ -1,18 +1,18 @@
 import { Agent } from "@atproto/api";
-import { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
+import type { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
 import { queryOptions } from "@tanstack/react-query";
 
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
-import {
+import type {
   EtaPredictionJson,
   RouteJson,
   RoutesJson,
   SubwayClosureJson,
 } from "../../models/etaJson.js";
-import {
+import type {
+  parsedVehicleLocation,
   SubwayStations,
   SubwayStop,
-  parsedVehicleLocation,
 } from "../../models/ttc.js";
 
 export const ttcStopPrediction = (stopId: number) =>
@@ -185,7 +185,7 @@ export const ttcSubwayLine = (lineNum: number) =>
         }
 
         return response.json();
-      } catch (error) {
+      } catch (_error) {
         return { routeBranchesWithStops: [], Error: true };
       }
     },

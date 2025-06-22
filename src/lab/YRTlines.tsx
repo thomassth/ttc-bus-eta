@@ -2,8 +2,8 @@ import { Card, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { YRTBadge } from "../components/badges";
-import { LineItem, LinesRequest } from "../models/yrt";
+import { YRTBadge } from "../components/badges.js";
+import type { LineItem, LinesRequest } from "../models/yrt.js";
 
 export default function YRTLines() {
   const [response, setResponse] = useState<LinesRequest>({});
@@ -11,14 +11,14 @@ export default function YRTLines() {
   const [directions, setDirections] = useState<Map<number, string>>(new Map());
 
   useEffect(() => {
-    document.title = `YRT arrivals`;
+    document.title = "YRT arrivals";
   });
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchEtaData = async () => {
       let response = {};
-      await fetch(`https://tripplanner.yrt.ca/TI_FixedRoute_Line`, {
+      await fetch("https://tripplanner.yrt.ca/TI_FixedRoute_Line", {
         signal: controller.signal,
         method: "POST",
         headers: {
@@ -64,7 +64,7 @@ export default function YRTLines() {
 
   const lineRows = [];
 
-  if (Array.isArray(lineList) && lineList.length)
+  if (Array.isArray(lineList) && lineList.length) {
     for (const i in lineList) {
       const item = lineList[i];
       lineRows.push(
@@ -86,6 +86,7 @@ export default function YRTLines() {
         </li>
       );
     }
+  }
 
   return (
     <article>

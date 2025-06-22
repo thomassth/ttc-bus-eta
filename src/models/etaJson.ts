@@ -1,7 +1,7 @@
 // Only store types directly inside parsed XMLs here
 
 export interface BasicJson {
-  Error?: { ["#text"]: string };
+  Error?: { [key: string]: string };
 }
 
 export interface EtaBus {

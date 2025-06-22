@@ -8,7 +8,7 @@ import YRTLine from "../lab/YRTline.js";
 import YRTLines from "../lab/YRTlines.js";
 import YRT from "../lab/YRTstop.js";
 import About from "./About.js";
-import Error from "./Error.js";
+import ErrorPage from "./Error.js";
 import Home from "./Home.js";
 import Line from "./Line.js";
 import LineSearch from "./LineSearch.js";
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
             Component: YRT,
           },
         ],
-        errorElement: <Error />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "ttc",
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
             ],
           },
         ],
-        errorElement: <Error />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "lines",
@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
             ],
           },
         ],
-        errorElement: <Error />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "stops/:stopId",
@@ -85,10 +85,10 @@ export const router = createBrowserRouter([
             Component: RelativeVehiclePosition,
           },
         ],
-        errorElement: <Error />,
+        errorElement: <ErrorPage />,
       },
 
-      { path: "*", Component: Error },
+      { path: "*", Component: ErrorPage },
     ],
   },
 ]);

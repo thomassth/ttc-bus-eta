@@ -2,16 +2,18 @@ import { formatDistanceStrict } from "date-fns";
 
 import { ParsedTtcAlertText } from "../AlertUtils.js";
 
+export type Skeet = {
+  post: {
+    cid: string;
+    record: { text: string; createdAt: string };
+  };
+};
+
 export const SkeetElement = ({
   skeet,
   badge,
 }: {
-  skeet: {
-    post: {
-      cid: string;
-      record: { text: string; createdAt: string };
-    };
-  };
+  skeet: Skeet;
   badge: { highlightAll?: boolean; line?: string };
 }) => {
   const cid = skeet.post.cid;

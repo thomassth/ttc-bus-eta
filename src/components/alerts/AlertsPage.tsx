@@ -1,9 +1,9 @@
 import {
-  SelectTabData,
-  SelectTabEvent,
+  type SelectTabData,
+  type SelectTabEvent,
   Tab,
   TabList,
-  TabValue,
+  type TabValue,
 } from "@fluentui/react-components";
 import { useCallback, useState } from "react";
 
@@ -15,7 +15,7 @@ import { SubwayClosures } from "./subway-closures/SubwayClosures.js";
 export default function TtcAlertList() {
   const [enabledTab, setEnabledTab] = useState<TabValue>("now");
   const handleTabClick = useCallback(
-    (event: SelectTabEvent, data: SelectTabData) => {
+    (_event: SelectTabEvent, data: SelectTabData) => {
       setEnabledTab(data.value);
     },
     [enabledTab]

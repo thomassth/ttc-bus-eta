@@ -14,7 +14,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { EtaBusWithID } from "../../models/etaObjects.js";
+import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";
 import { useAppDispatch } from "../../store/index.js";
 import { DirectionBadge, TtcBadge } from "../badges.js";
@@ -137,7 +137,7 @@ function FavouriteEditor(props: {
         cutOffEnabled.splice(cutOffIndex, 1);
         dispatch(
           editStopBookmark({
-            id: parseInt(props.id),
+            id: Number.parseInt(props.id),
             changes: {
               enabled: cutOffEnabled,
             },
@@ -151,7 +151,7 @@ function FavouriteEditor(props: {
           lineArray.splice(lineIndex, 1);
           dispatch(
             editStopBookmark({
-              id: parseInt(props.id),
+              id: Number.parseInt(props.id),
               changes: {
                 enabled: lineArray,
               },
@@ -162,7 +162,7 @@ function FavouriteEditor(props: {
           lineArray.push(line);
           dispatch(
             editStopBookmark({
-              id: parseInt(props.id),
+              id: Number.parseInt(props.id),
               changes: {
                 enabled: lineArray,
               },

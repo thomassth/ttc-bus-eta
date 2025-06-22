@@ -7,7 +7,7 @@ import {
 import { VehicleBus16Filled } from "@fluentui/react-icons";
 import { Link } from "react-router-dom";
 
-import { RouteBranchStops } from "../../models/ttc.js";
+import type { RouteBranchStops } from "../../models/ttc.js";
 import { fluentStyles } from "../../styles/fluent.js";
 import { TtcBadge } from "../badges.js";
 import { LocationButton } from "./StopAccordions.js";

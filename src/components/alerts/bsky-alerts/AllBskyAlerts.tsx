@@ -1,16 +1,16 @@
 import {
   Dropdown,
   Option,
-  OptionOnSelectData,
-  SelectTabData,
-  SelectTabEvent,
-  SelectionEvents,
+  type OptionOnSelectData,
+  type SelectionEvents,
+  type SelectTabData,
+  type SelectTabEvent,
   Tab,
   TabList,
 } from "@fluentui/react-components";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNowStrict } from "date-fns";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useId, useMemo, useState } from "react";
 
 import { TtcBadge } from "../../badges.js";
 import { atprotoTtcAlerts } from "../../fetch/queries.js";
@@ -24,7 +24,9 @@ export const AllBskyAlerts = () => {
   const bskyAlertWithLines = useMemo(() => {
     return (
       bskyAlerts.data?.map((alert) => {
-        const line = parseInt(parseLine(alert.post.record.text as string));
+        const line = Number.parseInt(
+          parseLine(alert.post.record.text as string)
+        );
         return {
           ...alert,
           line,
@@ -36,14 +38,16 @@ export const AllBskyAlerts = () => {
   const [enabledTab, setEnabledTab] = useState("all");
 
   const handleTabClick = useCallback(
-    (event: SelectTabEvent, data: SelectTabData) => {
+    (_event: SelectTabEvent, data: SelectTabData) => {
       setEnabledTab(data.value as string);
     },
     [enabledTab]
   );
 
   const lastSkeetTime = useMemo(() => {
-    if (!bskyAlerts.data?.length) return null;
+    if (!bskyAlerts.data?.length) {
+      return null;
+    }
     const lastSkeet = bskyAlerts.data[bskyAlerts.data.length - 1];
     return formatDistanceToNowStrict(
       lastSkeet.post.record.createdAt as string,
@@ -60,7 +64,9 @@ export const AllBskyAlerts = () => {
   const [timeframe, setTimeframe] = useState<string | undefined>("last3Hours");
 
   const bskyAlertsWithinTimeframe = useMemo(() => {
-    if (!bskyAlertWithLines?.length) return [];
+    if (!bskyAlertWithLines?.length) {
+      return [];
+    }
     const now = new Date();
 
     return bskyAlertWithLines.filter((skeet) => {
@@ -69,9 +75,11 @@ export const AllBskyAlerts = () => {
       const diffInHours = diff / (1000 * 60 * 60);
       if (timeframe === "lastHour") {
         return diffInHours < 1;
-      } else if (timeframe === "last3Hours") {
+      }
+      if (timeframe === "last3Hours") {
         return diffInHours < 3;
-      } else if (timeframe === "last24Hours") {
+      }
+      if (timeframe === "last24Hours") {
         return diffInHours < 24;
       }
       return true;
@@ -80,7 +88,7 @@ export const AllBskyAlerts = () => {
 
   const bskyAlertLines = useMemo(() => {
     const lines = bskyAlertsWithinTimeframe?.map((alert) => {
-      return parseInt(parseLine(alert.post.record.text as string));
+      return Number.parseInt(parseLine(alert.post.record.text as string));
     });
 
     return Array.from(new Set(lines)).sort((a, b) => (a > b ? 1 : -1));
@@ -91,14 +99,16 @@ export const AllBskyAlerts = () => {
       return bskyAlertsWithinTimeframe;
     }
     return bskyAlertsWithinTimeframe.filter((skeet) => {
-      return skeet.line === parseInt(enabledTab);
+      return skeet.line === Number.parseInt(enabledTab);
     });
   }, [enabledTab, bskyAlertsWithinTimeframe]);
 
   const handleOptionSelect = useCallback(
-    (event: SelectionEvents, data: OptionOnSelectData) => {
+    (_event: SelectionEvents, data: OptionOnSelectData) => {
       const option = data.optionValue;
-      if (option) setTimeframe(option);
+      if (option) {
+        setTimeframe(option);
+      }
     },
     [timeframe]
   );
@@ -124,7 +134,7 @@ export const AllBskyAlerts = () => {
         onTabSelect={handleTabClick}
         className={style.tablist}
       >
-        <Tab value="all" id="all">
+        <Tab value="all" id={useId()}>
           All
         </Tab>
         {bskyAlertLines?.map((line) => {

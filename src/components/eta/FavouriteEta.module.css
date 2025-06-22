@@ -6,7 +6,6 @@
   ul {
     display: grid;
     padding-left: 0;
-    margin: 0.5em 0;
     list-style-type: none;
     grid-template-columns: repeat(auto-fit, 1fr);
     gap: 24px;

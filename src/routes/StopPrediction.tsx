@@ -5,7 +5,7 @@ import StopPredictionInfo from "../components/fetch/FetchStop.js";
 
 export default function StopPrediction() {
   const params = useParams();
-  const stopNum = parseInt(`${params.stopId}`);
+  const stopNum = Number.parseInt(`${params.stopId}`);
 
   useEffect(() => {
     document.title = `Stop ID ${stopNum} | TO bus`;

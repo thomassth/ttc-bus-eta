@@ -13,7 +13,7 @@ export const ParsedTtcAlertText = ({
   feedText: string;
   id: string;
 }) => {
-  const lineNum = parseInt(`${badge.line}`);
+  const lineNum = Number.parseInt(`${badge.line}`);
 
   const lineFilter = badge.line
     ? lineNum < 6

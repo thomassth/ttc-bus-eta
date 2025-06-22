@@ -1,7 +1,7 @@
 import { Button, Title1 } from "@fluentui/react-components";
 import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useQuery } from "@tanstack/react-query";
-import { Suspense, lazy, useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -14,8 +14,8 @@ const VehicleLocation = lazy(
 
 export default function RelativeVehiclePosition() {
   const params = useParams();
-  const stopNum = parseInt(`${params.stopId}`);
-  const vehicleId = parseInt(`${params.vehicle}`);
+  const stopNum = Number.parseInt(`${params.stopId}`);
+  const vehicleId = Number.parseInt(`${params.vehicle}`);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
 
   useEffect(() => {

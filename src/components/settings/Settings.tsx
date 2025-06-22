@@ -7,11 +7,16 @@ import {
   Title1,
   Title2,
 } from "@fluentui/react-components";
-import { FormEvent, SetStateAction, useCallback, useState } from "react";
+import {
+  type FormEvent,
+  type SetStateAction,
+  useCallback,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { settingsRedux } from "../../models/etaObjects.js";
+import type { settingsRedux } from "../../models/etaObjects.js";
 import useNavigate from "../../routes/navigate.js";
 import { store, useAppDispatch, useAppSelector } from "../../store/index.js";
 import {
@@ -93,10 +98,13 @@ export function Settings() {
     []
   );
   const handleSearchClick = useCallback(() => {
-    if (stopInput !== "")
+    if (stopInput !== "") {
       if (stopInput === "yrt") {
         navigate("../yrt");
-      } else navigate(`../yrt/stops/${stopInput}`);
+      } else {
+        navigate(`../yrt/stops/${stopInput}`);
+      }
+    }
   }, [stopInput]);
 
   return (

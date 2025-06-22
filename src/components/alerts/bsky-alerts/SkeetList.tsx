@@ -1,4 +1,4 @@
-import { SkeetElement } from "./Skeet.js";
+import { type Skeet, SkeetElement } from "./Skeet.js";
 import style from "./SkeetList.module.css";
 
 export const SkeetList = ({
@@ -6,7 +6,7 @@ export const SkeetList = ({
   line,
   type,
 }: {
-  skeetList: any[];
+  skeetList: Skeet[];
   line?: string;
   type?: string;
 }) => {

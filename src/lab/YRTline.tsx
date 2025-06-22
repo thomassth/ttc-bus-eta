@@ -2,9 +2,9 @@ import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { YRTStopAccordions } from "../components/accordions/StopAccordions";
-import { YRTBadge } from "../components/badges";
-import { LineList, LineRequest } from "../models/yrt";
+import { YRTStopAccordions } from "../components/accordions/StopAccordions.js";
+import { YRTBadge } from "../components/badges.js";
+import type { LineList, LineRequest } from "../models/yrt.js";
 
 export default function YRTLine() {
   const params = useParams();
@@ -18,14 +18,14 @@ export default function YRTLine() {
     return directions.get(dirId);
   };
   useEffect(() => {
-    document.title = `YRT arrivals`;
+    document.title = "YRT arrivals";
   });
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchEtaData = async () => {
       let response = {};
-      await fetch(`https://tripplanner.yrt.ca/TI_FixedRoute_Line`, {
+      await fetch("https://tripplanner.yrt.ca/TI_FixedRoute_Line", {
         signal: controller.signal,
         method: "POST",
         headers: {
@@ -64,7 +64,7 @@ export default function YRTLine() {
 
   const lineRows = [];
 
-  if (Array.isArray(lineList) && lineList.length)
+  if (Array.isArray(lineList) && lineList.length) {
     for (const i in lineList) {
       const item = lineList[i];
       lineRows.push(
@@ -79,6 +79,7 @@ export default function YRTLine() {
         </li>
       );
     }
+  }
 
   return (
     <article className="stop-prediction-page">
