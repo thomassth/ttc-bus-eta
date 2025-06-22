@@ -56,6 +56,7 @@ export type SubwayClosureJson = {
   line: string;
   text: string;
   url: string;
+  last_shown: string;
 };
 
 export type EtaPredictionJson = {
