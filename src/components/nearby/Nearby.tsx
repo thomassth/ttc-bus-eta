@@ -98,7 +98,7 @@ export default function Nearby() {
         : t("nearby.checkingDb")}
       <div className={style["nearby-controls"]}>
         <Button onClick={handleRefresh}>
-          {ttcStopsResp.isPending
+          {ttcStopsResp.isFetching
             ? t("nearby.checkingDb")
             : t("nearby.checkDb")}
         </Button>
