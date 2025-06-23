@@ -61,7 +61,7 @@ export const fetchSubwayClosureLastUpdated = queryOptions<string>({
 
     return response.text();
   },
-  });
+});
 
 export const ttcLineStopPrediction = (line: number, stopNum: number) =>
   queryOptions<EtaPredictionJson>({
