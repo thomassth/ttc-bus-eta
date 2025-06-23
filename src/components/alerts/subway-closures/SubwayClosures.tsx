@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import type { SubwayClosureJson } from "../../../models/etaJson.js";
-import { fetchSubwayClosure } from "../../fetch/queries.js";
+import {
+  fetchSubwayClosure,
+  fetchSubwayClosureLastUpdated,
+} from "../../fetch/queries.js";
 import { SubwayClosureItem } from "./SubwayClosureItem.js";
 import style from "./SubwayClosures.module.css";
 
 export const SubwayClosures = ({ startDate }: { startDate: string }) => {
-  const subwayClosureQuery = useQuery<SubwayClosureJson[], Error>(
-    fetchSubwayClosure(startDate)
-  );
-  const currentDate = new Date().toISOString().split("T")[0];
+  const subwayClosureQuery = useQuery(fetchSubwayClosure(startDate));
+  const currentDate =
+    useQuery(fetchSubwayClosureLastUpdated).data ??
+    new Date().toISOString().split("T")[0];
   const title = useMemo(() => {
     if (startDate === currentDate) {
       return "Today's Subway Closures";
