@@ -1,7 +1,7 @@
 import { Card, Link as LinkFluent, Text } from "@fluentui/react-components";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { subwayLines } from "../../data/ttc.js";
 import { TtcBadge } from "../badges.js";

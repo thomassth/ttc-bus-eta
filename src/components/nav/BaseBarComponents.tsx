@@ -9,7 +9,7 @@ import {
 } from "@fluentui/react-icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 
 import { fluentStyles } from "../../styles/fluent";
 

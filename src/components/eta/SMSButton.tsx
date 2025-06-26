@@ -1,6 +1,6 @@
 import { Button } from "@fluentui/react-components";
 import { Comment24Filled } from "@fluentui/react-icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export default function SMSButton(props: { stopId: number }) {
   return (

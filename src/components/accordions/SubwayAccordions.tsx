@@ -5,7 +5,7 @@ import {
   Button,
 } from "@fluentui/react-components";
 import { VehicleBus16Filled } from "@fluentui/react-icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import type { RouteBranchStops } from "../../models/ttc.js";
 import { fluentStyles } from "../../styles/fluent.js";

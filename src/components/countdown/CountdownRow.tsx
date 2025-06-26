@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { TtcBadge } from "../badges.js";

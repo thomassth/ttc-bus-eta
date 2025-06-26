@@ -1,6 +1,6 @@
 import { Card, Text } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { YRTBadge } from "../components/badges.js";
 import type { LineItem, LinesRequest } from "../models/yrt.js";

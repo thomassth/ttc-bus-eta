@@ -1,4 +1,4 @@
-import { useNavigate as useNav } from "react-router-dom";
+import { useNavigate as useNav } from "react-router";
 
 export default function useNavigate() {
   const nav = useNav();

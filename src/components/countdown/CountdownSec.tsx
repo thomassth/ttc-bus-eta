@@ -1,7 +1,7 @@
 import { Badge, Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import style from "./CountdownSec.module.css";
 

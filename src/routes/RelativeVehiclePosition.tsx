@@ -3,7 +3,7 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useQuery } from "@tanstack/react-query";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import { ttcVehicleLocation } from "../components/fetch/queries.js";
 import styles from "./RelativeVehiclePosition.module.css";
