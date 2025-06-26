@@ -1,5 +1,5 @@
 import { Link as LinkFluent, Title2 } from "@fluentui/react-components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import type { LineStopEta } from "../../models/etaObjects.js";
 import { DirectionBadge } from "../badges.js";

@@ -19,7 +19,7 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.1",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^6.28.1",
+    "react-router": "^7.6.2",
     "rlayers": "^3.5.0",
     "typescript": "^5.8.2",
     "web-vitals": "^4.2.4"

@@ -1,6 +1,6 @@
 import { Link as LinkFluent, Title2 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 
 import LineStopPredictionInfo from "../components/fetch/FetchLineStop.js";
 import SubwayStopPredictionInfo from "../components/fetch/FetchSubwayStop.js";

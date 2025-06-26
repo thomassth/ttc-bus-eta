@@ -1,6 +1,6 @@
 import { Button, Text } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";

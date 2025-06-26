@@ -2,7 +2,7 @@ import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 
 import "./App.css";
 import { NavBar } from "./components/nav/NavBar.js";

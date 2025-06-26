@@ -1,6 +1,6 @@
 import { Accordion, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router";
 
 import { YRTStopAccordions } from "../components/accordions/StopAccordions.js";
 import { YRTBadge } from "../components/badges.js";

@@ -1,6 +1,6 @@
 import { Text, Title2 } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import { YRTBadge } from "../components/badges.js";
 import { CountdownSec } from "../components/countdown/CountdownSec.js";

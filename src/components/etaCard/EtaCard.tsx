@@ -12,7 +12,7 @@ import {
 import { Dismiss12Filled, Edit12Filled } from "@fluentui/react-icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";

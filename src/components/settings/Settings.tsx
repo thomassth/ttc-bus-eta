@@ -14,7 +14,7 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import type { settingsRedux } from "../../models/etaObjects.js";
 import useNavigate from "../../routes/navigate.js";

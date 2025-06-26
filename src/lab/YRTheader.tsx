@@ -1,7 +1,7 @@
 import { Link as LinkFluent, Title1 } from "@fluentui/react-components";
 // eslint-disable-next-line no-unused-vars
 import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 
 import styles from "./yrt.module.css";
 
