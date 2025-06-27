@@ -44,6 +44,6 @@ export function BookmarkButton(props: StopBookmark) {
       checked={isBookmarked}
       icon={isBookmarked ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}
-    ></ToggleButton>
+    />
   );
 }
