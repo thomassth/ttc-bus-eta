@@ -36,13 +36,14 @@ export function BookmarkButton(props: StopBookmark) {
 
   return (
     <ToggleButton
+      title={
+        isBookmarked
+          ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
+          : (t("buttons.bookmarkAdd") ?? "Add to bookmark")
+      }
       checked={isBookmarked}
       icon={isBookmarked ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}
-    >
-      {isBookmarked
-        ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
-        : (t("buttons.bookmarkAdd") ?? "Add to bookmark")}
-    </ToggleButton>
+    ></ToggleButton>
   );
 }

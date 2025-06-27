@@ -8,6 +8,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../store/index.js";
 import { changeSettings } from "../../store/settings/slice.js";
+import style from "./LayoutToolbar.module.css";
 
 export default function LayoutToolbar() {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export default function LayoutToolbar() {
   );
   return (
     <Toolbar
+      className={style.toolbar}
       defaultCheckedValues={{
         listStyle: [unifiedEtaValue.toString()],
       }}

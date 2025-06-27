@@ -106,6 +106,10 @@ main {
   flex-direction: column;
 }
 
+.countdown-list-container {
+  max-width: 50em;
+}
+
 .countdown-list-container,
 .bookmark-container {
   display: flex;
