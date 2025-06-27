@@ -3,10 +3,8 @@ import { ArrowClockwise24Regular } from "@fluentui/react-icons";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import type { EtaBusWithID } from "../../models/etaObjects.js";
-import { store } from "../../store/index.js";
-import { settingsSelectors } from "../../store/settings/slice.js";
+import { useAppSelector } from "../../store/index.js";
 import { TtcAlertList } from "../alerts/TtcAlertList.js";
 import { DirectionBadge } from "../badges.js";
 import { BookmarkButton } from "../bookmarks/BookmarkButton.js";
@@ -15,6 +13,7 @@ import { CountdownRow } from "../countdown/CountdownRow.js";
 import SMSButton from "../eta/SMSButton.js";
 import { etaParser } from "../parser/etaParser.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
+import LayoutToolbar from "../settings/LayoutToolbar.js";
 import style from "./FetchStop.module.css";
 import { ttcStopPrediction } from "./queries.js";
 
@@ -31,7 +30,10 @@ function RefreshButton({
     </Button>
   );
 }
-function StopPredictionInfo(props: { stopId: number }): JSX.Element {
+
+export default function StopPredictionInfo(props: {
+  stopId: number;
+}): JSX.Element {
   const stopId = props.stopId;
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now());
   const { t } = useTranslation();
@@ -44,9 +46,9 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     setLastUpdatedAt(Date.now());
   }, []);
 
-  const unifiedEtaValue =
-    settingsSelectors.selectById(store.getState().settings, "unifiedEta")
-      ?.value === "true";
+  const unifiedEtaValue = useAppSelector(
+    (state) => state.settings?.entities?.unifiedEta?.value === "true"
+  );
 
   const etaDb = useMemo(() => {
     if (ttcStopPredictionResponse.data) {
@@ -129,7 +131,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
             </>
           )}
           <TtcAlertList lineNum={lineList} type="compact" />
-          <div className="countdown-button-group">
+          <div className={style["countdown-button-group"]}>
             <RefreshButton handleRefreshClick={handleRefreshClick} />
             {etaDb[0] && (
               <BookmarkButton
@@ -141,6 +143,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
                 direction={etaDb[0].direction}
               />
             )}
+            <LayoutToolbar />
           </div>
           {navigator.onLine ? null : (
             <span>Device seems to be offline. Results may be inaccurate.</span>
@@ -162,7 +165,7 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
     return (
       <div>
         <Title1>{t("reminder.failToLocate")}</Title1>
-        <div className="countdown-button-group">
+        <div className={style["countdown-button-group"]}>
           <RefreshButton handleRefreshClick={handleRefreshClick} />
           <SMSButton stopId={stopId} />
         </div>
@@ -182,11 +185,10 @@ function StopPredictionInfo(props: { stopId: number }): JSX.Element {
           <Title1>Your device seems to be offline.</Title1>
         </>
       )}
-      <div className="countdown-button-group">
+      <div className={style["countdown-button-group"]}>
         <RefreshButton handleRefreshClick={handleRefreshClick} />
         <SMSButton stopId={stopId} />
       </div>
     </div>
   );
 }
-export default StopPredictionInfo;

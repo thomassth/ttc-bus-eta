@@ -1,4 +1,4 @@
-import { Button } from "@fluentui/react-components";
+import { ToggleButton } from "@fluentui/react-components";
 import {
   BookmarkAdd24Regular,
   BookmarkOff24Filled,
@@ -35,14 +35,14 @@ export function BookmarkButton(props: StopBookmark) {
   }, [dispatch, isBookmarked, props]);
 
   return (
-    <Button
-      title={
-        isBookmarked
-          ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
-          : (t("buttons.bookmarkAdd") ?? "Add to bookmark")
-      }
+    <ToggleButton
+      checked={isBookmarked}
       icon={isBookmarked ? <BookmarkOff24Filled /> : <BookmarkAdd24Regular />}
       onClick={checkBookmarkStatus}
-    />
+    >
+      {isBookmarked
+        ? (t("buttons.bookmarkDelete") ?? "Remove bookmark")
+        : (t("buttons.bookmarkAdd") ?? "Add to bookmark")}
+    </ToggleButton>
   );
 }
