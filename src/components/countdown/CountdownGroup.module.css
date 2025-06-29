@@ -2,3 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.line-name {
+  display: flex;
+  margin: 0.5lh 0;
+
+  p {
+    margin: 0;
+  }
+}

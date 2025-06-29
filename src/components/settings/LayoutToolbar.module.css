@@ -1,0 +1,5 @@
+.toolbar {
+  padding: 0;
+  flex-grow: 1;
+  place-content: end;
+}

@@ -6,3 +6,9 @@
 .stop-name h1 {
   white-space: preserve-breaks;
 }
+
+.countdown-button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

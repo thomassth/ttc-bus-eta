@@ -57,14 +57,13 @@ a {
   align-items: center;
 }
 
-.stop-prediction-page,
 .home-page,
 .line-page,
 .about-page,
 .container.yrt {
-  margin: 16px 32px 80px;
+  width: 95%;
+  margin: 16px auto 80px;
   padding: 0;
-  width: auto;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -105,6 +104,10 @@ main {
   padding: 0 32px 16px;
   display: flex;
   flex-direction: column;
+}
+
+.countdown-list-container {
+  max-width: 50em;
 }
 
 .countdown-list-container,
@@ -199,11 +202,13 @@ pre {
 
   .container {
     flex-direction: row;
-  }
-
-  .nav-bar {
-    width: fit-content;
-    background-color: var(--colorNeutralBackground2);
+    .nav-bar {
+      width: fit-content;
+      background-color: var(--colorNeutralBackground2);
+    }
+    main {
+      margin: 16px 32px 80px;
+    }
   }
 }
 

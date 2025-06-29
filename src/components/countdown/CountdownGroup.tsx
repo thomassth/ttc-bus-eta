@@ -21,12 +21,12 @@ export default function CountdownGroup(props: { detail: LineStopEta }) {
           <Title2>{props.detail.line}</Title2>
         </LinkFluent>
       </Link>
-      <p className="line-name">
+      <div className={style["line-name"]}>
         {props.detail.direction && (
           <DirectionBadge direction={props.detail.direction} />
         )}
-        <span>{props.detail.routeName}</span>
-      </p>
+        <p>{props.detail.routeName}</p>
+      </div>
       {countdownRowList}
     </li>
   );
