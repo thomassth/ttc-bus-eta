@@ -6,7 +6,6 @@
   border: black solid 8px;
   max-width: min(100%, 30rem);
   margin: auto;
-  width: max-content;
 
   .title {
     background-color: black;
@@ -38,9 +37,13 @@
     padding: 1rem 0;
   }
 
-  .center-input input {
-    text-align: center;
-    width: 100%;
+  .center-input {
+    flex-grow: 1;
+
+    input {
+      text-align: center;
+      width: 100%;
+    }
   }
 
   .submit-button {
