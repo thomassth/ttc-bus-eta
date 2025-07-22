@@ -1,16 +1,15 @@
 import { Accordion, Title2 } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 import { useLocation, useParams } from "react-router";
-
-import { YRTStopAccordions } from "../components/accordions/StopAccordions.js";
-import { YRTBadge } from "../components/badges.js";
-import type { LineList, LineRequest } from "../models/yrt.js";
+import type { LineRequest } from "../../models/yrt.js";
+import { YRTStopAccordions } from "../accordions/StopAccordions.js";
+import { YRTBadge } from "../badges.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
 
 export default function YRTLine() {
   const params = useParams();
 
-  const [response, setResponse] = useState<LineRequest>({});
-  const [lineList, setLineList] = useState<LineList[]>();
   const { state } = useLocation();
   const { directions, lineName, lineNum } = state;
   const translateDirId = (dirId: number) => {
@@ -19,55 +18,52 @@ export default function YRTLine() {
   };
   useEffect(() => {
     document.title = "YRT arrivals";
-  });
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchEtaData = async () => {
-      let response = {};
-      await fetch("https://tripplanner.yrt.ca/TI_FixedRoute_Line", {
-        signal: controller.signal,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json text/plain, */*",
-        },
-        body: JSON.stringify({
-          version: "1.1",
-          method: "GetLineDetails",
-          params: {
-            lineId: params.lineId,
-          },
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          response = json;
-        });
-
-      return response;
-    };
-    fetchEtaData().then((response) => {
-      setResponse(response);
-    });
   }, []);
 
-  useEffect(() => {
-    if (response.result && response.result?.validation?.[0]?.Type !== "error") {
-      setLineList(response.result.directions);
+  const yrtLineStops = useQuery<LineRequest>({
+    queryKey: [`yrt-line-id-${params.lineId}`],
+    queryFn: async () => {
+      const response = await fetch(
+        "https://tripplanner.yrt.ca/TI_FixedRoute_Line",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json text/plain, */*",
+          },
+          body: JSON.stringify({
+            version: "1.1",
+            method: "GetLineDetails",
+            params: {
+              lineId: params.lineId,
+            },
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    },
+  });
+
+  const lineList = useMemo(() => {
+    const response = yrtLineStops.data;
+    if (
+      response?.result &&
+      response.result?.validation?.[0]?.Type !== "error"
+    ) {
+      return response.result.directions;
     }
+    return [];
+  }, [yrtLineStops.data]);
 
-    return () => {
-      // second
-    };
-  }, [response.result]);
-
-  const lineRows = [];
-
-  if (Array.isArray(lineList) && lineList.length) {
+  const lineRows = useMemo(() => {
+    const result = [];
     for (const i in lineList) {
       const item = lineList[i];
-      lineRows.push(
+      result.push(
         <li key={i}>
           <YRTStopAccordions
             title={translateDirId(item.lineDirId)}
@@ -79,7 +75,8 @@ export default function YRTLine() {
         </li>
       );
     }
-  }
+    return result;
+  }, [lineList]);
 
   return (
     <article className="stop-prediction-page">
@@ -90,6 +87,7 @@ export default function YRTLine() {
       <ul>
         <Accordion collapsible>{lineRows}</Accordion>
       </ul>
+      <RawDisplay data={yrtLineStops.data} />
     </article>
   );
 }

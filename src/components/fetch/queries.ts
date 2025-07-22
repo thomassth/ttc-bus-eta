@@ -243,3 +243,20 @@ export const atprotoTtcAlerts = queryOptions<FeedViewPost[]>({
     return response?.data?.feed;
   },
 });
+
+export const getYrtStops = queryOptions<
+  { stopId: string; stopPublicId: string }[]
+>({
+  queryKey: ["yrt-stops"],
+  queryFn: async () => {
+    const response = await fetch(
+      "https://thomassth.github.io/to-bus-stations/data/yrt/stops.json"
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  },
+  staleTime: 24 * 60 * 60 * 1000,
+});

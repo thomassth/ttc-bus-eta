@@ -1,28 +1,36 @@
 import { Text, Title2 } from "@fluentui/react-components";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router";
-
-import { YRTBadge } from "../components/badges.js";
-import { CountdownSec } from "../components/countdown/CountdownSec.js";
-import type { CountdownItems, StopRequest } from "../models/yrt.js";
+import type { StopRequest } from "../../models/yrt.js";
+import { YRTBadge } from "../badges.js";
+import { CountdownSec } from "../countdown/CountdownSec.js";
+import { getYrtStops } from "../fetch/queries.js";
+import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./yrt.module.css";
 
-export default function YRT() {
+export default function YRTStop() {
   const params = useParams();
-  const stopNum = Number.parseInt(`${params.stopId}`);
+  const stopId = params.stopId;
+  const yrtStops = useQuery(getYrtStops);
 
-  const [response, setResponse] = useState<StopRequest>({});
-  const [countdownItems, setCountdownItems] = useState<CountdownItems[]>();
-  useEffect(() => {
-    document.title = `Stop ID ${stopNum} | YRT arrivals`;
-  });
-  useEffect(() => {
-    const controller = new AbortController();
+  const stopQueryNum = useMemo(() => {
+    if (!stopId) {
+      return "";
+    }
+    return (
+      yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? ""
+    );
+  }, []);
 
-    const fetchEtaData = async () => {
-      let response = {};
-      await fetch("https://tripplanner.yrt.ca/InfoWeb", {
-        signal: controller.signal,
+  useEffect(() => {
+    document.title = `Stop ID ${stopId} | YRT arrivals`;
+  }, [stopId]);
+
+  const yrtStopPrediction = useQuery<StopRequest>({
+    queryKey: [`yrt-stop-id-${stopQueryNum}`],
+    queryFn: async () => {
+      const response = await fetch("https://tripplanner.yrt.ca/InfoWeb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,79 +47,91 @@ export default function YRT() {
               NumStopTimes: 150,
               SuppressLinesUnloadOnly: "1",
               Client: "MobileWeb",
-              StopId: stopNum,
+              StopId: Number.parseInt(stopQueryNum),
               EnableRealTime: true,
               NumTimesPerLine: 10,
             },
           },
         }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          response = json;
-        });
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-      return response;
-    };
-    fetchEtaData().then((response) => {
-      setResponse(response);
-    });
-  }, []);
+      return response.json();
+    },
+    enabled: stopQueryNum.length > 0,
+  });
 
-  useEffect(() => {
+  const countdownItems = useMemo(() => {
+    const response = yrtStopPrediction.data;
     if (
-      response.result?.[0] &&
+      response?.result?.[0] &&
       response.result?.[0].Validation[0].Type !== "error"
     ) {
-      const lineDirMap = new Map<number, { LineName; LineAbbr }>();
+      const lineDirMap = new Map<
+        number,
+        { LineName: string; LineAbbr: string }
+      >();
       response.result?.[0].StopTimeResult[0].Lines.map((item) => {
         lineDirMap.set(item.LineDirId, item);
         return item;
       });
 
-      setCountdownItems(
-        response.result?.[0].RealTimeResults.map((item) => ({
-          sec: item.RealTimeSPC,
-          LineName: lineDirMap.get(item.LineDirId)?.LineName,
-          LineAbbr: lineDirMap.get(item.LineDirId)?.LineAbbr,
-        }))
-      );
+      return response.result?.[0].RealTimeResults.map((item) => ({
+        sec: item.RealTimeSPC,
+        LineName: lineDirMap.get(item.LineDirId)?.LineName ?? "",
+        LineAbbr: lineDirMap.get(item.LineDirId)?.LineAbbr ?? "",
+      }));
     }
+    return [];
+  }, [yrtStopPrediction.data]);
 
-    return () => {
-      // second
-    };
-  }, [response.result]);
-
-  if (response.result) {
-    if (response.result?.[0].Validation[0].Type !== "error") {
+  if (yrtStopPrediction.data?.result) {
+    if (yrtStopPrediction.data.result?.[0].Validation[0].Type !== "error") {
       return (
         <main className={styles["yrt-main"]}>
-          {response.result?.[0].RealTimeResults.length === 0 && (
+          {yrtStopPrediction.data.result?.[0].RealTimeResults.length === 0 && (
             <Title2>Stop {params.stopId} has no real time results.</Title2>
           )}
-          <Title2>{`YRT STOP ${params.stopId}`}</Title2>
+          <Title2>{`YRT STOP ${stopId}`}</Title2>
           <Title2>
-            {response.result?.[0].StopTimeResult[0].Lines[0].StopName}
+            {
+              yrtStopPrediction.data.result?.[0].StopTimeResult[0].Lines[0]
+                .StopName
+            }
           </Title2>
           <br />
           <Text>
-            {response.result?.[0].StopTimeResult[0].Lines[0].DirectionName}
+            {
+              yrtStopPrediction.data.result?.[0].StopTimeResult[0].Lines[0]
+                .DirectionName
+            }
           </Text>
-          <YRTCountdownItems items={countdownItems ?? []} />
+          <YRTCountdownItems items={countdownItems} />
+          <RawDisplay data={yrtStopPrediction.data} />
         </main>
       );
     }
     return (
       <main className={styles["yrt-main"]}>
         <Title2>Stop {params.stopId} has no results.</Title2>
-        <Text>{response.result?.[0].Validation[0].Message}</Text>
+        <Text>{yrtStopPrediction.data.result?.[0].Validation[0].Message}</Text>
+        <RawDisplay data={yrtStopPrediction.data} />
+      </main>
+    );
+  }
+  if (stopQueryNum.length > 0) {
+    return (
+      <main className={styles["yrt-main"]}>
+        <Title2>Stop {params.stopId} loading...</Title2>
       </main>
     );
   }
   return (
     <main className={styles["yrt-main"]}>
-      <Title2>Stop {params.stopId} loading...</Title2>
+      <Title2>Stop {params.stopId} does not exist.</Title2>
+      <RawDisplay data={yrtStops} />
     </main>
   );
 }

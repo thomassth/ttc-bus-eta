@@ -3,10 +3,10 @@ import { createBrowserRouter } from "react-router";
 import App from "../App.js";
 import { BookmarkPage } from "../components/bookmarks/Bookmark.js";
 import { Settings } from "../components/settings/Settings.js";
-import YRTHeader from "../lab/YRTheader.js";
-import YRTLine from "../lab/YRTline.js";
-import YRTLines from "../lab/YRTlines.js";
-import YRT from "../lab/YRTstop.js";
+import YRTHeader from "../components/yrt/YRTheader.js";
+import YRTLine from "../components/yrt/YRTline.js";
+import YRTLines from "../components/yrt/YRTlines.js";
+import YRTStop from "../components/yrt/YRTstop.js";
 import About from "./About.js";
 import ErrorPage from "./Error.js";
 import Home from "./Home.js";
@@ -15,6 +15,34 @@ import LineSearch from "./LineSearch.js";
 import LineStopPrediction from "./LineStopPrediction.js";
 import RelativeVehiclePosition from "./RelativeVehiclePosition.js";
 import StopPrediction from "./StopPrediction.js";
+
+const ttcPages = [
+  {
+    path: "lines",
+    children: [
+      { index: true, Component: LineSearch },
+      {
+        path: ":lineId",
+        children: [
+          { index: true, Component: Line },
+          { path: ":stopNum", Component: LineStopPrediction },
+        ],
+      },
+    ],
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "stops/:stopId",
+    children: [
+      { index: true, Component: StopPrediction },
+      {
+        path: ":vehicle",
+        Component: RelativeVehiclePosition,
+      },
+    ],
+    errorElement: <ErrorPage />,
+  },
+];
 
 export const router = createBrowserRouter([
   {
@@ -33,61 +61,17 @@ export const router = createBrowserRouter([
           { path: "lines/:lineId", Component: YRTLine },
           {
             path: "stops/:stopId",
-            Component: YRT,
+            Component: YRTStop,
           },
         ],
         errorElement: <ErrorPage />,
       },
       {
         path: "ttc",
-        children: [
-          { index: true, Component: LineSearch },
-          {
-            path: "lines/:lineId",
-            children: [
-              { index: true, Component: Line },
-              { path: ":stopNum", Component: LineStopPrediction },
-            ],
-          },
-          {
-            path: "stops/:stopId",
-            children: [
-              { index: true, Component: StopPrediction },
-              {
-                path: ":vehicle",
-                Component: RelativeVehiclePosition,
-              },
-            ],
-          },
-        ],
+        children: [{ index: true, Component: LineSearch }, ...ttcPages],
         errorElement: <ErrorPage />,
       },
-      {
-        path: "lines",
-        children: [
-          { index: true, Component: LineSearch },
-          {
-            path: ":lineId",
-            children: [
-              { index: true, Component: Line },
-              { path: ":stopNum", Component: LineStopPrediction },
-            ],
-          },
-        ],
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "stops/:stopId",
-        children: [
-          { index: true, Component: StopPrediction },
-          {
-            path: ":vehicle",
-            Component: RelativeVehiclePosition,
-          },
-        ],
-        errorElement: <ErrorPage />,
-      },
-
+      ...ttcPages,
       { path: "*", Component: ErrorPage },
     ],
   },

@@ -19,6 +19,7 @@ import { stopBookmarksSelectors } from "../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../store/index.js";
 import { changeSettings, settingsSelectors } from "../store/settings/slice.js";
 import style from "./Home.module.css";
+import useNavigate from "./navigate.js";
 import Search from "./Search.js";
 
 export default function Home() {
@@ -78,10 +79,16 @@ function HomeBookmarks() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
     store.getState().stopBookmarks
   );
+  const { navigate } = useNavigate();
+
+  const onSearchSubmit = (input: string) => {
+    navigate(`stops/${input}`);
+  };
+
   if (stopBookmarks.length === 0) {
     return (
       <section className="item-info-placeholder">
-        <StopSearch />
+        <StopSearch onValidSubmit={onSearchSubmit} />
         <p>{t("home.headline")}</p>
         <p>{t("home.bookmarkReminder")}</p>
         <p>

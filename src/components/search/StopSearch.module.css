@@ -8,7 +8,6 @@
   margin: auto;
 
   .title {
-    background-color: black;
     text-align: center;
     color: white;
     display: flex;
@@ -47,8 +46,6 @@
   }
 
   .submit-button {
-    background-color: black;
-
     .subtle-search {
       max-width: 100%;
       width: 100%;
@@ -76,5 +73,11 @@
     .submit-button button {
       height: 100%;
     }
+  }
+
+  &.yrt {
+    background-color: #006ec7;
+    border-color: #006ec7;
+    border-radius: 0;
   }
 }
