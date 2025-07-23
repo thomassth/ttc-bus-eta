@@ -122,8 +122,8 @@ export default function Nearby() {
           {isLoadingLocation
             ? t("nearby.checkingLocation")
             : coordinate.lat && coordinate.lon
-            ? t("nearby.recheckLocation")
-            : t("nearby.checkLocation")}
+              ? t("nearby.recheckLocation")
+              : t("nearby.checkLocation")}
         </Button>
         <div className={style.spinner}>
           {(isLoading || isLoadingLocation) && <Spinner />}

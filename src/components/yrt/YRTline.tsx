@@ -61,7 +61,7 @@ export default function YRTLine() {
       const direction = directions.get(item.lineDirId);
 
       return (
-        <li key={i}>
+        <li key={direction}>
           <YRTStopAccordions
             title={direction}
             direction={direction}
