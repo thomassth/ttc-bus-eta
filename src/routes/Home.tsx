@@ -81,9 +81,12 @@ function HomeBookmarks() {
   );
   const { navigate } = useNavigate();
 
-  const onSearchSubmit = (input: string) => {
-    navigate(`stops/${input}`);
-  };
+  const onSearchSubmit = useCallback(
+    (input: string) => {
+      navigate(`stops/${input}`);
+    },
+    [navigate]
+  );
 
   if (stopBookmarks.length === 0) {
     return (

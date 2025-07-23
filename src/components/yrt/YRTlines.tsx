@@ -1,6 +1,6 @@
 import { Card, Text } from "@fluentui/react-components";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Link } from "react-router";
 import type { LinesRequest } from "../../models/yrt.js";
 import useNavigate from "../../routes/navigate.js";
@@ -71,42 +71,39 @@ export default function YRTLines() {
   }, [yrtLines.data]);
 
   const lineRows = useMemo(() => {
-    const result = [];
-
-    for (const i in lineList) {
-      const item = lineList[i];
-      result.push(
-        <li key={item.sortOrder}>
-          <Card className="card-container clickableCard">
-            <Link
-              className="route-card"
-              to={`/yrt/lines/${item.lineIdContexts[0].lineId}`}
-              state={{
-                directions,
-                lineName: item.name,
-                lineNum: item.sortOrder,
-              }}
-            >
-              <YRTBadge color={item.colour} lineAbbr={item.sortOrder} />
-              <Text>{item.name}</Text>
-            </Link>
-          </Card>
-        </li>
-      );
-    }
-    return result;
-  }, [lineList]);
+    return lineList.map((item) => (
+      <li key={item.sortOrder}>
+        <Card className="card-container clickableCard">
+          <Link
+            className="route-card"
+            to={`/yrt/lines/${item.lineIdContexts[0].lineId}`}
+            state={{
+              directions,
+              lineName: item.name,
+              lineNum: item.sortOrder,
+            }}
+          >
+            <YRTBadge color={item.colour} lineAbbr={item.sortOrder} />
+            <Text>{item.name}</Text>
+          </Link>
+        </Card>
+      </li>
+    ));
+  }, [lineList, directions]);
   const { navigate } = useNavigate();
 
-  const onStopSearchSubmit = (input: string) => {
-    const queryId = yrtStops.data?.find(
-      (item) => item.stopPublicId === input
-    )?.stopId;
-    if (!queryId) {
-      return;
-    }
-    navigate(`stops/${queryId}`);
-  };
+  const onStopSearchSubmit = useCallback(
+    (input: string) => {
+      const queryId = yrtStops.data?.find(
+        (item) => item.stopPublicId === input
+      )?.stopId;
+      if (!queryId) {
+        return;
+      }
+      navigate(`stops/${queryId}`);
+    },
+    [navigate, yrtStops.data]
+  );
 
   return (
     <article>

@@ -9,6 +9,24 @@ import { getYrtStops } from "../fetch/queries.js";
 import RawDisplay from "../rawDisplay/RawDisplay.js";
 import styles from "./yrt.module.css";
 
+const YRTCountdownItems = (props: {
+  items: { sec: number; LineName: string; LineAbbr: string }[];
+}) => {
+  const items = props.items;
+
+  const CountdownRows = (items ?? []).map((item) => (
+    <li key={i}>
+      <div className={styles["line-info"]}>
+        <YRTBadge lineAbbr={item.LineAbbr} />
+        <Text>{item.LineName}</Text>
+      </div>
+      <CountdownSec second={item.sec} />
+    </li>
+  ));
+
+  return <ul>{CountdownRows}</ul>;
+};
+
 export default function YRTStop() {
   const params = useParams();
   const stopId = params.stopId;
@@ -135,25 +153,3 @@ export default function YRTStop() {
     </main>
   );
 }
-
-const YRTCountdownItems = (props: {
-  items: { sec: number; LineName: string; LineAbbr: string }[];
-}) => {
-  const items = props.items;
-  const CountdownRows = [];
-  if (Array.isArray(items) && items.length) {
-    for (const i in items) {
-      const item = items[i];
-      CountdownRows.push(
-        <li>
-          <div className={styles["line-info"]}>
-            <YRTBadge lineAbbr={item.LineAbbr} />
-            <Text>{item.LineName}</Text>
-          </div>
-          <CountdownSec key={i} second={item.sec} />
-        </li>
-      );
-    }
-  }
-  return <ul>{CountdownRows}</ul>;
-};

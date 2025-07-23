@@ -24,9 +24,12 @@ export default function Nearby() {
 
   const { navigate } = useNavigate();
 
-  const onSearchSubmit = (input: string) => {
-    navigate(`stops/${input}`);
-  };
+  const onSearchSubmit = useCallback(
+    (input: string) => {
+      navigate(`stops/${input}`);
+    },
+    [navigate]
+  );
 
   const defaultProvideLocationValue = settingsSelectors.selectById(
     store.getState().settings,
@@ -119,8 +122,8 @@ export default function Nearby() {
           {isLoadingLocation
             ? t("nearby.checkingLocation")
             : coordinate.lat && coordinate.lon
-              ? t("nearby.recheckLocation")
-              : t("nearby.checkLocation")}
+            ? t("nearby.recheckLocation")
+            : t("nearby.checkLocation")}
         </Button>
         <div className={style.spinner}>
           {(isLoading || isLoadingLocation) && <Spinner />}

@@ -12,10 +12,7 @@ export default function YRTLine() {
 
   const { state } = useLocation();
   const { directions, lineName, lineNum } = state;
-  const translateDirId = (dirId: number) => {
-    console.log(dirId);
-    return directions.get(dirId);
-  };
+
   useEffect(() => {
     document.title = "YRT arrivals";
   }, []);
@@ -60,23 +57,22 @@ export default function YRTLine() {
   }, [yrtLineStops.data]);
 
   const lineRows = useMemo(() => {
-    const result = [];
-    for (const i in lineList) {
-      const item = lineList[i];
-      result.push(
+    return lineList.map((item, i) => {
+      const direction = directions.get(item.lineDirId);
+
+      return (
         <li key={i}>
           <YRTStopAccordions
-            title={translateDirId(item.lineDirId)}
-            direction={translateDirId(item.lineDirId)}
+            title={direction}
+            direction={direction}
             lineNum={1}
             result={item.stops}
-            tag={i}
+            tag={i.toString()}
           />
         </li>
       );
-    }
-    return result;
-  }, [lineList]);
+    });
+  }, [lineList, directions.get]);
 
   return (
     <article className="stop-prediction-page">
