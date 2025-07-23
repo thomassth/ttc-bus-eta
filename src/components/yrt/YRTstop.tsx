@@ -15,7 +15,7 @@ const YRTCountdownItems = (props: {
   const items = props.items;
 
   const CountdownRows = (items ?? []).map((item) => (
-    <li key={i}>
+    <li key={item.LineName}>
       <div className={styles["line-info"]}>
         <YRTBadge lineAbbr={item.LineAbbr} />
         <Text>{item.LineName}</Text>
