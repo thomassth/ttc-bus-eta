@@ -4,13 +4,19 @@ import { type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { stopBookmarksRedux } from "../../models/etaObjects.js";
-import useNavigate from "../../routes/navigate.js";
 import { useAppSelector } from "../../store/index.js";
 import style from "./StopSearch.module.css";
 
-export default function StopSearch(props: { compact?: boolean }) {
+export default function StopSearch({
+  compact,
+  operator = "ttc",
+  onValidSubmit,
+}: {
+  compact?: boolean;
+  operator?: string;
+  onValidSubmit: (arg0: string) => void;
+}) {
   const { t } = useTranslation();
-  const { navigate } = useNavigate();
 
   const stopBookmarks: stopBookmarksRedux = useAppSelector(
     (state: { stopBookmarks: stopBookmarksRedux }) => state.stopBookmarks
@@ -31,18 +37,19 @@ export default function StopSearch(props: { compact?: boolean }) {
   const classList = useMemo(() => {
     const list = [style["next-vehicle-container"]];
 
-    if (bookmarksSaved || props.compact) {
+    if (bookmarksSaved || compact) {
       list.push(style.compact);
     }
+    list.push(style[operator]);
 
     return list;
-  }, [bookmarksSaved, props.compact]);
+  }, [bookmarksSaved, compact, operator]);
 
   const handleSearchClick = useCallback(() => {
     if (stopInput !== "") {
-      navigate(`stops/${stopInput}`);
+      onValidSubmit(stopInput);
     }
-  }, [stopInput]);
+  }, [stopInput, onValidSubmit]);
 
   return (
     <form className={classList.join(" ")}>

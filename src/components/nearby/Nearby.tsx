@@ -2,7 +2,7 @@ import { Button, Spinner, Switch, Tooltip } from "@fluentui/react-components";
 import { Info16Regular } from "@fluentui/react-icons";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-
+import useNavigate from "../../routes/navigate.js";
 import { store, useAppDispatch } from "../../store/index.js";
 import {
   changeSettings,
@@ -20,6 +20,15 @@ export default function Nearby() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coordinate, setCoordinate] = useState<{ lat?: number; lon?: number }>(
     {}
+  );
+
+  const { navigate } = useNavigate();
+
+  const onSearchSubmit = useCallback(
+    (input: string) => {
+      navigate(`stops/${input}`);
+    },
+    [navigate]
   );
 
   const defaultProvideLocationValue = settingsSelectors.selectById(
@@ -100,7 +109,7 @@ export default function Nearby() {
   return (
     <div className={style.nearby}>
       <section className="item-info-placeholder">
-        <StopSearch />
+        <StopSearch onValidSubmit={onSearchSubmit} />
       </section>
       {number >= 0
         ? t("nearby.totalStopsSummary", { stopsTotal: number })

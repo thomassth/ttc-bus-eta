@@ -87,7 +87,6 @@ export function YRTStopAccordions(props: {
             name={lineStop.name}
             operator="YRT"
           />
-          {lineStop.name}
         </div>
       </AccordionPanel>
     );
