@@ -37,7 +37,7 @@ export default function YRTStop() {
       return "";
     }
     return (
-      yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? ""
+      yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? "NO_MATCH"
     );
   }, [params.stopId]);
 
@@ -105,7 +105,7 @@ export default function YRTStop() {
     return [];
   }, [yrtStopPrediction.data]);
 
-  if (stopQueryNum.length > 0) {
+  if (stopQueryNum.length !== "NO_MATCH") {
     if (yrtStopPrediction.data.result?.[0].Validation[0].Type !== "error") {
       return (
         <main className={styles["yrt-main"]}>
@@ -148,8 +148,8 @@ export default function YRTStop() {
   }
   return (
     <main className={styles["yrt-main"]}>
-      <Title2>Stop {params.stopId} does not exist.</Title2>
-      <RawDisplay data={yrtStopPrediction.data} />
+      <Title2>Stop {params.stopId} isn't in the database?</Title2>
+      <RawDisplay data={yrtStops.data} />
     </main>
   );
 }
