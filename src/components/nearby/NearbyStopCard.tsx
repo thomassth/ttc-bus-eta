@@ -76,7 +76,7 @@ export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
       key={stop.id}
       direction={direction}
       lines={lines}
-      name={`${stop.title}\n${t("nearby.mAway", { distanceInMetres})}`}
+      name={`${stop.title}\n${t("nearby.mAway", { distanceInMetres })}`}
       id={stop.id}
       stopUrl={url}
       etas={unifiedEta}

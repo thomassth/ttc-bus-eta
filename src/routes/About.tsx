@@ -5,8 +5,8 @@ export default function About() {
     <main className="about-page">
       <Title2>What is this?</Title2>
       <Text>
-        An extremely fast and simple website, sending TTC&#39;s ETA data straight
-        to you.
+        An extremely fast and simple website, sending TTC&#39;s ETA data
+        straight to you.
       </Text>
       <br />
       <Title2>Where do they come from?</Title2>

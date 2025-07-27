@@ -120,7 +120,11 @@ export function Settings() {
         <Radio value="fr" label={t("lang.fr")} />
         <Radio value="zh" label={t("lang.zh")} />
       </RadioGroup>
-      <Switch checked={devMode} onChange={devModeChange} label={t("settings.devMode")} />
+      <Switch
+        checked={devMode}
+        onChange={devModeChange}
+        label={t("settings.devMode")}
+      />
       <Link to="/about" title={t("nav.label.about") ?? "About"}>
         <Button className={fluentStyle.navButtonLink}>
           {t("nav.label.about")}
