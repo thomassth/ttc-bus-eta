@@ -149,7 +149,7 @@ export default function YRTStop() {
   return (
     <main className={styles["yrt-main"]}>
       <Title2>Stop {params.stopId} does not exist.</Title2>
-      <RawDisplay data={yrtStops} />
+      <RawDisplay data={yrtStopPrediction.data} />
     </main>
   );
 }
