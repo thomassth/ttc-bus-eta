@@ -7,7 +7,8 @@
       "lang": "語言",
       "settings": "設定",
       "bookmarks": "書籤",
-      "nearby": "附近"
+      "nearby": "附近",
+      "serviceAlerts": "服務警示"
     }
   },
   "home": {
@@ -44,12 +45,13 @@
     "checkLocation": "Set 你宜家個位",
     "recheckLocation": "重設你宜家個位",
     "alwaysProvideLocation": "自動提供我個位置",
-    "locationPolicy": "<p>雖然你個位置唔會 send 上任何 server，我都想你幾時都有權揀俾定唔俾。<br /> 如果你想嘅話，亦都可以每次一開都自動 check 你個位置。</p>",
+    "locationPolicy": "<p>雖然你個位置唔會 send 上任何 server，我都想你幾時都有權揀俾定唔俾。<br /><br /> 如果你想嘅話，亦都可以每次一開都自動 check 你個位置。</p>",
     "closestStopsLead": "你最接近嘅巴士站係：",
     "locationNeeded": "呢個功能需要你嘅位置。",
     "mAway": "米"
   },
   "settings": {
+    "devMode": "開發者模式",
     "etaLists": "到站時間",
     "separateLines": "每條線分開睇",
     "singleList": "合併所有線咁睇"
