@@ -5,7 +5,7 @@ export default function About() {
     <main className="about-page">
       <Title2>What is this?</Title2>
       <Text>
-        A extremely fast and simple website, sending TTC&#39;s ETA data straight
+        An extremely fast and simple website, sending TTC&#39;s ETA data straight
         to you.
       </Text>
       <br />
@@ -25,7 +25,7 @@ export default function About() {
       <Title2>Why do all this?</Title2>
       <Text>
         Basically I don&#39;t like how most apps function. I just want to know
-        when my bus arrive and nothing else.
+        when my bus will arrive and nothing else.
         <br />
         Also, it&#39;s fun to try out the latest code stuff I learnt!
         <br />
