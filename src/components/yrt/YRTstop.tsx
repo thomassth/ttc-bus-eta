@@ -37,7 +37,8 @@ export default function YRTStop() {
       return "";
     }
     return (
-      yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? "NO_MATCH"
+      yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ??
+      "NO_MATCH"
     );
   }, [params.stopId]);
 
