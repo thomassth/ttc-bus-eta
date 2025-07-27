@@ -106,7 +106,7 @@ export default function YRTStop() {
     return [];
   }, [yrtStopPrediction.data]);
 
-  if (stopQueryNum.length !== "NO_MATCH") {
+  if (stopQueryNum !== "NO_MATCH") {
     if (yrtStopPrediction.data.result?.[0].Validation[0].Type !== "error") {
       return (
         <main className={styles["yrt-main"]}>
