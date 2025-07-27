@@ -33,13 +33,13 @@ export default function YRTStop() {
   const yrtStops = useQuery(getYrtStops);
 
   const stopQueryNum = useMemo(() => {
-    if (!stopId) {
+    if (!params.stopId) {
       return "";
     }
     return (
       yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? ""
     );
-  }, []);
+  }, [params.stopId]);
 
   useEffect(() => {
     document.title = `Stop ID ${stopId} | YRT arrivals`;
@@ -105,7 +105,7 @@ export default function YRTStop() {
     return [];
   }, [yrtStopPrediction.data]);
 
-  if (yrtStopPrediction.data?.result) {
+  if (stopQueryNum.length > 0) {
     if (yrtStopPrediction.data.result?.[0].Validation[0].Type !== "error") {
       return (
         <main className={styles["yrt-main"]}>
