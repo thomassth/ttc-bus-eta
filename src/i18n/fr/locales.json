@@ -6,7 +6,9 @@
       "about": "Aide",
       "lang": "Langue",
       "settings": "Paramètres",
-      "bookmarks": "Signets"
+      "bookmarks": "Signets",
+      "nearby": "À proximité",
+      "serviceAlerts": "Alertes de service"
     }
   },
   "home": {
@@ -31,7 +33,28 @@
     "lineAndStopInfo": "Ligne {{lineNum}} Arrêt {{stopNum}} =",
     "noLineInDb": "Erreur : Cette ligne n'est pas dans la base de données d'itinéraires. Les lignes de métro ne sont pas prises en charge pour le moment."
   },
+  "nearby": {
+    "totalStopsSummary": "Il y a {{stopsTotal}} arrêts dans la base de données locale.",
+    "checkingDb": "Téléchargement de la base de données...",
+    "checkDb": "Télécharger la base de données",
+    "checkingLocation": "Vérification de votre position...",
+    "checkLocation": "Définir ma position",
+    "recheckLocation": "Actualiser ma position",
+    "alwaysProvideLocation": "Fournir ma position au chargement",
+    "locationPolicy": "<p>Même si nous n'envoyons pas votre position sur internet, vous avez toujours le choix de n'utiliser votre position que quand vous le souhaitez. <br /><br /> Pour votre commodité, vous pouvez fournir votre position automatiquement lorsque vous chargez TOBus.ca.</p>",
+    "closestStopsLead": "Les arrêts de bus les plus proches sont :",
+    "locationNeeded": "La fonction à proximité nécessite votre position.",
+    "mAway": "à {{distanceInMetres}} mètres"
+  },
+  "alerts": {
+    "allAlerts": "Toutes les alertes",
+    "later": "Plus tard",
+    "now": "Maintenant",
+    "thisWeekend": "Ce week-end",
+    "today": "Aujourd'hui"
+  },
   "settings": {
+    "devMode": "Mode développeur",
     "etaLists": "Liste des arrivées prévues",
     "separateLines": "afficher chaque ligne séparément",
     "singleList": "afficher une liste simple"
@@ -70,5 +93,10 @@
   },
   "badge": {
     "arriving": "Arrivant"
+  },
+  "lang": {
+    "en": "English",
+    "fr": "français",
+    "zh": "中文"
   }
 }
