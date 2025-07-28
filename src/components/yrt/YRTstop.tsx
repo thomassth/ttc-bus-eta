@@ -39,7 +39,7 @@ export default function YRTStop() {
     return (
       yrtStops.data?.find((item) => item.stopPublicId === stopId)?.stopId ?? ""
     );
-  }, []);
+  }, [stopId, yrtStops.data]);
 
   useEffect(() => {
     document.title = `Stop ID ${stopId} | YRT arrivals`;
