@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import {
   fetchSubwayClosure,
@@ -20,19 +20,22 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     return "Subway Closures";
   }, [startDate, currentDate]);
 
-  const getClosuresByDateMatch = (match: boolean) =>
-    subwayClosureQuery.data?.filter(
-      (closure) => (closure.last_shown === currentDate) === match
-    ) ?? [];
+  const getClosuresByDateMatch = useCallback(
+    (match: boolean) =>
+      subwayClosureQuery.data?.filter(
+        (closure) => (closure.last_shown === currentDate) === match
+      ) ?? [],
+    [subwayClosureQuery.data, currentDate]
+  );
 
   const listedSubwayClosures = useMemo(
     () => getClosuresByDateMatch(true),
-    [subwayClosureQuery, currentDate]
+    [getClosuresByDateMatch]
   );
 
   const unlistedSubwayClosures = useMemo(
     () => getClosuresByDateMatch(false),
-    [subwayClosureQuery, currentDate]
+    [getClosuresByDateMatch]
   );
 
   if (!subwayClosureQuery.isFetched) {
