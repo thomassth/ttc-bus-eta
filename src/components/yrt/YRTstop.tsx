@@ -108,6 +108,14 @@ export default function YRTStop() {
   }, [yrtStopPrediction.data]);
 
   if (stopQueryNum !== "NO_MATCH") {
+    if (stopQueryNum.length === 0) {
+      // no query num yet
+      return (
+        <main className={styles["yrt-main"]}>
+          <Title2>Stop {params.stopId} loading...</Title2>
+        </main>
+      );
+    }
     if (yrtStopPrediction.data?.result?.[0].Validation[0].Type !== "error") {
       return (
         <main className={styles["yrt-main"]}>
@@ -143,16 +151,9 @@ export default function YRTStop() {
       </main>
     );
   }
-  if (stopQueryNum.length > 0) {
-    return (
-      <main className={styles["yrt-main"]}>
-        <Title2>Stop {params.stopId} loading...</Title2>
-      </main>
-    );
-  }
   return (
     <main className={styles["yrt-main"]}>
-      <Title2>Stop {params.stopId} isn't in the database</Title2>
+      <Title2>Stop {params.stopId} isn&#39;t in the database</Title2>
       <RawDisplay data={yrtStops.data} />
     </main>
   );
