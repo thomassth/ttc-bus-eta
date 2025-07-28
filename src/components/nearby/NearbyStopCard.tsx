@@ -67,7 +67,7 @@ export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
       return undefined;
     }
     return stop.directions;
-  }, [stop, getStopPredictionsResponse.data]);
+  }, [stop]);
 
   return (
     <EtaCard

@@ -64,11 +64,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
 
   const handleFetchBusClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   const handleDirClick = useCallback(
     (_event: SelectTabEvent, data: SelectTabData) => setEnabledDir(data.value),
-    [enabledDir]
+    []
   );
 
   if (ttcRouteResponse.data) {

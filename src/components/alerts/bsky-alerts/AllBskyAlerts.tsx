@@ -41,7 +41,7 @@ export const AllBskyAlerts = () => {
     (_event: SelectTabEvent, data: SelectTabData) => {
       setEnabledTab(data.value as string);
     },
-    [enabledTab]
+    []
   );
 
   const lastSkeetTime = useMemo(() => {
@@ -110,7 +110,7 @@ export const AllBskyAlerts = () => {
         setTimeframe(option);
       }
     },
-    [timeframe]
+    []
   );
 
   return (

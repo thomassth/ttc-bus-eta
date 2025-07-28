@@ -29,7 +29,7 @@ export default function RelativeVehiclePosition() {
 
   const onRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   return (
     <main className={styles["relative-vehicle-position"]}>

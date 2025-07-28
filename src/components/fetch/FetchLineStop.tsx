@@ -38,7 +38,7 @@ function LineStopPredictionInfo(props: {
 
   const fetchPredictionClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   if (data) {
     if (data.Error) {

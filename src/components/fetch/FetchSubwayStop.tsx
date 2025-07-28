@@ -31,7 +31,7 @@ function SubwayStopPredictionInfo(props: {
 
   const fetchPredictions = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   const fetchPredictionClick = useCallback(() => {
     fetchPredictions();
