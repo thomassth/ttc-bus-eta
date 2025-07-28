@@ -245,7 +245,7 @@ export const atprotoTtcAlerts = queryOptions<FeedViewPost[]>({
 });
 
 export const getYrtStops = queryOptions<
-  { stopId: string; stopPublicId: string }[]
+  { stopId: string; stopPublicId: string; name: string }[]
 >({
   queryKey: ["yrt-stops"],
   queryFn: async () => {
