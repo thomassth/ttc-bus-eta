@@ -40,7 +40,7 @@ export default function NearbyStopCard({ stop }: { stop: StopWithDistance }) {
       return templist.sort((a, b) => a.epochTime - b.epochTime);
     }
     return [];
-  }, [getStopPredictionsResponse.data]);
+  }, [stop.type, getStopPredictionsResponse.data]);
 
   const lines = useMemo(() => {
     if (stop.type === "ttc-subway") {

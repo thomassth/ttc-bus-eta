@@ -37,7 +37,7 @@ export default function VehicleLocation(props: {
       const center = fromLonLat([data.vehicle?.lon, data.vehicle?.lat]);
       setView({ center, zoom: 16 });
     }
-  }, []);
+  }, [props.data?.Error, data.vehicle]);
 
   if (error) {
     return (

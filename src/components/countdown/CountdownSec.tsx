@@ -32,7 +32,7 @@ export function CountdownSec(props: {
     }
     // Cleanup
     return () => clearTimeout(timer);
-  }, [sec]);
+  }, [epochTime, sec, props.epochTime]);
   return (
     <div className={style["countdown-sec"]}>
       {(sec < 180 || props.index === 0) && (

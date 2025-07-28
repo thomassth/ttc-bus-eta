@@ -171,7 +171,7 @@ function FavouriteEditor(props: {
         }
       }
     },
-    [uniqueLines, props.enabled]
+    [uniqueLines, props.enabled, dispatch, props.id]
   );
 
   return (
@@ -207,7 +207,7 @@ function LineCheckbox(props: {
 }) {
   const handleClick = useCallback(() => {
     props.onChangeFunction(props.line);
-  }, [props.enabled]);
+  }, [props.onChangeFunction, props.line]);
   return (
     <Checkbox
       key={props.id + props.line}

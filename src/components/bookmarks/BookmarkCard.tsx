@@ -15,7 +15,7 @@ export function BookmarkCard(props: { id: number }) {
 
   const checkBookmarkStatus = useCallback(() => {
     dispatch(removeStopBookmark(props.id));
-  }, [stopBookmarks.ids]);
+  }, [dispatch, props.id]);
 
   const item = stopBookmarks.entities[id];
 

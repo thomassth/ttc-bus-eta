@@ -37,7 +37,7 @@ export default function NearbyList(props: {
         ),
       };
     });
-  }, [stopsList, props.coordinate]);
+  }, [subwayStops, props.coordinate]);
 
   const busAndSubwayStops = useMemo(() => {
     if (!stopsList.length) {

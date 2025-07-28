@@ -30,7 +30,7 @@ export default function Bookmark() {
 
   const clearAllBookmarks = useCallback(() => {
     dispatch(clearStopBookmarks());
-  }, []);
+  }, [dispatch]);
 
   return (
     <article className="bookmark-container">

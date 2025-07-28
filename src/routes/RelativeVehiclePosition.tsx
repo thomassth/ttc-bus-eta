@@ -55,7 +55,7 @@ function RefreshButton({ onClick }: { onClick: () => void }) {
 
   const useOnClick = useCallback(() => {
     onClick();
-  }, []);
+  }, [onClick]);
 
   return (
     <Button onClick={useOnClick} icon={<ArrowClockwise24Regular />}>
