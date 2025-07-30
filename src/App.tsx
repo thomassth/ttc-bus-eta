@@ -17,7 +17,6 @@ function App() {
     setWidth(window.innerWidth);
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: run on load
   useEffect(() => {
     window.addEventListener("resize", handleResize, false);
     window.addEventListener("orientationchange", handleResize, false);
