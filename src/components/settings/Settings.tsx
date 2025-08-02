@@ -54,7 +54,7 @@ export function Settings() {
     (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
       i18n.changeLanguage(data.value);
     },
-    []
+    [i18n.changeLanguage]
   );
 
   const handleUnifiedEtaChange = useCallback(
@@ -68,7 +68,7 @@ export function Settings() {
         })
       );
     },
-    [setUnifiedEta]
+    [dispatch]
   );
 
   const devModeChange = useCallback(
@@ -85,7 +85,7 @@ export function Settings() {
         })
       );
     },
-    [setDevMode]
+    [dispatch]
   );
 
   // Temp. search box
@@ -105,7 +105,7 @@ export function Settings() {
         navigate(`../yrt/stops/${stopInput}`);
       }
     }
-  }, [stopInput]);
+  }, [stopInput, navigate]);
 
   return (
     <main className={style["settings-page"]}>

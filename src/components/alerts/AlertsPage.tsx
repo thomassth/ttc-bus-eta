@@ -19,7 +19,7 @@ export default function TtcAlertList() {
     (_event: SelectTabEvent, data: SelectTabData) => {
       setEnabledTab(data.value);
     },
-    [enabledTab]
+    []
   );
   const { t } = useTranslation();
   const currentDate = new Date().toISOString().split("T")[0];

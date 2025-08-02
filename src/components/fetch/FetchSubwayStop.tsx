@@ -31,11 +31,11 @@ function SubwayStopPredictionInfo(props: {
 
   const fetchPredictions = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   const fetchPredictionClick = useCallback(() => {
     fetchPredictions();
-  }, []);
+  }, [fetchPredictions]);
 
   const stationInfo = subwayDbSelectors.selectById(
     store.getState().subwayDb,
@@ -58,7 +58,7 @@ function SubwayStopPredictionInfo(props: {
         );
       });
     },
-    [data?.nextTrains]
+    [data?.nextTrains, t]
   );
 
   if (!data) {

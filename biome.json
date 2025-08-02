@@ -24,9 +24,8 @@
       "complexity": {
         "noVoid": "error"
       },
-
       "correctness": {
-        "useExhaustiveDependencies": "off",
+        "useExhaustiveDependencies": "info",
         "noUndeclaredVariables": "error",
         "useJsxKeyInIterable": "error"
       },

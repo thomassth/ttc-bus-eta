@@ -45,7 +45,7 @@ export default function Home() {
         })
       );
     },
-    [enabledTab]
+    [dispatch]
   );
   return (
     <main className="home-page">

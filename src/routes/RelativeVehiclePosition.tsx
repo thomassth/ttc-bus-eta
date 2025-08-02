@@ -29,7 +29,7 @@ export default function RelativeVehiclePosition() {
 
   const onRefreshClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   return (
     <main className={styles["relative-vehicle-position"]}>
@@ -55,7 +55,7 @@ function RefreshButton({ onClick }: { onClick: () => void }) {
 
   const useOnClick = useCallback(() => {
     onClick();
-  }, []);
+  }, [onClick]);
 
   return (
     <Button onClick={useOnClick} icon={<ArrowClockwise24Regular />}>

@@ -83,11 +83,11 @@ function RouteInfo(props: { line: number }): JSX.Element {
     return () => {
       controller.abort();
     };
-  }, [lastUpdatedAt, ttcSubwayLineResponse.data]);
+  }, [ttcSubwayLineResponse.data, dispatch, lineNum]);
 
   const handleFetchBusClick = useCallback(() => {
     setLastUpdatedAt(Date.now());
-  }, [lastUpdatedAt]);
+  }, []);
 
   if (ttcSubwayLineResponse.data) {
     const data = ttcSubwayLineResponse.data;

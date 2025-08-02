@@ -81,13 +81,13 @@ export default function Nearby() {
         setIsLoadingLocation(false);
       });
     }
-  }, []);
+  }, [handleRefresh]);
 
   useEffect(() => {
     if (locationMode) {
       handleGeolocation();
     }
-  }, []);
+  }, [locationMode, handleGeolocation]);
 
   const locationModeChange = useCallback(
     (ev: {
@@ -103,7 +103,7 @@ export default function Nearby() {
         })
       );
     },
-    [setLocationMode]
+    [dispatch]
   );
 
   return (

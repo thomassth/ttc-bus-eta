@@ -54,7 +54,7 @@ export function BaseBarComponents({ width }: { width: number }) {
       default:
         return fluentStyle.smallRoundNavButton;
     }
-  }, [width]);
+  }, [width, fluentStyle]);
 
   const baseBarComponents = navItems.map((item) => {
     return (

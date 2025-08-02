@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@fluentui/react-components";
 import { Dismiss12Filled, Edit12Filled } from "@fluentui/react-icons";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
@@ -32,7 +32,9 @@ export function EtaCard(props: {
   enabled?: string[];
   direction?: string;
 }) {
-  const uniqueLines = [...new Set(props.lines)];
+  const uniqueLines = useMemo(() => {
+    return [...new Set(props.lines)];
+  }, [props.lines]);
   const directionArray = props.direction?.split(", ") ?? [];
   return (
     <li
@@ -123,8 +125,9 @@ function FavouriteEditor(props: {
   enabled?: string[];
   onDelete?: () => void;
 }) {
-  const uniqueLines = [...new Set(props.lines)];
-
+  const uniqueLines = useMemo(() => {
+    return [...new Set(props.lines)];
+  }, [props.lines]);
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -171,7 +174,7 @@ function FavouriteEditor(props: {
         }
       }
     },
-    [uniqueLines, props.enabled]
+    [uniqueLines, props.enabled, dispatch, props.id]
   );
 
   return (
@@ -207,7 +210,7 @@ function LineCheckbox(props: {
 }) {
   const handleClick = useCallback(() => {
     props.onChangeFunction(props.line);
-  }, [props.enabled]);
+  }, [props.onChangeFunction, props.line]);
   return (
     <Checkbox
       key={props.id + props.line}

@@ -43,15 +43,13 @@ export default function RawDisplay(props: {
   const fluentStyle = fluentStyles();
   const { t } = useTranslation();
 
-  const settings = settingsSelectors.selectAll(store.getState().settings);
-
   const devModeValue = settingsSelectors.selectById(
     store.getState().settings,
     "devMode"
   );
   const isInDevMode = useMemo(
     () => (devModeValue ? devModeValue.value === "true" : false),
-    [settings]
+    [devModeValue]
   );
 
   const rawDisplay = (

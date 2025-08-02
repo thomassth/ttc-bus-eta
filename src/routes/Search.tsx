@@ -20,7 +20,7 @@ export default function SearchElement() {
     if (lineInput !== "") {
       navigate(`lines/${lineInput}`);
     }
-  }, [lineInput]);
+  }, [lineInput, navigate]);
 
   return (
     <div className="search-form">
