@@ -1,6 +1,15 @@
 import { type Skeet, SkeetElement } from "./Skeet.js";
 import style from "./SkeetList.module.css";
 
+const parseFullLineNumber = (skeets: Skeet[]) => {
+  if (skeets?.length === 0) {
+    return;
+  }
+  // Match the line number as well as any possible suffix (e.g. "A" or "B")
+  const lineTextMatch = skeets[0].post.record.text.match(/^\d{1,3}\S/);
+  return lineTextMatch?.[0];
+};
+
 export const SkeetList = ({
   skeetList,
   line,
@@ -10,7 +19,11 @@ export const SkeetList = ({
   line?: string;
   type?: string;
 }) => {
-  const badgeArg = line === "all" ? { highlightAll: true } : { line };
+  const lineNumber = parseFullLineNumber(skeetList);
+  const badgeArg =
+    line === "all"
+      ? { highlightAll: true }
+      : { line: typeof lineNumber === "string" ? lineNumber : line };
   const dataArray = skeetList.map((skeet) => (
     <SkeetElement key={skeet.post.cid} skeet={skeet} badge={badgeArg} />
   ));
