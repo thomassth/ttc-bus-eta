@@ -6,6 +6,7 @@ import {
   type TabValue,
 } from "@fluentui/react-components";
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import style from "./AlertsPage.module.css";
 // import CurrentAlerts from "./CurrentAlerts.js";
@@ -20,6 +21,7 @@ export default function TtcAlertList() {
     },
     [enabledTab]
   );
+  const { t } = useTranslation();
   const currentDate = new Date().toISOString().split("T")[0];
   // get saturday's date
   const weekend = new Date();
@@ -28,11 +30,11 @@ export default function TtcAlertList() {
   return (
     <div className="alert-page">
       <TabList defaultSelectedValue="now" onTabSelect={handleTabClick}>
-        <Tab value="now">Now</Tab>
-        {/* <Tab value="later">Later</Tab> */}
-        {/* <Tab value="now">Today</Tab> */}
-        <Tab value="weekend">This weekend</Tab>
-        {/* <Tab value="all">All alerts</Tab> */}
+        <Tab value="now">{t("alerts.now")}</Tab>
+        {/* <Tab value="later">{t("alerts.later")}</Tab> */}
+        {/* <Tab value="now">{t("alerts.today")}</Tab> */}
+        <Tab value="weekend">{t("alerts.thisWeekend")}</Tab>
+        {/* <Tab value="all">{t("alerts.allAlerts")}</Tab> */}
       </TabList>
       <div className={enabledTab === "now" ? "" : style.hidden}>
         <SubwayClosures startDate={currentDate} />

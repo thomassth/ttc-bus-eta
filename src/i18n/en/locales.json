@@ -7,7 +7,8 @@
       "lang": "Language",
       "settings": "Settings",
       "bookmarks": "Bookmarks",
-      "nearby": "Nearby"
+      "nearby": "Nearby",
+      "serviceAlerts": "Service Alerts"
     }
   },
   "home": {
@@ -43,9 +44,17 @@
     "locationPolicy": "<p>Even though we do not send your location to the internet, you still have a choice to only use your location when you want. <br /> For convenience, you can provide your location automatically when you load TOBus.ca.</p>",
     "closestStopsLead": "The closest bus stops are:",
     "locationNeeded": "Nearby feature requires your location.",
-    "mAway": "m away"
+    "mAway": "{{distanceInMetres}}m away"
+  },
+  "alerts": {
+    "allAlerts": "All alerts",
+    "later": "Later",
+    "now": "Now",
+    "thisWeekend": "This weekend",
+    "today": "Today"
   },
   "settings": {
+    "devMode": "Dev mode",
     "etaLists": "ETA lists",
     "separateLines": "separate for each line",
     "singleList": "single list"
