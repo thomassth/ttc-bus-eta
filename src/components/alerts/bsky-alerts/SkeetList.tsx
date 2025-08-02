@@ -5,7 +5,7 @@ const parseFullLineNumber = (skeets: Skeet[]) => {
   if (skeets?.length === 0) {
     return;
   }
-  // Match the line number as well as any possible suffix (e.g. "A" or "B")
+  // Match the line number as well as any possible suffix (e.g. matches "96" or "96A")
   const lineTextMatch = skeets[0].post.record.text.match(/^\d{1,3}\S/);
   return lineTextMatch?.[0];
 };
