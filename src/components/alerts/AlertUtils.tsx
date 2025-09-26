@@ -18,7 +18,7 @@ export const ParsedTtcAlertText = ({
   const lineFilter = badge.line
     ? lineNum < 6
       ? `${lineNum}`
-      : `${lineNum}`
+      : badge.line
     : badge.highlightAll
       ? parseLine(feedText)
       : "";
