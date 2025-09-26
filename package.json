@@ -5,24 +5,24 @@
   "homepage": "https://thomassth.github.io/ttc-eta/",
   "type": "module",
   "dependencies": {
-    "@atproto/api": "^0.14.21",
-    "@fluentui/react-components": "^9.60.1",
-    "@fluentui/react-icons": "^2.0.279",
+    "@atproto/api": "^0.16.10",
+    "@fluentui/react-components": "^9.70.0",
+    "@fluentui/react-icons": "^2.0.310",
     "@reduxjs/toolkit": "^2.6.1",
     "@tanstack/react-query": "^5.71.10",
     "date-fns": "^4.1.0",
-    "i18next": "^24.2.3",
+    "i18next": "^25.5.2",
     "i18next-browser-languagedetector": "^8.0.4",
     "idb": "^8.0.1",
     "ol": "^10.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.4.1",
+    "react-i18next": "^15.7.3",
     "react-redux": "^9.2.0",
-    "react-router": "^7.6.2",
+    "react-router": "^7.9.2",
     "rlayers": "^3.5.0",
     "typescript": "^5.8.2",
-    "web-vitals": "^4.2.4"
+    "web-vitals": "^5.1.0"
   },
   "scripts": {
     "start": "vite",
@@ -49,7 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0",
+    "@biomejs/biome": "2.2.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
@@ -68,8 +68,8 @@
     "stylelint-config-css-modules": "^4.4.0",
     "stylelint-config-standard": "^37.0.0",
     "ts-node": "^10.9.2",
-    "vite": "^6.3.4",
-    "vite-plugin-pwa": "^0.21.1",
+    "vite": "^7.1.7",
+    "vite-plugin-pwa": "^1.0.3",
     "vitest": "^3.0.8"
   }
 }
