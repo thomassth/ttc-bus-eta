@@ -1,6 +1,7 @@
+import type { JSX } from "react/jsx-runtime";
 import { TtcBadge } from "../badges.js";
 
-export const parseLine = (feedText: string) => {
+export const getLineNumber = (feedText: string) => {
   return feedText.match(/\d+/)?.[0] ?? "";
 };
 
@@ -13,27 +14,32 @@ export const ParsedTtcAlertText = ({
   feedText: string;
   id: string;
 }) => {
-  const lineNum = Number.parseInt(`${badge.line}`);
+  // 1. First number in the string is assumed to be the line number
+  const lineNum = badge.highlightAll
+    ? getLineNumber(feedText)
+    : Number.parseInt(`${badge.line}`);
 
-  const lineFilter = badge.line
-    ? lineNum < 6
-      ? `${lineNum}`
-      : `${lineNum}`
-    : badge.highlightAll
-      ? parseLine(feedText)
-      : "";
+  // 2. Number is used to build the regex
+  const regex = new RegExp(`\\b${lineNum}[A-Z]?\\b`, "g");
 
-  return badge.line || (badge.highlightAll && lineFilter.length > 0)
-    ? feedText
-        .split(lineFilter)
-        .flatMap((item) => [
-          item,
-          <TtcBadge
-            lineNum={lineFilter}
-            key={`${id}-${lineFilter}`}
-            type="standalone"
-          />,
-        ])
-        .slice(0, -1)
-    : feedText;
+  const lineParts = feedText.split(regex);
+  const matchResults = feedText.match(regex) ?? [];
+
+  const result: (string | JSX.Element)[] = [];
+
+  // 3. Apply the matches as React
+  lineParts.forEach((part, i) => {
+    result.push(part);
+    if (matchResults[i]) {
+      result.push(
+        <TtcBadge
+          lineNum={matchResults[i]}
+          key={`${id}-${part}`}
+          type="standalone"
+        />
+      );
+    }
+  });
+
+  return result;
 };

@@ -14,7 +14,7 @@ import { useCallback, useId, useMemo, useState } from "react";
 
 import { TtcBadge } from "../../badges.js";
 import { atprotoTtcAlerts } from "../../fetch/queries.js";
-import { parseLine } from "../AlertUtils.js";
+import { getLineNumber } from "../AlertUtils.js";
 import style from "./AllBskyAlerts.module.css";
 import { SkeetList } from "./SkeetList.js";
 
@@ -25,7 +25,7 @@ export const AllBskyAlerts = () => {
     return (
       bskyAlerts.data?.map((alert) => {
         const line = Number.parseInt(
-          parseLine(alert.post.record.text as string)
+          getLineNumber(alert.post.record.text as string)
         );
         return {
           ...alert,
@@ -88,7 +88,7 @@ export const AllBskyAlerts = () => {
 
   const bskyAlertLines = useMemo(() => {
     const lines = bskyAlertsWithinTimeframe?.map((alert) => {
-      return Number.parseInt(parseLine(alert.post.record.text as string));
+      return Number.parseInt(getLineNumber(alert.post.record.text as string));
     });
 
     return Array.from(new Set(lines)).sort((a, b) => (a > b ? 1 : -1));
