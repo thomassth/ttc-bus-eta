@@ -1,8 +1,8 @@
 .line-badge.line-badge {
-    margin-right: 8px;
-    min-width: 48px;
+  margin-right: 8px;
+  min-width: 48px;
 
-    &.standalone {
-        margin-right: 0;
-    }
+  &.standalone {
+    margin-right: 0;
+  }
 }
