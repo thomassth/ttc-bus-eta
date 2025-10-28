@@ -25,7 +25,12 @@ export default function TtcAlertList() {
   const currentDate = new Date().toISOString().split("T")[0];
   // get saturday's date
   const weekend = new Date();
-  weekend.setDate(weekend.getDate() + ((6 - weekend.getDay()) % 7));
+  if (weekend.getDay() === 6) {
+    // show Sunday data on Saturdays, otherwise show the next Sunday
+    weekend.setDate(weekend.getDate() + 1);
+  } else {
+    weekend.setDate(weekend.getDate() + ((6 - weekend.getDay()) % 7));
+  }
 
   return (
     <div className="alert-page">
