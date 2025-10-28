@@ -34,8 +34,21 @@ export default function RelativeVehiclePosition() {
   return (
     <main className={styles["relative-vehicle-position"]}>
       <Title1>Vehicle {vehicleId}</Title1>
-      <div className="buttons-row">
+      <div className={styles["buttons-row"]}>
         <RefreshButton onClick={onRefreshClick} />
+        {ttcVehicleLocationResponse.dataUpdatedAt > 0 && (
+          <p>
+            Last updated:{" "}
+            {new Date(
+              ttcVehicleLocationResponse.dataUpdatedAt
+            ).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: false,
+            })}
+          </p>
+        )}
       </div>
       <Suspense>
         {ttcVehicleLocationResponse.data && (

@@ -4,6 +4,16 @@
   gap: 12px;
 }
 
+.buttons-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+}
+
 @media (width <= 800px) {
   .relative-vehicle-position {
     width: auto;
