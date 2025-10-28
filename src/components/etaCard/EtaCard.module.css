@@ -22,7 +22,7 @@
   width: fit-content;
 }
 
-.edit-button {
+.edit-button.edit-button {
   grid-area: 1 / 1;
   min-height: 32px;
   min-width: 32px;
@@ -30,12 +30,15 @@
   top: -16px;
   right: -16px;
   place-self: flex-start flex-end;
-  border-radius: 50% !important;
+  border-radius: 50%;
 }
 
-.eta-card-countdown > * {
-  flex-wrap: wrap;
-  float: right;
+.eta-card-countdown {
+  display: flex;
+  > * {
+    flex-wrap: wrap;
+    float: right;
+  }
 }
 
 .bookmarked-stop {
@@ -48,8 +51,8 @@
   background-color: var(--colorNeutralBackground2);
 }
 
-.remove-button {
-  border-radius: 50% !important;
+.remove-button.remove-button {
+  border-radius: 50%;
   position: absolute;
   top: -16px;
   right: 16px;

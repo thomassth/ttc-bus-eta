@@ -8,7 +8,7 @@
   }
 }
 
-.direction-badge {
+.direction-badge.direction-badge {
   margin-right: 8px;
-  min-width: 48px !important;
+  min-width: 48px;
 }

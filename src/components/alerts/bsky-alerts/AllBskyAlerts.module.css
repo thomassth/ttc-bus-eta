@@ -7,8 +7,8 @@
   gap: 1rem;
   align-items: baseline;
 
-  .dropdown {
+  .dropdown.dropdown {
     /* override theme */
-    min-width: max-content !important;
+    min-width: max-content;
   }
 }

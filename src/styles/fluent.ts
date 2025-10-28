@@ -2,8 +2,7 @@ import { makeStyles, shorthands } from "@fluentui/react-components";
 
 export const fluentStyles = makeStyles({
   accordionHeader: {
-    ...shorthands.margin("0px", "0px"),
-
+    margin: "0px",
     "& button": {
       height: "auto",
       paddingLeft: "0px",
@@ -23,7 +22,7 @@ export const fluentStyles = makeStyles({
     width: "100%",
   },
   sideNavButton: {
-    ...shorthands.padding("8px", "0px"),
+    padding: "8px 8px",
     width: "100%",
     borderTopLeftRadius: "0px",
     borderBottomLeftRadius: "0px",
