@@ -17,10 +17,10 @@ import { Link } from "react-router";
 import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";
 import { store, useAppDispatch } from "../../store/index.js";
+import { settingsSelectors } from "../../store/settings/slice.js";
 import { DirectionBadge, TtcBadge } from "../badges.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
-import { settingsSelectors } from "../../store/settings/slice.js";
 
 export function EtaCard(props: {
   etas: EtaBusWithID[];
