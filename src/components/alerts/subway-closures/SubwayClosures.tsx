@@ -44,7 +44,17 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     );
   }
   if (subwayClosureQuery.data?.length === 0 || subwayClosureQuery.isError) {
-    return null;
+    return (
+      <div>
+        <h2>No subway closures on record!</h2>
+        <p>
+          Source:
+          <a href="https://www.ttc.ca/service-advisories/subway-service#e=0">
+            TTC website
+          </a>
+        </p>
+      </div>
+    );
   }
   return (
     <div>
@@ -64,6 +74,12 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
           </ul>
         </details>
       )}
+      <p>
+        Source:
+        <a href="https://www.ttc.ca/service-advisories/subway-service#e=0">
+          TTC website
+        </a>
+      </p>
     </div>
   );
 };
