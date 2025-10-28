@@ -46,6 +46,15 @@ export function Settings() {
       ? unifiedEtaValue.value !== "false"
       : true
   );
+  const etasOnBookmarksValue = settingsSelectors.selectById(
+    store.getState().settings,
+    "etasOnBookmarks"
+  );
+  const [etasOnBookmarks, setEtasOnBookmarks] = useState(
+    typeof etasOnBookmarksValue !== "undefined"
+      ? etasOnBookmarksValue.value
+      : "1"
+  );
   const { t, i18n } = useTranslation();
   const fluentStyle = fluentStyles();
   const dispatch = useAppDispatch();
@@ -69,6 +78,20 @@ export function Settings() {
       );
     },
     [setUnifiedEta]
+  );
+
+  const handleEtasOnBookmark = useCallback(
+    (_: FormEvent<HTMLDivElement>, data: { value?: string }) => {
+      setEtasOnBookmarks(data.value ?? "1");
+      dispatch(
+        changeSettings({
+          id: "etasOnBookmarks",
+          name: "etasOnBookmarks",
+          value: data.value ?? "1",
+        })
+      );
+    },
+    [setEtasOnBookmarks]
   );
 
   const devModeChange = useCallback(
@@ -138,6 +161,15 @@ export function Settings() {
       >
         <Radio value="false" label={t("settings.separateLines")} />
         <Radio value="true" label={t("settings.singleList")} />
+      </RadioGroup>
+      <Title2 id="eta-numbers">Number of ETAs on bookmarks (BETA)</Title2>
+      <RadioGroup
+        defaultValue={etasOnBookmarks.toString()}
+        aria-labelledby={"eta-numbers"}
+        onChange={handleEtasOnBookmark}
+      >
+        <Radio value="1" label="1" />
+        <Radio value="3" label="3" />
       </RadioGroup>
       <form className={style["search-block"]}>
         <Input
