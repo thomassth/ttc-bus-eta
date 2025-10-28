@@ -1,8 +1,8 @@
-import { Badge, Text, Title2 } from "@fluentui/react-components";
+import { Badge, Button, Text, Title2 } from "@fluentui/react-components";
+import { VehicleBus16Filled } from "@fluentui/react-icons";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-
 import style from "./CountdownSec.module.css";
 
 export function CountdownSec(props: {
@@ -35,23 +35,30 @@ export function CountdownSec(props: {
   }, [sec]);
   return (
     <div className={style["countdown-sec"]}>
-      {(sec < 180 || props.index === 0) && (
-        <ArrivingBadge vehicle={props.vehicle} />
+      {props.vehicle && (
+        <Link to={`${props.vehicle}`}>
+          <Button
+            icon={<VehicleBus16Filled />}
+            appearance="outline"
+            aria-label="Track location"
+          />
+        </Link>
       )}
+      {sec < 180 && <ArrivingBadge />}
 
       {sec >= 60 * 60 && (
         <>
-          <Title2 className={style.number}>
+          <Title2 className={`${style.minute} ${style.number}`}>
             {`${Math.floor(sec / 3600)}h`}
           </Title2>
-          <Text className={style.number}>
+          <Text className={`${style.second} ${style.number}`}>
             {`${Math.floor((sec % 3600) / 60)}${t("eta.minuteShort")}`}
           </Text>
         </>
       )}
 
       {sec > 0 && sec < 60 * 60 && (
-        <Title2 className={style.number}>
+        <Title2 className={`${style.minute} ${style.number}`}>
           {Math.floor(sec / 60) >= 1
             ? `${Math.floor(sec / 60)}${t("eta.minuteShort")}`
             : `${sec % 60}${t("eta.secondShort")}`}
@@ -59,7 +66,7 @@ export function CountdownSec(props: {
       )}
 
       {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 && (
-        <Text className={style.number}>
+        <Text className={`${style.second} ${style.number}`}>
           {`${sec % 60}${t("eta.secondShort")}`}
         </Text>
       )}
@@ -67,26 +74,14 @@ export function CountdownSec(props: {
   );
 }
 
-function ArrivingBadge({ vehicle }: { vehicle?: number }) {
+function ArrivingBadge() {
   const { t } = useTranslation();
 
   return (
     <div className={style.arriving}>
-      {vehicle ? (
-        <Link to={`${vehicle}`}>
-          <Badge className={style["badge-in-link"]} shape="rounded">
-            Track location
-          </Badge>
-        </Link>
-      ) : (
-        <Badge
-          className={style["badge-in-link"]}
-          color="danger"
-          shape="rounded"
-        >
-          {t("badge.arriving")}
-        </Badge>
-      )}
+      <Badge className={style["badge-in-link"]} color="danger" shape="rounded">
+        {t("badge.arriving")}
+      </Badge>
     </div>
   );
 }

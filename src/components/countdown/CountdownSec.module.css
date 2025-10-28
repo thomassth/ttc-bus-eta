@@ -1,22 +1,27 @@
 .countdown-sec {
   padding: 0 4px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
+}
+
+.second.second {
+  align-self: end;
+  line-height: 1.8;
 }
 
 .arriving {
   align-self: center;
 }
 
-.number {
+.number.number {
   margin: 0;
-  font-family: "PT Mono", monospace !important;
-  white-space: nowrap !important;
+  font-family: "PT Mono", monospace;
+  white-space: nowrap;
 }
 
 /* only needed for safari */
-.badge-in-link {
-  width: auto !important;
-  padding: 3px 6px !important;
+.badge-in-link.badge-in-link {
+  width: auto;
+  padding: 3px 6px;
 }
