@@ -33,9 +33,12 @@
   border-radius: 50%;
 }
 
-.eta-card-countdown > * {
-  flex-wrap: wrap;
-  float: right;
+.eta-card-countdown {
+  display: flex;
+  > * {
+    flex-wrap: wrap;
+    float: right;
+  }
 }
 
 .bookmarked-stop {
