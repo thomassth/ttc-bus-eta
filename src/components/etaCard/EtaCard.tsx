@@ -79,7 +79,7 @@ export function EtaCard(props: {
             action={
               <div className={style["eta-card-countdown"]}>
                 {props.etas
-                  .slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 0)
+                  .slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
                   .map((eta) => {
                     return (
                       <CountdownSec
