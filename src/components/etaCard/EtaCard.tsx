@@ -16,7 +16,8 @@ import { Link } from "react-router";
 
 import type { EtaBusWithID } from "../../models/etaObjects.js";
 import { editStopBookmark } from "../../store/bookmarks/slice.js";
-import { useAppDispatch } from "../../store/index.js";
+import { store, useAppDispatch } from "../../store/index.js";
+import { settingsSelectors } from "../../store/settings/slice.js";
 import { DirectionBadge, TtcBadge } from "../badges.js";
 import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
@@ -32,6 +33,10 @@ export function EtaCard(props: {
   enabled?: string[];
   direction?: string;
 }) {
+  const etasNumber = settingsSelectors.selectById(
+    store.getState().settings,
+    "etasOnBookmarks"
+  );
   const uniqueLines = [...new Set(props.lines)];
   const directionArray = props.direction?.split(", ") ?? [];
   return (
@@ -73,12 +78,17 @@ export function EtaCard(props: {
             }
             action={
               <div className={style["eta-card-countdown"]}>
-                {props.etas.length > 0 && (
-                  <CountdownSec
-                    second={props.etas[0].seconds}
-                    epochTime={props.etas[0].epochTime}
-                  />
-                )}
+                {props.etas
+                  .slice(0, etasNumber.value === "3" ? 3 : 0)
+                  .map((eta) => {
+                    return (
+                      <CountdownSec
+                        key={eta.vehicle}
+                        second={eta.seconds}
+                        epochTime={eta.epochTime}
+                      />
+                    );
+                  })}
               </div>
             }
           />
