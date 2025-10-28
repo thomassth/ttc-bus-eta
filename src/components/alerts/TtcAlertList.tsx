@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { atprotoTtcAlerts } from "../fetch/queries.js";
+import type { Skeet } from "./bsky-alerts/Skeet.js";
 import { SkeetList } from "./bsky-alerts/SkeetList.js";
 
 export function TtcAlertList({
@@ -13,7 +14,7 @@ export function TtcAlertList({
   const bskyAlerts = useQuery(atprotoTtcAlerts);
 
   const filteredBskyAlerts =
-    (bskyAlerts.data ?? []).filter((skeet) =>
+    ((bskyAlerts.data ?? []) as Skeet[]).filter((skeet) =>
       lineNum.some((line) => {
         const text = skeet.post.record.text as string;
         return line < 6

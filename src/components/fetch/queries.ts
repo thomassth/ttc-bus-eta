@@ -1,5 +1,4 @@
 import { Agent } from "@atproto/api";
-import type { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs.js";
 import { queryOptions } from "@tanstack/react-query";
 
 // import GtfsRealtimeBindings from "gtfs-realtime-bindings";
@@ -229,7 +228,7 @@ export const ttcMultiStopsPredictions = (fetchUrl: string) =>
 
 const agent = new Agent("https://api.bsky.app");
 
-export const atprotoTtcAlerts = queryOptions<FeedViewPost[]>({
+export const atprotoTtcAlerts = queryOptions({
   queryKey: ["atproto-ttc-alerts"],
   queryFn: async () => {
     const response = await agent.getAuthorFeed({

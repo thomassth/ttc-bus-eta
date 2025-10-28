@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.0/schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
     "ignoreUnknown": false,
@@ -27,12 +27,14 @@
       },
 
       "correctness": {
+        "recommended": true,
         "useExhaustiveDependencies": "off",
         "noUndeclaredVariables": "error",
         "useJsxKeyInIterable": "error",
         "useParseIntRadix": "off"
       },
       "style": {
+        "recommended": true,
         "noYodaExpression": "error",
         "useBlockStatements": "error",
         "useConsistentBuiltinInstantiation": "error",
@@ -47,12 +49,14 @@
         "noUselessElse": "error"
       },
       "suspicious": {
+        "recommended": true,
         "noEmptyBlockStatements": "error",
         "noVar": "warn"
       }
     },
     "includes": [
       "**",
+      "!index.html",
       "!**/node_modules/**/*",
       "!**/build/**/*",
       "!**/src/data/**/*"

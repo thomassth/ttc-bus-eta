@@ -16,6 +16,7 @@ import { TtcBadge } from "../../badges.js";
 import { atprotoTtcAlerts } from "../../fetch/queries.js";
 import { getLineNumber } from "../AlertUtils.js";
 import style from "./AllBskyAlerts.module.css";
+import type { Skeet } from "./Skeet.js";
 import { SkeetList } from "./SkeetList.js";
 
 export const AllBskyAlerts = () => {
@@ -23,7 +24,7 @@ export const AllBskyAlerts = () => {
 
   const bskyAlertWithLines = useMemo(() => {
     return (
-      bskyAlerts.data?.map((alert) => {
+      ((bskyAlerts.data ?? []) as Skeet[]).map((alert) => {
         const line = Number.parseInt(
           getLineNumber(alert.post.record.text as string)
         );
