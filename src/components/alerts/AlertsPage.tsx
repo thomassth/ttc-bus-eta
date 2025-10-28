@@ -28,8 +28,9 @@ export default function TtcAlertList() {
   if (weekend.getDay() === 6) {
     // show Sunday data on Saturdays, otherwise show the next Sunday
     weekend.setDate(weekend.getDate() + 1);
+  } else {
+    weekend.setDate(weekend.getDate() + ((6 - weekend.getDay()) % 7));
   }
-  weekend.setDate(weekend.getDate() + ((6 - weekend.getDay()) % 7));
 
   return (
     <div className="alert-page">
