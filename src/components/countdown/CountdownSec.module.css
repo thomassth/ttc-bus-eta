@@ -1,27 +1,32 @@
-.countdown-sec {
+.countdown-container {
   padding: 0 4px;
   display: flex;
   align-items: center;
   gap: 8px;
-}
 
-.second.second {
-  align-self: end;
-  line-height: 1.8;
-}
+  .arriving {
+    align-self: center;
 
-.arriving {
-  align-self: center;
-}
+    /* only needed for safari */
+    .badge-in-link.badge-in-link {
+      width: auto;
+      padding: 3px 6px;
+    }
+  }
 
-.number.number {
-  margin: 0;
-  font-family: "PT Mono", monospace;
-  white-space: nowrap;
-}
+  .countdown-timer {
+    display: flex;
+    gap: 8px;
 
-/* only needed for safari */
-.badge-in-link.badge-in-link {
-  width: auto;
-  padding: 3px 6px;
+    .number.number {
+      margin: 0;
+      font-family: "PT Mono", monospace;
+      white-space: nowrap;
+    }
+
+    .second.second {
+      align-self: end;
+      line-height: 1.8;
+    }
+  }
 }

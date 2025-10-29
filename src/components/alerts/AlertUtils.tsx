@@ -34,7 +34,7 @@ export const ParsedTtcAlertText = ({
       result.push(
         <TtcBadge
           lineNum={matchResults[i]}
-          key={`${id}-${part}`}
+          key={`${id}-${matchResults[i]}`}
           type="standalone"
         />
       );

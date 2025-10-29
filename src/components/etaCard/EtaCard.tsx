@@ -77,7 +77,14 @@ export function EtaCard(props: {
               </>
             }
             action={
-              <div className={style["eta-card-countdown"]}>
+              <div
+                className={[
+                  style["eta-card-countdown"],
+                  (etasNumber?.value ?? "1") === "3"
+                    ? style["multi-etas"]
+                    : style["single-eta"],
+                ].join(" ")}
+              >
                 {props.etas
                   .slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
                   .map((eta) => {
