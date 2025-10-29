@@ -41,7 +41,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
 
   const filteredEta = useMemo(() => {
     if (Array.isArray(props.item.line)) {
-      return unifiedEta;
+      return unifiedEta.filter((eta) => props.item.line.includes(eta.branch));
     }
     return unifiedEta.filter((eta) => eta.branch === props.item.line);
   }, [props.item.line, unifiedEta]);
