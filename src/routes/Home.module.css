@@ -7,3 +7,7 @@
   flex-direction: row;
   gap: 0.5em;
 }
+
+.direction-buttons {
+  overflow-y: scroll;
+}

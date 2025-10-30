@@ -34,7 +34,7 @@ export function CountdownSec(props: {
     return () => clearTimeout(timer);
   }, [sec]);
   return (
-    <div className={style["countdown-sec"]}>
+    <div className={style["countdown-container"]}>
       {props.vehicle && (
         <Link to={`${props.vehicle}`}>
           <Button
@@ -45,31 +45,32 @@ export function CountdownSec(props: {
         </Link>
       )}
       {sec < 180 && <ArrivingBadge />}
+      <div className={style["countdown-timer"]}>
+        {sec >= 60 * 60 && (
+          <>
+            <Title2 className={`${style.minute} ${style.number}`}>
+              {`${Math.floor(sec / 3600)}h`}
+            </Title2>
+            <Text className={`${style.second} ${style.number}`}>
+              {`${Math.floor((sec % 3600) / 60)}${t("eta.minuteShort")}`}
+            </Text>
+          </>
+        )}
 
-      {sec >= 60 * 60 && (
-        <>
+        {sec > 0 && sec < 60 * 60 && (
           <Title2 className={`${style.minute} ${style.number}`}>
-            {`${Math.floor(sec / 3600)}h`}
+            {Math.floor(sec / 60) >= 1
+              ? `${Math.floor(sec / 60)}${t("eta.minuteShort")}`
+              : `${sec % 60}${t("eta.secondShort")}`}
           </Title2>
+        )}
+
+        {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 && (
           <Text className={`${style.second} ${style.number}`}>
-            {`${Math.floor((sec % 3600) / 60)}${t("eta.minuteShort")}`}
+            {`${sec % 60}${t("eta.secondShort")}`}
           </Text>
-        </>
-      )}
-
-      {sec > 0 && sec < 60 * 60 && (
-        <Title2 className={`${style.minute} ${style.number}`}>
-          {Math.floor(sec / 60) >= 1
-            ? `${Math.floor(sec / 60)}${t("eta.minuteShort")}`
-            : `${sec % 60}${t("eta.secondShort")}`}
-        </Title2>
-      )}
-
-      {sec % 60 !== 0 && Math.floor(sec / 60) >= 1 && (
-        <Text className={`${style.second} ${style.number}`}>
-          {`${sec % 60}${t("eta.secondShort")}`}
-        </Text>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -52,7 +52,7 @@ export default function Home() {
       <Search />
       <TabList
         defaultSelectedValue={enabledTab}
-        className="direction-buttons"
+        className={style["direction-buttons"]}
         onTabSelect={handleTabClick}
       >
         <Tab value={"nearby"}>{t("nav.label.nearby")}</Tab>
