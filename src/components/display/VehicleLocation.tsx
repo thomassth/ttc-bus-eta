@@ -18,24 +18,34 @@ export default function VehicleLocation(props: {
 }) {
   const data = props.data;
   const [error, setError] = useState(false);
-  const [center, setCenter] = useState([-8827495.913945649, 5436686.505484939]);
+  const [vehicleCoor, setVehicleCoor] = useState<number[] | undefined>(
+    undefined
+  );
+  const [center, setCenter] = useState<number[] | undefined>(undefined);
+  const [zoom, setZoom] = useState(16);
   const [view, setView] = useState<RView>({ center, zoom: 16 });
 
+  // store map values into react states; keep zoom & center consistent (until page reload)
+  useEffect(() => {
+    setCenter(view.center);
+    setZoom(view.zoom);
+  }, [view]);
+
+  // set vehicle position from data
   useEffect(() => {
     if (data?.vehicle) {
-      const latlong = fromLonLat([data.vehicle?.lon, data.vehicle?.lat]);
-      setCenter(latlong);
-      setView({ center: latlong, zoom: 16 });
+      const vehiclePosition = fromLonLat([
+        Number.parseFloat(data.vehicle?.lon),
+        Number.parseFloat(data.vehicle?.lat),
+      ]);
+      setVehicleCoor(vehiclePosition);
+      setView({ center: center ?? vehiclePosition, zoom });
     }
   }, [data]);
 
   useEffect(() => {
     if (props.data?.Error) {
       setError(true);
-    }
-    if (data.vehicle) {
-      const center = fromLonLat([data.vehicle?.lon, data.vehicle?.lat]);
-      setView({ center, zoom: 16 });
     }
   }, []);
 
@@ -47,34 +57,38 @@ export default function VehicleLocation(props: {
     );
   }
 
+  const initialCoor = fromLonLat([-8827495.913945649, 5436686.505484939]);
+
   return (
     <div className="vehicle-view">
       <RMap
         width={"100%"}
         height={"60vh"}
-        initial={{ center, zoom: 11 }}
+        initial={{ center: initialCoor, zoom: 11 }}
         view={[view, setView]}
       >
         <ROSMWebGL />
         <RLayerVector zIndex={10}>
-          <RFeature geometry={new Point(center)}>
-            <ROverlay className="no-interaction">
-              <img
-                src={arrow}
-                style={{
-                  position: "relative",
-                  top: -12,
-                  left: -12,
-                  userSelect: "none",
-                  pointerEvents: "none",
-                  transform: `rotate(${data.vehicle?.heading ?? 0}deg)`,
-                }}
-                width={24}
-                height={24}
-                alt="bus icon"
-              />
-            </ROverlay>
-          </RFeature>
+          {vehicleCoor && (
+            <RFeature geometry={new Point(vehicleCoor)}>
+              <ROverlay className="no-interaction">
+                <img
+                  src={arrow}
+                  style={{
+                    position: "relative",
+                    top: -12,
+                    left: -12,
+                    userSelect: "none",
+                    pointerEvents: "none",
+                    transform: `rotate(${data.vehicle?.heading ?? 0}deg)`,
+                  }}
+                  width={24}
+                  height={24}
+                  alt="bus icon"
+                />
+              </ROverlay>
+            </RFeature>
+          )}
         </RLayerVector>
       </RMap>
       <div className={styles.desc}>
@@ -82,6 +96,9 @@ export default function VehicleLocation(props: {
         <Title2>Bus ID: {data.vehicle?.id}</Title2>
         <Text>Speed: {data.vehicle?.speedKmHr}km/h</Text>
         <Text>Heading: {data.vehicle?.heading}</Text>
+        <Text>
+          Bus location last updated {data.vehicle?.secsSinceReport}s ago
+        </Text>
       </div>
       <RawDisplay data={data} />
     </div>
