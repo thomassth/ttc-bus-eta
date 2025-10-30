@@ -39,7 +39,7 @@ export default function VehicleLocation(props: {
         Number.parseFloat(data.vehicle?.lat),
       ]);
       setVehicleCoor(vehiclePosition);
-      setView({ center: center ?? vehiclePosition, zoom: zoom });
+      setView({ center: center ?? vehiclePosition, zoom });
     }
   }, [data]);
 
