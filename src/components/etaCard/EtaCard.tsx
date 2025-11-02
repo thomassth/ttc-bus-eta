@@ -36,7 +36,7 @@ export function EtaCard(props: {
 }) {
   const etasNumber = settingsSelectors.selectById(
     store.getState().settings,
-    "etasOnBookmarks",
+    "etasOnBookmarks"
   );
   const uniqueLines = [...new Set(props.lines)];
   const directionArray = props.direction?.split(", ") ?? [];
@@ -167,7 +167,7 @@ function FavouriteEditor(props: {
             changes: {
               enabled: cutOffEnabled,
             },
-          }),
+          })
         );
       } else {
         const lineArray = [...props.enabled];
@@ -181,7 +181,7 @@ function FavouriteEditor(props: {
               changes: {
                 enabled: lineArray,
               },
-            }),
+            })
           );
         } else {
           // Add
@@ -192,12 +192,12 @@ function FavouriteEditor(props: {
               changes: {
                 enabled: lineArray,
               },
-            }),
+            })
           );
         }
       }
     },
-    [uniqueLines, props.enabled],
+    [uniqueLines, props.enabled]
   );
 
   return (

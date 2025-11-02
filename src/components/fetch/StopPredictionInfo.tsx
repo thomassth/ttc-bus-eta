@@ -47,7 +47,7 @@ export default function StopPredictionInfo(props: {
   }, []);
 
   const unifiedEtaValue = useAppSelector(
-    (state) => state.settings?.entities?.unifiedEta?.value === "true",
+    (state) => state.settings?.entities?.unifiedEta?.value === "true"
   );
 
   const etaDb = useMemo(() => {
