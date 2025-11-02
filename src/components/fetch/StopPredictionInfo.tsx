@@ -97,7 +97,7 @@ export default function StopPredictionInfo(props: {
           .map((element) => {
             return (
               <CountdownGroup
-                key={`${element.line}-${element.stopTag}`}
+                key={`line-group-${element.line}-${element.direction}-${element.stopTag}`}
                 detail={element}
               />
             );

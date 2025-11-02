@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import type { EtaBusWithID, LineStopEta } from "../../models/etaObjects.js";
 import { stopBookmarksSelectors } from "../../store/bookmarks/slice.js";
 import { store } from "../../store/index.js";
 import { subwayDbSelectors } from "../../store/suwbayDb/slice.js";
 import { EtaCard } from "../etaCard/EtaCard.js";
-import { ttcStopPrediction } from "../fetch/queries.js";
+import { ttcStopPrediction, ttcSubwayPredictions } from "../fetch/queries.js";
 import { etaParser } from "../parser/etaParser.js";
 
 export function BookmarkCardEta(props: { item: LineStopEta }) {
@@ -14,37 +14,79 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     store.getState().stopBookmarks
   );
 
+  const getSubwayPredictionsResponse = useQuery({
+    ...ttcSubwayPredictions(props.item.stopTag),
+    queryKey: [`subway-${props.item.stopTag}`],
+    enabled: false,
+    refetchInterval: 60 * 1000,
+  });
+
   const getStopPredictionsResponse = useQuery({
     ...ttcStopPrediction(props.item.stopTag),
     queryKey: [`nearby-stop-${props.item.stopTag}`],
+    enabled: false,
+    refetchInterval: 60 * 1000,
   });
 
+  const stationType =
+    Number.parseInt(props.item.line.toString()) > 6 ? "bus" : "subway";
+
+  useEffect(() => {
+    if (stationType === "bus") {
+      getStopPredictionsResponse.refetch();
+    } else {
+      getSubwayPredictionsResponse.refetch();
+    }
+  }, []);
+
   const dataFetched = useMemo(
-    () => getStopPredictionsResponse.isSuccess,
-    [getStopPredictionsResponse.isSuccess]
+    () =>
+      stationType === "bus"
+        ? getStopPredictionsResponse.isSuccess
+        : getSubwayPredictionsResponse.isSuccess,
+    [
+      getStopPredictionsResponse.isSuccess,
+      getSubwayPredictionsResponse.isSuccess,
+    ]
   );
 
   const unifiedEta = useMemo(() => {
-    if (getStopPredictionsResponse.data) {
-      const etaDb = etaParser(getStopPredictionsResponse.data);
+    const data =
+      stationType === "bus"
+        ? getStopPredictionsResponse.data
+        : getSubwayPredictionsResponse.data;
+    if (data) {
+      if (!Array.isArray(data)) {
+        const etaDb = etaParser(data);
 
-      let templist: EtaBusWithID[] = [];
-      for (const list of etaDb) {
-        if (list.etas) {
-          templist = templist.concat(list.etas);
+        let templist: EtaBusWithID[] = [];
+        for (const list of etaDb) {
+          if (list.etas) {
+            templist = templist.concat(list.etas);
+          }
         }
+        return templist.sort((a, b) => a.epochTime - b.epochTime);
       }
-      return templist.sort((a, b) => a.epochTime - b.epochTime);
     }
     return [];
   }, [getStopPredictionsResponse.data]);
 
   const filteredEta = useMemo(() => {
-    if (Array.isArray(props.item.line)) {
-      return unifiedEta.filter((eta) => props.item.line.includes(eta.branch));
+    if (stationType === "bus") {
+      if (Array.isArray(props.item.line)) {
+        return unifiedEta.filter((eta) => props.item.line.includes(eta.branch));
+      }
+      return unifiedEta.filter((eta) => eta.branch === props.item.line);
     }
-    return unifiedEta.filter((eta) => eta.branch === props.item.line);
+    return undefined;
   }, [props.item.line, unifiedEta]);
+
+  const subwayEtas = useMemo(() => {
+    if (stationType === "subway") {
+      return getSubwayPredictionsResponse.data?.[0].nextTrains.split(",");
+    }
+    return undefined;
+  }, [getSubwayPredictionsResponse.data]);
 
   let stopUrl =
     props.item.type === "ttc-subway"
@@ -79,13 +121,14 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     );
   }, [item, props.item.line]);
 
-  if (item.type !== "ttc-subway" && dataFetched && filteredEta.length === 0) {
+  if (item.type !== "ttc-subway" && dataFetched && filteredEta?.length === 0) {
     return null;
   }
   return (
     <EtaCard
       id={props.item.stopName + props.item.stopTag}
       etas={filteredEta}
+      subwayEtas={subwayEtas}
       lines={
         Array.isArray(props.item.line) ? props.item.line : [props.item.line]
       }

@@ -23,7 +23,8 @@ import { CountdownSec } from "../countdown/CountdownSec.js";
 import style from "./EtaCard.module.css";
 
 export function EtaCard(props: {
-  etas: EtaBusWithID[];
+  etas?: EtaBusWithID[];
+  subwayEtas?: string[];
   lines: string[];
   name: string;
   editable: boolean;
@@ -85,8 +86,16 @@ export function EtaCard(props: {
                     : style["single-eta"],
                 ].join(" ")}
               >
+                {props.subwayEtas?.map((eta, index) => {
+                  return (
+                    <CountdownSec
+                      key={`${index}-${eta}`}
+                      second={Number.parseInt(eta) * 60}
+                    />
+                  );
+                })}
                 {props.etas
-                  .slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
+                  ?.slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
                   .map((eta) => {
                     return (
                       <CountdownSec

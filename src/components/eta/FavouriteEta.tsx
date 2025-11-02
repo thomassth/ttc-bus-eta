@@ -71,7 +71,7 @@ export default function FavouriteEta() {
   } else {
     for (const item of stopBookmarks) {
       for (const line of item.lines) {
-        const id = `${line}-${item.stopId}`;
+        const id = `bookmark-card-${line}-${item.direction}-${item.stopId}`;
         EtaCards.push(
           <BookmarkCardEta
             item={{ ...item, line, stopName: item.name, stopTag: item.stopId }}
