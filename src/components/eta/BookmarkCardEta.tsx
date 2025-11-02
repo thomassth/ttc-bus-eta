@@ -28,6 +28,9 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     refetchInterval: 60 * 1000,
   });
 
+  const stationType =
+    Number.parseInt(props.item.line.toString()) > 6 ? "bus" : "subway";
+
   useEffect(() => {
     if (stationType === "bus") {
       getStopPredictionsResponse.refetch();
@@ -35,8 +38,6 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
       getSubwayPredictionsResponse.refetch();
     }
   }, []);
-  const stationType =
-    Number.parseInt(props.item.line.toString()) > 6 ? "bus" : "subway";
 
   const dataFetched = useMemo(
     () =>
@@ -120,7 +121,7 @@ export function BookmarkCardEta(props: { item: LineStopEta }) {
     );
   }, [item, props.item.line]);
 
-  if (item.type !== "ttc-subway" && dataFetched && filteredEta.length === 0) {
+  if (item.type !== "ttc-subway" && dataFetched && filteredEta?.length === 0) {
     return null;
   }
   return (
