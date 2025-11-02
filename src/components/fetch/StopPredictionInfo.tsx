@@ -47,7 +47,7 @@ export default function StopPredictionInfo(props: {
   }, []);
 
   const unifiedEtaValue = useAppSelector(
-    (state) => state.settings?.entities?.unifiedEta?.value === "true"
+    (state) => state.settings?.entities?.unifiedEta?.value === "true",
   );
 
   const etaDb = useMemo(() => {
@@ -97,7 +97,7 @@ export default function StopPredictionInfo(props: {
           .map((element) => {
             return (
               <CountdownGroup
-                key={`${element.line}-${element.stopTag}`}
+                key={`line-group-${element.line}-${element.direction}-${element.stopTag}`}
                 detail={element}
               />
             );

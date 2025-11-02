@@ -13,7 +13,7 @@ import style from "./FavouriteEta.module.css";
 
 export default function FavouriteEta() {
   const stopBookmarks = stopBookmarksSelectors.selectAll(
-    store.getState().stopBookmarks
+    store.getState().stopBookmarks,
   );
   const { t } = useTranslation();
   // const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
@@ -32,7 +32,7 @@ export default function FavouriteEta() {
       for (const line of lines) {
         if (Number.parseInt(line) > 6) {
           fetchUrl = fetchUrl.concat(
-            `&stops=${Number.parseInt(line)}|${ttcStop}`
+            `&stops=${Number.parseInt(line)}|${ttcStop}`,
           );
         }
       }
@@ -64,19 +64,19 @@ export default function FavouriteEta() {
               type: item.type,
               direction: item.direction,
             }}
-          />
+          />,
         );
       }
     }
   } else {
     for (const item of stopBookmarks) {
       for (const line of item.lines) {
-        const id = `${line}-${item.stopId}`;
+        const id = `bookmark-card-${line}-${item.direction}-${item.stopId}`;
         EtaCards.push(
           <BookmarkCardEta
             item={{ ...item, line, stopName: item.name, stopTag: item.stopId }}
             key={id}
-          />
+          />,
         );
       }
     }
