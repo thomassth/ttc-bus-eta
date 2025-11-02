@@ -86,14 +86,16 @@ export function EtaCard(props: {
                     : style["single-eta"],
                 ].join(" ")}
               >
-                {props.subwayEtas?.map((eta, index) => {
-                  return (
-                    <CountdownSec
-                      key={`${index}-${eta}`}
-                      second={Number.parseInt(eta) * 60}
-                    />
-                  );
-                })}
+                {props.subwayEtas
+                  ?.slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
+                  .map((eta, index) => {
+                    return (
+                      <CountdownSec
+                        key={`${index}-${eta}`}
+                        second={Number.parseInt(eta) * 60}
+                      />
+                    );
+                  })}
                 {props.etas
                   ?.slice(0, (etasNumber?.value ?? "1") === "3" ? 3 : 1)
                   .map((eta) => {
