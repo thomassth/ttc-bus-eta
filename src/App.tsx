@@ -9,6 +9,14 @@ import { NavBar } from "./components/nav/NavBar.js";
 
 const queryClient = new QueryClient();
 
+// for @tanstack/react-query dev tools
+declare global {
+  interface Window {
+    __TANSTACK_QUERY_CLIENT__: import("@tanstack/query-core").QueryClient;
+  }
+}
+window.__TANSTACK_QUERY_CLIENT__ = queryClient;
+
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const { t } = useTranslation();

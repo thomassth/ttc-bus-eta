@@ -9,8 +9,8 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import style from "./AlertsPage.module.css";
-// import CurrentAlerts from "./CurrentAlerts.js";
 import { AllBskyAlerts } from "./bsky-alerts/AllBskyAlerts.js";
+// import CurrentAlerts from "./CurrentAlerts.js";
 import { SubwayClosures } from "./subway-closures/SubwayClosures.js";
 
 export default function TtcAlertList() {
