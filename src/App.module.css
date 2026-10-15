@@ -1,0 +1,41 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+  .nav-bar {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  > button {
+    padding: 1em;
+  }
+
+  @media (width >= 800px) {
+    flex-direction: row;
+
+    .top-bar {
+      padding-left: 1em;
+    }
+
+    .nav-bar {
+      width: fit-content;
+      background-color: var(--colorNeutralBackground2);
+
+      > button {
+        margin-left: 20px;
+      }
+    }
+
+    main {
+      margin: 16px 32px 80px;
+    }
+  }
+}
