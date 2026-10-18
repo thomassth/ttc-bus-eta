@@ -61,10 +61,9 @@ export default function Home() {
           <Tab value={"favourites"}>{t("nav.label.bookmarks")}</Tab>
           <Tab value={"alerts"} className={style["button-with-badge"]}>
             {t("nav.label.serviceAlerts")}
-            <Badge>Beta</Badge>
           </Tab>
         </TabList>
-        <LayoutToolbar />
+        {enabledTab === "favourites" && <LayoutToolbar />}
       </div>
       <div className={enabledTab === "nearby" ? "" : style.hidden}>
         <Nearby />
