@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   type SelectTabData,
   type SelectTabEvent,
