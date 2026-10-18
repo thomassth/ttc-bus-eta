@@ -49,7 +49,7 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     return (
       <article>
         <h2>{title}</h2>
-        <p>We don't have entry for this date.</p>
+        <p>We don&apos;t have entry for this date.</p>
       </article>
     );
   }
