@@ -1,5 +1,6 @@
 import { TZDate } from "@date-fns/tz";
 import { useQuery } from "@tanstack/react-query";
+import { format, parse } from "date-fns";
 import { useMemo } from "react";
 
 import { fetchSubwayClosure } from "../../fetch/queries.js";
@@ -9,6 +10,7 @@ import style from "./SubwayClosures.module.css";
 export const SubwayClosures = ({ startDate }: { startDate: string }) => {
   const subwayClosureQuery = useQuery(fetchSubwayClosure(startDate));
   const currentTime = new TZDate(new Date(), "America/Toronto");
+  const selectedDate = parse(startDate, "yyyy-MM-dd", new Date());
   const currentDate = useMemo(() => {
     return currentTime.toISOString().split("T")[0];
   }, [currentTime]);
@@ -16,7 +18,8 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     if (startDate === currentDate) {
       return "Today's Subway Closures";
     }
-    return `Subway Closures on ${startDate}`;
+    const formattedDate = format(selectedDate, "yyyy-MM-dd, EEEE");
+    return `Subway Closures on ${formattedDate}`;
   }, [startDate, currentDate]);
 
   const getClosuresByDateMatch = (match: boolean) =>
@@ -34,29 +37,38 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
     [subwayClosureQuery, currentDate]
   );
 
-  if (!subwayClosureQuery.isFetched) {
+  if (!subwayClosureQuery.isFetched || subwayClosureQuery.isFetching) {
     return (
-      <div>
+      <article>
         <h2>{title}</h2>
-        <p>Loading...</p>
-      </div>
+        <p>Checking...</p>
+      </article>
+    );
+  }
+  if (subwayClosureQuery.status === "error") {
+    return (
+      <article>
+        <h2>{title}</h2>
+        <p>We don&apos;t have entry for this date.</p>
+      </article>
     );
   }
   if (subwayClosureQuery.data?.length === 0 || subwayClosureQuery.isError) {
     return (
-      <div>
-        <h2>No subway closures on record!</h2>
+      <article>
+        <h2>{title}</h2>
+        <h3>No subway closures on record!</h3>
         <p>
           Source:
           <a href="https://www.ttc.ca/service-advisories/subway-service#e=0">
             TTC website
           </a>
         </p>
-      </div>
+      </article>
     );
   }
   return (
-    <div>
+    <article>
       <h2>{title}</h2>
       <ul className={style["subway-closures"]}>
         {listedSubwayClosures.map((closure) => {
@@ -79,6 +91,6 @@ export const SubwayClosures = ({ startDate }: { startDate: string }) => {
           TTC website
         </a>
       </p>
-    </div>
+    </article>
   );
 };

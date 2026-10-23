@@ -1,3 +1,9 @@
-.hidden {
-  display: none;
+.button-bar {
+  display: flex;
+  justify-content: space-between;
+
+  .small-button {
+    width: min-content;
+    min-width: unset;
+  }
 }
